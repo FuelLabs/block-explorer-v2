@@ -9,6 +9,10 @@ export const Content = styled.div`
   width: 100%;
   max-width: 1240px;
   margin: 0 auto;
+
+  @media screen and (max-width: 425px) {
+    padding: 40px 24px;
+  }
 `
 
 export const Title = styled.h2`

@@ -12,6 +12,10 @@ export const Content = styled.div`
   width: 100%;
   max-width: 1240px;
   margin: 0 auto;
+
+  @media screen and (max-width: 425px) {
+    padding: 40px 24px;
+  }
 `
 
 export const InputContainer = styled.div`
@@ -38,6 +42,10 @@ export const Input = styled(InputReset)`
     box-shadow: 0 0 2px 0 #58c09b;
     border: solid 1px #58c09b;
   }
+
+  @media screen and (max-width: 425px) {
+    font-size: 16px;
+  }
 `
 
 export const SearchIcon = styled(SearchSvg)`
@@ -51,6 +59,10 @@ export const DataContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 48px 0;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `
 
 export const DataItem = styled.div`
@@ -63,6 +75,26 @@ export const DataItem = styled.div`
 
   :last-of-type {
     margin: 0 0 0 28px;
+  }
+
+  @media screen and (max-width: 1000px) {
+    :first-of-type {
+      margin: 0 16px 0 0;
+    }
+
+    :last-of-type {
+      margin: 0 0 0 16px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    :first-of-type {
+      margin: 0 0 32px;
+    }
+
+    :last-of-type {
+      margin: 0;
+    }
   }
 `
 
@@ -94,6 +126,10 @@ export const BlocksDataBoxRow = styled(DataBoxRow)`
 
 export const TransactionsDataBoxRow = styled(DataBoxRow)`
   padding: 24px 0;
+
+  @media screen and (max-width: 1000px) {
+    flex-direction: column;
+  }
 `
 
 export const DataBoxColumn = styled.div`
@@ -235,15 +271,36 @@ export const TransactionHashColumn = styled(DataBoxColumn) `
 `
 
 export const TransactionRecipientsColumn = styled(DataBoxColumn)`
-  margin: 0 32px 0 32px;
+  margin: 0 32px 0;
   flex: 1 1 0;
   flex-direction: row;
   justify-content: space-between;
+
+  @media screen and (max-width: 1000px) {
+    margin: 16px 20px 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    max-width: 400px;
+  }
 `
 
 export const TransactionRecipientsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+
+  :first-of-type {
+    margin: 0 24px 0 0;
+  }
+`
+
+export const BlocksRowSpace1 = styled.div`
+  flex: 1 1 0;
+  max-width: 80px;
+`
+
+export const BlocksRowSpace2 = styled.div`
+  flex: 1 1 0;
 `
 
 export const BlockNumberColumn = styled(DataBoxColumn)`
@@ -251,5 +308,9 @@ export const BlockNumberColumn = styled(DataBoxColumn)`
 `
 
 export const BlockProducerColumn = styled(DataBoxColumn)`
-  margin: 0 0 0 80px;
+  /* margin: 0 0 0 80px; */
+`
+
+export const TransactionRowColumn = styled.div`
+  display: flex;
 `

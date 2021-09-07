@@ -10,7 +10,7 @@ import {
   DataTitle,
   Input,
   InputContainer, ProducerAddress, DataLabel,
-  SearchIcon, TxCount, TxType, TransactionAddress, TransactionRecipientRow, TransactionRecipientLabel, TransactionRecipientLink, TransactionTypeColumn, TransactionHashColumn, TransactionRecipientsColumn, TransactionRecipientsWrapper, TransactionsDataBoxRow, BlocksDataBoxRow, BlockNumberColumn, BlockProducerColumn
+  SearchIcon, TxCount, TxType, TransactionAddress, TransactionRecipientRow, TransactionRecipientLabel, TransactionRecipientLink, TransactionTypeColumn, TransactionHashColumn, TransactionRecipientsColumn, TransactionRecipientsWrapper, TransactionsDataBoxRow, BlocksDataBoxRow, BlockNumberColumn, BlockProducerColumn, BlocksRowSpace1, BlocksRowSpace2, TransactionRowColumn
 } from "./components";
 import { Transactions } from './constants';
 
@@ -24,6 +24,7 @@ function RecentBlocks() {
             <BlockNumber to={`/block/5033`}>5033</BlockNumber>
             <DataTimestamp>34 secs ago</DataTimestamp>
           </BlockNumberColumn>
+          <BlocksRowSpace1 />
           <BlockProducerColumn>
             <DataLabel>
               {`Producer: `}
@@ -31,6 +32,7 @@ function RecentBlocks() {
             </DataLabel>
             <TxCount to={`/block/${5033}/transactions`}>100 Tx's</TxCount>
           </BlockProducerColumn>
+          <BlocksRowSpace2 />
         </BlocksDataBoxRow>
       ))}
     </DataBox>
@@ -44,39 +46,45 @@ function RecentTransactions() {
       <DataBox>
         {Transactions.map((transaction, idx) => (
           <TransactionsDataBoxRow key={idx}>
-            <TransactionTypeColumn>
-              <TxType>{transaction.type}</TxType>
-            </TransactionTypeColumn>
-            <TransactionHashColumn>
-              <TransactionAddress to={`/transaction/${transaction.txHash}`}>{`${transaction.txHash.slice(0, 12)}...`}</TransactionAddress>
-              <DataTimestamp>{transaction.timestamp}</DataTimestamp>
-            </TransactionHashColumn>
-            <TransactionRecipientsColumn>
-              <TransactionRecipientsWrapper>
-                <TransactionRecipientLabel>From:</TransactionRecipientLabel>
-                {transaction.recipients.map((recipient, idx) => (
-                  <TransactionRecipientRow>
-                    <TransactionRecipientLink key={idx} to={`/address/${recipient.from}`}>
-                      {`${recipient.from.slice(0, 6)}...${recipient.from.slice(-6, recipient.from.length - 1)}`}
-                    </TransactionRecipientLink>
-                  </TransactionRecipientRow>
-                ))}
-              </TransactionRecipientsWrapper>
-              {transaction.recipients.filter(recipient => !!recipient.to).length > 0 && (
+            <TransactionRowColumn>
+              <TransactionTypeColumn>
+                <TxType>{transaction.type}</TxType>
+              </TransactionTypeColumn>
+              <TransactionHashColumn>
+                <TransactionAddress to={`/${transaction.type === 'Create' ? 'create-transaction' : 'transaction'}/${transaction.txHash}`}>
+                  {`${transaction.txHash.slice(0, 12)}...`}
+                </TransactionAddress>
+                <DataTimestamp>{transaction.timestamp}</DataTimestamp>
+              </TransactionHashColumn>
+            </TransactionRowColumn>
+            <TransactionRowColumn>
+              <TransactionRecipientsColumn>
                 <TransactionRecipientsWrapper>
-                  <TransactionRecipientLabel>To:</TransactionRecipientLabel>
+                  <TransactionRecipientLabel>From:</TransactionRecipientLabel>
                   {transaction.recipients.map((recipient, idx) => (
                     <TransactionRecipientRow>
-                      {recipient.to && (
-                        <TransactionRecipientLink key={idx} to={`/address/${recipient.to}`}>
-                          {`${recipient.to.slice(0, 6)}...${recipient.to.slice(-6, recipient.to.length - 1)}`}
-                        </TransactionRecipientLink>
-                      )}
+                      <TransactionRecipientLink key={idx} to={`/address/${recipient.from}`}>
+                        {`${recipient.from.slice(0, 6)}...${recipient.from.slice(-6, recipient.from.length - 1)}`}
+                      </TransactionRecipientLink>
                     </TransactionRecipientRow>
                   ))}
                 </TransactionRecipientsWrapper>
-              )}
-            </TransactionRecipientsColumn>
+                {transaction.recipients.filter(recipient => !!recipient.to).length > 0 && (
+                  <TransactionRecipientsWrapper>
+                    <TransactionRecipientLabel>To:</TransactionRecipientLabel>
+                    {transaction.recipients.map((recipient, idx) => (
+                      <TransactionRecipientRow>
+                        {recipient.to && (
+                          <TransactionRecipientLink key={idx} to={`/address/${recipient.to}`}>
+                            {`${recipient.to.slice(0, 6)}...${recipient.to.slice(-6, recipient.to.length - 1)}`}
+                          </TransactionRecipientLink>
+                        )}
+                      </TransactionRecipientRow>
+                    ))}
+                  </TransactionRecipientsWrapper>
+                )}
+              </TransactionRecipientsColumn>
+            </TransactionRowColumn>
           </TransactionsDataBoxRow>
         ))}
       </DataBox>

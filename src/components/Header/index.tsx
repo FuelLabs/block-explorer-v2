@@ -4,11 +4,12 @@ import {
   HeaderContent,
   Logo, LogoLink,
   NavigationLink,
+  NavigationLinksContainer,
   NetworkSelectorButton,
   NetworkSelectorIcon
 } from "./components";
-import {useState} from "react";
-import {NetworkModal} from "../Modals/NetworkModal";
+import { useState } from "react";
+import { NetworkModal } from "../Modals/NetworkModal";
 
 const NavigationLinks = [{
   text: 'v1 Docs',
@@ -61,9 +62,11 @@ export function Header() {
               {network.toUpperCase()}
               <NetworkSelectorIcon />
             </NetworkSelectorButton>
-            {NavigationLinks.map(navigationItem => (
-              <NavigationLink href={navigationItem.link} target="_blank" rel="noreferrer">{navigationItem.text}</NavigationLink>
-            ))}
+            <NavigationLinksContainer>
+              {NavigationLinks.map(navigationItem => (
+                <NavigationLink href={navigationItem.link} target="_blank" rel="noreferrer">{navigationItem.text}</NavigationLink>
+              ))}
+            </NavigationLinksContainer>
           </ContentItem>
         </HeaderContent>
       </HeaderContainer>

@@ -1,4 +1,4 @@
-import {Header} from "../../components/Header";
+import { Header } from "../../components/Header";
 import {
   AddressesCount,
   BlockDataContainer,
@@ -8,13 +8,14 @@ import {
   Content, EtherscanBlockLink,
   ProducerLink,
   RowKeyColumn,
+  RowValueColumn,
   Title, TransactionsCount
 } from "./components";
-import {useParams} from "react-router-dom";
-import {ExternalLinkIcon} from "../../components/Icons";
+import { useParams } from "react-router-dom";
+import { ExternalLinkIcon } from "../../components/Icons";
 
 export function BlockPage() {
-  const {block} = useParams() as any
+  const { block } = useParams() as any
 
   return (
     <>

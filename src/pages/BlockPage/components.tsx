@@ -11,6 +11,10 @@ export const Content = styled.div`
   width: 100%;
   max-width: 1240px;
   margin: 0 auto;
+
+  @media screen and (max-width: 425px) {
+    padding: 40px 24px;
+  }
 `
 
 export const Title = styled.h2`
@@ -21,6 +25,10 @@ export const Title = styled.h2`
   line-height: 30px;
   color: #f8fefc;
   white-space: break-spaces;
+
+  @media screen and (max-width: 768px) {
+    margin: 0 0 24px;
+  }
 `
 
 export const BlockDataContainer = styled.div`
@@ -28,21 +36,38 @@ export const BlockDataContainer = styled.div`
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
   border: solid 0.5px #808080;
   border-radius: 8px;
+
+  @media screen and (max-width: 768px) {
+    padding: 8px 24px;
+  }
 `
 
 export const BlockDataRow = styled.div`
   padding: 12px 0;
   display: flex;
-  align-items: center;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `
 
 export const RowKeyColumn = styled.div`
-  width: 250px;
+  flex: 0 0 250px;
   font-family: SFProText;
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
   color: #f8fefc;
+
+  @media screen and (max-width: 768px) {
+    flex: 1 1 0;
+  }
+`
+
+export const RowValueColumn = styled.div`
+  flex: 1 1 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 export const ProducerLink = styled(Link)`
@@ -52,6 +77,8 @@ export const ProducerLink = styled(Link)`
   color: #58c09b;
   cursor: pointer;
   transition: .2s ease-out;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   :hover {
     text-shadow: 0 0 6px #58c09b;
@@ -60,6 +87,10 @@ export const ProducerLink = styled(Link)`
   :active {
     text-shadow: 0 0 6px #4fad83;
     color: #4fad83;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin: 4px 0 0;
   }
 `
 
@@ -70,6 +101,8 @@ export const BlockHash = styled(Link)`
   color: #58c09b;
   cursor: pointer;
   transition: .2s ease-out;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   :hover {
     text-shadow: 0 0 6px #58c09b;
@@ -79,6 +112,10 @@ export const BlockHash = styled(Link)`
     text-shadow: 0 0 6px #4fad83;
     color: #4fad83;
   }
+
+  @media screen and (max-width: 768px) {
+    margin: 4px 0 0;
+  }
 `
 
 export const BlockNumber = styled.div`
@@ -87,6 +124,10 @@ export const BlockNumber = styled.div`
   font-weight: 500;
   line-height: 18px;
   color: #f8fefc;
+
+  @media screen and (max-width: 768px) {
+    margin: 4px 0 0;
+  }
 `
 
 export const EtherscanBlockLink = styled.a`
@@ -105,6 +146,10 @@ export const AddressesCount = styled.div`
   font-weight: 500;
   line-height: 18px;
   color: #f8fefc;
+
+  @media screen and (max-width: 768px) {
+    margin: 4px 0 0;
+  }
 `
 
 export const TransactionsCount = styled(Link)`
@@ -123,11 +168,19 @@ export const TransactionsCount = styled(Link)`
     text-shadow: 0 0 6px #4fad83;
     color: #4fad83;
   }
+
+  @media screen and (max-width: 768px) {
+    margin: 4px 0 0;
+  }
 `
 
 export const BlockHeightContainer = styled.div`
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: 768px) {
+    margin: 4px 0 0;
+  }
 `
 
 export const BlockHeight = styled.div`

@@ -3,7 +3,7 @@ import { Header } from "../../components/Header";
 import {
   Container, BaseLink,
   Content, RowKeyColumn, RowValueColumn,
-  Title, TitleTransaction, TransactionDataContainer, TransactionDataRow, TransactionStatus, UTXOContainer, DetailsButtonContainer, DetailsButton, UTXOBoxesContainer, UTXOBoxesColumn, UTXOBoxContainer, UTXOHeadlineContainer, UTXOHeadlineColumn, UTXOTitle, UTXOHash, HeadlineText, UTXODetailsContainer, UTXODetailsRow, UTXODetailsKey, UTXODetailsLink, UTXOSeparatorColumn, UTXOSeparatorArrow, ScriptsContainer, ScriptTitle, ScriptContainer, ScriptTabsContainer, ScriptTabButton, ScriptPlaceholder
+  Title, TitleTransaction, TransactionDataContainer, TransactionDataRow, TransactionStatus, UTXOContainer, DetailsButtonContainer, DetailsButton, UTXOBoxesContainer, UTXOBoxesColumn, UTXOBoxContainer, UTXOHeadlineContainer, UTXOHeadlineColumn, UTXOTitle, UTXOHash, HeadlineText, UTXODetailsContainer, UTXODetailsRow, UTXODetailsKey, UTXODetailsLink, UTXOSeparatorColumn, UTXOSeparatorArrow, ScriptsContainer, ScriptTitle, ScriptContainer, ScriptTabsContainer, ScriptTabButton, ScriptPlaceholder, UTXOHeadlineColumn2
 } from "./components";
 import { useParams } from "react-router-dom";
 import { ExpandIcon, ShrinkIcon } from "../../components/Icons";
@@ -12,14 +12,13 @@ import { trimAddress } from '../../utils';
 export function TransactionPage() {
   const { transaction } = useParams() as any
 
-
   return (
     <>
       <Header />
       <Container>
         <Content>
           <Title>
-            Transaction:
+            <span>Transaction:</span>
             <TitleTransaction>{transaction}</TitleTransaction>
           </Title>
           <TransactionDataContainer>
@@ -168,10 +167,10 @@ function UTXOInputBox(props: UTXOInputProps) {
           <UTXOHash to={`/transaction/${data.hash}`}>{data.hash}</UTXOHash>
         </UTXOHeadlineColumn>
         {data.coin && (
-          <UTXOHeadlineColumn>
+          <UTXOHeadlineColumn2>
             <HeadlineText>{data.coin.symbol}</HeadlineText>
             <HeadlineText>{data.coin.amount.toLocaleString('en')}</HeadlineText>
-          </UTXOHeadlineColumn>
+          </UTXOHeadlineColumn2>
         )}
       </UTXOHeadlineContainer>
       {expanded && (
@@ -258,10 +257,10 @@ function UTXOOutputBox(props: UTXOOutputProps) {
           <UTXOHash to={`/transaction/${data.hash}`}>{data.hash}</UTXOHash>
         </UTXOHeadlineColumn>
         {data.coin && (
-          <UTXOHeadlineColumn>
+          <UTXOHeadlineColumn2>
             <HeadlineText>{data.coin.symbol}</HeadlineText>
             <HeadlineText>{data.coin.amount.toLocaleString('en')}</HeadlineText>
-          </UTXOHeadlineColumn>
+          </UTXOHeadlineColumn2>
         )}
       </UTXOHeadlineContainer>
       {expanded && (

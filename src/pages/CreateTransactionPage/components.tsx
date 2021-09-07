@@ -70,10 +70,15 @@ export const TransactionDataContainer = styled.div`
 export const TransactionDataRow = styled.div`
   padding: 12px 0;
   display: flex;
+
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    padding: 8px 0;
+  }
 `
 
 export const RowKeyColumn = styled.div`
-  width: 250px;
+  width: 280px;
   font-family: SFProText;
   font-size: 16px;
   font-weight: 500;
@@ -81,20 +86,56 @@ export const RowKeyColumn = styled.div`
   color: #f8fefc;
 
   @media screen and (max-width: 768px) {
-    width: 160px;
+    width: 220px;
   }
 
-  @media screen and (max-width: 425px) {
-    width: 128px;
+  @media screen and (max-width: 500px) {
+    margin: 0 0 4px;
+    width: 100%;
   }
 `
 
 export const RowValueColumn = styled.div`
+  width: calc(100% - 280px);
   font-family: SFProText;
   font-size: 15px;
   font-weight: 500;
   line-height: 18px;
   color: #f8fefc;
+
+  @media screen and (max-width: 768px) {
+    width: calc(100% - 220px);
+  }
+
+  @media screen and (max-width: 500px) {
+    width: 100%;
+  }
+`
+
+export const WrapText = styled.span`
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+
+export const RowValueLink = styled(Link)`
+  display: block;
+  font-family: SFProText;
+  font-size: 15px;
+  font-weight: 500;
+  color: #58c09b;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+
+  :hover {
+    text-shadow: 0 0 6px #58c09b;
+  }
+
+  :active {
+    text-shadow: 0 0 6px #4fad83;
+    color: #4fad83;
+  }
 `
 
 export const TransactionStatus = styled.span`
@@ -258,8 +299,16 @@ export const UTXODetailsRow = styled.div`
 `
 
 export const UTXODetailsKey = styled.span`
-  display: block;
-  width: 170px;
+  flex: 0 0 140px;
+
+  @media screen and (max-width: 425px) {
+    flex: 0 0 120px;
+  }
+`
+
+export const UTXODetailsValue = styled.span`
+  text-overflow: ellipsis;
+  overflow: hidden;
 `
 
 export const UTXODetailsLink = styled(Link)`
@@ -282,7 +331,7 @@ export const UTXODetailsLink = styled(Link)`
 `
 
 export const UTXOSeparatorArrow = styled(ArrowIcon)`
-  margin: 72px 0 0;
+  margin: 24px 0 0;
   width: 26px !important;
   height: 26px !important;
   color: #58c09b;
@@ -344,4 +393,39 @@ export const ScriptTabButton = styled(ButtonReset)<{ isSelected?: boolean }>`
 export const ScriptPlaceholder = styled.div`
   height: 236px;
   background-color: #1e2e2b;
+`
+
+export const Witnesses = styled.div`
+
+`
+
+export const WitnessContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0 0 2px;
+`
+
+export const WitnessIndex = styled.span`
+  flex-shrink: 0;
+  width: 24px;
+  text-align: center;
+`
+
+export const WitnessIconContainer = styled.div`
+  flex-shrink: 0;
+  margin: 0 6px;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+  background-color: #1e2e2b;
+`
+
+export const WitnessAddress = styled.span`
+  flex: 1 1 0;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `

@@ -8,10 +8,14 @@ export const Container = styled.section`
 `
 
 export const Content = styled.div`
-  padding: 56px 32px 0;
+  padding: 56px 32px;
   width: 100%;
   max-width: 1240px;
   margin: 0 auto;
+
+  @media screen and (max-width: 425px) {
+    padding: 40px 24px;
+  }
 `
 
 export const HeadlineContainer = styled.div`
@@ -19,32 +23,65 @@ export const HeadlineContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+
+  @media screen and (max-width: 1000px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  @media screen and (max-width: 425px) {
+    margin: 0 0 40px;
+  }
 `
 
 export const HeadlineAddressContainer = styled.div`
   display: flex;
   align-items: flex-end;
+  flex-wrap: wrap;
+  width: 100%;
 `
 
 export const HeadlineCoinsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+
+  @media screen and (max-width: 1000px) {
+    margin: 16px 0 0;
+    align-items: flex-start;
+  }
 `
 
 export const HeadlineAddressHeader = styled.h2`
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
   margin: 0;
   font-family: SFProDisplay;
   font-size: 25px;
   font-weight: 600;
+  white-space: break-spaces;
   color: #f8fefc;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `
 
 export const HeadlineAddress = styled.span`
-  margin: 0 0 0 16px;
+  display: block;
+  margin: 4px 16px 0 0;
   font-family: SFProText;
   font-size: 17px;
   font-weight: 500;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+
+  @media screen and (max-width: 560px) {
+    font-size: 15px;
+    margin: 4px 0 0 0;
+  }
 `
 
 export const Tooltip = styled.span`
@@ -70,9 +107,9 @@ export const HeadlineAddressButton = styled(ButtonReset)`
   background-color: #58c09b;
   border-radius: 12px;
   color: #081C17;
+  margin: 8px 16px 0 0;
   
   :first-of-type {
-    margin: 0 0 0 16px;
   }
   
   :hover {
@@ -195,17 +232,34 @@ export const TableContainer = styled.div`
 
 export const TableHeadlineContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  padding: 12px 16px;
+  align-items: flex-end;
+  padding: 8px 16px 16px;
+
+  @media screen and (max-width: 768px) {
+    padding: 8px 12px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `
 
 export const TableHeadlinerContentItem = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  flex: 1 1 0;
+
+  @media screen and (max-width: 768px) {
+    align-self: stretch;
+  }
+
+  @media screen and (max-width: 560px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `
 
 export const TableHeadlineTitle = styled.h3`
-  margin: 0;
+  margin: 0 32px 0 0;
   font-family: SFProText;
   font-size: 16px;
   font-weight: 600;
@@ -213,17 +267,23 @@ export const TableHeadlineTitle = styled.h3`
 `
 
 export const TableHeadlineDisclaimer = styled.span`
-  margin: 0 0 0 32px;
+  margin: 4px 0 0;
   font-family: SFProText;
   font-size: 13px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   color: #808080;
+  white-space: nowrap;
 `
 
 export const HeadlineHighlighedDisclaimer = styled.span`
   color: #f8fefc;
+`
+
+export const TableWrapper = styled.div`
+  width: 100%;
+  overflow-x: auto;
 `
 
 export const Table = styled.table`
@@ -264,6 +324,7 @@ export const TableCell = styled.td`
   font-weight: normal;
   line-height: 15px;
   text-align: left;
+  white-space: nowrap;
   color: #f8fefc;
 `
 
@@ -396,11 +457,17 @@ export const CoinLink = styled(BaseLink)`
 `
 
 export const TableNavigationButtons = styled.div`
+  margin: 4px 0 0;
   display: flex;
   font-family: SFProText;
   font-size: 11px;
+  line-height: 14px;
   font-weight: normal;
   color: #808080;
+
+  @media screen and (max-width: 560px) {
+    margin: 12px 0 0;
+  }
 `
 
 export const TableNavigationButton = styled(ButtonReset)<{ isSelected?: boolean }>`
@@ -429,5 +496,22 @@ export const TableNavigationNumberButton = styled(TableNavigationButton)`
 `
 
 export const TableNavigationTextButton = styled(TableNavigationButton)`
+  line-height: 14px;
   margin: 0 12px;
+
+  @media screen and (max-width: 425px) {
+    :first-of-type {
+      margin: 0 12px 0 0;
+    }
+
+    :last-of-type {
+      margin: 0 0 0 12px;
+    }
+  }
+`
+
+export const TableNextNavigationTextButton = styled(TableNavigationTextButton)`
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `

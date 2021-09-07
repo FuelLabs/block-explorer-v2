@@ -1,4 +1,3 @@
-import * as React from 'react';
 import {
   BrowserRouter as Router, Switch, Route
 } from 'react-router-dom';
@@ -9,6 +8,8 @@ import {BlockPage} from "./pages/BlockPage";
 import {TransactionPage} from "./pages/TransactionPage";
 import { BlockTransactionsPage } from './pages/BlockTransactionsPage';
 import { CoinPage } from './pages/CoinPage';
+import { CreateTransactionPage } from './pages/CreateTransactionPage';
+import { ContractPage } from './pages/ContractPage';
 
 function App() {
   return (
@@ -19,7 +20,9 @@ function App() {
           <Route path={"/block/:block/transactions"} component={BlockTransactionsPage} />
           <Route path={"/block/:block"} component={BlockPage} />
           <Route path={"/transaction/:transaction"} component={TransactionPage} />
+          <Route path={"/create-transaction/:transaction"} component={CreateTransactionPage} />
           <Route path={"/coin/:coin"} component={CoinPage} />
+          <Route path={"/contract/:contract"} component={ContractPage} />
         </Switch>
     </Router>
   );

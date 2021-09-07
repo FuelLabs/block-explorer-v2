@@ -14,6 +14,10 @@ export const HeaderContent = styled.div`
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+
+  @media screen and (max-width: 425px) {
+    padding: 32px 24px 0;
+  }
 `
 
 export const ContentItem = styled.div`
@@ -22,9 +26,16 @@ export const ContentItem = styled.div`
 `
 
 export const Logo = styled(LogoIcon)`
+  flex: 0 0 48px;
   margin: 0 8px 0 0;
   width: 48px !important;
   height: 48px !important;
+
+  @media screen and (max-width: 768px) {
+    flex: 0 0 40px;
+    width: 40px !important;
+    height: 40px !important;
+  }
 `
 
 export const LogoLink = styled(Link)`
@@ -32,8 +43,23 @@ export const LogoLink = styled(Link)`
   align-items: center;
   font-family: Cyberspace-Raceway-Front;
   font-size: 14px;
+  line-height: 20px;
   font-weight: normal;
   color: #eefef8;
+
+  @media screen and (max-width: 768px) {
+    font-size: 11px;
+    max-width: 160px;
+  }
+`
+
+export const NavigationLinksContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: 1000px) {
+    display: none;
+  }
 `
 
 export const NavigationLink = styled.a`

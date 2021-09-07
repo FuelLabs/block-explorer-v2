@@ -1,10 +1,10 @@
 import {
   Title,
-  Container, QRAddress,
+  Container, QRAddress, QRCodeContainer,
 } from "./components";
-import {Modal} from "../Base";
-import {useRef} from "react";
-import {useOnClickOutside} from "../../../hooks";
+import { Modal } from "../Base";
+import { useRef } from "react";
+import { useOnClickOutside } from "../../../hooks";
 import QRCode from 'qrcode.react'
 
 interface Props {
@@ -26,7 +26,9 @@ export function QRModal(props: Props) {
       <Container ref={contentRef}>
         <Title>QR Code</Title>
         <QRAddress>{props.address}</QRAddress>
-        <QRCode value={props.address} fgColor="#f8fefc" bgColor="#021d17" />
+        <QRCodeContainer>
+          <QRCode value={props.address} fgColor="#f8fefc" bgColor="#021d17" />
+        </QRCodeContainer>
       </Container>
     </Modal>
   )

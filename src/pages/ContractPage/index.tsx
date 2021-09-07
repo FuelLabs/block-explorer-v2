@@ -37,51 +37,94 @@ import {
   BoldText,
   CoinLink,
   TableWrapper,
-  TableNextNavigationTextButton
+  TableNextNavigationTextButton,
+  HeadlineContainer,
+  HeadlineAddressContainer,
+  HeadlineAddressHeader,
+  HeadlineAddressButton,
+  CopyButtonIcon,
+  HeadlineAddress,
+  Tooltip,
+  TokenButtonSymbol,
+  TokenButtonSeparator,
+  QRButtonIcon,
+  CoinsCounter,
+  TokenButton,
+  TokenButtonAmount,
+  TokenButtonIconContainer,
+  HeadlineCoinsContainer,
+  CoinsCounterLabel,
+  TokenDropdownContainer,
+  TokenDropdownIcon
 } from '../AddressPage/components';
 import { Transactions } from "../AddressPage/constants";
+import { QRModal } from "../../components/Modals/QRModal";
 
-export function CoinPage() {
-  const { coin } = useParams() as any;
+export function ContractPage() {
+  const { contract } = useParams() as any;
+  const [copyTooltip] = useState('Copy address')
+  const [modal, setModal] = useState(false)
+
+  function onClose() {
+    setModal(false)
+  }
+
+  function showModal() {
+    setModal(true)
+  }
+
+  function onClickCopy() {
+    navigator.clipboard.writeText(contract)
+  }
 
   return (
     <>
+      {modal && <QRModal onClose={onClose} address={contract} />}
       <Header />
       <Container>
         <Content>
-          <Title>
-            Token:
-            <CoinSymbolContainer>
-              <CoinIcon />
-            </CoinSymbolContainer>
-            <CoinName>{coin}</CoinName>
-          </Title>
+        <HeadlineContainer>
+            <HeadlineAddressContainer>
+              <HeadlineAddressHeader>
+                {`Contract:  `}
+                <HeadlineAddress>{contract}</HeadlineAddress>
+              </HeadlineAddressHeader>
+              <HeadlineAddressButton onClick={() => { onClickCopy() }}>
+                <CopyButtonIcon />
+                <Tooltip>{copyTooltip}</Tooltip>
+              </HeadlineAddressButton>
+              <HeadlineAddressButton onClick={showModal}>
+                <QRButtonIcon />
+                <Tooltip>Click to copy QR code</Tooltip>
+              </HeadlineAddressButton>
+            </HeadlineAddressContainer>
+            <HeadlineCoinsContainer>
+              <CoinsCounterLabel>
+                Coins:
+                <CoinsCounter>3</CoinsCounter>
+              </CoinsCounterLabel>
+              <TokenDropdownContainer>
+                <TokenButton>
+                  <TokenButtonSymbol>ETH:</TokenButtonSymbol>
+                  <TokenButtonAmount>435.3</TokenButtonAmount>
+                  <TokenButtonSeparator></TokenButtonSeparator>
+                  <TokenButtonIconContainer>
+                    <TokenDropdownIcon />
+                  </TokenButtonIconContainer>
+                </TokenButton>
+              </TokenDropdownContainer>
+            </HeadlineCoinsContainer>
+          </HeadlineContainer>
           <CoinDetailsContainer>
             <CoinDetailsRow>
-              <KeyLabel>Format:</KeyLabel>
-              <KeyValue>ERC-777</KeyValue>
-            </CoinDetailsRow>
-            <CoinDetailsRow>
-              <KeyLabel>Max Supply:</KeyLabel>
-              <KeyValue>{Number(10000000).toLocaleString('en', { minimumFractionDigits: 2 })}</KeyValue>
-            </CoinDetailsRow>
-            <CoinDetailsRow>
-              <KeyLabel>Total Supply in Fuel:</KeyLabel>
-              <KeyValue>14%</KeyValue>
-            </CoinDetailsRow>
-            <CoinDetailsRow>
-              <KeyLabel>Holders in Fuel:</KeyLabel>
-              <KeyValue>50</KeyValue>
-            </CoinDetailsRow>
-            <CoinDetailsRow>
-              <KeyLabel>Decimals:</KeyLabel>
-              <KeyValue>18</KeyValue>
-            </CoinDetailsRow>
-            <CoinDetailsRow>
-              <KeyLabel>Contract:</KeyLabel>
+              <KeyLabel>Creation Tx hash::</KeyLabel>
               <KeyValue>
-                <ContractLink to={`/contract/0xc5d2460186f7233c927e7db2dcc703c0e500}`}>0xc5d2460186f7233c927e7db2dcc703c0e500</ContractLink>
+                <ContractLink to={`/transaction/0xc5d2460186f7233c927e7db2dcc703c0e500}`}>0xc5d2460186f7233c927e7db2dcc703c0e500</ContractLink>
               </KeyValue>
+            </CoinDetailsRow>
+            <CoinDetailsRow>
+              <KeyLabel>Created on::</KeyLabel>
+              <KeyValue>2020-06-05  13:40 (UTC) </KeyValue>
             </CoinDetailsRow>
           </CoinDetailsContainer>
           <TransactionsTable />
