@@ -88,3 +88,11 @@ export const ShrinkIcon = ({ style = {}, ...rest }) => {
     </svg>
   )
 }
+
+export const FileIcon = ({ style = {}, ...rest }) => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style={{ width: 20, height: 20, ...style }} {...rest}>
+      <path fill="currentColor" fillRule="evenodd" d="M459.36 100.64l-96-96C360.341 1.645 356.253-.024 352 0H96C69.49 0 48 21.49 48 48v416c0 26.51 21.49 48 48 48h320c26.51 0 48-21.49 48-48V112c.025-4.253-1.645-8.34-4.64-11.36zM432 464c0 8.837-7.163 16-16 16H96c-8.837 0-16-7.163-16-16V48c0-8.837 7.163-16 16-16h240v64c0 17.673 14.327 32 32 32h64v336z" />
+    </svg>
+  )
+}

@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { Header } from "../../components/Header";
 import {
-  Container, BaseLink,
+  Container,
   Content, RowKeyColumn, RowValueColumn,
-  Title, TitleTransaction, TransactionDataContainer, TransactionDataRow, TransactionStatus, UTXOContainer, DetailsButtonContainer, DetailsButton, UTXOBoxesContainer, UTXOBoxesColumn, UTXOBoxContainer, UTXOHeadlineContainer, UTXOHeadlineColumn, UTXOTitle, UTXOHash, HeadlineText, UTXODetailsContainer, UTXODetailsRow, UTXODetailsKey, UTXODetailsLink, UTXOSeparatorColumn, UTXOSeparatorArrow, ScriptsContainer, ScriptTitle, ScriptContainer, ScriptTabsContainer, ScriptTabButton, ScriptPlaceholder, UTXOHeadlineColumn2, RowValueLink, WrapText, WitnessContainer, WitnessIndex, WitnessIconContainer, WitnessAddress, UTXODetailsValue
+  Title, TitleTransaction, TransactionDataContainer, TransactionDataRow, UTXOContainer, DetailsButtonContainer, DetailsButton, UTXOBoxesContainer, UTXOBoxesColumn, UTXOBoxContainer, UTXOHeadlineContainer, UTXOHeadlineColumn, UTXOTitle, UTXOHash, HeadlineText, UTXODetailsContainer, UTXODetailsRow, UTXODetailsKey, UTXODetailsLink, UTXOSeparatorColumn, UTXOSeparatorArrow, ScriptsContainer, ScriptTitle, ScriptContainer, ScriptTabsContainer, ScriptTabButton, ScriptPlaceholder, UTXOHeadlineColumn2, RowValueLink, WrapText, WitnessContainer, WitnessIndex, WitnessIconContainer, WitnessAddress, UTXODetailsValue, WitnessIcon
 } from "./components";
 import { useParams } from "react-router-dom";
 import { ExpandIcon, ShrinkIcon } from "../../components/Icons";
-import { trimAddress } from '../../utils';
 
 export function CreateTransactionPage() {
   const { transaction } = useParams() as any
@@ -63,17 +62,17 @@ export function CreateTransactionPage() {
               <RowValueColumn>
                 <WitnessContainer>
                   <WitnessIndex>[0]</WitnessIndex>
-                  <WitnessIconContainer></WitnessIconContainer>
+                  <WitnessIconContainer><WitnessIcon /></WitnessIconContainer>
                   <WitnessAddress>0xc5d2460186f7233c927e7db2dcc703c0e500</WitnessAddress>
                 </WitnessContainer>
                 <WitnessContainer>
                   <WitnessIndex>[1]</WitnessIndex>
-                  <WitnessIconContainer></WitnessIconContainer>
+                  <WitnessIconContainer><WitnessIcon /></WitnessIconContainer>
                   <WitnessAddress>0xc5d2460186f7233c927e7db2dcc703c0e500</WitnessAddress>
                 </WitnessContainer>
                 <WitnessContainer>
                   <WitnessIndex>[2]</WitnessIndex>
-                  <WitnessIconContainer></WitnessIconContainer>
+                  <WitnessIconContainer><WitnessIcon /></WitnessIconContainer>
                   <WitnessAddress>0xc5d2460186f7233c927e7db2dcc703c0e500</WitnessAddress>
                 </WitnessContainer>
               </RowValueColumn>

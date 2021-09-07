@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 import { ButtonReset } from "../../components/Button/components";
-import { ArrowIcon } from "../../components/Icons";
+import { ArrowIcon, FileIcon } from "../../components/Icons";
 
 export const Container = styled.section`
 
@@ -421,6 +421,12 @@ export const WitnessIconContainer = styled.div`
   align-items: center;
   border-radius: 7px;
   background-color: #1e2e2b;
+`
+
+export const WitnessIcon = styled(FileIcon)`
+  width: 8px !important;
+  width: 8px !important;
+  color: #f8fefc;
 `
 
 export const WitnessAddress = styled.span`
