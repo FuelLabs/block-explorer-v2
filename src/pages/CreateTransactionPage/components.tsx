@@ -26,7 +26,6 @@ export const Title = styled.h2`
   font-size: 25px;
   font-weight: 600;
   line-height: 30px;
-  color: #f8fefc;
   white-space: break-spaces;
 
   span:first-of-type {
@@ -44,7 +43,6 @@ export const TitleTransaction = styled.span`
   font-size: 17px;
   font-weight: 500;
   line-height: 20px;
-  color: #f8fefc;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -59,7 +57,7 @@ export const TransactionDataContainer = styled.div`
   margin: 0 0 36px;
   padding: 16px 32px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-  border: solid 0.5px #808080;
+  border: solid 0.5px var(--border-color);
   border-radius: 8px;
 
   @media screen and (max-width: 425px) {
@@ -83,7 +81,7 @@ export const RowKeyColumn = styled.div`
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
-  color: #f8fefc;
+  color: var(--text-color);
 
   @media screen and (max-width: 768px) {
     width: 220px;
@@ -101,7 +99,7 @@ export const RowValueColumn = styled.div`
   font-size: 15px;
   font-weight: 500;
   line-height: 18px;
-  color: #f8fefc;
+  color: var(--text-color);
 
   @media screen and (max-width: 768px) {
     width: calc(100% - 220px);
@@ -123,7 +121,7 @@ export const RowValueLink = styled(Link)`
   font-family: SFProText;
   font-size: 15px;
   font-weight: 500;
-  color: #58c09b;
+  color: var(--green-text-color);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -138,23 +136,12 @@ export const RowValueLink = styled(Link)`
   }
 `
 
-export const TransactionStatus = styled.span`
-  padding: 0 12px;
-  border-radius: 10px;
-  background-color: #58c09b;
-  font-family: SFProText;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 20px;
-  color: #021d17;
-`
-
 export const BaseLink = styled(Link)`
   font-family: SFProText;
   font-size: 15px;
   font-weight: 500;
   line-height: 18px;
-  color: #58c09b;
+  color: var(--green-text-color);
   transition: .2s ease-out;
 
   :hover {
@@ -291,7 +278,7 @@ export const UTXODetailsRow = styled.div`
   font-size: 13px;
   font-weight: 500;
   line-height: 15px;
-  color: #f8fefc;
+  color: var(--text-color);
 
   :last-of-type {
     margin: 0
@@ -315,7 +302,7 @@ export const UTXODetailsLink = styled(Link)`
   font-family: SFProText;
   font-size: 13px;
   font-weight: 500;
-  color: #58c09b;
+  color: var(--green-text-color);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;

@@ -5,9 +5,9 @@ export const Container = styled.div`
   width: 100%;
   max-width: 432px;
   border-radius: 6px;
-  box-shadow: 0 0 25px 0 #58c09b;
-  border: solid 1px #58c09c;
-  background-color: #021d17;
+  box-shadow: var(--modal-content-box-shadow);
+  border: solid 1px var(--modal-content-border-color);
+  background-color: var(--modal-context-bg-color);
 
   @media screen and (max-width: 425px) {
     padding: 0 24px 48px;
@@ -20,7 +20,7 @@ export const Title = styled.h2`
   font-size: 25px;
   font-weight: 600;
   text-align: center;
-  color: #f8fefc;
+  color: var(--head-color);
 `
 
 export const QRAddress = styled.p`
@@ -30,7 +30,7 @@ export const QRAddress = styled.p`
   font-weight: 500;
   line-height: 18px;
   text-align: center;
-  color: #f8fefc;
+  color: var(--text-color);
   text-overflow: ellipsis;
   overflow: hidden;
 `

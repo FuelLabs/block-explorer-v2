@@ -5,9 +5,9 @@ export const Container = styled.div`
   width: 100%;
   max-width: 348px;
   border-radius: 6px;
-  box-shadow: 0 0 25px 0 #58c09b;
-  border: solid 1px #58c09c;
-  background-color: #021d17;
+  box-shadow: var(--modal-content-box-shadow);
+  border: solid 1px var(--modal-content-border-color);
+  background-color: var(--modal-context-bg-color);
 `
 
 export const Title = styled.h2`
@@ -16,7 +16,7 @@ export const Title = styled.h2`
   font-size: 17px;
   font-weight: 500;
   text-align: center;
-  color: #f8fefc;
+  color: var(--head-color);
 `
 
 export const NetworkSelectorCheckbox = styled.div`
@@ -32,14 +32,14 @@ export const NetworkSelectorButton = styled(ButtonReset)<{ isSelected?: boolean,
   width: 100%;
   padding: 22px 40px 22px 32px;
   justify-content: space-between;
-  border-bottom: solid 1px #1C2E2A;
+  border-bottom: solid 1px var(--border-color-1);
   font-family: SFProText;
   font-size: 15px;
   font-weight: 500;
-  color: #f8fefc;
+  color: var(--text-color);
   
   :first-of-type {
-    border-top: solid 1px #1C2E2A;
+    border-top: solid 1px var(--border-color-1);
   }
   
   :hover ${NetworkSelectorCheckbox} {

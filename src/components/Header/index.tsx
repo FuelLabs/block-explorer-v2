@@ -6,10 +6,12 @@ import {
   NavigationLink,
   NavigationLinksContainer,
   NetworkSelectorButton,
-  NetworkSelectorIcon
+  NetworkSelectorIcon,
+  ThemeButton
 } from "./components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NetworkModal } from "../Modals/NetworkModal";
+import { MoonIcon, SunIcon } from "../Icons";
 
 const NavigationLinks = [{
   text: 'v1 Docs',
@@ -58,6 +60,7 @@ export function Header() {
             </LogoLink>
           </ContentItem>
           <ContentItem>
+            <ThemeSelectorButton />
             <NetworkSelectorButton onClick={() => showModal()}>
               {network.toUpperCase()}
               <NetworkSelectorIcon />
@@ -73,4 +76,37 @@ export function Header() {
       {modal && <NetworkModal onClose={onClose} onNetworkSwitch={onNetworkSwitch} />}
     </>
   )
+}
+
+function ThemeSelectorButton() {
+  const [dark, setDark] = useState<boolean>();
+
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+
+    if (!theme) {
+      setDark(true);
+    } else if (theme === 'dark') {
+      setDark(true);
+    }
+  }, [])
+
+  function onThemeClick() {
+    const theme = localStorage.getItem("theme");
+
+    if (theme === "dark") {
+      localStorage.setItem("theme", "light")
+      setDark(false);
+    } else if (theme === "light") {
+      localStorage.setItem("theme", "dark")
+      setDark(true);
+    }
+    document.documentElement.classList.toggle('dark-theme')
+  }
+
+  return (
+    <ThemeButton onClick={onThemeClick}>
+      {dark ? <SunIcon /> : <MoonIcon />}
+    </ThemeButton>
+  );
 }

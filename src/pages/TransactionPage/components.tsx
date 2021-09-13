@@ -26,7 +26,6 @@ export const Title = styled.h2`
   font-size: 25px;
   font-weight: 600;
   line-height: 30px;
-  color: #f8fefc;
   white-space: break-spaces;
 
   span:first-of-type {
@@ -44,7 +43,6 @@ export const TitleTransaction = styled.span`
   font-size: 17px;
   font-weight: 500;
   line-height: 20px;
-  color: #f8fefc;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -59,7 +57,7 @@ export const TransactionDataContainer = styled.div`
   margin: 0 0 36px;
   padding: 16px 32px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-  border: solid 0.5px #808080;
+  border: solid 1px var(--border-color);
   border-radius: 8px;
 
   @media screen and (max-width: 425px) {
@@ -78,7 +76,7 @@ export const RowKeyColumn = styled.div`
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
-  color: #f8fefc;
+  color: var(--text-color);
 
   @media screen and (max-width: 768px) {
     width: 160px;
@@ -94,18 +92,18 @@ export const RowValueColumn = styled.div`
   font-size: 15px;
   font-weight: 500;
   line-height: 18px;
-  color: #f8fefc;
+  color: var(--text-color);
 `
 
 export const TransactionStatus = styled.span`
   padding: 0 12px;
   border-radius: 10px;
-  background-color: #58c09b;
+  background-color: var(--transaction-type-bg-color);
   font-family: SFProText;
   font-size: 13px;
   font-weight: 500;
   line-height: 20px;
-  color: #021d17;
+  color: var(--transaction-type-color);
 `
 
 export const BaseLink = styled(Link)`
@@ -113,7 +111,7 @@ export const BaseLink = styled(Link)`
   font-size: 15px;
   font-weight: 500;
   line-height: 18px;
-  color: #58c09b;
+  color: var(--green-text-color);
   transition: .2s ease-out;
 
   :hover {
@@ -186,7 +184,7 @@ export const UTXOSeparatorColumn = styled.div`
 `
 export const UTXOBoxContainer = styled.div`
   margin: 0 0 24px;
-  border: solid 3px #03261e;
+  border: solid 3px var(--utxo-border-color);
 `
 
 export const UTXOHeadlineContainer = styled.div`
@@ -198,7 +196,7 @@ export const UTXOHeadlineContainer = styled.div`
   font-weight: 500;
   line-height: 15px;
   color: #f8fefc;
-  background-color: #03261e;
+  background-color: var(--utxo-border-color);
 `
 
 export const UTXOHeadlineColumn = styled.div`
@@ -250,7 +248,7 @@ export const UTXODetailsRow = styled.div`
   font-size: 13px;
   font-weight: 500;
   line-height: 15px;
-  color: #f8fefc;
+  color: var(--text-color);
 
   :last-of-type {
     margin: 0
@@ -266,7 +264,7 @@ export const UTXODetailsLink = styled(Link)`
   font-family: SFProText;
   font-size: 13px;
   font-weight: 500;
-  color: #58c09b;
+  color: var(--green-text-color);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -304,13 +302,13 @@ export const ScriptTitle = styled.span`
   font-size: 18px;
   font-weight: 600;
   line-height: 21px;
-  color: #f8fefc;
+  color: var(--head-color);
 `
 
 export const ScriptContainer = styled.div`
   margin: 0 0 36px;
   max-width: 442px;
-  border: solid 1px #1e2e2b;
+  border: solid 1px var(--script-background-color);
 `
 
 export const ScriptTabsContainer = styled.div`
@@ -343,5 +341,5 @@ export const ScriptTabButton = styled(ButtonReset)<{ isSelected?: boolean }>`
 
 export const ScriptPlaceholder = styled.div`
   height: 236px;
-  background-color: #1e2e2b;
+  background-color: var(--script-background-color);
 `

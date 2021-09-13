@@ -23,7 +23,6 @@ export const Title = styled.h2`
   font-size: 25px;
   font-weight: 600;
   line-height: 30px;
-  color: #f8fefc;
   white-space: break-spaces;
 
   @media screen and (max-width: 768px) {
@@ -34,7 +33,7 @@ export const Title = styled.h2`
 export const BlockDataContainer = styled.div`
   padding: 16px 32px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-  border: solid 0.5px #808080;
+  border: solid 0.5px var(--border-color);
   border-radius: 8px;
 
   @media screen and (max-width: 768px) {
@@ -57,7 +56,7 @@ export const RowKeyColumn = styled.div`
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
-  color: #f8fefc;
+  color: var(--text-color);
 
   @media screen and (max-width: 768px) {
     flex: 1 1 0;
@@ -74,7 +73,7 @@ export const ProducerLink = styled(Link)`
   font-family: SFProText;
   font-size: 15px;
   font-weight: 500;
-  color: #58c09b;
+  color: var(--green-text-color);
   cursor: pointer;
   transition: .2s ease-out;
   overflow: hidden;
@@ -98,7 +97,7 @@ export const BlockHash = styled(Link)`
   font-family: SFProText;
   font-size: 15px;
   font-weight: 500;
-  color: #58c09b;
+  color: var(--green-text-color);
   cursor: pointer;
   transition: .2s ease-out;
   overflow: hidden;
@@ -123,7 +122,7 @@ export const BlockNumber = styled.div`
   font-size: 15px;
   font-weight: 500;
   line-height: 18px;
-  color: #f8fefc;
+  color: var(--text-color);
 
   @media screen and (max-width: 768px) {
     margin: 4px 0 0;
@@ -132,7 +131,7 @@ export const BlockNumber = styled.div`
 
 export const EtherscanBlockLink = styled.a`
   margin: 0 0 0 8px;
-  color: #58c09b;
+  color: var(--green-text-color);
   
   svg {
     height: 12px !important;
@@ -145,7 +144,7 @@ export const AddressesCount = styled.div`
   font-size: 15px;
   font-weight: 500;
   line-height: 18px;
-  color: #f8fefc;
+  color: var(--text-color);
 
   @media screen and (max-width: 768px) {
     margin: 4px 0 0;
@@ -156,7 +155,7 @@ export const TransactionsCount = styled(Link)`
   font-family: SFProText;
   font-size: 15px;
   font-weight: 500;
-  color: #58c09b;
+  color: var(--green-text-color);
   cursor: pointer;
   transition: .2s ease-out;
 
@@ -190,7 +189,7 @@ export const BlockHeight = styled.div`
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
-  color: #f8fefc;
+  color: var(--text-color);
 `
 
 export const BlockNavigationButton = styled(Link)`
@@ -202,7 +201,7 @@ export const BlockNavigationButton = styled(Link)`
   justify-content: center;
   border-radius: 2px;
   border: solid 0.2px #58c09b;
-  background-color: #03261e;
+  background-color: var(--block-navigation-button-bg-color);
   color: #58c09b;
 
   :hover {

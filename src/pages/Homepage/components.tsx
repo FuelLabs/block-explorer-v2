@@ -28,14 +28,15 @@ export const Input = styled(InputReset)`
   height: 40px;
   width: 100%;
   padding: 0 12px;
-  border: solid 1px #808080;
-  background-color: #192f2b;
+  border: solid 1px var(--border-color);
+  background-color: var(--input-background-color);
   outline: none;
   font-size: 18px;
   font-weight: 500;
+  transition: .2s ease-out;
 
   :hover {
-    border: solid 1px #f9fefc;
+    border: solid 1px var(--input-border-hover-color);
   }
 
   :focus {
@@ -103,17 +104,17 @@ export const DataTitle = styled.h2`
   font-family: SFProDisplay;
   font-size: 21px;
   font-weight: 600;
-  color: #eafff8;
+  color: var(--homepage-data-head-color);
 `
 
 export const DataBox = styled.div`
   border-radius: 12px;
-  border: solid 1px #808080;
+  border: solid 1px var(--border-color);
 `
 
 export const DataBoxRow = styled.div`
   display: flex;
-  border-bottom: solid 1px #21302d;
+  border-bottom: solid 1px var(--border-color-1);
   
   :last-of-type {
     border-bottom: none;
@@ -142,7 +143,7 @@ export const DataTimestamp = styled.span`
   font-size: 10px;
   font-weight: 500;
   font-style: normal;
-  color: #808080;
+  color: var(--text-color-1);
 `
 
 export const ProducerRow = styled.div`
@@ -154,15 +155,15 @@ export const DataLabel = styled.span`
   font-size: 15px;
   line-height: 18px;
   font-weight: normal;
-  color: #808080;
+  color: var(--text-color-1);
 `
 
 export const BaseLink = styled(Link)`
   font-family: SFProText;
   font-size: 15px;
   line-height: 18px;
-  font-weight: normal;
-  color: #58c09b;
+  font-weight: 500;
+  color: var(--green-text-color);
   cursor: pointer;
   transition: .2s ease-out;
 
@@ -177,39 +178,12 @@ export const BaseLink = styled(Link)`
 `
 
 export const ProducerAddress = styled(BaseLink)`
-  font-family: SFProText;
-  font-size: 15px;
-  color: #58c09b;
-  cursor: pointer;
-  transition: .2s ease-out;
   
-  :hover {
-    text-shadow: 0 0 6px #58c09b;
-  }
-
-  :active {
-    text-shadow: 0 0 6px #4fad83;
-    color: #4fad83;
-  }
 `
 
-export const BlockNumber = styled(Link)`
+export const BlockNumber = styled(BaseLink)`
   margin: 0;
-  font-family: SFProText;
   font-size: 21px;
-  font-weight: normal;
-  color: #58c09b;
-  cursor: pointer;
-  transition: .2s ease-out;
-
-  :hover {
-    text-shadow: 0 0 6px #58c09b;
-  }
-
-  :active {
-    text-shadow: 0 0 6px #4fad83;
-    color: #4fad83;
-  }
 `
 
 export const TxCount = styled(BaseLink)`
@@ -221,31 +195,16 @@ export const TxType = styled.span`
   margin: 4px 0 0;
   height: 20px;
   border-radius: 10px;
-  background-color: #f9fefc;
+  background-color: var(--transaction-type-bg-color);
   font-family: SFProText;
   font-size: 13px;
   line-height: 16px;
   font-weight: 600;
-  color: #021d17;
+  color: var(--transaction-type-color);
 `
 
-export const TransactionAddress = styled(Link)`
+export const TransactionAddress = styled(BaseLink)`
   margin: 0 0 4px;
-  font-family: SFProText;
-  font-size: 15px;
-  font-weight: 500;
-  color: #58c09b;
-  cursor: pointer;
-  transition: .2s ease-out;
-
-  :hover {
-    text-shadow: 0 0 6px #58c09b;
-  }
-
-  :active {
-    text-shadow: 0 0 6px #4fad83;
-    color: #4fad83;
-  }
 `
 
 export const TransactionRecipientLabel = styled(DataLabel)`

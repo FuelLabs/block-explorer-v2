@@ -4,18 +4,12 @@ import { Header } from "../../components/Header";
 import {
   CoinDetailsContainer,
   CoinDetailsRow,
-  CoinIcon,
   KeyLabel,
   KeyValue,
-  CoinName,
-  CoinSymbolContainer,
   Container,
   Content,
-  Title,
   ContractLink,
   TableHeadlineDisclaimer,
-  TableTabsContainer,
-  TableTabButton
 } from './components';
 import {
   TableContainer,
@@ -59,6 +53,7 @@ import {
 } from '../AddressPage/components';
 import { Transactions } from "../AddressPage/constants";
 import { QRModal } from "../../components/Modals/QRModal";
+import { TableTabButton, TableTabsContainer } from "../CoinPage/components";
 
 export function ContractPage() {
   const { contract } = useParams() as any;
@@ -117,13 +112,13 @@ export function ContractPage() {
           </HeadlineContainer>
           <CoinDetailsContainer>
             <CoinDetailsRow>
-              <KeyLabel>Creation Tx hash::</KeyLabel>
+              <KeyLabel>Creation Tx hash:</KeyLabel>
               <KeyValue>
                 <ContractLink to={`/transaction/0xc5d2460186f7233c927e7db2dcc703c0e500}`}>0xc5d2460186f7233c927e7db2dcc703c0e500</ContractLink>
               </KeyValue>
             </CoinDetailsRow>
             <CoinDetailsRow>
-              <KeyLabel>Created on::</KeyLabel>
+              <KeyLabel>Created on:</KeyLabel>
               <KeyValue>2020-06-05  13:40 (UTC) </KeyValue>
             </CoinDetailsRow>
           </CoinDetailsContainer>

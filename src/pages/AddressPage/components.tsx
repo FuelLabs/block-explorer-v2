@@ -61,7 +61,6 @@ export const HeadlineAddressHeader = styled.h2`
   font-size: 25px;
   font-weight: 600;
   white-space: break-spaces;
-  color: #f8fefc;
 
   @media screen and (max-width: 768px) {
     width: 100%;
@@ -85,35 +84,37 @@ export const HeadlineAddress = styled.span`
 `
 
 export const Tooltip = styled.span`
-  padding: 2px 8px;
+  padding: 2px 12px;
   display: none;
   position: absolute;
   top: -28px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #58c09b;
-  border-radius: 4px;
-  white-space: nowrap;
+  border-radius: 10px;
   font-size: 12px;
   line-height: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--address-tooltip-color);
+  background-color: var(--address-tooltip-bg-color);
 `
 
 export const HeadlineAddressButton = styled(ButtonReset)`
   position: relative;
-  margin: 0 0 0 12px;
+  margin: 8px 16px 0 0;
   width: 24px;
   height: 24px;
   justify-content: center;
-  background-color: #58c09b;
+  background-color: var(--address-button-background-color);
+  border: 1px solid var(--address-button-border-color);
   border-radius: 12px;
   color: #081C17;
-  margin: 8px 16px 0 0;
   
   :first-of-type {
   }
   
   :hover {
-    box-shadow: 0 0 3px 0 #58c09b;
+    box-shadow: var(--address-button-shadow);
   }
 
   :hover ${Tooltip} {
@@ -122,27 +123,28 @@ export const HeadlineAddressButton = styled(ButtonReset)`
 `
 
 export const CopyButtonIcon = styled(CopyIcon)`
-  width: 14px !important;
-  height: 14px !important;
+  width: 12px !important;
+  height: 12px !important;
 `
 
 export const QRButtonIcon = styled(QRIcon)`
-  width: 14px !important;
-  height: 14px !important;
+  width: 12px !important;
+  height: 12px !important;
 `
 
 export const CoinsCounterLabel = styled.div`
   margin: 0 0 12px;
-  padding: 4px 6px;
+  padding: 4px 6px 4px 8px;
   display: flex;
   align-items: center;
   border-radius: 13px;
-  background-color: #03261e;
+  background-color: var(--coins-counter-bg-color);
   font-family: SFProText;
   font-size: 13px;
   font-weight: 500;
   line-height: 16px;
-  color: #f8fefc;
+  color: var(--coins-counter-color);
+  transition: .2s ease-out;
 `
 
 export const CoinsCounter = styled.span`
@@ -156,9 +158,10 @@ export const CoinsCounter = styled.span`
   font-size: 11px;
   font-weight: 500;
   line-height: 11px;
-  color: #021d17;
-  background-color: #f8fefc;
+  color: var(--coins-counter-bg-color);
+  background-color: var(--coins-counter-color);
   border-radius: 7px;
+  transition: .2s ease-out;
 `
 
 export const TokenDropdownContainer = styled.div`
@@ -168,7 +171,7 @@ export const TokenDropdownContainer = styled.div`
 export const TokenButtonSeparator = styled.span`
   width: 1px;
   height: 36px;
-  background-color: #808080;
+  background-color: var(--border-color);
   transition: .2s ease-out;
 `
 
@@ -177,9 +180,10 @@ export const TokenButton = styled(ButtonReset)<{ isActive?: boolean }>`
   width: 190px;
   height: 36px;
   border-radius: 5px;
-  border: solid 1px #808080;
-  background-color: #192f2b;
+  border: solid 1px var(--border-color);
+  background-color: var(--token-button-bg-color);
   box-shadow: ${({ isActive }) => isActive ? '0 0 2px 0 #58c09b' : 'none'};
+  color: var(--head-color);
 
   :hover {
     border: solid 1px #58c09b;
@@ -195,7 +199,6 @@ export const TokenButtonSymbol = styled.span`
   font-family: SFProText;
   font-size: 18px;
   font-weight: normal;
-  color: #f8fefc;
 `
 
 export const TokenButtonAmount = styled.span`
@@ -204,7 +207,6 @@ export const TokenButtonAmount = styled.span`
   font-family: SFProDisplay;
   font-size: 17px;
   font-weight: 600;
-  color: #f8fefc;
   text-align: right;
 `
 
@@ -214,7 +216,6 @@ export const TokenButtonIconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #f9fefc;
 `
 
 export const TokenDropdownIcon = styled(ArrowIcon)`
@@ -226,7 +227,7 @@ export const TokenDropdownIcon = styled(ArrowIcon)`
 export const TableContainer = styled.div`
   padding: 8px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
-  border: solid 1px #808080;
+  border: solid 1px var(--border-color);
   border-radius: 8px;
 `
 
@@ -263,7 +264,6 @@ export const TableHeadlineTitle = styled.h3`
   font-family: SFProText;
   font-size: 16px;
   font-weight: 600;
-  color: #f8fefc;
 `
 
 export const TableHeadlineDisclaimer = styled.span`
@@ -273,12 +273,12 @@ export const TableHeadlineDisclaimer = styled.span`
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  color: #808080;
+  color: var(--text-color-1);
   white-space: nowrap;
 `
 
 export const HeadlineHighlighedDisclaimer = styled.span`
-  color: #f8fefc;
+  color: var(--table-highlight-disclaimer-color);
 `
 
 export const TableWrapper = styled.div`
@@ -297,7 +297,8 @@ export const TableHeadRow = styled.tr`
 
 export const TableRow = styled.tr`
   td {
-    border-bottom: 1px solid #21302d;
+    border-bottom: 1px solid var(--border-color-1);
+    transition: .2s ease-out;
   }
 
   :last-of-type td {
@@ -307,13 +308,14 @@ export const TableRow = styled.tr`
 
 export const TableHeadCell = styled.th`
   padding: 20px 12px;
-  background-color: #03261e;
+  background-color: var(--table-head-bg-color);
   font-family: SFProText;
   font-size: 13px;
   line-height: 16px;
   font-weight: 600;
   text-align: left;
-  color: #f8fefc;
+  color: var(--head-color);
+  transition: .2s ease-out;
 `
 
 export const TableCell = styled.td`
@@ -325,7 +327,7 @@ export const TableCell = styled.td`
   line-height: 15px;
   text-align: left;
   white-space: nowrap;
-  color: #f8fefc;
+  color: var(--head-color);
 `
 
 const BaseLink = styled(Link)`
@@ -333,7 +335,7 @@ const BaseLink = styled(Link)`
   font-size: 13px;
   font-weight: 500;
   line-height: 15px;
-  color: #58c09b;
+  color: var(--green-text-color);
   transition: .2s ease-out;
 
   :hover {
@@ -371,55 +373,6 @@ export const InputsContainer = styled.div`
 export const InputsAddresses = styled.div`
   display: flex;
   flex-direction: column;
-`
-
-export const InputAddressContainer = styled.div`
-  font-family: SFProText;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 18px;
-  text-align: left;
-  color: #f8fefc;
-`
-
-export const InputAddressLink = styled(Link)`
-  font-family: SFProText;
-  font-size: 15px;
-  line-height: 18px;
-  font-weight: 500;
-  color: #58c09b;
-  cursor: pointer;
-  transition: .2s ease-out;
-
-  :hover {
-    text-shadow: 0 0 6px #58c09b;
-  }
-
-  :active {
-    text-shadow: 0 0 6px #4fad83;
-    color: #4fad83;
-  }
-`
-
-export const InputsExpandButton = styled(ButtonReset)`
-  justify-content: center;
-  margin: 0 0 0 40px;
-  width: 18px;
-  height: 18px;
-  background-color: #58c09b;
-  border-radius: 9px;
-  color: #081C17;
-
-  :hover {
-    box-shadow: 0 0 3px 0 #58c09b;
-  }
-`
-
-export const ExpandIcon = styled(PlusIcon)<{ rotated?: boolean }>`
-  width: 16px !important;
-  height: 16px !important;
-  transform: ${({ rotated }) => rotated ? 'rotate(45deg)' : 'rotate(0deg)'} ;
-  transition: .2s ease-out;
 `
 
 export const TxRecipient = styled(BaseLink)`
@@ -463,7 +416,7 @@ export const TableNavigationButtons = styled.div`
   font-size: 11px;
   line-height: 14px;
   font-weight: normal;
-  color: #808080;
+  color: var(--text-color-1);
 
   @media screen and (max-width: 560px) {
     margin: 12px 0 0;

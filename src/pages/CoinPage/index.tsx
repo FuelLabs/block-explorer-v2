@@ -80,7 +80,7 @@ export function CoinPage() {
             <CoinDetailsRow>
               <KeyLabel>Contract:</KeyLabel>
               <KeyValue>
-                <ContractLink to={`/contract/0xc5d2460186f7233c927e7db2dcc703c0e500}`}>0xc5d2460186f7233c927e7db2dcc703c0e500</ContractLink>
+                <ContractLink to={`/contract/0xc5d2460186f7233c927e7db2dcc703c0e500`}>0xc5d2460186f7233c927e7db2dcc703c0e500</ContractLink>
               </KeyValue>
             </CoinDetailsRow>
           </CoinDetailsContainer>

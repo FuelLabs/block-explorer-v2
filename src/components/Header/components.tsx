@@ -45,7 +45,7 @@ export const LogoLink = styled(Link)`
   font-size: 14px;
   line-height: 20px;
   font-weight: normal;
-  color: #eefef8;
+  color: var(--logo-color);
 
   @media screen and (max-width: 768px) {
     font-size: 11px;
@@ -67,7 +67,7 @@ export const NavigationLink = styled.a`
   font-family: SFProText;
   font-size: 16px;
   font-weight: 500;
-  color: #808080;
+  color: var(--text-color-1);
   transition: .2s ease-out;
   
   :hover {
@@ -103,4 +103,11 @@ export const NetworkSelectorIcon = styled(ArrowIcon)`
   width: 8px !important;
   height: 8px !important;
   transform: rotate(90deg);
+`
+
+export const ThemeButton = styled(ButtonReset)`
+  width: 30px;
+  height: 30px;
+  transition: .2s ease-out;
+  color: var(--theme-button-color);
 `

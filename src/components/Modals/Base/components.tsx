@@ -8,7 +8,7 @@ export const Container = styled.section`
   left: 0;
   height: 100vh;
   width: 100vw;
-  background-color: rgba(9, 28, 23, 0.8);
+  background-color: var(--modal-bg-color);
   z-index: 50;
 `
 

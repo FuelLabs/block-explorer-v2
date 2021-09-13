@@ -4,6 +4,80 @@
   box-sizing: border-box;
 }
 
+:root {
+  --page-background-color: #fff;
+  --head-color: #021d17;
+  --green-text-color: #04c399;
+  --text-color: #021d17;
+  --text-color-1: #69737d;
+  --homepage-data-head-color: #021d17;
+  --transaction-type-bg-color: #58c09b;
+  --transaction-type-color: #eafff8;
+  --border-color: #ccc;
+  --border-color-1: #eee;
+  --input-background-color: #fff;
+  --input-border-hover-color: #aaa;
+  --input-color: #021d17;
+  --logo-color: #4fad83;
+  --utxo-border-color: #03261e;
+  --script-background-color: #03261e;
+  --address-button-background-color: #fff;
+  --address-button-border-color: #e2e2e2;
+  --address-button-shadow: none;
+  --address-tooltip-bg-color: #f0f1f2;
+  --address-tooltip-color: #69737d;
+  --coins-counter-bg-color: #f0f1f2;
+  --coins-counter-color: #69737d;
+  --token-button-bg-color: #fff;
+  --table-head-bg-color: #fff;
+  --table-highlight-disclaimer-color: #69737d;
+  --coin-border-color: #e2e2e2;
+  --table-tab-color: #021d17;
+  --block-navigation-button-bg-color: #fff;
+  --modal-bg-color: rgba(9, 28, 23, 0.5);
+  --modal-content-box-shadow: 3px 3px 12px 0 rgba(0, 0, 0, 0.22);
+  --modal-context-bg-color: #fff;
+  --modal-content-border-color: #fff;
+  --theme-button-color: #021d17;
+}
+
+:root.dark-theme {
+  --page-background-color: #081C17;
+  --head-color: #f8fefc;
+  --green-text-color: #58c09b;
+  --text-color: #f8fefc;
+  --text-color-1: #808080;
+  --homepage-data-head-color: #eafff8;
+  --transaction-type-color: #021d17;
+  --border-color: #808080;
+  --border-color-1: #21302d;
+  --input-background-color: #192f2b;
+  --input-border-hover-color: #f9fefc;
+  --input-color: #d1d4d7;
+  --transaction-type-bg-color: #f9fefc;
+  --logo-color: #eefef8;
+  --utxo-border-color: #03261e;
+  --script-background-color: #1e2e2b;
+  --address-button-background-color: #58c09b;
+  --address-button-border-color: #58c09b;
+  --address-button-shadow: 0 0 3px 0 #58c09b;
+  --address-tooltip-bg-color: #58c09b;
+  --address-tooltip-color: #081C17;
+  --coins-counter-bg-color: #03261e;
+  --coins-counter-color: #f8fefc;
+  --token-button-bg-color: #192f2b;
+  --table-head-bg-color: #03261e;
+  --table-highlight-disclaimer-color: #f8fefc;
+  --coin-border-color: #fff;
+  --table-tab-color: #eafff8;
+  --block-navigation-button-bg-color: #03261e;
+  --modal-bg-color: rgba(9, 28, 23, 0.8);
+  --modal-content-box-shadow: 0 0 25px 0 #58c09b;
+  --modal-context-bg-color: #021d17;
+  --modal-content-border-color: #58c09c;
+  --theme-button-color: #fff;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,8 +85,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  background-color: #081C17;
+  background-color: var(--page-background-color);
+  transition: .2s ease-out;
 }
 
 code {
@@ -22,4 +96,8 @@ code {
 
 a {
   text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--head-color);
 }

@@ -21,7 +21,6 @@ export const Title = styled.h2`
   font-size: 25px;
   font-weight: 600;
   line-height: 30px;
-  color: #f8fefc;
   white-space: break-spaces;
 `
 

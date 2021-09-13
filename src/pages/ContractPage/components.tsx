@@ -18,51 +18,12 @@ export const Content = styled.div`
   }
 `
 
-export const Title = styled.h2`
-  display: flex;
-  align-items: center;
-  margin: 0 0 48px;
-  font-family: SFProDisplay;
-  font-size: 25px;
-  font-weight: 600;
-  line-height: 30px;
-  color: #f8fefc;
-  white-space: break-spaces;
-
-  @media screen and (max-width: 425px) {
-    margin: 0 0 32px;
-  }
-`
-
-export const CoinSymbolContainer = styled.div`
-  margin: 0 0 0 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 22px;
-  height: 22px;
-  background-color: #fff;
-  border-radius: 11px;
-`
-
-export const CoinName = styled.span`
-  margin: 0 0 0 8px;
-  font-family: SFProText;
-  font-size: 17px;
-  font-weight: 500;
-  line-height: 20px;
-  color: #f8fefc;
-`
-
-export const CoinIcon = styled(LogoIcon)`
-
-`
-
 export const CoinDetailsContainer = styled.div`
   margin: 0 0 40px;
   padding: 20px 24px;
-  border: solid 1px #808080;
+  border: solid 1px var(--border-color);
   border-radius: 8px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
 `
 
 export const CoinDetailsRow = styled.div`
@@ -85,7 +46,7 @@ export const KeyLabel = styled.span`
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
-  color: #f8fefc;
+  color: var(--text-color);
 
   @media screen and (max-width: 768px) {
     width: 200px;
@@ -98,7 +59,7 @@ export const KeyValue = styled.div`
   font-size: 15px;
   font-weight: 500;
   line-height: 18px;
-  color: #f8fefc;
+  color: var(--text-color);
 
   @media screen and (max-width: 425px) {
     margin: 4px 0 0;
@@ -134,7 +95,7 @@ export const TableHeadlineDisclaimer = styled.span`
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  color: #808080;
+  color: var(--text-color-1);
 `
 
 export const TableTabsContainer = styled.div`

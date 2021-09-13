@@ -26,7 +26,6 @@ export const Title = styled.h2`
   font-size: 25px;
   font-weight: 600;
   line-height: 30px;
-  color: #f8fefc;
   white-space: break-spaces;
 
   @media screen and (max-width: 425px) {
@@ -39,10 +38,11 @@ export const CoinSymbolContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   background-color: #fff;
-  border-radius: 11px;
+  border-radius: 12px;
+  border: 1px solid var(--coin-border-color);
 `
 
 export const CoinName = styled.span`
@@ -51,18 +51,19 @@ export const CoinName = styled.span`
   font-size: 17px;
   font-weight: 500;
   line-height: 20px;
-  color: #f8fefc;
 `
 
 export const CoinIcon = styled(LogoIcon)`
-
+  width: 20px !important;
+  height: 20px !important;
 `
 
 export const CoinDetailsContainer = styled.div`
   margin: 0 0 40px;
   padding: 20px 24px;
-  border: solid 1px #808080;
+  border: solid 1px var(--border-color);
   border-radius: 8px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
 `
 
 export const CoinDetailsRow = styled.div`
@@ -85,7 +86,7 @@ export const KeyLabel = styled.span`
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
-  color: #f8fefc;
+  color: var(--text-color);
 
   @media screen and (max-width: 768px) {
     width: 200px;
@@ -98,7 +99,7 @@ export const KeyValue = styled.div`
   font-size: 15px;
   font-weight: 500;
   line-height: 18px;
-  color: #f8fefc;
+  color: var(--text-color);
 
   @media screen and (max-width: 425px) {
     margin: 4px 0 0;
@@ -113,7 +114,7 @@ export const ContractLink = styled(Link)`
   font-size: 15px;
   font-weight: 500;
   line-height: 18px;
-  color: #58c09b;
+  color: var(--green-text-color);
   transition: .2s ease-out;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -134,13 +135,14 @@ export const TableHeadlineDisclaimer = styled.span`
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  color: #808080;
+  color: var(--text-color-1);
 `
 
 export const TableTabsContainer = styled.div`
   position: relative;
   display: flex;
   margin: 0 0 4px;
+
   ::after {
     content: "";
     position: absolute;
@@ -148,7 +150,8 @@ export const TableTabsContainer = styled.div`
     left: -8px;
     right: -8px;
     bottom: 0;
-    background-color: #21302d;
+    background-color: var(--border-color-1);
+    transition: .2s ease-out;
     z-index: -1;
   }
 `
@@ -161,18 +164,18 @@ export const TableTabButton = styled(ButtonReset)<{ isSelected?: boolean }>`
   font-size: 16px;
   line-height: 20px;
   font-weight: 500;
-  color: ${({ isSelected }) => isSelected ? '#eafff8' : '#808080'};
+  color: ${({ isSelected }) => isSelected ? 'var(--table-tab-color)' : 'var(--text-color-1)'};
   transition: .2s ease-out;
-  border-bottom: ${({ isSelected }) => isSelected ? 'solid 1px #f9fefc' : 'solid 1px rgba(0, 0, 0, 0)'};
+  border-bottom: ${({ isSelected }) => isSelected ? 'solid 1px var(--text-color)' : 'solid 1px rgba(0, 0, 0, 0)'};
   text-shadow: ${({ isSelected }) => isSelected ? '0 0 6px #e9fff8' : 'none'};
   
   :hover {
     text-shadow: 0 0 6px #f9fefc;
-    color: #f8fefc;
+    color: var(--text-color);
   }
   
   :active {
     text-shadow: 0 0 6px #e9fff8;
-    color: #eafff8;
+    color: var(--table-tab-color);
   }
 `
