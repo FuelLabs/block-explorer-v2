@@ -8,8 +8,9 @@ import {
   NetworkSelectorButton,
   NetworkSelectorIcon
 } from "./components";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { NetworkModal } from "../Modals/NetworkModal";
+import { ChainContext, ChainProvider } from "../../contexts/network";
 
 const NavigationLinks = [{
   text: 'v1 Docs',
@@ -32,8 +33,8 @@ const NavigationLinks = [{
 }]
 
 export function Header() {
-  const [network, setNetwork] = useState('MAINNET')
   const [modal, setModal] = useState(false)
+  const { chains, loading } = useContext(ChainContext);
 
   function onClose() {
     setModal(false)
@@ -41,10 +42,6 @@ export function Header() {
 
   function showModal() {
     setModal(true)
-  }
-
-  function onNetworkSwitch(network: string) {
-    setNetwork(network)
   }
 
   return (
@@ -59,7 +56,7 @@ export function Header() {
           </ContentItem>
           <ContentItem>
             <NetworkSelectorButton onClick={() => showModal()}>
-              {network.toUpperCase()}
+              {chains?.[0]?.name}
               <NetworkSelectorIcon />
             </NetworkSelectorButton>
             <NavigationLinksContainer>
@@ -70,7 +67,7 @@ export function Header() {
           </ContentItem>
         </HeaderContent>
       </HeaderContainer>
-      {modal && <NetworkModal onClose={onClose} onNetworkSwitch={onNetworkSwitch} />}
+      {modal && <NetworkModal onClose={onClose} />}
     </>
   )
 }

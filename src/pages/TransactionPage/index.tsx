@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Header } from "../../components/Header";
 import {
   Container, BaseLink,
@@ -8,9 +8,16 @@ import {
 import { useParams } from "react-router-dom";
 import { ExpandIcon, ShrinkIcon } from "../../components/Icons";
 import { trimAddress } from '../../utils';
+import { useQuery } from '@apollo/client';
+import { queries } from '../../api';
+import { CoinOutput, Output, Transaction } from '../../utils/model';
 
 export function TransactionPage() {
   const { transaction } = useParams() as any
+  const {data, loading, error} = useQuery(queries.getTransaction, { variables: { id: transaction } })
+  const tx: Transaction = data?.transaction;
+
+  if (!tx) return <></>;
 
   return (
     <>
@@ -24,30 +31,30 @@ export function TransactionPage() {
           <TransactionDataContainer>
             <TransactionDataRow>
               <RowKeyColumn>Type:</RowKeyColumn>
-              <RowValueColumn>Script</RowValueColumn>
+              <RowValueColumn>{tx.isScript ? 'Script' : 'Create'}</RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Status:</RowKeyColumn>
-              <TransactionStatus>Success</TransactionStatus>
+              <TransactionStatus>{tx.status.__typename.replace("Status", "")}</TransactionStatus>
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Maturity:</RowKeyColumn>
-              <BaseLink to="/">24</BaseLink>
+              <RowValueColumn>{tx.maturity}</RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Price:</RowKeyColumn>
-              <RowValueColumn>34 gwei</RowValueColumn>
+              <RowValueColumn>{`${tx.gasPrice} gwei`}</RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Limit:</RowKeyColumn>
-              <RowValueColumn>32</RowValueColumn>
+              <RowValueColumn>{tx.gasLimit}</RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Used:</RowKeyColumn>
-              <RowValueColumn>23</RowValueColumn>
+              <RowValueColumn>TBD</RowValueColumn>
             </TransactionDataRow>
           </TransactionDataContainer>
-          <UTXOComponent />
+          <UTXOComponent outputs={tx.outputs || []} />
           <ScriptsComponent />
         </Content>
       </Container>
@@ -81,12 +88,14 @@ function ScriptComponent({ tabs }: { tabs: string[] }) {
   )
 }
 
-function UTXOComponent() {
+function UTXOComponent({ outputs }: { outputs: Output[] }) {
   const [expanded, setExpanded] = useState(false);
 
   function onClickDetails() {
     setExpanded(prevExpanded => !prevExpanded)
   }
+
+  if (!outputs.length) return null;
 
   return (
     <UTXOContainer>
@@ -98,16 +107,16 @@ function UTXOComponent() {
       </DetailsButtonContainer>
       <UTXOBoxesContainer>
         <UTXOBoxesColumn>
-          {Inputs.map((inputItem, idx) => (
+          {/* {Inputs.map((inputItem, idx) => (
             <UTXOInputBox key={idx} data={inputItem} expanded={expanded} />
-          ))}
+          ))} */}
         </UTXOBoxesColumn>
         <UTXOSeparatorColumn>
           <UTXOSeparatorArrow />
         </UTXOSeparatorColumn>
         <UTXOBoxesColumn>
-          {Outputs.map((outputItem, idx) => (
-            <UTXOOutputBox key={idx} data={outputItem} expanded={expanded} />
+          {outputs.map((outputItem, idx) => (
+            <UTXOOutputBox key={idx} output={outputItem as CoinOutput} expanded={expanded} />
           ))}
         </UTXOBoxesColumn>
       </UTXOBoxesContainer>
@@ -246,41 +255,39 @@ interface UTXOOutputProps {
   expanded: boolean,
 }
 
-function UTXOOutputBox(props: UTXOOutputProps) {
-  const { data, expanded } = props;
-
+function UTXOOutputBox({output, expanded}:{output: CoinOutput, expanded: boolean}) {
   return (
     <UTXOBoxContainer>
       <UTXOHeadlineContainer>
         <UTXOHeadlineColumn>
-          <UTXOTitle>{data.title}</UTXOTitle>
-          <UTXOHash to={`/transaction/${data.hash}`}>{data.hash}</UTXOHash>
+          <UTXOTitle>Output</UTXOTitle>
+          {/* <UTXOHash to={`/transaction/${data.hash}`}>{data.hash}</UTXOHash> */}
         </UTXOHeadlineColumn>
-        {data.coin && (
+        {/* {data.coin && (
           <UTXOHeadlineColumn2>
             <HeadlineText>{data.coin.symbol}</HeadlineText>
             <HeadlineText>{data.coin.amount.toLocaleString('en')}</HeadlineText>
           </UTXOHeadlineColumn2>
-        )}
+        )} */}
       </UTXOHeadlineContainer>
       {expanded && (
         <UTXODetailsContainer>
           <UTXODetailsRow>
             <UTXODetailsKey>To:</UTXODetailsKey>
-            <UTXODetailsLink to={`/address/${data.to}`}>{trimAddress(data.to)}</UTXODetailsLink>
+            <UTXODetailsLink to={`/address/${output.to}`}>{trimAddress(output.to)}</UTXODetailsLink>
           </UTXODetailsRow>
           <UTXODetailsRow>
             <UTXODetailsKey>Amount:</UTXODetailsKey>
-            {data.amount}
+            {output.amount}
           </UTXODetailsRow>
-          <UTXODetailsRow>
+          {/* <UTXODetailsRow>
             <UTXODetailsKey>Coin:</UTXODetailsKey>
             <UTXODetailsLink to={`/coin/${data.symbol}`}>{data.symbol}</UTXODetailsLink>
-          </UTXODetailsRow>
-          <UTXODetailsRow>
+          </UTXODetailsRow> */}
+          {/* <UTXODetailsRow>
             <UTXODetailsKey>Spent:</UTXODetailsKey>
             {data.spent}
-          </UTXODetailsRow>
+          </UTXODetailsRow> */}
         </UTXODetailsContainer>
       )}
     </UTXOBoxContainer>

@@ -66,34 +66,13 @@ export const DataContainer = styled.div`
 `
 
 export const DataItem = styled.div`
-  max-width: 560px;
-  width: 100%;
-
-  :first-of-type {
-    margin: 0 28px 0 0;
-  }
-
-  :last-of-type {
-    margin: 0 0 0 28px;
-  }
-
-  @media screen and (max-width: 1000px) {
-    :first-of-type {
-      margin: 0 16px 0 0;
-    }
-
-    :last-of-type {
-      margin: 0 0 0 16px;
-    }
-  }
+  width: 48%;
 
   @media screen and (max-width: 768px) {
+    width: 100%;
+
     :first-of-type {
       margin: 0 0 32px;
-    }
-
-    :last-of-type {
-      margin: 0;
     }
   }
 `
@@ -120,12 +99,12 @@ export const DataBoxRow = styled.div`
   }
 `
 
-export const BlocksDataBoxRow = styled(DataBoxRow)`
-  padding: 24px 0 22px;
+export const RecentBlockRow = styled(DataBoxRow)`
+  padding: 22px 24px;
 `
 
 export const TransactionsDataBoxRow = styled(DataBoxRow)`
-  padding: 24px 0;
+  padding: 22px 24px 22px 0;
 
   @media screen and (max-width: 1000px) {
     flex-direction: column;
@@ -150,11 +129,24 @@ export const ProducerRow = styled.div`
 `
 
 export const DataLabel = styled.span`
+  display: flex;
   font-family: SFProText;
   font-size: 15px;
   line-height: 18px;
   font-weight: normal;
   color: #808080;
+  white-space: pre;
+`
+
+export const BlockProducerText = styled.span`
+  display: flex;
+  font-family: SFProText;
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: normal;
+  color: #808080;
+  white-space: pre;
+  max-width: 204px;
 `
 
 export const BaseLink = styled(Link)`
@@ -177,26 +169,16 @@ export const BaseLink = styled(Link)`
 `
 
 export const ProducerAddress = styled(BaseLink)`
-  font-family: SFProText;
-  font-size: 15px;
-  color: #58c09b;
-  cursor: pointer;
-  transition: .2s ease-out;
-  
-  :hover {
-    text-shadow: 0 0 6px #58c09b;
-  }
-
-  :active {
-    text-shadow: 0 0 6px #4fad83;
-    color: #4fad83;
-  }
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
 `
 
 export const BlockNumber = styled(Link)`
-  margin: 0;
+  margin: 0 0 2px 0;
   font-family: SFProText;
   font-size: 21px;
+  line-height: 24px;
   font-weight: normal;
   color: #58c09b;
   cursor: pointer;
@@ -230,6 +212,7 @@ export const TxType = styled.span`
 `
 
 export const TransactionAddress = styled(Link)`
+  display: block;
   margin: 0 0 4px;
   font-family: SFProText;
   font-size: 15px;
@@ -237,6 +220,8 @@ export const TransactionAddress = styled(Link)`
   color: #58c09b;
   cursor: pointer;
   transition: .2s ease-out;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   :hover {
     text-shadow: 0 0 6px #58c09b;
@@ -252,14 +237,12 @@ export const TransactionRecipientLabel = styled(DataLabel)`
   font-weight: 500;
 `
 
-export const TransactionRecipientRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-`
-
 export const TransactionRecipientLink = styled(BaseLink)`
   margin: 0 0 2px;
   font-weight: 500;
+  text-overflow: ellipsis;
+  display: block;
+  overflow: hidden;
 `
 
 export const TransactionTypeColumn = styled(DataBoxColumn) `
@@ -267,17 +250,24 @@ export const TransactionTypeColumn = styled(DataBoxColumn) `
 `
 
 export const TransactionHashColumn = styled(DataBoxColumn) `
+  max-width: 124px;
   margin: 0 0 0 20px;
-`
-
-export const TransactionRecipientsColumn = styled(DataBoxColumn)`
-  margin: 0 32px 0;
-  flex: 1 1 0;
-  flex-direction: row;
-  justify-content: space-between;
+  overflow: hidden;
 
   @media screen and (max-width: 1000px) {
-    margin: 16px 20px 0;
+    max-width: 400px;
+  }
+`
+
+export const TransactionRecipientsColumn = styled.div`
+  margin: 0 0 0 24px;
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  overflow: hidden;
+
+  @media screen and (max-width: 1000px) {
+    margin: 16px 0 0 24px;
   }
 
   @media screen and (max-width: 768px) {
@@ -286,29 +276,20 @@ export const TransactionRecipientsColumn = styled(DataBoxColumn)`
 `
 
 export const TransactionRecipientsWrapper = styled.div`
+  width: 45%;
   display: flex;
   flex-direction: column;
-
-  :first-of-type {
-    margin: 0 24px 0 0;
-  }
 `
 
-export const BlocksRowSpace1 = styled.div`
+export const RecentBlockColumn1 = styled(DataBoxColumn)`
   flex: 1 1 0;
-  max-width: 80px;
+  max-width: 124px;
 `
 
-export const BlocksRowSpace2 = styled.div`
+export const RecentBlockColumn2 = styled(DataBoxColumn)`
   flex: 1 1 0;
-`
-
-export const BlockNumberColumn = styled(DataBoxColumn)`
-  margin: 0 0 0 22px;
-`
-
-export const BlockProducerColumn = styled(DataBoxColumn)`
-  /* margin: 0 0 0 80px; */
+  padding: 0 0 0 16px;
+  overflow: hidden;
 `
 
 export const TransactionRowColumn = styled.div`
