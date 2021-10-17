@@ -1,7 +1,7 @@
 import { default as React, useMemo, useState } from 'react';
 import { dateDiff } from '../../utils/date';
 import { Block } from "../../utils/models";
-import { BlockNumber, RecentBlockColumn1, RecentBlockColumn2, RecentBlockRow, DataBox, DataItem, DataLabel, DataTimestamp, DataTitle, ProducerAddress, TxCount, BlockProducerText } from "./components";
+import { BlockNumber, RecentBlockColumn1, RecentBlockColumn2, RecentBlockRow, DataBox, DataItem, DataTimestamp, DataTitle, ProducerAddress, TxCount, BlockProducerText } from "./components";
 
 type Props = {
   blocks: Block[]

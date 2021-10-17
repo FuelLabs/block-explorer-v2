@@ -19,7 +19,7 @@ interface Props {
 export function NetworkModal(props: Props) {
   const [selectedChain, selectChain] = useState<Chain | undefined>();
   const contentRef = useRef<HTMLDivElement>(null);
-  const { chains, loading } = React.useContext(ChainContext);
+  const { chains } = React.useContext(ChainContext);
   const [activeChain, setActiveChain] = useState<Chain>(chains?.[0]);
   const highlightedChain = useMemo(() => selectedChain || activeChain, [activeChain, selectedChain])
 

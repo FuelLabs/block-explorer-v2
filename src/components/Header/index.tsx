@@ -10,7 +10,7 @@ import {
 } from "./components";
 import { useContext, useState } from "react";
 import { NetworkModal } from "../Modals/NetworkModal";
-import { ChainContext, ChainProvider } from "../../contexts/network";
+import { ChainContext } from "../../contexts/network";
 
 const NavigationLinks = [{
   text: 'v1 Docs',
@@ -34,7 +34,7 @@ const NavigationLinks = [{
 
 export function Header() {
   const [modal, setModal] = useState(false)
-  const { chains, loading } = useContext(ChainContext);
+  const { chains } = useContext(ChainContext);
 
   function onClose() {
     setModal(false)

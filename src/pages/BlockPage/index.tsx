@@ -20,7 +20,7 @@ import { Block } from "../../utils/models";
 export function BlockPage() {
   const { block } = useParams() as any
 
-  const { data, loading, error } = useQuery(queries.getBlockByHeight, { variables: { height: parseInt(block) } })
+  const { data, loading } = useQuery(queries.getBlockByHeight, { variables: { height: parseInt(block) } })
   const previousBlockQuery = useQuery(queries.getPreviousBlockByHeight, { variables: { height: parseInt(block) - 1 } })
 
   const bl = useMemo<Block>(() => {

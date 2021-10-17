@@ -47,7 +47,6 @@ import { useParams } from 'react-router-dom'
 import { useState } from "react";
 import { QRModal } from "../../components/Modals/QRModal";
 import { Transactions } from './constants';
-import { ContentItem } from "../../components/Header/components";
 
 export function AddressPage() {
   const { address } = useParams() as any

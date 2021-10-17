@@ -5,8 +5,6 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  createHttpLink,
-  ApolloLink
 } from "@apollo/client";
 import './App.css';
 import { Homepage } from "./pages/Homepage";
@@ -18,25 +16,7 @@ import { CoinPage } from './pages/CoinPage';
 import { CreateTransactionPage } from './pages/CreateTransactionPage';
 import { ContractPage } from './pages/ContractPage';
 import { config } from './config';
-import { setContext } from "@apollo/client/link/context";
 import { ChainProvider } from './contexts/network';
-
-const httpLink = createHttpLink({
-  uri: config.apiUrl,
-});
-
-const authLink = new ApolloLink((operation, forward) => {
-  operation.setContext(({ headers }: { headers: any }) => ({
-    headers: {
-      ...headers,
-      "Content-Type": "application/json",
-    },
-    // fetchOptions: {
-    //   mode: 'no-cors'
-    // }
-  }));
-  return forward(operation);
-});
 
 const client = new ApolloClient({
   uri: config.apiUrl,

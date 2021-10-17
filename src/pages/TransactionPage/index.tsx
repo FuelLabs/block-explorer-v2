@@ -1,7 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Header } from "../../components/Header";
 import {
-  Container, BaseLink,
+  Container,
   Content, RowKeyColumn, RowValueColumn,
   Title, TitleTransaction, TransactionDataContainer, TransactionDataRow, TransactionStatus, UTXOContainer, DetailsButtonContainer, DetailsButton, UTXOBoxesContainer, UTXOBoxesColumn, UTXOBoxContainer, UTXOHeadlineContainer, UTXOHeadlineColumn, UTXOTitle, UTXOHash, HeadlineText, UTXODetailsContainer, UTXODetailsRow, UTXODetailsKey, UTXODetailsLink, UTXOSeparatorColumn, UTXOSeparatorArrow, ScriptsContainer, ScriptTitle, ScriptContainer, ScriptTabsContainer, ScriptTabButton, ScriptPlaceholder, UTXOHeadlineColumn2
 } from "./components";
@@ -14,7 +14,7 @@ import { CoinOutput, Output, Transaction } from '../../utils/model';
 
 export function TransactionPage() {
   const { transaction } = useParams() as any
-  const {data, loading, error} = useQuery(queries.getTransaction, { variables: { id: transaction } })
+  const {data} = useQuery(queries.getTransaction, { variables: { id: transaction } })
   const tx: Transaction = data?.transaction;
 
   if (!tx) return <></>;
@@ -138,28 +138,6 @@ interface UTXOInputData {
   length: number
 }
 
-const Inputs: UTXOInputData[] = [{
-  title: 'Input #1',
-  hash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
-  owner: '0xc5d2460186f7233c927e7db2dcc703c0e500',
-  symbol: 'DAI',
-  amount: 500,
-  data: '22 bytes',
-  length: 12,
-}, {
-  title: 'Input #2',
-  hash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
-  coin: {
-    symbol: 'DAI',
-    amount: 5000000.33,
-  },
-  owner: '0xc5d2460186f7233c927e7db2dcc703c0e500',
-  symbol: 'DAI',
-  amount: 500,
-  data: '22 bytes',
-  length: 12,
-}]
-
 interface UTXOInputProps {
   data: UTXOInputData,
   expanded: boolean,
@@ -211,48 +189,6 @@ function UTXOInputBox(props: UTXOInputProps) {
       )}
     </UTXOBoxContainer>
   )
-}
-
-interface UTXOOutputData {
-  title: string,
-  hash: string,
-  coin?: {
-    symbol: string,
-    amount: number,
-  },
-  to: string,
-  symbol: string,
-  amount: number,
-  spent: string,
-}
-
-const Outputs: UTXOOutputData[] = [{
-  title: 'Output #1',
-  hash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
-  coin: {
-    symbol: 'DAI',
-    amount: 2000000,
-  },
-  to: '0xc5d2460186f7233c927e7db2dcc703c0e500',
-  symbol: 'DAI',
-  amount: 500,
-  spent: "No"
-}, {
-  title: 'Output #2',
-  hash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
-  coin: {
-    symbol: 'DAI',
-    amount: 3000000,
-  },
-  to: '0xc5d2460186f7233c927e7db2dcc703c0e500',
-  symbol: 'DAI',
-  amount: 500,
-  spent: "Yes"
-}]
-
-interface UTXOOutputProps {
-  data: UTXOOutputData,
-  expanded: boolean,
 }
 
 function UTXOOutputBox({output, expanded}:{output: CoinOutput, expanded: boolean}) {

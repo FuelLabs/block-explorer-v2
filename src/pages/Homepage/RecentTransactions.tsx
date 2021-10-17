@@ -31,7 +31,7 @@ export const RecentTransactions: React.FC<Props> = ({ transactions }) => {
 
 const TransactionRow = ({ transaction }: { transaction: Transaction }) => {
   const difference = useMemo(() => {
-    return dateDiff(new Date, new Date(transaction.status.time));
+    return dateDiff(new Date(), new Date(transaction.status.time));
   }, [transaction])
   const timestamp = useMemo(() => getTextForTimeDifference(difference), [difference]);
 
