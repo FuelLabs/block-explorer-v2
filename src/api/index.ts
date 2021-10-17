@@ -211,14 +211,65 @@ export const queries = {
         producer
         transactions {
           id
-          inputColors
           inputContracts
+          inputColors
           gasPrice
           gasLimit
           maturity
-          isScript
-          witnesses
+          isScript 
           receiptsRoot
+          witnesses
+          outputs {
+            __typename
+            ... on CoinOutput {
+              to
+              amount
+              color
+            }
+            ... on ContractOutput {
+              inputIndex
+              balanceRoot
+              stateRoot
+            }
+            ... on WithdrawalOutput {
+              to
+              amount
+              color
+            }
+            ... on ChangeOutput {
+              to
+              amount
+              color
+            }
+            ... on VariableOutput {
+              to
+              amount
+              color
+            }
+            ... on ContractCreated {
+              contractId
+            }
+          }
+          inputs {
+            __typename
+            ... on InputCoin {
+              owner
+            }
+            ... on InputContract {
+              contractId
+            }
+          }
+          status {
+            ... on SubmittedStatus {
+              time
+            }
+            ... on SuccessStatus {
+              time
+            }
+            ... on FailureStatus {
+              time
+            }
+          }
         }
       }
     }`

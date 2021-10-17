@@ -60,8 +60,8 @@ export function Header() {
               <NetworkSelectorIcon />
             </NetworkSelectorButton>
             <NavigationLinksContainer>
-              {NavigationLinks.map(navigationItem => (
-                <NavigationLink href={navigationItem.link} target="_blank" rel="noreferrer">{navigationItem.text}</NavigationLink>
+              {NavigationLinks.map((navigationItem, idx) => (
+                <NavigationLink key={idx} href={navigationItem.link} target="_blank" rel="noreferrer">{navigationItem.text}</NavigationLink>
               ))}
             </NavigationLinksContainer>
           </ContentItem>
