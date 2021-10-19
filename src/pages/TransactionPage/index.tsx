@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Header } from "../../components/Header";
 import {
   Container,
@@ -11,6 +11,7 @@ import { trimAddress } from '../../utils';
 import { useQuery } from '@apollo/client';
 import { queries } from '../../api';
 import { CoinOutput, Output, Transaction } from '../../utils/model';
+import { Input, InputCoin } from '../../utils/model/input';
 
 export function TransactionPage() {
   const { transaction } = useParams() as any
@@ -54,7 +55,7 @@ export function TransactionPage() {
               <RowValueColumn>TBD</RowValueColumn>
             </TransactionDataRow>
           </TransactionDataContainer>
-          <UTXOComponent outputs={tx.outputs || []} />
+          <UTXOComponent outputs={tx.outputs || []} inputs={tx.inputs || []} />
           <ScriptsComponent />
         </Content>
       </Container>
@@ -88,7 +89,7 @@ function ScriptComponent({ tabs }: { tabs: string[] }) {
   )
 }
 
-function UTXOComponent({ outputs }: { outputs: Output[] }) {
+function UTXOComponent({ inputs ,outputs }: { inputs: Input[], outputs: Output[] }) {
   const [expanded, setExpanded] = useState(false);
 
   function onClickDetails() {
@@ -107,16 +108,16 @@ function UTXOComponent({ outputs }: { outputs: Output[] }) {
       </DetailsButtonContainer>
       <UTXOBoxesContainer>
         <UTXOBoxesColumn>
-          {/* {Inputs.map((inputItem, idx) => (
-            <UTXOInputBox key={idx} data={inputItem} expanded={expanded} />
-          ))} */}
+          {inputs.map((input, idx) => (
+            <UTXOInputBox key={idx} idx={idx} input={input} expanded={expanded} />
+          ))}
         </UTXOBoxesColumn>
         <UTXOSeparatorColumn>
           <UTXOSeparatorArrow />
         </UTXOSeparatorColumn>
         <UTXOBoxesColumn>
-          {outputs.map((outputItem, idx) => (
-            <UTXOOutputBox key={idx} output={outputItem as CoinOutput} expanded={expanded} />
+          {outputs.map((output, idx) => (
+            <UTXOOutputBox key={idx} output={output} expanded={expanded} />
           ))}
         </UTXOBoxesColumn>
       </UTXOBoxesContainer>
@@ -124,97 +125,87 @@ function UTXOComponent({ outputs }: { outputs: Output[] }) {
   )
 }
 
-interface UTXOInputData {
-  title: string,
-  hash: string,
-  coin?: {
-    symbol: string,
-    amount: number,
-  },
-  owner: string,
-  symbol: string,
-  amount: number,
-  data: string,
-  length: number
+function UTXOInputBox({ input, expanded, idx }:{ input: Input, expanded: boolean, idx: number }) {
+
+  if (input.__typename === 'InputCoin') {
+      return (
+        <UTXOBoxContainer>
+          <UTXOHeadlineContainer>
+            <UTXOHeadlineColumn>
+              <UTXOTitle>{`Input #${idx + 1}`}</UTXOTitle>
+              <UTXOHash to={`/transaction/${(input as InputCoin).utxoId}`}>{(input as InputCoin).utxoId}</UTXOHash>
+            </UTXOHeadlineColumn>
+              <UTXOHeadlineColumn2>
+                <HeadlineText>TBD</HeadlineText>
+                <HeadlineText>{(input as InputCoin).amount}</HeadlineText>
+              </UTXOHeadlineColumn2>
+          </UTXOHeadlineContainer>
+          {expanded && (
+            <UTXODetailsContainer>
+              <UTXODetailsRow>
+                <UTXODetailsKey>Owner:</UTXODetailsKey>
+                <UTXODetailsLink to={`/address/${(input as InputCoin).utxoId}`}>{trimAddress((input as InputCoin).owner)}</UTXODetailsLink>
+              </UTXODetailsRow>
+              <UTXODetailsRow>
+                <UTXODetailsKey>Amount:</UTXODetailsKey>
+                {(input as InputCoin).amount}
+              </UTXODetailsRow>
+              <UTXODetailsRow>
+                <UTXODetailsKey>Coin:</UTXODetailsKey>
+                <UTXODetailsLink to={`/coin/${(input as InputCoin).color}`}>{trimAddress((input as InputCoin).color)}</UTXODetailsLink>
+              </UTXODetailsRow>
+              <UTXODetailsRow>
+                <UTXODetailsKey>Predicate bytecode:</UTXODetailsKey>
+                {(input as InputCoin).predicate}
+              </UTXODetailsRow>
+              <UTXODetailsRow>
+                <UTXODetailsKey>Predicate data:</UTXODetailsKey>
+                {(input as InputCoin).predicateData}
+              </UTXODetailsRow>
+              <UTXODetailsRow>
+                <UTXODetailsKey>Predicate length:</UTXODetailsKey>
+                TBD
+              </UTXODetailsRow>
+            </UTXODetailsContainer>
+          )}
+        </UTXOBoxContainer>
+    );
+  }
+  return <>{input.__typename}</>;
 }
 
-interface UTXOInputProps {
-  data: UTXOInputData,
-  expanded: boolean,
-}
-
-function UTXOInputBox(props: UTXOInputProps) {
-  const { data, expanded } = props;
-
+function UTXOOutputBox({ output, expanded }:{ output: Output, expanded: boolean }) {
   return (
     <UTXOBoxContainer>
       <UTXOHeadlineContainer>
         <UTXOHeadlineColumn>
-          <UTXOTitle>{data.title}</UTXOTitle>
-          <UTXOHash to={`/transaction/${data.hash}`}>{data.hash}</UTXOHash>
+          <UTXOTitle>Output</UTXOTitle>
+          <UTXOHash to={`/`}>TBD</UTXOHash>
         </UTXOHeadlineColumn>
-        {data.coin && (
+        {(output.__typename === 'CoinOutput') && (
           <UTXOHeadlineColumn2>
-            <HeadlineText>{data.coin.symbol}</HeadlineText>
-            <HeadlineText>{data.coin.amount.toLocaleString('en')}</HeadlineText>
+            <HeadlineText>TBD</HeadlineText>
+            <HeadlineText>{(output as CoinOutput).amount}</HeadlineText>
           </UTXOHeadlineColumn2>
         )}
       </UTXOHeadlineContainer>
       {expanded && (
         <UTXODetailsContainer>
           <UTXODetailsRow>
-            <UTXODetailsKey>Owner:</UTXODetailsKey>
-            <UTXODetailsLink to={`/address/${data.owner}`}>{trimAddress(data.owner)}</UTXODetailsLink>
-          </UTXODetailsRow>
-          <UTXODetailsRow>
-            <UTXODetailsKey>Amount:</UTXODetailsKey>
-            {data.amount}
-          </UTXODetailsRow>
-          <UTXODetailsRow>
-            <UTXODetailsKey>Coin:</UTXODetailsKey>
-            <UTXODetailsLink to={`/coin/${data.symbol}`}>{data.symbol}</UTXODetailsLink>
-          </UTXODetailsRow>
-          <UTXODetailsRow>
-            <UTXODetailsKey>Predicate bytecode:</UTXODetailsKey>
-          </UTXODetailsRow>
-          <UTXODetailsRow>
-            <UTXODetailsKey>Predicate data:</UTXODetailsKey>
-            {data.data}
-          </UTXODetailsRow>
-          <UTXODetailsRow>
-            <UTXODetailsKey>Predicate length:</UTXODetailsKey>
-            {data.length}
-          </UTXODetailsRow>
-        </UTXODetailsContainer>
-      )}
-    </UTXOBoxContainer>
-  )
-}
-
-function UTXOOutputBox({output, expanded}:{output: CoinOutput, expanded: boolean}) {
-  return (
-    <UTXOBoxContainer>
-      <UTXOHeadlineContainer>
-        <UTXOHeadlineColumn>
-          <UTXOTitle>Output</UTXOTitle>
-          {/* <UTXOHash to={`/transaction/${data.hash}`}>{data.hash}</UTXOHash> */}
-        </UTXOHeadlineColumn>
-        {/* {data.coin && (
-          <UTXOHeadlineColumn2>
-            <HeadlineText>{data.coin.symbol}</HeadlineText>
-            <HeadlineText>{data.coin.amount.toLocaleString('en')}</HeadlineText>
-          </UTXOHeadlineColumn2>
-        )} */}
-      </UTXOHeadlineContainer>
-      {expanded && (
-        <UTXODetailsContainer>
-          <UTXODetailsRow>
             <UTXODetailsKey>To:</UTXODetailsKey>
-            <UTXODetailsLink to={`/address/${output.to}`}>{trimAddress(output.to)}</UTXODetailsLink>
+            {(() => {
+              if (output.__typename === 'CoinOutput') {
+                return <UTXODetailsLink to={`/address/${(output as CoinOutput).to}`}>{trimAddress((output as CoinOutput).to)}</UTXODetailsLink>
+              }
+            })()}
           </UTXODetailsRow>
           <UTXODetailsRow>
             <UTXODetailsKey>Amount:</UTXODetailsKey>
-            {output.amount}
+            {(() => {
+              if (output.__typename === 'CoinOutput') {
+                return (output as CoinOutput).amount
+              }
+            })()}
           </UTXODetailsRow>
           {/* <UTXODetailsRow>
             <UTXODetailsKey>Coin:</UTXODetailsKey>
