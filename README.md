@@ -1,3 +1,8 @@
+## branches
+- **master**: contains the production version
+- **next**: This is a short lived branch and contains features production ready, but they need to be tested on an environment very close to production (e.g deploy the app for a small subset of users or a testing group)
+- **beta**: contains work that is still in development
+
 ## Depth levels
 - modal: 50
 

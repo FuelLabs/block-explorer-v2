@@ -26,7 +26,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "lint:fix": "eslint src --fix",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +53,8 @@
   "devDependencies": {
     "@types/qrcode.react": "^1.0.2",
     "@types/react": "^17.0.18",
-    "@types/react-router-dom": "^5.1.8"
+    "@types/react-router-dom": "^5.1.8",
+    "cypress": "^8.7.0",
+    "semantic-release": "^18.0.0"
   }
 }
