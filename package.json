@@ -2,8 +2,12 @@
   "name": "explorer",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": ">=8.0.0"
+  },
   "dependencies": {
     "@apollo/client": "^3.4.13",
+    "@fuel-ts/fuels": "^0.0.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -51,6 +55,8 @@
     ]
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.0",
+    "@semantic-release/git": "^10.0.0",
     "@types/qrcode.react": "^1.0.2",
     "@types/react": "^17.0.18",
     "@types/react-router-dom": "^5.1.8",
