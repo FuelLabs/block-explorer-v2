@@ -3,8 +3,6 @@
 We would love for you to contribute to Fuel Explorer Web Application and help make it even better than it is
 today! As a contributor, here are the guidelines we would like you to follow:
 
- - [Commit Message Guidelines](#commit)
-
 ## <a name="commit"></a> Commit Message Guidelines
 
 We use The Conventional Commits specifications to create an explicit commit history. You can take a look at [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for a complete reference, but you'll also find a comprehensive list of rules below.
