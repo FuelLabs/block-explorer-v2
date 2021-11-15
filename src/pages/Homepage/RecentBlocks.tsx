@@ -17,15 +17,15 @@ export const RecentBlocks: React.FC<Props> = ({ blocks }) => {
         {blocks.map((block) => (
           <RecentBlockRow>
             <RecentBlockColumn1>
-              <BlockNumber to={`/block/${block.height}`}>{block.height}</BlockNumber>
+              <BlockNumber id="recent-block-link" to={`/block/${block.height}`}>{block.height}</BlockNumber>
               <BlockTimestamp date1={now} date2={new Date(block.time)} />
             </RecentBlockColumn1>
             <RecentBlockColumn2>
               <BlockProducerText>
                 {`Producer: `}
-                <ProducerAddress to={`/address/${block.producer}`}>{block.producer}</ProducerAddress>
+                <ProducerAddress id="recent-block-producer-link" to={`/address/${block.producer}`}>{block.producer}</ProducerAddress>
               </BlockProducerText>
-              <TxCount to={`/block/${block.height}/transactions`}>{`${block.transactions?.length} Tx's`}</TxCount>
+              <TxCount id="recent-block-transactions-link" to={`/block/${block.height}/transactions`}>{`${block.transactions?.length} Tx's`}</TxCount>
             </RecentBlockColumn2>
           </RecentBlockRow>
         ))}

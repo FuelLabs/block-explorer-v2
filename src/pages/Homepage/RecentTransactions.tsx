@@ -42,7 +42,7 @@ const TransactionRow = ({ transaction }: { transaction: Transaction }) => {
           <TxType>{transaction.isScript ? 'Script' : 'Create'}</TxType>
         </TransactionTypeColumn>
         <TransactionHashColumn>
-          <TransactionAddress to={`/${transaction.isScript === false ? 'create-transaction' : 'transaction'}/${transaction.id}`}>
+          <TransactionAddress id="recent-transaction-link" to={`/${transaction.isScript === false ? 'create-transaction' : 'transaction'}/${transaction.id}`}>
             {transaction.id}
           </TransactionAddress>
           <DataTimestamp>{timestamp}</DataTimestamp>
