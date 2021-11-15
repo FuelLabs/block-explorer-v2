@@ -450,6 +450,9 @@ export const CoinLink = styled(BaseLink)`
   display: block;
   font-weight: 600;
   margin: 0 0 12px;
+  max-width: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   :last-of-type {
     margin: 0;
