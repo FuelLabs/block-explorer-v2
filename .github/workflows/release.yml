@@ -1,0 +1,21 @@
+name: Release
+
+# Run the workflow when changes are pushed to master
+on:
+ push:
+  branches:
+    - master
+jobs:
+ release:
+  runs-on: ubuntu-latest
+  steps:
+  - name: Checkout
+    uses: actions/checkout@v2
+  - name: Setup Node.js
+    uses: actions/setup-node@v1
+  - name: Install
+    run: npm ci
+  - name: Release
+    run: npx semantic-release
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
