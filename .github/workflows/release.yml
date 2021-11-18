@@ -1,16 +1,13 @@
 name: Release
 
-# Run the workflow when a Pull Request is opened or when changes are pushed to master
+# Run the workflow when changes are pushed to master
 on:
  push:
   branches:
     - master
-    - develop
 jobs:
  release:
-  # if: github.event_name == 'push' && github.ref == 'refs/heads/master'
   runs-on: ubuntu-latest
-  # needs: [test]
   steps:
   - name: Checkout
     uses: actions/checkout@v2
