@@ -1,98 +1,42 @@
+import { useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
 import { Header } from "../../components/Header";
 import {
-  DataTimestamp,
-  BlockNumber,
   Container,
   Content,
-  DataBox,
   DataContainer,
-  DataItem,
-  DataTitle,
   Input,
-  InputContainer, ProducerAddress, DataLabel,
-  SearchIcon, TxCount, TxType, TransactionAddress, TransactionRecipientRow, TransactionRecipientLabel, TransactionRecipientLink, TransactionTypeColumn, TransactionHashColumn, TransactionRecipientsColumn, TransactionRecipientsWrapper, TransactionsDataBoxRow, BlocksDataBoxRow, BlockNumberColumn, BlockProducerColumn, BlocksRowSpace1, BlocksRowSpace2, TransactionRowColumn
+  InputContainer,
+  SearchIcon
 } from "./components";
-import { Transactions } from './constants';
-
-function RecentBlocks() {
-  return <DataItem>
-    <DataTitle>Recent Blocks</DataTitle>
-    <DataBox>
-      {Array(5).fill(0).map(() => (
-        <BlocksDataBoxRow>
-          <BlockNumberColumn>
-            <BlockNumber to={`/block/5033`}>5033</BlockNumber>
-            <DataTimestamp>34 secs ago</DataTimestamp>
-          </BlockNumberColumn>
-          <BlocksRowSpace1 />
-          <BlockProducerColumn>
-            <DataLabel>
-              {`Producer: `}
-              <ProducerAddress to={`/address/0xc5d2460186f7233c927e7db2dcc703c0e500`}>0xc5d2…c0e500</ProducerAddress>
-            </DataLabel>
-            <TxCount to={`/block/${5033}/transactions`}>100 Tx's</TxCount>
-          </BlockProducerColumn>
-          <BlocksRowSpace2 />
-        </BlocksDataBoxRow>
-      ))}
-    </DataBox>
-  </DataItem>;
-}
-
-function RecentTransactions() {
-  return (
-    <DataItem>
-      <DataTitle>Recent Transactions</DataTitle>
-      <DataBox>
-        {Transactions.map((transaction, idx) => (
-          <TransactionsDataBoxRow key={idx}>
-            <TransactionRowColumn>
-              <TransactionTypeColumn>
-                <TxType>{transaction.type}</TxType>
-              </TransactionTypeColumn>
-              <TransactionHashColumn>
-                <TransactionAddress to={`/${transaction.type === 'Create' ? 'create-transaction' : 'transaction'}/${transaction.txHash}`}>
-                  {`${transaction.txHash.slice(0, 12)}...`}
-                </TransactionAddress>
-                <DataTimestamp>{transaction.timestamp}</DataTimestamp>
-              </TransactionHashColumn>
-            </TransactionRowColumn>
-            <TransactionRowColumn>
-              <TransactionRecipientsColumn>
-                <TransactionRecipientsWrapper>
-                  <TransactionRecipientLabel>From:</TransactionRecipientLabel>
-                  {transaction.recipients.map((recipient, idx) => (
-                    <TransactionRecipientRow>
-                      <TransactionRecipientLink key={idx} to={`/address/${recipient.from}`}>
-                        {`${recipient.from.slice(0, 6)}...${recipient.from.slice(-6, recipient.from.length - 1)}`}
-                      </TransactionRecipientLink>
-                    </TransactionRecipientRow>
-                  ))}
-                </TransactionRecipientsWrapper>
-                {transaction.recipients.filter(recipient => !!recipient.to).length > 0 && (
-                  <TransactionRecipientsWrapper>
-                    <TransactionRecipientLabel>To:</TransactionRecipientLabel>
-                    {transaction.recipients.map((recipient, idx) => (
-                      <TransactionRecipientRow>
-                        {recipient.to && (
-                          <TransactionRecipientLink key={idx} to={`/address/${recipient.to}`}>
-                            {`${recipient.to.slice(0, 6)}...${recipient.to.slice(-6, recipient.to.length - 1)}`}
-                          </TransactionRecipientLink>
-                        )}
-                      </TransactionRecipientRow>
-                    ))}
-                  </TransactionRecipientsWrapper>
-                )}
-              </TransactionRecipientsColumn>
-            </TransactionRowColumn>
-          </TransactionsDataBoxRow>
-        ))}
-      </DataBox>
-    </DataItem>
-  );
-}
+import { queries } from '../../api';
+import { Block } from "../../utils/models";
+import { Transaction } from "../../utils/model";
+import { RecentBlocks } from "./RecentBlocks";
+import { RecentTransactions } from "./RecentTransactions";
 
 export function Homepage() {
+  const [blocks, setBlocks] = useState<Block[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const transactionsQuery = useQuery(queries.getHomeTransactions, { variables: { count: 50 } });
+  const blocksQuery = useQuery(queries.getHomeBlocks, { variables: { count: 5 }});
+
+  useEffect(() => {
+    if (blocksQuery.loading) return;
+    if (blocksQuery.error) return;
+    const edges: any[] = blocksQuery.data?.blocks?.edges || [];
+    const blocks: Block[] = edges.map(edge => edge.node);
+    setBlocks(blocks);
+  }, [blocksQuery])
+
+  useEffect(() => {
+    if (transactionsQuery.loading) return;
+    if (transactionsQuery.error) return;
+    const edges: any[] = transactionsQuery.data?.transactions?.edges || [];
+    const transactions: Transaction[] = edges.map(edge => edge.node);
+    setTransactions(transactions);
+  }, [transactionsQuery])
+
   return (
     <>
       <Header />
@@ -103,8 +47,8 @@ export function Homepage() {
             <SearchIcon />
           </InputContainer>
           <DataContainer>
-            <RecentBlocks />
-            <RecentTransactions />
+            <RecentBlocks blocks={blocks} />
+            <RecentTransactions transactions={transactions} />
           </DataContainer>
         </Content>
       </Container>

@@ -3,7 +3,7 @@ import { Header } from "../../components/Header";
 import {
   Container,
   Content, RowKeyColumn, RowValueColumn,
-  Title, TitleTransaction, TransactionDataContainer, TransactionDataRow, UTXOContainer, DetailsButtonContainer, DetailsButton, UTXOBoxesContainer, UTXOBoxesColumn, UTXOBoxContainer, UTXOHeadlineContainer, UTXOHeadlineColumn, UTXOTitle, UTXOHash, HeadlineText, UTXODetailsContainer, UTXODetailsRow, UTXODetailsKey, UTXODetailsLink, UTXOSeparatorColumn, UTXOSeparatorArrow, ScriptsContainer, ScriptTitle, ScriptContainer, ScriptTabsContainer, ScriptTabButton, ScriptPlaceholder, UTXOHeadlineColumn2, RowValueLink, WrapText, WitnessContainer, WitnessIndex, WitnessIconContainer, WitnessAddress, UTXODetailsValue, WitnessIcon
+  Title, TitleTransaction, TransactionDataContainer, TransactionDataRow, UTXOContainer, DetailsButtonContainer, DetailsButton, UTXOBoxesContainer, UTXOBoxesColumn, UTXOBoxContainer, UTXOHeadlineContainer, UTXOHeadlineColumn, UTXOTitle, UTXOHash, UTXODetailsContainer, UTXODetailsRow, UTXODetailsKey, UTXODetailsLink, UTXOSeparatorColumn, UTXOSeparatorArrow, RowValueLink, WrapText, WitnessContainer, WitnessIndex, WitnessIconContainer, WitnessAddress, UTXODetailsValue, WitnessIcon
 } from "./components";
 import { useParams } from "react-router-dom";
 import { ExpandIcon, ShrinkIcon } from "../../components/Icons";

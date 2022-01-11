@@ -171,10 +171,10 @@ export const UTXOBoxesContainer = styled.div`
 `
 
 export const UTXOBoxesColumn = styled.div`
-  max-width: calc((100% - 98px) / 2);
+  width: calc((100% - 98px) / 2);
 
   @media screen and (max-width: 768px) {
-    max-width: 100%;
+    width: 100%;
   }
 `
 export const UTXOSeparatorColumn = styled.div`
