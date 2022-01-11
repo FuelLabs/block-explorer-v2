@@ -8,7 +8,6 @@
   "dependencies": {
     "@apollo/client": "^3.4.13",
     "@ethersproject/bignumber": "^5.5.0",
-    "@fuel-ts/fuels": "0.0.3",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -17,6 +16,7 @@
     "@types/react-dom": "^17.0.11",
     "@types/styled-components": "^5.1.15",
     "bignumber.js": "^9.0.1",
+    "fuels": "^0.1.1",
     "graphql": "^15.7.2",
     "qrcode.react": "^1.0.1",
     "react": "^17.0.2",
