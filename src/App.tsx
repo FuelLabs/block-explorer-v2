@@ -1,5 +1,5 @@
 import {
-  BrowserRouter as Router, Switch, Route
+  HashRouter as Router, Switch, Route, Redirect
 } from 'react-router-dom';
 import {
   ApolloClient,
@@ -12,7 +12,6 @@ import { AddressPage } from "./pages/AddressPage";
 import { BlockPage } from "./pages/BlockPage";
 import { TransactionPage } from "./pages/TransactionPage";
 import { BlockTransactionsPage } from './pages/BlockTransactionsPage';
-import { CoinPage } from './pages/CoinPage';
 import { CreateTransactionPage } from './pages/CreateTransactionPage';
 import { ContractPage } from './pages/ContractPage';
 import { config } from './config';
@@ -36,8 +35,8 @@ function App() {
             <Route path={"/block/:block"} component={BlockPage} />
             <Route path={"/transaction/:transaction"} component={TransactionPage} />
             <Route path={"/create-transaction/:transaction"} component={CreateTransactionPage} />
-            <Route path={"/coin/:coin"} component={CoinPage} />
             <Route path={"/contract/:contract"} component={ContractPage} />
+            <Redirect to="/" />
           </Switch>
         </Router>
       </ChainProvider>

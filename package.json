@@ -5,6 +5,7 @@
   "engines": {
     "npm": ">=8.0.0"
   },
+  "homepage": "./",
   "dependencies": {
     "@apollo/client": "^3.4.13",
     "@ethersproject/bignumber": "^5.5.0",
