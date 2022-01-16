@@ -109,7 +109,7 @@ export function AddressPage() {
               <TokenDropdownContainer>
                 <TokenButton>
                   <TokenButtonSymbol>ETH:</TokenButtonSymbol>
-                  <TokenButtonAmount>435.3</TokenButtonAmount>
+                  <TokenButtonAmount>0</TokenButtonAmount>
                   <TokenButtonSeparator></TokenButtonSeparator>
                   <TokenButtonIconContainer>
                     <TokenDropdownIcon />
