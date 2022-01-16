@@ -27,7 +27,7 @@ export function Homepage() {
     const edges: any[] = blocksQuery.data?.blocks?.edges || [];
     const blocks: Block[] = edges.map(edge => edge.node);
     setBlocks(blocks);
-  }, [blocksQuery])
+  }, [blocksQuery.loading, blocksQuery.error, blocksQuery.data])
 
   useEffect(() => {
     if (transactionsQuery.loading) return;
@@ -35,7 +35,7 @@ export function Homepage() {
     const edges: any[] = transactionsQuery.data?.transactions?.edges || [];
     const transactions: Transaction[] = edges.map(edge => edge.node);
     setTransactions(transactions);
-  }, [transactionsQuery])
+  }, [transactionsQuery.loading, transactionsQuery.data, transactionsQuery.error])
 
   return (
     <>

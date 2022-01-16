@@ -17,7 +17,7 @@ export function BlockTransactionsPage() {
   const blockByHeightQuery = useQuery(queries.getBlockByHeight, { variables: { height: parseInt(block) } });
   const bl = useMemo<Block>(() => {
     return blockByHeightQuery?.data?.block;
-  }, [blockByHeightQuery]);
+  }, [blockByHeightQuery?.data]);
 
   return (
     <>
