@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { GreenLink } from "../../components/Link/components"
 
 export const Container = styled.section`
 
@@ -32,5 +33,60 @@ export const Subtitle = styled.span`
   font-size: 17px;
   font-weight: 500;
   line-height: 20px;
+  color: #f8fefc;
+`
+
+export const TxHashLink = styled(GreenLink)`
+  display: block;
+  max-width: 124px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+
+  :hover {
+    text-shadow: 0 0 6px #58c09b;
+  }
+
+  :active {
+    text-shadow: 0 0 6px #4fad83;
+    color: #4fad83;
+  }
+`
+
+export const TxRecipientLink = styled(GreenLink)`
+  display: block;
+  margin: 0 0 12px;
+
+  :last-of-type {
+    margin: 0;
+  }
+`
+
+export const TxValue = styled.span`
+  display: block;
+  font-weight: 600;
+  margin: 0 0 12px;
+
+
+  :last-of-type {
+    margin: 0;
+  }
+`
+
+export const CoinLink = styled(GreenLink)`
+  display: block;
+  font-weight: 600;
+  margin: 0 0 12px;
+  max-width: 80px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+
+  :last-of-type {
+    margin: 0;
+  }
+`
+
+export const HeadlineTransactionsNumber = styled.span`
   color: #f8fefc;
 `

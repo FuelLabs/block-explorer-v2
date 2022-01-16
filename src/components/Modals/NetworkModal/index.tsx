@@ -9,33 +9,32 @@ import * as React from "react";
 import {Modal} from "../Base";
 import {useMemo, useRef, useState} from "react";
 import {useOnClickOutside} from "../../../hooks";
-
-const Networks = ['Mainnet', 'Robsin', 'Gorli', 'Rinkeby']
+import { ChainContext } from "../../../contexts/network";
+import { Chain } from "../../../utils/models";
 
 interface Props {
   onClose: () => void,
-  onNetworkSwitch: (network: string) => void,
 }
+
 export function NetworkModal(props: Props) {
-  const [activeNetwork, setActiveNetwork] = useState('Mainnet');
-  const [selectedNetwork, selectNetwork] = useState<string | undefined>();
-  const highlightedNetwork = useMemo(() => selectedNetwork || activeNetwork, [activeNetwork, selectedNetwork])
-  const contentRef = useRef<HTMLDivElement>(null)
+  const [selectedChain, selectChain] = useState<Chain | undefined>();
+  const contentRef = useRef<HTMLDivElement>(null);
+  const { chains } = React.useContext(ChainContext);
+  const [activeChain, setActiveChain] = useState<Chain>(chains?.[0]);
+  const highlightedChain = useMemo(() => selectedChain || activeChain, [activeChain, selectedChain])
 
   useOnClickOutside(contentRef, onClickOutside)
 
-
-  function onNetworkSelect(network: string) {
-    selectNetwork(network)
+  function onNetworkSelect(chain: Chain) {
+    selectChain(chain)
   }
 
   function onNetworkSwitch() {
-    if (selectedNetwork) {
-      setActiveNetwork(selectedNetwork)
-      props.onNetworkSwitch(selectedNetwork)
+    if (selectedChain) {
+      setActiveChain(selectedChain)
       props.onClose()
     }
-    selectNetwork(undefined)
+    selectChain(undefined)
   }
 
   function onClickOutside() {
@@ -46,16 +45,16 @@ export function NetworkModal(props: Props) {
     <Modal>
       <Container ref={contentRef}>
         <Title>Change Network</Title>
-        {Networks.map((network, idx) => (
+        {chains.map((chain, idx) => (
           <NetworkSelectorButton
             key={idx}
-            onClick={() => { onNetworkSelect(network) }}
-            isSelected={network === highlightedNetwork}
-            isHighlighted={network === activeNetwork}
+            onClick={() => { onNetworkSelect(chain) }}
+            isSelected={chain === highlightedChain}
+            isHighlighted={chain === activeChain}
           >
             <NetworkSelectorButtonText>
-              {network}
-              {activeNetwork === network && <ActiveNetworkIndicator />}
+              {chain.name}
+              {activeChain === chain && <ActiveNetworkIndicator />}
             </NetworkSelectorButtonText>
             <NetworkSelectorCheckbox />
           </NetworkSelectorButton>
