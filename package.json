@@ -32,14 +32,18 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "lint": "eslint src",
     "lint:fix": "eslint src --fix",
+    "format": "prettier --check src",
+    "format:fix": "prettier --write src",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:prettier/recommended"
     ],
     "rules": {
       "eol-last": [
@@ -67,7 +71,10 @@
     "@types/react": "^17.0.34",
     "@types/react-router-dom": "^5.3.2",
     "cypress": "^8.7.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "2.5.1",
     "semantic-release": "^18.0.0"
   }
 }
