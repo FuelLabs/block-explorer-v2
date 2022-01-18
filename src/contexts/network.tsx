@@ -1,15 +1,15 @@
-import { useQuery } from '@apollo/client';
-import { default as React, useMemo } from 'react';
-import { queries } from '../api';
+import { useQuery } from "@apollo/client";
+import { default as React, useMemo } from "react";
+import { queries } from "../api";
 
-import type { Chain } from '../utils/models';
+import type { Chain } from "../utils/models";
 
 export const ChainContext = React.createContext<{
-  chains: Chain[],
-  loading: boolean,
-}>({ 
+  chains: Chain[];
+  loading: boolean;
+}>({
   chains: [],
-  loading: false,
+  loading: false
 });
 
 export const ChainProvider: React.FC = ({ children }) => {
@@ -19,11 +19,13 @@ export const ChainProvider: React.FC = ({ children }) => {
   }, [data]);
 
   return (
-    <ChainContext.Provider value={{
-      chains,
-      loading,
-    }}>
+    <ChainContext.Provider
+      value={{
+        chains,
+        loading
+      }}
+    >
       {children}
     </ChainContext.Provider>
-  )
-}
+  );
+};

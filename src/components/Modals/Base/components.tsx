@@ -10,11 +10,11 @@ export const Container = styled.section`
   width: 100vw;
   background-color: rgba(9, 28, 23, 0.8);
   z-index: 50;
-`
+`;
 
 export const Wrapper = styled.div`
   width: 100%;
   padding: 32px;
   display: flex;
   justify-content: center;
-`
+`;

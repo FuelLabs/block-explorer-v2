@@ -12,7 +12,7 @@ export const Container = styled.div`
   @media screen and (max-width: 425px) {
     padding: 0 24px 48px;
   }
-`
+`;
 
 export const Title = styled.h2`
   margin: 20px 0;
@@ -21,7 +21,7 @@ export const Title = styled.h2`
   font-weight: 600;
   text-align: center;
   color: #f8fefc;
-`
+`;
 
 export const QRAddress = styled.p`
   margin: 16px 0 40px;
@@ -33,9 +33,9 @@ export const QRAddress = styled.p`
   color: #f8fefc;
   text-overflow: ellipsis;
   overflow: hidden;
-`
+`;
 
 export const QRCodeContainer = styled.div`
   margin: 0 auto;
   width: fit-content;
-`
+`;

@@ -1,9 +1,7 @@
-import styled from "styled-components"
-import { GreenLink } from "../../components/Link/components"
+import styled from "styled-components";
+import { GreenLink } from "../../components/Link/components";
 
-export const Container = styled.section`
-
-`
+export const Container = styled.section``;
 
 export const Content = styled.div`
   padding: 56px 32px;
@@ -14,7 +12,7 @@ export const Content = styled.div`
   @media screen and (max-width: 425px) {
     padding: 40px 24px;
   }
-`
+`;
 
 export const Title = styled.h2`
   margin: 0 0 8px;
@@ -24,7 +22,7 @@ export const Title = styled.h2`
   line-height: 30px;
   color: #f8fefc;
   white-space: break-spaces;
-`
+`;
 
 export const Subtitle = styled.span`
   margin: 0 0 32px;
@@ -34,7 +32,7 @@ export const Subtitle = styled.span`
   font-weight: 500;
   line-height: 20px;
   color: #f8fefc;
-`
+`;
 
 export const TxHashLink = styled(GreenLink)`
   display: block;
@@ -51,7 +49,7 @@ export const TxHashLink = styled(GreenLink)`
     text-shadow: 0 0 6px #4fad83;
     color: #4fad83;
   }
-`
+`;
 
 export const TxRecipientLink = styled(GreenLink)`
   display: block;
@@ -60,18 +58,17 @@ export const TxRecipientLink = styled(GreenLink)`
   :last-of-type {
     margin: 0;
   }
-`
+`;
 
 export const TxValue = styled.span`
   display: block;
   font-weight: 600;
   margin: 0 0 12px;
 
-
   :last-of-type {
     margin: 0;
   }
-`
+`;
 
 export const CoinLink = styled(GreenLink)`
   display: block;
@@ -85,8 +82,8 @@ export const CoinLink = styled(GreenLink)`
   :last-of-type {
     margin: 0;
   }
-`
+`;
 
 export const HeadlineTransactionsNumber = styled.span`
   color: #f8fefc;
-`
+`;

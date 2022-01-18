@@ -1,24 +1,21 @@
-import {
-  Title,
-  Container, QRAddress, QRCodeContainer,
-} from "./components";
+import { Title, Container, QRAddress, QRCodeContainer } from "./components";
 import { Modal } from "../Base";
 import { useRef } from "react";
 import { useOnClickOutside } from "../../../hooks";
-import QRCode from 'qrcode.react'
+import QRCode from "qrcode.react";
 
 interface Props {
-  onClose: () => void,
-  address: string,
+  onClose: () => void;
+  address: string;
 }
 
 export function QRModal(props: Props) {
-  const contentRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null);
 
-  useOnClickOutside(contentRef, onClickOutside)
+  useOnClickOutside(contentRef, onClickOutside);
 
   function onClickOutside() {
-    props.onClose()
+    props.onClose();
   }
 
   return (
@@ -31,5 +28,5 @@ export function QRModal(props: Props) {
         </QRCodeContainer>
       </Container>
     </Modal>
-  )
+  );
 }

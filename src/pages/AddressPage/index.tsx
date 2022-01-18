@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams } from "react-router-dom";
 import { useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { Header } from "../../components/Header";
@@ -36,49 +36,55 @@ import {
   TableNextNavigationTextButton
 } from "./components";
 import { QRModal } from "../../components/Modals/QRModal";
-import { queries } from '../../api';
+import { queries } from "../../api";
 import { CoinOutput, Transaction } from "../../utils/model";
-import * as TableUI from '../../components/Table/components';
+import * as TableUI from "../../components/Table/components";
 import { dateDiffRelative, getTextForRelativeTimeDifference } from "../../utils/date";
 import { InputCoin, InputContract } from "../../utils/model/input";
 
 export function AddressPage() {
-  const { address } = useParams() as any
-  const [copyTooltip] = useState('Copy address')
-  const [modal, setModal] = useState(false)
-  const { loading, data } = useQuery(queries.getTransactionsByOwner, { variables: { first: 10, owner: address } });
+  const { address } = useParams() as any;
+  const [copyTooltip] = useState("Copy address");
+  const [modal, setModal] = useState(false);
+  const { loading, data } = useQuery(queries.getTransactionsByOwner, {
+    variables: { first: 10, owner: address }
+  });
   const transactions = useMemo<Transaction[]>(() => {
-    return data?.transactionsByOwner ? data.transactionsByOwner.edges.map((edge: any) => edge.node) : [];
+    return data?.transactionsByOwner
+      ? data.transactionsByOwner.edges.map((edge: any) => edge.node)
+      : [];
   }, [data]);
 
   function onClose() {
-    setModal(false)
+    setModal(false);
   }
 
   function showModal() {
-    setModal(true)
+    setModal(true);
   }
 
   function onClickCopy() {
-    navigator.clipboard.writeText(address)
+    navigator.clipboard.writeText(address);
   }
 
   if (loading) {
-    return (<>
-      <Header />
-      <Container>
-        <Content>
-          <HeadlineContainer>
-            <HeadlineAddressContainer>
-              <HeadlineAddressHeader>
-                {`Address:  `}
-                <HeadlineAddress>{address}</HeadlineAddress>
-              </HeadlineAddressHeader>
-            </HeadlineAddressContainer>
-          </HeadlineContainer>
-        </Content>
-      </Container>
-    </>)
+    return (
+      <>
+        <Header />
+        <Container>
+          <Content>
+            <HeadlineContainer>
+              <HeadlineAddressContainer>
+                <HeadlineAddressHeader>
+                  {`Address:  `}
+                  <HeadlineAddress>{address}</HeadlineAddress>
+                </HeadlineAddressHeader>
+              </HeadlineAddressContainer>
+            </HeadlineContainer>
+          </Content>
+        </Container>
+      </>
+    );
   }
   return (
     <>
@@ -92,7 +98,11 @@ export function AddressPage() {
                 {`Address:  `}
                 <HeadlineAddress>{address}</HeadlineAddress>
               </HeadlineAddressHeader>
-              <HeadlineAddressButton onClick={() => { onClickCopy() }}>
+              <HeadlineAddressButton
+                onClick={() => {
+                  onClickCopy();
+                }}
+              >
                 <CopyButtonIcon />
                 <Tooltip>{copyTooltip}</Tooltip>
               </HeadlineAddressButton>
@@ -122,14 +132,16 @@ export function AddressPage() {
         </Content>
       </Container>
     </>
-  )
+  );
 }
 
 export function TransactionsTable({ transactions }: { transactions: Transaction[] }) {
   function trimAddress(address: string) {
-    if (!address) { return '' }
+    if (!address) {
+      return "";
+    }
 
-    return `${address.slice(0, 6)}...${address.slice(-6, address.length - 1)}`
+    return `${address.slice(0, 6)}...${address.slice(-6, address.length - 1)}`;
   }
 
   return (
@@ -140,9 +152,13 @@ export function TransactionsTable({ transactions }: { transactions: Transaction[
           <TableUI.TableHeadlinerContentItem>
             <TableHeadlineDisclaimer>
               {`Showing `}
-              <HeadlineHighlighedDisclaimer>{transactions?.length || '0'}</HeadlineHighlighedDisclaimer>
+              <HeadlineHighlighedDisclaimer>
+                {transactions?.length || "0"}
+              </HeadlineHighlighedDisclaimer>
               {` out of `}
-              <HeadlineHighlighedDisclaimer>{transactions?.length || '0'}</HeadlineHighlighedDisclaimer>
+              <HeadlineHighlighedDisclaimer>
+                {transactions?.length || "0"}
+              </HeadlineHighlighedDisclaimer>
               {` transactions`}
             </TableHeadlineDisclaimer>
           </TableUI.TableHeadlinerContentItem>
@@ -164,50 +180,81 @@ export function TransactionsTable({ transactions }: { transactions: Transaction[
                 <TableUI.TableCell>
                   <TxHash to={`/transaction/${transaction.id}`}>{transaction.id}</TxHash>
                 </TableUI.TableCell>
-                <TableUI.TableCell>{transaction.isScript ? 'Script' : 'Create'}</TableUI.TableCell>
-                <TableUI.TableCell>{getTextForRelativeTimeDifference(dateDiffRelative(new Date(), new Date(transaction.status.time)))}</TableUI.TableCell>
+                <TableUI.TableCell>{transaction.isScript ? "Script" : "Create"}</TableUI.TableCell>
                 <TableUI.TableCell>
-                  {transaction.inputs.map((input, idx) => (
+                  {getTextForRelativeTimeDifference(
+                    dateDiffRelative(new Date(), new Date(transaction.status.time))
+                  )}
+                </TableUI.TableCell>
+                <TableUI.TableCell>
+                  {transaction.inputs.map((input, idx) =>
                     (() => {
-                      if (input.__typename === 'InputCoin') {
-                        return <TxRecipient key={idx} to={`/address/${(input as InputCoin).owner}`}>{trimAddress((input as InputCoin).owner)}</TxRecipient>
+                      if (input.__typename === "InputCoin") {
+                        return (
+                          <TxRecipient key={idx} to={`/address/${(input as InputCoin).owner}`}>
+                            {trimAddress((input as InputCoin).owner)}
+                          </TxRecipient>
+                        );
                       }
-                      if (input.__typename === 'InputContract') {
-                        return <TxRecipient key={idx} to={`/address/${(input as InputContract).contractId}`}>{trimAddress((input as InputContract).contractId)}</TxRecipient>
+                      if (input.__typename === "InputContract") {
+                        return (
+                          <TxRecipient
+                            key={idx}
+                            to={`/address/${(input as InputContract).contractId}`}
+                          >
+                            {trimAddress((input as InputContract).contractId)}
+                          </TxRecipient>
+                        );
                       }
                       return input.__typename;
                     })()
-                  ))}
+                  )}
                 </TableUI.TableCell>
                 <TableUI.TableCell>
-                  {transaction.outputs.length > 0 ? transaction.outputs.map((output, idx) => (
+                  {transaction.outputs.length > 0
+                    ? transaction.outputs.map((output, idx) =>
+                        (() => {
+                          if (output.__typename === "CoinOutput") {
+                            return (
+                              <TxRecipient key={idx} to={`/address/${(output as CoinOutput).to}`}>
+                                {trimAddress((output as CoinOutput).to)}
+                              </TxRecipient>
+                            );
+                          }
+                          return output.__typename;
+                        })()
+                      )
+                    : "N/A"}
+                </TableUI.TableCell>
+                <TableUI.TableCell>
+                  {transaction.outputs.length > 0
+                    ? transaction.outputs.map((output, idx) =>
+                        (() => {
+                          if (output.__typename === "CoinOutput") {
+                            return (
+                              <TransactionValue key={idx}>
+                                {(output as CoinOutput).amount}
+                              </TransactionValue>
+                            );
+                          }
+                          return `${output.__typename}`;
+                        })()
+                      )
+                    : "N/A"}
+                </TableUI.TableCell>
+                <TableUI.TableCell>
+                  {transaction.outputs.map((output, idx) =>
                     (() => {
-                      if (output.__typename === 'CoinOutput') {
-                        return <TxRecipient key={idx} to={`/address/${(output as CoinOutput).to}`}>{trimAddress((output as CoinOutput).to)}</TxRecipient>
+                      if (output.__typename === "CoinOutput") {
+                        return (
+                          <CoinLink key={idx} to={`/coin`}>
+                            {(output as CoinOutput).color}
+                          </CoinLink>
+                        );
                       }
                       return output.__typename;
                     })()
-                  )) : 'N/A'}
-                </TableUI.TableCell>
-                <TableUI.TableCell>
-                  {transaction.outputs.length > 0 ? transaction.outputs.map((output, idx) => (
-                    (() => {
-                      if (output.__typename === 'CoinOutput') {
-                        return <TransactionValue key={idx}>{(output as CoinOutput).amount}</TransactionValue>
-                      }
-                      return `${output.__typename}`;
-                    })()
-                  )) : 'N/A'}
-                </TableUI.TableCell>
-                <TableUI.TableCell>
-                  {transaction.outputs.map((output, idx) => (
-                    (() => {
-                      if (output.__typename === 'CoinOutput') {
-                        return <CoinLink key={idx} to={`/coin`}>{(output as CoinOutput).color}</CoinLink>
-                      }
-                      return output.__typename
-                    })()
-                  ))}
+                  )}
                 </TableUI.TableCell>
                 <TableUI.TableCell>N/A</TableUI.TableCell>
               </TableUI.TableRow>
@@ -220,41 +267,62 @@ export function TransactionsTable({ transactions }: { transactions: Transaction[
 }
 
 function TableNavigation() {
-  const pages = [1, 2, 3, 4]
-  const [selectedPage, selectPage] = useState(1)
+  const pages = [1, 2, 3, 4];
+  const [selectedPage, selectPage] = useState(1);
 
   function onSelectPage(idx: number) {
-    selectPage(idx)
+    selectPage(idx);
   }
 
   function onClickPrevPage() {
-    selectPage(prevPage => prevPage - 1)
+    selectPage((prevPage) => prevPage - 1);
   }
 
   function onClickNextPage() {
-    selectPage(prevPage => prevPage + 1)
+    selectPage((prevPage) => prevPage + 1);
   }
 
   function onClickLastPage() {
-    selectPage(pages[pages.length - 1])
+    selectPage(pages[pages.length - 1]);
   }
 
   function onClickFirstPage() {
-    selectPage(1)
+    selectPage(1);
   }
 
   return (
     <TableNavigationButtons>
-      <TableNavigationTextButton disabled={selectedPage === 1} onClick={onClickFirstPage}>First</TableNavigationTextButton>
-      <TableNextNavigationTextButton disabled={selectedPage === 1} onClick={onClickPrevPage}>Previous</TableNextNavigationTextButton>
+      <TableNavigationTextButton disabled={selectedPage === 1} onClick={onClickFirstPage}>
+        First
+      </TableNavigationTextButton>
+      <TableNextNavigationTextButton disabled={selectedPage === 1} onClick={onClickPrevPage}>
+        Previous
+      </TableNextNavigationTextButton>
       <TableNavigationNumbersContainer>
         {pages.map((pageIdx) => (
-          <TableNavigationNumberButton key={pageIdx} isSelected={pageIdx === selectedPage} onClick={() => { onSelectPage(pageIdx) }}>
+          <TableNavigationNumberButton
+            key={pageIdx}
+            isSelected={pageIdx === selectedPage}
+            onClick={() => {
+              onSelectPage(pageIdx);
+            }}
+          >
             {pageIdx}
-          </TableNavigationNumberButton>))}
+          </TableNavigationNumberButton>
+        ))}
       </TableNavigationNumbersContainer>
-      <TableNextNavigationTextButton disabled={selectedPage === pages[pages.length - 1]} onClick={onClickNextPage}>Next</TableNextNavigationTextButton>
-      <TableNavigationTextButton disabled={selectedPage === pages[pages.length - 1]} onClick={onClickLastPage}>Last</TableNavigationTextButton>
+      <TableNextNavigationTextButton
+        disabled={selectedPage === pages[pages.length - 1]}
+        onClick={onClickNextPage}
+      >
+        Next
+      </TableNextNavigationTextButton>
+      <TableNavigationTextButton
+        disabled={selectedPage === pages[pages.length - 1]}
+        onClick={onClickLastPage}
+      >
+        Last
+      </TableNavigationTextButton>
     </TableNavigationButtons>
-  )
+  );
 }

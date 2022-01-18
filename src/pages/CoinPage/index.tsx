@@ -16,7 +16,7 @@ import {
   TableHeadlineDisclaimer,
   TableTabsContainer,
   TableTabButton
-} from './components';
+} from "./components";
 import {
   TableContainer,
   TableHeadlineContainer,
@@ -38,7 +38,7 @@ import {
   CoinLink,
   TableWrapper,
   TableNextNavigationTextButton
-} from '../AddressPage/components';
+} from "../AddressPage/components";
 import { Transactions } from "../AddressPage/constants";
 
 export function CoinPage() {
@@ -63,7 +63,9 @@ export function CoinPage() {
             </CoinDetailsRow>
             <CoinDetailsRow>
               <KeyLabel>Max Supply:</KeyLabel>
-              <KeyValue>{Number(10000000).toLocaleString('en', { minimumFractionDigits: 2 })}</KeyValue>
+              <KeyValue>
+                {Number(10000000).toLocaleString("en", { minimumFractionDigits: 2 })}
+              </KeyValue>
             </CoinDetailsRow>
             <CoinDetailsRow>
               <KeyLabel>Total Supply in Fuel:</KeyLabel>
@@ -80,7 +82,9 @@ export function CoinPage() {
             <CoinDetailsRow>
               <KeyLabel>Contract:</KeyLabel>
               <KeyValue>
-                <ContractLink to={`/contract/0xc5d2460186f7233c927e7db2dcc703c0e500}`}>0xc5d2460186f7233c927e7db2dcc703c0e500</ContractLink>
+                <ContractLink to={`/contract/0xc5d2460186f7233c927e7db2dcc703c0e500}`}>
+                  0xc5d2460186f7233c927e7db2dcc703c0e500
+                </ContractLink>
               </KeyValue>
             </CoinDetailsRow>
           </CoinDetailsContainer>
@@ -88,14 +92,16 @@ export function CoinPage() {
         </Content>
       </Container>
     </>
-  )
+  );
 }
 
 export function TransactionsTable() {
   function trimAddress(address: string) {
-    if (!address) { return '' }
+    if (!address) {
+      return "";
+    }
 
-    return `${address.slice(0, 6)}...${address.slice(-6, address.length - 1)}`
+    return `${address.slice(0, 6)}...${address.slice(-6, address.length - 1)}`;
   }
 
   return (
@@ -137,82 +143,112 @@ export function TransactionsTable() {
               <TableCell>{transaction.timestamp}</TableCell>
               <TableCell>
                 {transaction.subTransactions.map((subtransaction, idx) => (
-                  <TxRecipient key={idx} to={`/address/${subtransaction.from}`}>{trimAddress(subtransaction.from)}</TxRecipient>
-                ))}
-              </TableCell>
-              <TableCell>
-                {transaction.subTransactions.map((subtransaction, idx) => subtransaction.to ? (
-                  <TxRecipient key={idx} to={`/address/${subtransaction.to}`}>
+                  <TxRecipient key={idx} to={`/address/${subtransaction.from}`}>
                     {trimAddress(subtransaction.from)}
                   </TxRecipient>
-                ) : (
-                  <BoldText>N/A</BoldText>
                 ))}
               </TableCell>
               <TableCell>
-                {transaction.subTransactions.map((subTransaction, idx) => (
-                  <TransactionValue key={idx}>{subTransaction.value ? subTransaction.value : 'N/A'}</TransactionValue>
-                ))}
-              </TableCell>
-              <TableCell>
-                {transaction.subTransactions.map((subTransaction, idx) => (
-                  subTransaction.coin ? (
-                    <CoinLink key={idx} to={`/coin/${subTransaction.coin}`}>{subTransaction.coin ? subTransaction.coin : 'N/A'}</CoinLink>
+                {transaction.subTransactions.map((subtransaction, idx) =>
+                  subtransaction.to ? (
+                    <TxRecipient key={idx} to={`/address/${subtransaction.to}`}>
+                      {trimAddress(subtransaction.from)}
+                    </TxRecipient>
                   ) : (
                     <BoldText>N/A</BoldText>
                   )
-                ))}
+                )}
               </TableCell>
               <TableCell>
                 {transaction.subTransactions.map((subTransaction, idx) => (
-                  <TransactionValue key={idx}>{subTransaction.fee ? `$${subTransaction.fee.toFixed(2)}` : ''}</TransactionValue>
+                  <TransactionValue key={idx}>
+                    {subTransaction.value ? subTransaction.value : "N/A"}
+                  </TransactionValue>
+                ))}
+              </TableCell>
+              <TableCell>
+                {transaction.subTransactions.map((subTransaction, idx) =>
+                  subTransaction.coin ? (
+                    <CoinLink key={idx} to={`/coin/${subTransaction.coin}`}>
+                      {subTransaction.coin ? subTransaction.coin : "N/A"}
+                    </CoinLink>
+                  ) : (
+                    <BoldText>N/A</BoldText>
+                  )
+                )}
+              </TableCell>
+              <TableCell>
+                {transaction.subTransactions.map((subTransaction, idx) => (
+                  <TransactionValue key={idx}>
+                    {subTransaction.fee ? `$${subTransaction.fee.toFixed(2)}` : ""}
+                  </TransactionValue>
                 ))}
               </TableCell>
             </TableRow>
           ))}
         </Table>
-
       </TableWrapper>
     </TableContainer>
   );
 }
 
 function TableNavigation() {
-  const pages = [1, 2, 3, 4]
-  const [selectedPage, selectPage] = useState(1)
+  const pages = [1, 2, 3, 4];
+  const [selectedPage, selectPage] = useState(1);
 
   function onSelectPage(idx: number) {
-    selectPage(idx)
+    selectPage(idx);
   }
 
   function onClickPrevPage() {
-    selectPage(prevPage => prevPage - 1)
+    selectPage((prevPage) => prevPage - 1);
   }
 
   function onClickNextPage() {
-    selectPage(prevPage => prevPage + 1)
+    selectPage((prevPage) => prevPage + 1);
   }
 
   function onClickLastPage() {
-    selectPage(pages[pages.length - 1])
+    selectPage(pages[pages.length - 1]);
   }
 
   function onClickFirstPage() {
-    selectPage(1)
+    selectPage(1);
   }
 
   return (
     <TableNavigationButtons>
-      <TableNavigationTextButton disabled={selectedPage === 1} onClick={onClickFirstPage}>First</TableNavigationTextButton>
-      <TableNextNavigationTextButton disabled={selectedPage === 1} onClick={onClickPrevPage}>Previous</TableNextNavigationTextButton>
+      <TableNavigationTextButton disabled={selectedPage === 1} onClick={onClickFirstPage}>
+        First
+      </TableNavigationTextButton>
+      <TableNextNavigationTextButton disabled={selectedPage === 1} onClick={onClickPrevPage}>
+        Previous
+      </TableNextNavigationTextButton>
       <TableNavigationNumbersContainer>
         {pages.map((pageIdx) => (
-          <TableNavigationNumberButton key={pageIdx} isSelected={pageIdx === selectedPage} onClick={() => { onSelectPage(pageIdx) }}>
+          <TableNavigationNumberButton
+            key={pageIdx}
+            isSelected={pageIdx === selectedPage}
+            onClick={() => {
+              onSelectPage(pageIdx);
+            }}
+          >
             {pageIdx}
-          </TableNavigationNumberButton>))}
+          </TableNavigationNumberButton>
+        ))}
       </TableNavigationNumbersContainer>
-      <TableNextNavigationTextButton disabled={selectedPage === pages[pages.length - 1]} onClick={onClickNextPage}>Next</TableNextNavigationTextButton>
-      <TableNavigationTextButton disabled={selectedPage === pages[pages.length - 1]} onClick={onClickLastPage}>Last</TableNavigationTextButton>
+      <TableNextNavigationTextButton
+        disabled={selectedPage === pages[pages.length - 1]}
+        onClick={onClickNextPage}
+      >
+        Next
+      </TableNextNavigationTextButton>
+      <TableNavigationTextButton
+        disabled={selectedPage === pages[pages.length - 1]}
+        onClick={onClickLastPage}
+      >
+        Last
+      </TableNavigationTextButton>
     </TableNavigationButtons>
-  )
+  );
 }

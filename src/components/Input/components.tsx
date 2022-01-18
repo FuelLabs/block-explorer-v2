@@ -10,4 +10,4 @@ export const InputReset = styled.input`
     color: #808080;
     opacity: 1;
   }
-`
+`;

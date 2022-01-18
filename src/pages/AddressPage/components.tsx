@@ -1,11 +1,9 @@
 import styled from "styled-components";
-import {ButtonReset} from "../../components/Button/components";
-import {CopyIcon, PlusIcon, QRIcon, ArrowIcon} from "../../components/Icons";
-import {Link} from "react-router-dom";
+import { ButtonReset } from "../../components/Button/components";
+import { CopyIcon, PlusIcon, QRIcon, ArrowIcon } from "../../components/Icons";
+import { Link } from "react-router-dom";
 
-export const Container = styled.section`
-
-`
+export const Container = styled.section``;
 
 export const Content = styled.div`
   padding: 56px 32px;
@@ -16,7 +14,7 @@ export const Content = styled.div`
   @media screen and (max-width: 425px) {
     padding: 40px 24px;
   }
-`
+`;
 
 export const HeadlineContainer = styled.div`
   margin: 0 0 52px;
@@ -32,14 +30,14 @@ export const HeadlineContainer = styled.div`
   @media screen and (max-width: 425px) {
     margin: 0 0 40px;
   }
-`
+`;
 
 export const HeadlineAddressContainer = styled.div`
   display: flex;
   align-items: flex-end;
   flex-wrap: wrap;
   width: 100%;
-`
+`;
 
 export const HeadlineCoinsContainer = styled.div`
   display: flex;
@@ -50,7 +48,7 @@ export const HeadlineCoinsContainer = styled.div`
     margin: 16px 0 0;
     align-items: flex-start;
   }
-`
+`;
 
 export const HeadlineAddressHeader = styled.h2`
   display: flex;
@@ -66,7 +64,7 @@ export const HeadlineAddressHeader = styled.h2`
   @media screen and (max-width: 768px) {
     width: 100%;
   }
-`
+`;
 
 export const HeadlineAddress = styled.span`
   display: block;
@@ -82,7 +80,7 @@ export const HeadlineAddress = styled.span`
     font-size: 15px;
     margin: 4px 0 0 0;
   }
-`
+`;
 
 export const Tooltip = styled.span`
   padding: 2px 8px;
@@ -96,7 +94,7 @@ export const Tooltip = styled.span`
   white-space: nowrap;
   font-size: 12px;
   line-height: 16px;
-`
+`;
 
 export const HeadlineAddressButton = styled(ButtonReset)`
   position: relative;
@@ -106,12 +104,12 @@ export const HeadlineAddressButton = styled(ButtonReset)`
   justify-content: center;
   background-color: #58c09b;
   border-radius: 12px;
-  color: #081C17;
+  color: #081c17;
   margin: 8px 16px 0 0;
-  
+
   :first-of-type {
   }
-  
+
   :hover {
     box-shadow: 0 0 3px 0 #58c09b;
   }
@@ -119,17 +117,17 @@ export const HeadlineAddressButton = styled(ButtonReset)`
   :hover ${Tooltip} {
     display: block;
   }
-`
+`;
 
 export const CopyButtonIcon = styled(CopyIcon)`
   width: 14px !important;
   height: 14px !important;
-`
+`;
 
 export const QRButtonIcon = styled(QRIcon)`
   width: 14px !important;
   height: 14px !important;
-`
+`;
 
 export const CoinsCounterLabel = styled.div`
   margin: 0 0 12px;
@@ -143,7 +141,7 @@ export const CoinsCounterLabel = styled.div`
   font-weight: 500;
   line-height: 16px;
   color: #f8fefc;
-`
+`;
 
 export const CoinsCounter = styled.span`
   margin: 0 0 0 4px;
@@ -159,18 +157,18 @@ export const CoinsCounter = styled.span`
   color: #021d17;
   background-color: #f8fefc;
   border-radius: 7px;
-`
+`;
 
 export const TokenDropdownContainer = styled.div`
   position: relative;
-`
+`;
 
 export const TokenButtonSeparator = styled.span`
   width: 1px;
   height: 36px;
   background-color: #808080;
-  transition: .2s ease-out;
-`
+  transition: 0.2s ease-out;
+`;
 
 export const TokenButton = styled(ButtonReset)<{ isActive?: boolean }>`
   padding: 0;
@@ -179,16 +177,16 @@ export const TokenButton = styled(ButtonReset)<{ isActive?: boolean }>`
   border-radius: 5px;
   border: solid 1px #808080;
   background-color: #192f2b;
-  box-shadow: ${({ isActive }) => isActive ? '0 0 2px 0 #58c09b' : 'none'};
+  box-shadow: ${({ isActive }) => (isActive ? "0 0 2px 0 #58c09b" : "none")};
 
   :hover {
     border: solid 1px #58c09b;
   }
-  
+
   :hover ${TokenButtonSeparator} {
     background-color: #58c09b;
   }
-`
+`;
 
 export const TokenButtonSymbol = styled.span`
   margin: 0 0 0 14px;
@@ -196,7 +194,7 @@ export const TokenButtonSymbol = styled.span`
   font-size: 18px;
   font-weight: normal;
   color: #f8fefc;
-`
+`;
 
 export const TokenButtonAmount = styled.span`
   margin: 0 14px 0 0;
@@ -206,7 +204,7 @@ export const TokenButtonAmount = styled.span`
   font-weight: 600;
   color: #f8fefc;
   text-align: right;
-`
+`;
 
 export const TokenButtonIconContainer = styled.div`
   width: 36px;
@@ -215,20 +213,20 @@ export const TokenButtonIconContainer = styled.div`
   justify-content: center;
   align-items: center;
   color: #f9fefc;
-`
+`;
 
 export const TokenDropdownIcon = styled(ArrowIcon)`
   transform: rotate(90deg);
   width: 12px !important;
   height: 12px !important;
-`
+`;
 
 export const TableContainer = styled.div`
   padding: 8px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
   border: solid 1px #808080;
   border-radius: 8px;
-`
+`;
 
 export const TableHeadlineContainer = styled.div`
   display: flex;
@@ -240,7 +238,7 @@ export const TableHeadlineContainer = styled.div`
     flex-direction: column;
     align-items: flex-start;
   }
-`
+`;
 
 export const TableHeadlinerContentItem = styled.div`
   display: flex;
@@ -256,7 +254,7 @@ export const TableHeadlinerContentItem = styled.div`
     flex-direction: column;
     align-items: flex-start;
   }
-`
+`;
 
 export const TableHeadlineTitle = styled.h3`
   margin: 0 32px 0 0;
@@ -264,7 +262,7 @@ export const TableHeadlineTitle = styled.h3`
   font-size: 16px;
   font-weight: 600;
   color: #f8fefc;
-`
+`;
 
 export const TableHeadlineDisclaimer = styled.span`
   margin: 4px 0 0;
@@ -275,25 +273,23 @@ export const TableHeadlineDisclaimer = styled.span`
   font-style: normal;
   color: #808080;
   white-space: nowrap;
-`
+`;
 
 export const HeadlineHighlighedDisclaimer = styled.span`
   color: #f8fefc;
-`
+`;
 
 export const TableWrapper = styled.div`
   width: 100%;
   overflow-x: auto;
-`
+`;
 
 export const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
-`
+`;
 
-export const TableHeadRow = styled.tr`
-
-`
+export const TableHeadRow = styled.tr``;
 
 export const TableRow = styled.tr`
   td {
@@ -303,7 +299,7 @@ export const TableRow = styled.tr`
   :last-of-type td {
     border: none;
   }
-`
+`;
 
 export const TableHeadCell = styled.th`
   padding: 20px 12px;
@@ -314,7 +310,7 @@ export const TableHeadCell = styled.th`
   font-weight: 600;
   text-align: left;
   color: #f8fefc;
-`
+`;
 
 export const TableCell = styled.td`
   vertical-align: top;
@@ -326,7 +322,7 @@ export const TableCell = styled.td`
   text-align: left;
   white-space: nowrap;
   color: #f8fefc;
-`
+`;
 
 const BaseLink = styled(Link)`
   font-family: SFProText;
@@ -334,7 +330,7 @@ const BaseLink = styled(Link)`
   font-weight: 500;
   line-height: 15px;
   color: #58c09b;
-  transition: .2s ease-out;
+  transition: 0.2s ease-out;
 
   :hover {
     text-shadow: 0 0 6px #58c09b;
@@ -344,7 +340,7 @@ const BaseLink = styled(Link)`
     text-shadow: 0 0 6px #4fad83;
     color: #4fad83;
   }
-`
+`;
 
 export const TxHash = styled(BaseLink)`
   display: block;
@@ -361,17 +357,17 @@ export const TxHash = styled(BaseLink)`
     text-shadow: 0 0 6px #4fad83;
     color: #4fad83;
   }
-`
+`;
 
 export const InputsContainer = styled.div`
   display: flex;
   align-items: flex-start;
-`
+`;
 
 export const InputsAddresses = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 export const InputAddressContainer = styled.div`
   font-family: SFProText;
@@ -380,7 +376,7 @@ export const InputAddressContainer = styled.div`
   line-height: 18px;
   text-align: left;
   color: #f8fefc;
-`
+`;
 
 export const InputAddressLink = styled(Link)`
   font-family: SFProText;
@@ -389,7 +385,7 @@ export const InputAddressLink = styled(Link)`
   font-weight: 500;
   color: #58c09b;
   cursor: pointer;
-  transition: .2s ease-out;
+  transition: 0.2s ease-out;
 
   :hover {
     text-shadow: 0 0 6px #58c09b;
@@ -399,7 +395,7 @@ export const InputAddressLink = styled(Link)`
     text-shadow: 0 0 6px #4fad83;
     color: #4fad83;
   }
-`
+`;
 
 export const InputsExpandButton = styled(ButtonReset)`
   justify-content: center;
@@ -408,19 +404,19 @@ export const InputsExpandButton = styled(ButtonReset)`
   height: 18px;
   background-color: #58c09b;
   border-radius: 9px;
-  color: #081C17;
+  color: #081c17;
 
   :hover {
     box-shadow: 0 0 3px 0 #58c09b;
   }
-`
+`;
 
 export const ExpandIcon = styled(PlusIcon)<{ rotated?: boolean }>`
   width: 16px !important;
   height: 16px !important;
-  transform: ${({ rotated }) => rotated ? 'rotate(45deg)' : 'rotate(0deg)'} ;
-  transition: .2s ease-out;
-`
+  transform: ${({ rotated }) => (rotated ? "rotate(45deg)" : "rotate(0deg)")};
+  transition: 0.2s ease-out;
+`;
 
 export const TxRecipient = styled(BaseLink)`
   display: block;
@@ -429,22 +425,21 @@ export const TxRecipient = styled(BaseLink)`
   :last-of-type {
     margin: 0;
   }
-`
+`;
 
 export const BoldText = styled.span`
   font-weight: 600;
-`
+`;
 
 export const TransactionValue = styled.span`
   display: block;
   font-weight: 600;
   margin: 0 0 12px;
 
-
   :last-of-type {
     margin: 0;
   }
-`
+`;
 
 export const CoinLink = styled(BaseLink)`
   display: block;
@@ -457,7 +452,7 @@ export const CoinLink = styled(BaseLink)`
   :last-of-type {
     margin: 0;
   }
-`
+`;
 
 export const TableNavigationButtons = styled.div`
   margin: 4px 0 0;
@@ -471,12 +466,12 @@ export const TableNavigationButtons = styled.div`
   @media screen and (max-width: 560px) {
     margin: 12px 0 0;
   }
-`
+`;
 
 export const TableNavigationButton = styled(ButtonReset)<{ isSelected?: boolean }>`
   height: 13px;
-  color: ${({ isSelected }) => isSelected ? '#d1d4d7;' : '#808080'};
-  background-color: ${({ isSelected }) => isSelected ? '#192f2b;' : 'rgba(0, 0, 0, 0)'};
+  color: ${({ isSelected }) => (isSelected ? "#d1d4d7;" : "#808080")};
+  background-color: ${({ isSelected }) => (isSelected ? "#192f2b;" : "rgba(0, 0, 0, 0)")};
 
   :hover {
     color: #d1d4d7;
@@ -485,18 +480,18 @@ export const TableNavigationButton = styled(ButtonReset)<{ isSelected?: boolean 
   :disabled {
     color: #192f2b;
   }
-`
+`;
 
 export const TableNavigationNumbersContainer = styled.div`
   display: flex;
   margin: 0 12px;
-`
+`;
 
 export const TableNavigationNumberButton = styled(TableNavigationButton)`
   margin: 0 2px;
   width: 13px;
   justify-content: center;
-`
+`;
 
 export const TableNavigationTextButton = styled(TableNavigationButton)`
   line-height: 14px;
@@ -511,10 +506,10 @@ export const TableNavigationTextButton = styled(TableNavigationButton)`
       margin: 0 0 0 12px;
     }
   }
-`
+`;
 
 export const TableNextNavigationTextButton = styled(TableNavigationTextButton)`
   @media screen and (max-width: 768px) {
     display: none;
   }
-`
+`;

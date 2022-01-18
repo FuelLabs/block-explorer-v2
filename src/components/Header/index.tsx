@@ -2,7 +2,8 @@ import {
   ContentItem,
   HeaderContainer,
   HeaderContent,
-  Logo, LogoLink,
+  Logo,
+  LogoLink,
   NavigationLink,
   NavigationLinksContainer,
   NetworkSelectorButton,
@@ -12,36 +13,43 @@ import { useContext, useState } from "react";
 import { NetworkModal } from "../Modals/NetworkModal";
 import { ChainContext } from "../../contexts/network";
 
-const NavigationLinks = [{
-  text: 'v1 Docs',
-  link: "https://docs.fuel.sh"
-}, {
-  text: 'GitHub',
-  link: 'https://github.com/FuelLabs'
-}, {
-  text: 'Discord',
-  link: 'https://discord.com/invite/xfpK4Pe'
-}, {
-  text: 'Twitter',
-  link: 'https://twitter.com/fuellabs_'
-}, {
-  text: 'Medium',
-  link: 'https://fuellabs.medium.com'
-}, {
-  text: 'Jobs',
-  link: 'https://jobs.lever.co/fuellabs'
-}]
+const NavigationLinks = [
+  {
+    text: "v1 Docs",
+    link: "https://docs.fuel.sh"
+  },
+  {
+    text: "GitHub",
+    link: "https://github.com/FuelLabs"
+  },
+  {
+    text: "Discord",
+    link: "https://discord.com/invite/xfpK4Pe"
+  },
+  {
+    text: "Twitter",
+    link: "https://twitter.com/fuellabs_"
+  },
+  {
+    text: "Medium",
+    link: "https://fuellabs.medium.com"
+  },
+  {
+    text: "Jobs",
+    link: "https://jobs.lever.co/fuellabs"
+  }
+];
 
 export function Header() {
-  const [modal, setModal] = useState(false)
+  const [modal, setModal] = useState(false);
   const { chains } = useContext(ChainContext);
 
   function onClose() {
-    setModal(false)
+    setModal(false);
   }
 
   function showModal() {
-    setModal(true)
+    setModal(true);
   }
 
   return (
@@ -61,7 +69,14 @@ export function Header() {
             </NetworkSelectorButton>
             <NavigationLinksContainer>
               {NavigationLinks.map((navigationItem, idx) => (
-                <NavigationLink key={idx} href={navigationItem.link} target="_blank" rel="noreferrer">{navigationItem.text}</NavigationLink>
+                <NavigationLink
+                  key={idx}
+                  href={navigationItem.link}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {navigationItem.text}
+                </NavigationLink>
               ))}
             </NavigationLinksContainer>
           </ContentItem>
@@ -69,5 +84,5 @@ export function Header() {
       </HeaderContainer>
       {modal && <NetworkModal onClose={onClose} />}
     </>
-  )
+  );
 }
