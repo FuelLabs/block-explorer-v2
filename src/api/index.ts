@@ -355,5 +355,5 @@ export const queries = {
         }
       }
     }
-  `
+  `,
 };

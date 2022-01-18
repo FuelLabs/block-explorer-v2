@@ -12,7 +12,7 @@ import {
   DataTitle,
   ProducerAddress,
   TxCount,
-  BlockProducerText
+  BlockProducerText,
 } from "./components";
 
 type Props = {

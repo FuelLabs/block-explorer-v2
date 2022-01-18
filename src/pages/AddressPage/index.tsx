@@ -33,7 +33,7 @@ import {
   TableNavigationNumberButton,
   TableNavigationTextButton,
   TableNavigationNumbersContainer,
-  TableNextNavigationTextButton
+  TableNextNavigationTextButton,
 } from "./components";
 import { QRModal } from "../../components/Modals/QRModal";
 import { queries } from "../../api";
@@ -47,7 +47,7 @@ export function AddressPage() {
   const [copyTooltip] = useState("Copy address");
   const [modal, setModal] = useState(false);
   const { loading, data } = useQuery(queries.getTransactionsByOwner, {
-    variables: { first: 10, owner: address }
+    variables: { first: 10, owner: address },
   });
   const transactions = useMemo<Transaction[]>(() => {
     return data?.transactionsByOwner
@@ -183,7 +183,7 @@ export function TransactionsTable({ transactions }: { transactions: Transaction[
                 <TableUI.TableCell>{transaction.isScript ? "Script" : "Create"}</TableUI.TableCell>
                 <TableUI.TableCell>
                   {getTextForRelativeTimeDifference(
-                    dateDiffRelative(new Date(), new Date(transaction.status.time))
+                    dateDiffRelative(new Date(), new Date(transaction.status.time)),
                   )}
                 </TableUI.TableCell>
                 <TableUI.TableCell>
@@ -207,7 +207,7 @@ export function TransactionsTable({ transactions }: { transactions: Transaction[
                         );
                       }
                       return input.__typename;
-                    })()
+                    })(),
                   )}
                 </TableUI.TableCell>
                 <TableUI.TableCell>
@@ -222,7 +222,7 @@ export function TransactionsTable({ transactions }: { transactions: Transaction[
                             );
                           }
                           return output.__typename;
-                        })()
+                        })(),
                       )
                     : "N/A"}
                 </TableUI.TableCell>
@@ -238,7 +238,7 @@ export function TransactionsTable({ transactions }: { transactions: Transaction[
                             );
                           }
                           return `${output.__typename}`;
-                        })()
+                        })(),
                       )
                     : "N/A"}
                 </TableUI.TableCell>
@@ -253,7 +253,7 @@ export function TransactionsTable({ transactions }: { transactions: Transaction[
                         );
                       }
                       return output.__typename;
-                    })()
+                    })(),
                   )}
                 </TableUI.TableCell>
                 <TableUI.TableCell>N/A</TableUI.TableCell>

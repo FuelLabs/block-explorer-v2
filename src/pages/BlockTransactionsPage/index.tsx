@@ -13,7 +13,7 @@ import {
   TableHeadlineTitle,
   TableHeadRow,
   TableRow,
-  TableWrapper
+  TableWrapper,
 } from "../../components/Table/components";
 import { trimAddress } from "../../utils/address";
 import { dateDiffRelative, getTextForRelativeTimeDifference } from "../../utils/date";
@@ -30,13 +30,13 @@ import {
   Title,
   TxHashLink,
   TxRecipientLink,
-  TxValue
+  TxValue,
 } from "./components";
 
 export function BlockTransactionsPage() {
   const { block } = useParams() as any;
   const blockByHeightQuery = useQuery(queries.getBlockByHeight, {
-    variables: { height: parseInt(block) }
+    variables: { height: parseInt(block) },
   });
   const bl = useMemo<Block>(() => {
     return blockByHeightQuery?.data?.block;
@@ -94,7 +94,7 @@ const Transactions: React.FC<{ transactions: Transaction[] }> = ({ transactions 
                 <TableCell>{transaction.isScript ? "Script" : "Create"}</TableCell>
                 <TableCell>
                   {getTextForRelativeTimeDifference(
-                    dateDiffRelative(new Date(), new Date(transaction.status.time))
+                    dateDiffRelative(new Date(), new Date(transaction.status.time)),
                   )}
                 </TableCell>
                 <TableCell>
@@ -118,7 +118,7 @@ const Transactions: React.FC<{ transactions: Transaction[] }> = ({ transactions 
                         );
                       }
                       return input.__typename;
-                    })()
+                    })(),
                   )}
                 </TableCell>
                 <TableCell>
@@ -132,7 +132,7 @@ const Transactions: React.FC<{ transactions: Transaction[] }> = ({ transactions 
                         );
                       }
                       return output.__typename;
-                    })()
+                    })(),
                   )}
                 </TableCell>
                 <TableCell>
@@ -142,7 +142,7 @@ const Transactions: React.FC<{ transactions: Transaction[] }> = ({ transactions 
                         return <TxValue key={idx}>{(output as CoinOutput).amount}</TxValue>;
                       }
                       return `N/A ${output.__typename}`;
-                    })()
+                    })(),
                   )}
                 </TableCell>
                 <TableCell>
@@ -156,7 +156,7 @@ const Transactions: React.FC<{ transactions: Transaction[] }> = ({ transactions 
                         );
                       }
                       return "N/A";
-                    })()
+                    })(),
                   )}
                 </TableCell>
                 <TableCell bold>N/A</TableCell>

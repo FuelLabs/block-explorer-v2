@@ -9,7 +9,7 @@ export const ChainContext = React.createContext<{
   loading: boolean;
 }>({
   chains: [],
-  loading: false
+  loading: false,
 });
 
 export const ChainProvider: React.FC = ({ children }) => {
@@ -22,7 +22,7 @@ export const ChainProvider: React.FC = ({ children }) => {
     <ChainContext.Provider
       value={{
         chains,
-        loading
+        loading,
       }}
     >
       {children}

@@ -11,7 +11,7 @@ import {
   ContractLink,
   TableHeadlineDisclaimer,
   TableTabsContainer,
-  TableTabButton
+  TableTabButton,
 } from "./components";
 import {
   TableContainer,
@@ -51,7 +51,7 @@ import {
   HeadlineCoinsContainer,
   CoinsCounterLabel,
   TokenDropdownContainer,
-  TokenDropdownIcon
+  TokenDropdownIcon,
 } from "../AddressPage/components";
 import { Transactions } from "../AddressPage/constants";
 import { QRModal } from "../../components/Modals/QRModal";
@@ -197,7 +197,7 @@ export function TransactionsTable() {
                     </TxRecipient>
                   ) : (
                     <BoldText>N/A</BoldText>
-                  )
+                  ),
                 )}
               </TableCell>
               <TableCell>
@@ -215,7 +215,7 @@ export function TransactionsTable() {
                     </CoinLink>
                   ) : (
                     <BoldText>N/A</BoldText>
-                  )
+                  ),
                 )}
               </TableCell>
               <TableCell>

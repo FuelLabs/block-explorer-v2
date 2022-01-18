@@ -32,7 +32,7 @@ import {
   WitnessIconContainer,
   WitnessAddress,
   UTXODetailsValue,
-  WitnessIcon
+  WitnessIcon,
 } from "./components";
 import { useParams } from "react-router-dom";
 import { ExpandIcon, ShrinkIcon } from "../../components/Icons";
@@ -172,8 +172,8 @@ const Inputs: UTXOInputData[] = [
     hash: "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
     contractId: "0xc5d2460186f7233c927e7db2dcc703c0e500",
     balanceRoot: "0xc5d2460186f7233c927e7db2dcc703c0e500",
-    stateRoot: "0xc5d2460186f7233c927e7db2dcc703c0e500"
-  }
+    stateRoot: "0xc5d2460186f7233c927e7db2dcc703c0e500",
+  },
 ];
 
 interface UTXOInputProps {
@@ -226,8 +226,8 @@ const Outputs: UTXOOutputData[] = [
     hash: "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
     contractId: "0xc5d2460186f7233c927e7db2dcc703c0e500",
     balanceRoot: "0xc5d2460186f7233c927e7db2dcc703c0e500",
-    stateRoot: "0xc5d2460186f7233c927e7db2dcc703c0e500"
-  }
+    stateRoot: "0xc5d2460186f7233c927e7db2dcc703c0e500",
+  },
 ];
 
 interface UTXOOutputProps {

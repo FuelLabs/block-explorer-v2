@@ -33,7 +33,7 @@ import {
   ScriptTabsContainer,
   ScriptTabButton,
   ScriptPlaceholder,
-  UTXOHeadlineColumn2
+  UTXOHeadlineColumn2,
 } from "./components";
 import { useParams } from "react-router-dom";
 import { ExpandIcon, ShrinkIcon } from "../../components/Icons";

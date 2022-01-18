@@ -7,7 +7,7 @@ import {
   NavigationLink,
   NavigationLinksContainer,
   NetworkSelectorButton,
-  NetworkSelectorIcon
+  NetworkSelectorIcon,
 } from "./components";
 import { useContext, useState } from "react";
 import { NetworkModal } from "../Modals/NetworkModal";
@@ -16,28 +16,28 @@ import { ChainContext } from "../../contexts/network";
 const NavigationLinks = [
   {
     text: "v1 Docs",
-    link: "https://docs.fuel.sh"
+    link: "https://docs.fuel.sh",
   },
   {
     text: "GitHub",
-    link: "https://github.com/FuelLabs"
+    link: "https://github.com/FuelLabs",
   },
   {
     text: "Discord",
-    link: "https://discord.com/invite/xfpK4Pe"
+    link: "https://discord.com/invite/xfpK4Pe",
   },
   {
     text: "Twitter",
-    link: "https://twitter.com/fuellabs_"
+    link: "https://twitter.com/fuellabs_",
   },
   {
     text: "Medium",
-    link: "https://fuellabs.medium.com"
+    link: "https://fuellabs.medium.com",
   },
   {
     text: "Jobs",
-    link: "https://jobs.lever.co/fuellabs"
-  }
+    link: "https://jobs.lever.co/fuellabs",
+  },
 ];
 
 export function Header() {

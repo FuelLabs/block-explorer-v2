@@ -20,27 +20,27 @@ export const Transactions: {
         to: "0xc5d2460186f7233c927e7db2dcc703c0e500",
         value: 300,
         coin: "USDC",
-        fee: 0.2
+        fee: 0.2,
       },
       {
         from: "0xc5d2460186f7233c927e7db2dcc703c0e500",
         to: "0xc5d2460186f7233c927e7db2dcc703c0e500",
         value: 43,
-        coin: "DAI"
+        coin: "DAI",
       },
       {
         from: "0xc5d2460186f7233c927e7db2dcc703c0e500",
         to: "0xc5d2460186f7233c927e7db2dcc703c0e500",
         value: 0.00000123,
-        coin: "ETH"
+        coin: "ETH",
       },
       {
         from: "0xc5d2460186f7233c927e7db2dcc703c0e500",
         to: "0xc5d2460186f7233c927e7db2dcc703c0e500",
         value: 1246344,
-        coin: "ETH"
-      }
-    ]
+        coin: "ETH",
+      },
+    ],
   },
   {
     hash: "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
@@ -52,9 +52,9 @@ export const Transactions: {
         to: "0xc5d2460186f7233c927e7db2dcc703c0e500",
         value: 300,
         coin: "USDC",
-        fee: 1.44
-      }
-    ]
+        fee: 1.44,
+      },
+    ],
   },
   {
     hash: "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
@@ -63,8 +63,8 @@ export const Transactions: {
     subTransactions: [
       {
         from: "0xc5d2460186f7233c927e7db2dcc703c0e500",
-        fee: 0.77
-      }
-    ]
-  }
+        fee: 0.77,
+      },
+    ],
+  },
 ];

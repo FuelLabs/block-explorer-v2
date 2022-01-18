@@ -16,7 +16,7 @@ import {
   TransactionRecipientsColumn,
   TransactionRecipientsWrapper,
   TransactionsDataBoxRow,
-  TransactionRowColumn
+  TransactionRowColumn,
 } from "./components";
 
 type Props = {
@@ -26,7 +26,7 @@ type Props = {
 export const RecentTransactions: React.FC<Props> = ({ transactions }) => {
   const sortedTransactions = transactions
     .sort((t1, t2) =>
-      new Date(t1.status.time).getTime() - new Date(t2.status.time).getTime() <= 0 ? 1 : -1
+      new Date(t1.status.time).getTime() - new Date(t2.status.time).getTime() <= 0 ? 1 : -1,
     )
     .slice(0, 5);
 
@@ -76,7 +76,7 @@ const TransactionRow = ({ transaction }: { transaction: Transaction }) => {
               </TransactionRecipientLink>
             ) : (
               input.__typename
-            )
+            ),
           )}
         </TransactionRecipientsWrapper>
         <TransactionRecipientsWrapper>
@@ -88,7 +88,7 @@ const TransactionRow = ({ transaction }: { transaction: Transaction }) => {
               </TransactionRecipientLink>
             ) : (
               output.__typename
-            )
+            ),
           )}
         </TransactionRecipientsWrapper>
       </TransactionRecipientsColumn>

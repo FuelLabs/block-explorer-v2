@@ -16,7 +16,7 @@ import {
   ProducerLink,
   RowKeyColumn,
   Title,
-  TransactionsCount
+  TransactionsCount,
 } from "./components";
 import { useParams } from "react-router-dom";
 import { ExternalLinkIcon } from "../../components/Icons";
@@ -28,10 +28,10 @@ export function BlockPage() {
   const { block } = useParams() as any;
 
   const { data, loading } = useQuery(queries.getBlockByHeight, {
-    variables: { height: parseInt(block) }
+    variables: { height: parseInt(block) },
   });
   const previousBlockQuery = useQuery(queries.getPreviousBlockByHeight, {
-    variables: { height: parseInt(block) - 1 }
+    variables: { height: parseInt(block) - 1 },
   });
 
   const bl = useMemo<Block>(() => {

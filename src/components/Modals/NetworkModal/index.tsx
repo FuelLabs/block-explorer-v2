@@ -5,7 +5,7 @@ import {
   NetworkSelectorCheckbox,
   NetworkSelectorButtonText,
   ActiveNetworkIndicator,
-  ConfirmNetworkButton
+  ConfirmNetworkButton,
 } from "./components";
 import * as React from "react";
 import { Modal } from "../Base";
@@ -25,7 +25,7 @@ export function NetworkModal(props: Props) {
   const [activeChain, setActiveChain] = useState<Chain>(chains?.[0]);
   const highlightedChain = useMemo(
     () => selectedChain || activeChain,
-    [activeChain, selectedChain]
+    [activeChain, selectedChain],
   );
 
   useOnClickOutside(contentRef, onClickOutside);

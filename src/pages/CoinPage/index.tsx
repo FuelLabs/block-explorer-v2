@@ -15,7 +15,7 @@ import {
   ContractLink,
   TableHeadlineDisclaimer,
   TableTabsContainer,
-  TableTabButton
+  TableTabButton,
 } from "./components";
 import {
   TableContainer,
@@ -37,7 +37,7 @@ import {
   BoldText,
   CoinLink,
   TableWrapper,
-  TableNextNavigationTextButton
+  TableNextNavigationTextButton,
 } from "../AddressPage/components";
 import { Transactions } from "../AddressPage/constants";
 
@@ -156,7 +156,7 @@ export function TransactionsTable() {
                     </TxRecipient>
                   ) : (
                     <BoldText>N/A</BoldText>
-                  )
+                  ),
                 )}
               </TableCell>
               <TableCell>
@@ -174,7 +174,7 @@ export function TransactionsTable() {
                     </CoinLink>
                   ) : (
                     <BoldText>N/A</BoldText>
-                  )
+                  ),
                 )}
               </TableCell>
               <TableCell>
