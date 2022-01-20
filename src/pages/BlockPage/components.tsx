@@ -1,10 +1,8 @@
 import styled from "styled-components";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ArrowIcon } from "../../components/Icons";
 
-export const Container = styled.section`
-
-`
+export const Container = styled.section``;
 
 export const Content = styled.div`
   padding: 56px 32px;
@@ -15,7 +13,7 @@ export const Content = styled.div`
   @media screen and (max-width: 425px) {
     padding: 40px 24px;
   }
-`
+`;
 
 export const Title = styled.h2`
   margin: 0 0 40px;
@@ -29,7 +27,7 @@ export const Title = styled.h2`
   @media screen and (max-width: 768px) {
     margin: 0 0 24px;
   }
-`
+`;
 
 export const BlockDataContainer = styled.div`
   padding: 16px 32px;
@@ -40,7 +38,7 @@ export const BlockDataContainer = styled.div`
   @media screen and (max-width: 768px) {
     padding: 8px 24px;
   }
-`
+`;
 
 export const BlockDataRow = styled.div`
   padding: 12px 0;
@@ -49,7 +47,7 @@ export const BlockDataRow = styled.div`
   @media screen and (max-width: 768px) {
     flex-direction: column;
   }
-`
+`;
 
 export const RowKeyColumn = styled.div`
   flex: 0 0 250px;
@@ -62,13 +60,13 @@ export const RowKeyColumn = styled.div`
   @media screen and (max-width: 768px) {
     flex: 1 1 0;
   }
-`
+`;
 
 export const RowValueColumn = styled.div`
   flex: 1 1 0;
   overflow: hidden;
   text-overflow: ellipsis;
-`
+`;
 
 export const ProducerLink = styled(Link)`
   font-family: SFProText;
@@ -76,7 +74,7 @@ export const ProducerLink = styled(Link)`
   font-weight: 500;
   color: #58c09b;
   cursor: pointer;
-  transition: .2s ease-out;
+  transition: 0.2s ease-out;
   overflow: hidden;
   text-overflow: ellipsis;
 
@@ -92,7 +90,7 @@ export const ProducerLink = styled(Link)`
   @media screen and (max-width: 768px) {
     margin: 4px 0 0;
   }
-`
+`;
 
 export const BlockHash = styled(Link)`
   font-family: SFProText;
@@ -100,7 +98,7 @@ export const BlockHash = styled(Link)`
   font-weight: 500;
   color: #58c09b;
   cursor: pointer;
-  transition: .2s ease-out;
+  transition: 0.2s ease-out;
   overflow: hidden;
   text-overflow: ellipsis;
 
@@ -116,7 +114,7 @@ export const BlockHash = styled(Link)`
   @media screen and (max-width: 768px) {
     margin: 4px 0 0;
   }
-`
+`;
 
 export const BlockNumber = styled.div`
   font-family: SFProText;
@@ -128,17 +126,17 @@ export const BlockNumber = styled.div`
   @media screen and (max-width: 768px) {
     margin: 4px 0 0;
   }
-`
+`;
 
 export const EtherscanBlockLink = styled.a`
   margin: 0 0 0 8px;
   color: #58c09b;
-  
+
   svg {
     height: 12px !important;
     width: 12px !important;
   }
-`
+`;
 
 export const AddressesCount = styled.div`
   font-family: SFProText;
@@ -150,7 +148,7 @@ export const AddressesCount = styled.div`
   @media screen and (max-width: 768px) {
     margin: 4px 0 0;
   }
-`
+`;
 
 export const TransactionsCount = styled(Link)`
   font-family: SFProText;
@@ -158,7 +156,7 @@ export const TransactionsCount = styled(Link)`
   font-weight: 500;
   color: #58c09b;
   cursor: pointer;
-  transition: .2s ease-out;
+  transition: 0.2s ease-out;
 
   :hover {
     text-shadow: 0 0 6px #58c09b;
@@ -172,7 +170,7 @@ export const TransactionsCount = styled(Link)`
   @media screen and (max-width: 768px) {
     margin: 4px 0 0;
   }
-`
+`;
 
 export const BlockHeightContainer = styled.div`
   display: flex;
@@ -181,7 +179,7 @@ export const BlockHeightContainer = styled.div`
   @media screen and (max-width: 768px) {
     margin: 4px 0 0;
   }
-`
+`;
 
 export const BlockHeight = styled.div`
   margin: 0 12px;
@@ -191,7 +189,7 @@ export const BlockHeight = styled.div`
   font-weight: 500;
   line-height: 20px;
   color: #f8fefc;
-`
+`;
 
 export const BlockNavigationButton = styled(Link)`
   display: flex;
@@ -208,10 +206,10 @@ export const BlockNavigationButton = styled(Link)`
   :hover {
     box-shadow: 0 0 2px 0 #58c09b;
   }
-`
+`;
 
-export const BlockNavigationIcon = styled(ArrowIcon)<{rotate?: boolean}>`
+export const BlockNavigationIcon = styled(ArrowIcon)<{ rotate?: boolean }>`
   width: 6px !important;
   height: 6px !important;
-  transform: ${({ rotate }) => rotate ? 'rotate(180deg)' : 'none'};
-`
+  transform: ${({ rotate }) => (rotate ? "rotate(180deg)" : "none")};
+`;

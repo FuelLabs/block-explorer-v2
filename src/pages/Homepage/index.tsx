@@ -1,15 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { Header } from "../../components/Header";
-import {
-  Container,
-  Content,
-  DataContainer,
-  Input,
-  InputContainer,
-  SearchIcon
-} from "./components";
-import { queries } from '../../api';
+import { Container, Content, DataContainer, Input, InputContainer, SearchIcon } from "./components";
+import { queries } from "../../api";
 import { Block } from "../../utils/models";
 import { Transaction } from "../../utils/model";
 import { RecentBlocks } from "./RecentBlocks";
@@ -19,23 +12,23 @@ export function Homepage() {
   const [blocks, setBlocks] = useState<Block[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const transactionsQuery = useQuery(queries.getHomeTransactions, { variables: { count: 50 } });
-  const blocksQuery = useQuery(queries.getHomeBlocks, { variables: { count: 5 }});
+  const blocksQuery = useQuery(queries.getHomeBlocks, { variables: { count: 5 } });
 
   useEffect(() => {
     if (blocksQuery.loading) return;
     if (blocksQuery.error) return;
     const edges: any[] = blocksQuery.data?.blocks?.edges || [];
-    const blocks: Block[] = edges.map(edge => edge.node);
+    const blocks: Block[] = edges.map((edge) => edge.node);
     setBlocks(blocks);
-  }, [blocksQuery])
+  }, [blocksQuery.loading, blocksQuery.error, blocksQuery.data]);
 
   useEffect(() => {
     if (transactionsQuery.loading) return;
     if (transactionsQuery.error) return;
     const edges: any[] = transactionsQuery.data?.transactions?.edges || [];
-    const transactions: Transaction[] = edges.map(edge => edge.node);
+    const transactions: Transaction[] = edges.map((edge) => edge.node);
     setTransactions(transactions);
-  }, [transactionsQuery])
+  }, [transactionsQuery.loading, transactionsQuery.data, transactionsQuery.error]);
 
   return (
     <>
@@ -53,5 +46,5 @@ export function Homepage() {
         </Content>
       </Container>
     </>
-  )
+  );
 }

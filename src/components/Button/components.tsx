@@ -8,5 +8,5 @@ export const ButtonReset = styled.button`
   outline: none;
   border: none;
   cursor: pointer;
-  transition: .2s ease-out;
-`
+  transition: 0.2s ease-out;
+`;

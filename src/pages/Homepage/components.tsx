@@ -1,11 +1,9 @@
-import styled from 'styled-components'
-import {InputReset} from "../../components/Input/components";
+import styled from "styled-components";
+import { InputReset } from "../../components/Input/components";
 import { SearchIcon as SearchSvg } from "../../components/Icons";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export const Container = styled.section`
-
-`
+export const Container = styled.section``;
 
 export const Content = styled.div`
   padding: 56px 32px 0;
@@ -16,13 +14,13 @@ export const Content = styled.div`
   @media screen and (max-width: 425px) {
     padding: 40px 24px;
   }
-`
+`;
 
 export const InputContainer = styled.div`
   position: relative;
   width: 100%;
   max-width: 700px;
-`
+`;
 
 export const Input = styled(InputReset)`
   height: 40px;
@@ -46,14 +44,14 @@ export const Input = styled(InputReset)`
   @media screen and (max-width: 425px) {
     font-size: 16px;
   }
-`
+`;
 
 export const SearchIcon = styled(SearchSvg)`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   right: 8px;
-`
+`;
 
 export const DataContainer = styled.div`
   display: flex;
@@ -63,7 +61,7 @@ export const DataContainer = styled.div`
   @media screen and (max-width: 768px) {
     flex-direction: column;
   }
-`
+`;
 
 export const DataItem = styled.div`
   width: 48%;
@@ -75,7 +73,7 @@ export const DataItem = styled.div`
       margin: 0 0 32px;
     }
   }
-`
+`;
 
 export const DataTitle = styled.h2`
   margin: 0 0 16px;
@@ -83,25 +81,25 @@ export const DataTitle = styled.h2`
   font-size: 21px;
   font-weight: 600;
   color: #eafff8;
-`
+`;
 
 export const DataBox = styled.div`
   border-radius: 12px;
   border: solid 1px #808080;
-`
+`;
 
 export const DataBoxRow = styled.div`
   display: flex;
   border-bottom: solid 1px #21302d;
-  
+
   :last-of-type {
     border-bottom: none;
   }
-`
+`;
 
 export const RecentBlockRow = styled(DataBoxRow)`
   padding: 22px 24px;
-`
+`;
 
 export const TransactionsDataBoxRow = styled(DataBoxRow)`
   padding: 22px 24px 22px 0;
@@ -109,12 +107,12 @@ export const TransactionsDataBoxRow = styled(DataBoxRow)`
   @media screen and (max-width: 1000px) {
     flex-direction: column;
   }
-`
+`;
 
 export const DataBoxColumn = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 export const DataTimestamp = styled.span`
   font-family: SFProText;
@@ -122,11 +120,11 @@ export const DataTimestamp = styled.span`
   font-weight: 500;
   font-style: normal;
   color: #808080;
-`
+`;
 
 export const ProducerRow = styled.div`
   display: flex;
-`
+`;
 
 export const DataLabel = styled.span`
   display: flex;
@@ -136,7 +134,7 @@ export const DataLabel = styled.span`
   font-weight: normal;
   color: #808080;
   white-space: pre;
-`
+`;
 
 export const BlockProducerText = styled.span`
   display: flex;
@@ -147,7 +145,7 @@ export const BlockProducerText = styled.span`
   color: #808080;
   white-space: pre;
   max-width: 204px;
-`
+`;
 
 export const BaseLink = styled(Link)`
   font-family: SFProText;
@@ -156,7 +154,7 @@ export const BaseLink = styled(Link)`
   font-weight: normal;
   color: #58c09b;
   cursor: pointer;
-  transition: .2s ease-out;
+  transition: 0.2s ease-out;
 
   :hover {
     text-shadow: 0 0 6px #58c09b;
@@ -166,13 +164,13 @@ export const BaseLink = styled(Link)`
     text-shadow: 0 0 6px #4fad83;
     color: #4fad83;
   }
-`
+`;
 
 export const ProducerAddress = styled(BaseLink)`
   display: block;
   text-overflow: ellipsis;
   overflow: hidden;
-`
+`;
 
 export const BlockNumber = styled(Link)`
   margin: 0 0 2px 0;
@@ -182,7 +180,7 @@ export const BlockNumber = styled(Link)`
   font-weight: normal;
   color: #58c09b;
   cursor: pointer;
-  transition: .2s ease-out;
+  transition: 0.2s ease-out;
 
   :hover {
     text-shadow: 0 0 6px #58c09b;
@@ -192,11 +190,9 @@ export const BlockNumber = styled(Link)`
     text-shadow: 0 0 6px #4fad83;
     color: #4fad83;
   }
-`
+`;
 
-export const TxCount = styled(BaseLink)`
-  
-`
+export const TxCount = styled(BaseLink)``;
 
 export const TxType = styled.span`
   padding: 2px 8px;
@@ -209,7 +205,7 @@ export const TxType = styled.span`
   line-height: 16px;
   font-weight: 600;
   color: #021d17;
-`
+`;
 
 export const TransactionAddress = styled(Link)`
   display: block;
@@ -219,7 +215,7 @@ export const TransactionAddress = styled(Link)`
   font-weight: 500;
   color: #58c09b;
   cursor: pointer;
-  transition: .2s ease-out;
+  transition: 0.2s ease-out;
   text-overflow: ellipsis;
   overflow: hidden;
 
@@ -231,11 +227,11 @@ export const TransactionAddress = styled(Link)`
     text-shadow: 0 0 6px #4fad83;
     color: #4fad83;
   }
-`
+`;
 
 export const TransactionRecipientLabel = styled(DataLabel)`
   font-weight: 500;
-`
+`;
 
 export const TransactionRecipientLink = styled(BaseLink)`
   margin: 0 0 2px;
@@ -243,13 +239,13 @@ export const TransactionRecipientLink = styled(BaseLink)`
   text-overflow: ellipsis;
   display: block;
   overflow: hidden;
-`
+`;
 
-export const TransactionTypeColumn = styled(DataBoxColumn) `
+export const TransactionTypeColumn = styled(DataBoxColumn)`
   margin: 0 0 0 20px;
-`
+`;
 
-export const TransactionHashColumn = styled(DataBoxColumn) `
+export const TransactionHashColumn = styled(DataBoxColumn)`
   max-width: 124px;
   margin: 0 0 0 20px;
   overflow: hidden;
@@ -257,7 +253,7 @@ export const TransactionHashColumn = styled(DataBoxColumn) `
   @media screen and (max-width: 1000px) {
     max-width: 400px;
   }
-`
+`;
 
 export const TransactionRecipientsColumn = styled.div`
   margin: 0 0 0 24px;
@@ -273,25 +269,25 @@ export const TransactionRecipientsColumn = styled.div`
   @media screen and (max-width: 768px) {
     max-width: 400px;
   }
-`
+`;
 
 export const TransactionRecipientsWrapper = styled.div`
   width: 45%;
   display: flex;
   flex-direction: column;
-`
+`;
 
 export const RecentBlockColumn1 = styled(DataBoxColumn)`
   flex: 1 1 0;
   max-width: 124px;
-`
+`;
 
 export const RecentBlockColumn2 = styled(DataBoxColumn)`
   flex: 1 1 0;
   padding: 0 0 0 16px;
   overflow: hidden;
-`
+`;
 
 export const TransactionRowColumn = styled.div`
   display: flex;
-`
+`;

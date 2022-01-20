@@ -1,11 +1,9 @@
-import { Link } from "react-router-dom"
-import styled from "styled-components"
-import { ButtonReset } from "../../components/Button/components"
-import { LogoIcon } from "../../components/Icons"
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { ButtonReset } from "../../components/Button/components";
+import { LogoIcon } from "../../components/Icons";
 
-export const Container = styled.section`
-
-`
+export const Container = styled.section``;
 
 export const Content = styled.div`
   padding: 56px 32px;
@@ -16,7 +14,7 @@ export const Content = styled.div`
   @media screen and (max-width: 425px) {
     padding: 40px 24px;
   }
-`
+`;
 
 export const Title = styled.h2`
   display: flex;
@@ -32,7 +30,7 @@ export const Title = styled.h2`
   @media screen and (max-width: 425px) {
     margin: 0 0 32px;
   }
-`
+`;
 
 export const CoinSymbolContainer = styled.div`
   margin: 0 0 0 16px;
@@ -43,7 +41,7 @@ export const CoinSymbolContainer = styled.div`
   height: 22px;
   background-color: #fff;
   border-radius: 11px;
-`
+`;
 
 export const CoinName = styled.span`
   margin: 0 0 0 8px;
@@ -52,18 +50,16 @@ export const CoinName = styled.span`
   font-weight: 500;
   line-height: 20px;
   color: #f8fefc;
-`
+`;
 
-export const CoinIcon = styled(LogoIcon)`
-
-`
+export const CoinIcon = styled(LogoIcon)``;
 
 export const CoinDetailsContainer = styled.div`
   margin: 0 0 40px;
   padding: 20px 24px;
   border: solid 1px #808080;
   border-radius: 8px;
-`
+`;
 
 export const CoinDetailsRow = styled.div`
   display: flex;
@@ -76,7 +72,7 @@ export const CoinDetailsRow = styled.div`
   @media screen and (max-width: 425px) {
     flex-direction: column;
   }
-`
+`;
 
 export const KeyLabel = styled.span`
   width: 260px;
@@ -90,7 +86,7 @@ export const KeyLabel = styled.span`
   @media screen and (max-width: 768px) {
     width: 200px;
   }
-`
+`;
 
 export const KeyValue = styled.div`
   width: calc(100% - 200px);
@@ -104,7 +100,7 @@ export const KeyValue = styled.div`
     margin: 4px 0 0;
     width: 100%;
   }
-`
+`;
 
 export const ContractLink = styled(Link)`
   display: inline-block;
@@ -114,7 +110,7 @@ export const ContractLink = styled(Link)`
   font-weight: 500;
   line-height: 18px;
   color: #58c09b;
-  transition: .2s ease-out;
+  transition: 0.2s ease-out;
   text-overflow: ellipsis;
   overflow: hidden;
 
@@ -126,7 +122,7 @@ export const ContractLink = styled(Link)`
     text-shadow: 0 0 6px #4fad83;
     color: #4fad83;
   }
-`
+`;
 
 export const TableHeadlineDisclaimer = styled.span`
   font-family: SFProText;
@@ -135,7 +131,7 @@ export const TableHeadlineDisclaimer = styled.span`
   font-stretch: normal;
   font-style: normal;
   color: #808080;
-`
+`;
 
 export const TableTabsContainer = styled.div`
   position: relative;
@@ -151,7 +147,7 @@ export const TableTabsContainer = styled.div`
     background-color: #21302d;
     z-index: -1;
   }
-`
+`;
 
 export const TableTabButton = styled(ButtonReset)<{ isSelected?: boolean }>`
   padding: 14px 18px 18px 18px;
@@ -161,18 +157,19 @@ export const TableTabButton = styled(ButtonReset)<{ isSelected?: boolean }>`
   font-size: 16px;
   line-height: 20px;
   font-weight: 500;
-  color: ${({ isSelected }) => isSelected ? '#eafff8' : '#808080'};
-  transition: .2s ease-out;
-  border-bottom: ${({ isSelected }) => isSelected ? 'solid 1px #f9fefc' : 'solid 1px rgba(0, 0, 0, 0)'};
-  text-shadow: ${({ isSelected }) => isSelected ? '0 0 6px #e9fff8' : 'none'};
-  
+  color: ${({ isSelected }) => (isSelected ? "#eafff8" : "#808080")};
+  transition: 0.2s ease-out;
+  border-bottom: ${({ isSelected }) =>
+    isSelected ? "solid 1px #f9fefc" : "solid 1px rgba(0, 0, 0, 0)"};
+  text-shadow: ${({ isSelected }) => (isSelected ? "0 0 6px #e9fff8" : "none")};
+
   :hover {
     text-shadow: 0 0 6px #f9fefc;
     color: #f8fefc;
   }
-  
+
   :active {
     text-shadow: 0 0 6px #e9fff8;
     color: #eafff8;
   }
-`
+`;

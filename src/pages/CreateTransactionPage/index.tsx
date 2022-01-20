@@ -1,15 +1,44 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Header } from "../../components/Header";
 import {
   Container,
-  Content, RowKeyColumn, RowValueColumn,
-  Title, TitleTransaction, TransactionDataContainer, TransactionDataRow, UTXOContainer, DetailsButtonContainer, DetailsButton, UTXOBoxesContainer, UTXOBoxesColumn, UTXOBoxContainer, UTXOHeadlineContainer, UTXOHeadlineColumn, UTXOTitle, UTXOHash, UTXODetailsContainer, UTXODetailsRow, UTXODetailsKey, UTXODetailsLink, UTXOSeparatorColumn, UTXOSeparatorArrow, RowValueLink, WrapText, WitnessContainer, WitnessIndex, WitnessIconContainer, WitnessAddress, UTXODetailsValue, WitnessIcon
+  Content,
+  RowKeyColumn,
+  RowValueColumn,
+  Title,
+  TitleTransaction,
+  TransactionDataContainer,
+  TransactionDataRow,
+  UTXOContainer,
+  DetailsButtonContainer,
+  DetailsButton,
+  UTXOBoxesContainer,
+  UTXOBoxesColumn,
+  UTXOBoxContainer,
+  UTXOHeadlineContainer,
+  UTXOHeadlineColumn,
+  UTXOTitle,
+  UTXOHash,
+  UTXODetailsContainer,
+  UTXODetailsRow,
+  UTXODetailsKey,
+  UTXODetailsLink,
+  UTXOSeparatorColumn,
+  UTXOSeparatorArrow,
+  RowValueLink,
+  WrapText,
+  WitnessContainer,
+  WitnessIndex,
+  WitnessIconContainer,
+  WitnessAddress,
+  UTXODetailsValue,
+  WitnessIcon,
 } from "./components";
 import { useParams } from "react-router-dom";
 import { ExpandIcon, ShrinkIcon } from "../../components/Icons";
 
 export function CreateTransactionPage() {
-  const { transaction } = useParams() as any
+  const { transaction } = useParams() as any;
 
   return (
     <>
@@ -44,7 +73,9 @@ export function CreateTransactionPage() {
             <TransactionDataRow>
               <RowKeyColumn>Static Contracts (1):</RowKeyColumn>
               <RowValueColumn>
-                <RowValueLink to="/contract/0xc5d2460186f7233c927e7db2dcc703c0e500">0xc5d2460186f7233c927e7db2dcc703c0e500</RowValueLink>
+                <RowValueLink to="/contract/0xc5d2460186f7233c927e7db2dcc703c0e500">
+                  0xc5d2460186f7233c927e7db2dcc703c0e500
+                </RowValueLink>
               </RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
@@ -54,7 +85,9 @@ export function CreateTransactionPage() {
             <TransactionDataRow>
               <RowKeyColumn>Salt:</RowKeyColumn>
               <RowValueColumn>
-                <WrapText>07739c9276903c4c1d305bb27b6a133a8328a4350c2222589d32889b74202c1d</WrapText>
+                <WrapText>
+                  07739c9276903c4c1d305bb27b6a133a8328a4350c2222589d32889b74202c1d
+                </WrapText>
               </RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
@@ -62,17 +95,23 @@ export function CreateTransactionPage() {
               <RowValueColumn>
                 <WitnessContainer>
                   <WitnessIndex>[0]</WitnessIndex>
-                  <WitnessIconContainer><WitnessIcon /></WitnessIconContainer>
+                  <WitnessIconContainer>
+                    <WitnessIcon />
+                  </WitnessIconContainer>
                   <WitnessAddress>0xc5d2460186f7233c927e7db2dcc703c0e500</WitnessAddress>
                 </WitnessContainer>
                 <WitnessContainer>
                   <WitnessIndex>[1]</WitnessIndex>
-                  <WitnessIconContainer><WitnessIcon /></WitnessIconContainer>
+                  <WitnessIconContainer>
+                    <WitnessIcon />
+                  </WitnessIconContainer>
                   <WitnessAddress>0xc5d2460186f7233c927e7db2dcc703c0e500</WitnessAddress>
                 </WitnessContainer>
                 <WitnessContainer>
                   <WitnessIndex>[2]</WitnessIndex>
-                  <WitnessIconContainer><WitnessIcon /></WitnessIconContainer>
+                  <WitnessIconContainer>
+                    <WitnessIcon />
+                  </WitnessIconContainer>
                   <WitnessAddress>0xc5d2460186f7233c927e7db2dcc703c0e500</WitnessAddress>
                 </WitnessContainer>
               </RowValueColumn>
@@ -82,14 +121,14 @@ export function CreateTransactionPage() {
         </Content>
       </Container>
     </>
-  )
+  );
 }
 
 function UTXOComponent() {
   const [expanded, setExpanded] = useState(false);
 
   function onClickDetails() {
-    setExpanded(prevExpanded => !prevExpanded)
+    setExpanded((prevExpanded) => !prevExpanded);
   }
 
   return (
@@ -116,28 +155,30 @@ function UTXOComponent() {
         </UTXOBoxesColumn>
       </UTXOBoxesContainer>
     </UTXOContainer>
-  )
+  );
 }
 
 interface UTXOInputData {
-  title: string,
-  hash: string,
-  contractId: string,
-  balanceRoot: string,
-  stateRoot: string,
+  title: string;
+  hash: string;
+  contractId: string;
+  balanceRoot: string;
+  stateRoot: string;
 }
 
-const Inputs: UTXOInputData[] = [{
-  title: 'Input #1',
-  hash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
-  contractId: '0xc5d2460186f7233c927e7db2dcc703c0e500',
-  balanceRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500',
-  stateRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500',
-}]
+const Inputs: UTXOInputData[] = [
+  {
+    title: "Input #1",
+    hash: "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+    contractId: "0xc5d2460186f7233c927e7db2dcc703c0e500",
+    balanceRoot: "0xc5d2460186f7233c927e7db2dcc703c0e500",
+    stateRoot: "0xc5d2460186f7233c927e7db2dcc703c0e500",
+  },
+];
 
 interface UTXOInputProps {
-  data: UTXOInputData,
-  expanded: boolean,
+  data: UTXOInputData;
+  expanded: boolean;
 }
 
 function UTXOInputBox(props: UTXOInputProps) {
@@ -168,28 +209,30 @@ function UTXOInputBox(props: UTXOInputProps) {
         </UTXODetailsContainer>
       )}
     </UTXOBoxContainer>
-  )
+  );
 }
 
 interface UTXOOutputData {
-  title: string,
-  hash: string,
-  contractId: string,
-  balanceRoot: string,
-  stateRoot: string,
+  title: string;
+  hash: string;
+  contractId: string;
+  balanceRoot: string;
+  stateRoot: string;
 }
 
-const Outputs: UTXOOutputData[] = [{
-  title: 'Input #1',
-  hash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
-  contractId: '0xc5d2460186f7233c927e7db2dcc703c0e500',
-  balanceRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500',
-  stateRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500',
-}]
+const Outputs: UTXOOutputData[] = [
+  {
+    title: "Input #1",
+    hash: "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+    contractId: "0xc5d2460186f7233c927e7db2dcc703c0e500",
+    balanceRoot: "0xc5d2460186f7233c927e7db2dcc703c0e500",
+    stateRoot: "0xc5d2460186f7233c927e7db2dcc703c0e500",
+  },
+];
 
 interface UTXOOutputProps {
-  data: UTXOOutputData,
-  expanded: boolean,
+  data: UTXOOutputData;
+  expanded: boolean;
 }
 
 function UTXOOutputBox(props: UTXOOutputProps) {
@@ -220,5 +263,5 @@ function UTXOOutputBox(props: UTXOOutputProps) {
         </UTXODetailsContainer>
       )}
     </UTXOBoxContainer>
-  )
+  );
 }
