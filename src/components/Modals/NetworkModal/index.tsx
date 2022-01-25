@@ -12,7 +12,7 @@ import { Modal } from "../Base";
 import { useMemo, useRef, useState } from "react";
 import { useOnClickOutside } from "../../../hooks";
 import { ChainContext } from "../../../contexts/network";
-import { Chain } from "../../../utils/models";
+import { Chain } from "../../../api";
 
 interface Props {
   onClose: () => void;

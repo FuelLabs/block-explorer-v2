@@ -1,7 +1,7 @@
 import { HashRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import "./App.css";
-import { Homepage } from "./pages/Homepage";
+import { HomePage } from "./pages/HomePage";
 import { AddressPage } from "./pages/AddressPage";
 import { BlockPage } from "./pages/BlockPage";
 import { TransactionPage } from "./pages/TransactionPage";
@@ -23,7 +23,7 @@ function App() {
       <ChainProvider>
         <Router>
           <Switch>
-            <Route exact path="/" component={Homepage} />
+            <Route exact path="/" component={HomePage} />
             <Route path={"/address/:address"} component={AddressPage} />
             <Route path={"/block/:block/transactions"} component={BlockTransactionsPage} />
             <Route path={"/block/:block"} component={BlockPage} />

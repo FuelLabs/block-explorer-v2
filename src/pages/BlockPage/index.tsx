@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { Header } from "../../components/Header";
 import {
   AddressesCount,
@@ -20,26 +19,17 @@ import {
 } from "./components";
 import { useParams } from "react-router-dom";
 import { ExternalLinkIcon } from "../../components/Icons";
-import { useQuery } from "@apollo/client";
-import { queries } from "../../api";
-import { Block } from "../../utils/models";
+import { useBlockPageQuery } from "./__generated__/operations";
 
 export function BlockPage() {
   const { block } = useParams() as any;
 
-  const { data, loading } = useQuery(queries.getBlockByHeight, {
-    variables: { height: parseInt(block) },
-  });
-  const previousBlockQuery = useQuery(queries.getPreviousBlockByHeight, {
-    variables: { height: parseInt(block) - 1 },
+  const { data, loading } = useBlockPageQuery({
+    variables: { height: parseInt(block), previousHeight: parseInt(block) - 1 },
   });
 
-  const bl = useMemo<Block>(() => {
-    return data?.block;
-  }, [data]);
-  const prevBl = useMemo<Block>(() => {
-    return previousBlockQuery.data?.block;
-  }, [previousBlockQuery.data]);
+  const bl = data?.block;
+  const prevBl = data?.previousBlock;
 
   if (loading)
     return (

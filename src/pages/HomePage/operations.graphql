@@ -1,0 +1,93 @@
+query HomePageTransactionsQuery($count: Int) {
+  transactions(last: $count) {
+    edges {
+      node {
+        ...HomePageTransaction
+      }
+    }
+  }
+}
+
+query HomePageBlocksQuery($count: Int) {
+  blocks(last: $count) {
+    edges {
+      cursor
+      node {
+        ...HomePageBlock
+      }
+    }
+  }
+}
+
+fragment HomePageBlock on Block {
+  id
+  height
+  time
+  producer
+  transactions {
+    id
+  }
+}
+
+fragment HomePageTransaction on Transaction {
+  id
+  inputContracts
+  inputColors
+  gasPrice
+  gasLimit
+  maturity
+  isScript
+  receiptsRoot
+  witnesses
+  outputs {
+    __typename
+    ... on CoinOutput {
+      to
+      amount
+      color
+    }
+    ... on ContractOutput {
+      inputIndex
+      balanceRoot
+      stateRoot
+    }
+    ... on WithdrawalOutput {
+      to
+      amount
+      color
+    }
+    ... on ChangeOutput {
+      to
+      amount
+      color
+    }
+    ... on VariableOutput {
+      to
+      amount
+      color
+    }
+    ... on ContractCreated {
+      contractId
+    }
+  }
+  inputs {
+    __typename
+    ... on InputCoin {
+      owner
+    }
+    ... on InputContract {
+      contractId
+    }
+  }
+  status {
+    ... on SubmittedStatus {
+      time
+    }
+    ... on SuccessStatus {
+      time
+    }
+    ... on FailureStatus {
+      time
+    }
+  }
+}

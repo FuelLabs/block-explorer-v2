@@ -1,0 +1,18 @@
+query BlockPageQuery($height: Int, $previousHeight: Int) {
+  block(height: $height) {
+    ...BlockPageBlock
+  }
+  previousBlock: block(height: $previousHeight) {
+    ...BlockPageBlock
+  }
+}
+
+fragment BlockPageBlock on Block {
+  id
+  height
+  time
+  producer
+  transactions {
+    __typename
+  }
+}

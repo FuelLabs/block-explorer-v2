@@ -1,7 +1,5 @@
 import { default as React, useMemo } from "react";
 import { dateDiff, getTextForTimeDifference } from "../../utils/date";
-import { CoinOutput, Transaction } from "../../utils/model";
-import { InputCoin } from "../../utils/model/input";
 import {
   DataTimestamp,
   DataBox,
@@ -18,15 +16,16 @@ import {
   TransactionsDataBoxRow,
   TransactionRowColumn,
 } from "./components";
+import { HomePageTransaction } from "./__generated__/operations";
 
 type Props = {
-  transactions: Transaction[];
+  transactions: HomePageTransaction[];
 };
 
 export const RecentTransactions: React.FC<Props> = ({ transactions }) => {
   const sortedTransactions = transactions
     .sort((t1, t2) =>
-      new Date(t1.status.time).getTime() - new Date(t2.status.time).getTime() <= 0 ? 1 : -1,
+      new Date(t1.status!.time).getTime() - new Date(t2.status!.time).getTime() <= 0 ? 1 : -1,
     )
     .slice(0, 5);
 
@@ -35,16 +34,16 @@ export const RecentTransactions: React.FC<Props> = ({ transactions }) => {
       <DataTitle>Recent Transactions</DataTitle>
       <DataBox>
         {sortedTransactions.map((transaction) => (
-          <TransactionRow transaction={transaction} />
+          <TransactionRow key={transaction.id} transaction={transaction} />
         ))}
       </DataBox>
     </DataItem>
   );
 };
 
-const TransactionRow = ({ transaction }: { transaction: Transaction }) => {
+const TransactionRow = ({ transaction }: { transaction: HomePageTransaction }) => {
   const difference = useMemo(() => {
-    return dateDiff(new Date(), new Date(transaction.status.time));
+    return dateDiff(new Date(), new Date(transaction.status!.time));
   }, [transaction]);
   const timestamp = useMemo(() => getTextForTimeDifference(difference), [difference]);
 
@@ -71,8 +70,8 @@ const TransactionRow = ({ transaction }: { transaction: Transaction }) => {
           <TransactionRecipientLabel>From:</TransactionRecipientLabel>
           {transaction.inputs.map((input) =>
             input.__typename === "InputCoin" ? (
-              <TransactionRecipientLink to={`/address/${(input as InputCoin).owner}`}>
-                {(input as InputCoin).owner}
+              <TransactionRecipientLink to={`/address/${input.owner}`}>
+                {input.owner}
               </TransactionRecipientLink>
             ) : (
               input.__typename
@@ -83,8 +82,8 @@ const TransactionRow = ({ transaction }: { transaction: Transaction }) => {
           <TransactionRecipientLabel>To:</TransactionRecipientLabel>
           {transaction.outputs.map((output) =>
             output.__typename === "CoinOutput" ? (
-              <TransactionRecipientLink to={`/address/${(output as CoinOutput).to}`}>
-                {(output as CoinOutput).to}
+              <TransactionRecipientLink to={`/address/${output.to}`}>
+                {output.to}
               </TransactionRecipientLink>
             ) : (
               output.__typename

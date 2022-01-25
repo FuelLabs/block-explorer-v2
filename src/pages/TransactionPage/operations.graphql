@@ -1,0 +1,80 @@
+query TransactionPageQuery($id: HexString256!) {
+  transaction(id: $id) {
+    id
+    inputContracts
+    inputColors
+    gasPrice
+    gasLimit
+    maturity
+    isScript
+    receiptsRoot
+    witnesses
+    outputs {
+      ...OutputFragment
+    }
+    inputs {
+      ...InputFragment
+    }
+    status {
+      ... on SubmittedStatus {
+        time
+      }
+      ... on SuccessStatus {
+        time
+      }
+      ... on FailureStatus {
+        time
+      }
+    }
+  }
+}
+
+fragment InputFragment on Input {
+  ... on InputCoin {
+    utxoId
+    owner
+    amount
+    color
+    witnessIndex
+    maturity
+    predicate
+    predicateData
+  }
+  ... on InputContract {
+    utxoId
+    balanceRoot
+    stateRoot
+    contractId
+  }
+}
+
+fragment OutputFragment on Output {
+  ... on CoinOutput {
+    to
+    amount
+    color
+  }
+  ... on ContractOutput {
+    inputIndex
+    balanceRoot
+    stateRoot
+  }
+  ... on WithdrawalOutput {
+    to
+    amount
+    color
+  }
+  ... on ChangeOutput {
+    to
+    amount
+    color
+  }
+  ... on VariableOutput {
+    to
+    amount
+    color
+  }
+  ... on ContractCreated {
+    contractId
+  }
+}
