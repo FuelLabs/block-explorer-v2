@@ -1,7 +1,4 @@
-import { useQuery } from "@apollo/client";
-import { useMemo } from "react";
 import { useParams } from "react-router-dom";
-import { queries } from "../../api";
 import { Header } from "../../components/Header";
 import {
   Table,
@@ -17,9 +14,6 @@ import {
 } from "../../components/Table/components";
 import { trimAddress } from "../../utils/address";
 import { dateDiffRelative, getTextForRelativeTimeDifference } from "../../utils/date";
-import { CoinOutput, Transaction } from "../../utils/model";
-import { InputCoin, InputContract } from "../../utils/model/input";
-import { Block } from "../../utils/models";
 import { TableContainer } from "../AddressPage/components";
 import {
   CoinLink,
@@ -32,15 +26,17 @@ import {
   TxRecipientLink,
   TxValue,
 } from "./components";
+import {
+  BlockTransactionFragment,
+  useBlockTransactionsPageQuery,
+} from "./__generated__/operations";
 
 export function BlockTransactionsPage() {
   const { block } = useParams() as any;
-  const blockByHeightQuery = useQuery(queries.getBlockByHeight, {
+  const { data } = useBlockTransactionsPageQuery({
     variables: { height: parseInt(block) },
   });
-  const bl = useMemo<Block>(() => {
-    return blockByHeightQuery?.data?.block;
-  }, [blockByHeightQuery?.data]);
+  const bl = data?.block;
 
   return (
     <>
@@ -56,7 +52,7 @@ export function BlockTransactionsPage() {
   );
 }
 
-const Transactions: React.FC<{ transactions: Transaction[] }> = ({ transactions }) => {
+const Transactions: React.FC<{ transactions: BlockTransactionFragment[] }> = ({ transactions }) => {
   return (
     <TableContainer>
       <TableHeadlineContainer>
@@ -93,31 +89,37 @@ const Transactions: React.FC<{ transactions: Transaction[] }> = ({ transactions 
                 </TableCell>
                 <TableCell>{transaction.isScript ? "Script" : "Create"}</TableCell>
                 <TableCell>
-                  {getTextForRelativeTimeDifference(
-                    dateDiffRelative(new Date(), new Date(transaction.status.time)),
-                  )}
+                  {transaction.status ? (
+                    <>
+                      {getTextForRelativeTimeDifference(
+                        dateDiffRelative(new Date(), new Date(transaction.status.time)),
+                      )}
+                    </>
+                  ) : null}
                 </TableCell>
                 <TableCell>
                   {transaction.inputs.map((input, idx) =>
                     (() => {
-                      if (input.__typename === "InputCoin") {
-                        return (
-                          <TxRecipientLink key={idx} to={`/address/${(input as InputCoin).owner}`}>
-                            {trimAddress((input as InputCoin).owner)}
-                          </TxRecipientLink>
-                        );
+                      switch (input.__typename) {
+                        case "InputCoin": {
+                          return (
+                            <TxRecipientLink key={idx} to={`/address/${input.owner}`}>
+                              {trimAddress(input.owner)}
+                            </TxRecipientLink>
+                          );
+                        }
+                        case "InputContract": {
+                          return (
+                            <TxRecipientLink key={idx} to={`/address/${input.contractId}`}>
+                              {trimAddress(input.contractId)}
+                            </TxRecipientLink>
+                          );
+                        }
+                        default: {
+                          // @ts-ignore
+                          return input.__typename;
+                        }
                       }
-                      if (input.__typename === "InputContract") {
-                        return (
-                          <TxRecipientLink
-                            key={idx}
-                            to={`/address/${(input as InputContract).contractId}`}
-                          >
-                            {trimAddress((input as InputContract).contractId)}
-                          </TxRecipientLink>
-                        );
-                      }
-                      return input.__typename;
                     })(),
                   )}
                 </TableCell>
@@ -126,8 +128,8 @@ const Transactions: React.FC<{ transactions: Transaction[] }> = ({ transactions 
                     (() => {
                       if (output.__typename === "CoinOutput") {
                         return (
-                          <TxRecipientLink key={idx} to={`/address/${(output as CoinOutput).to}`}>
-                            {trimAddress((output as CoinOutput).to)}
+                          <TxRecipientLink key={idx} to={`/address/${output.to}`}>
+                            {trimAddress(output.to)}
                           </TxRecipientLink>
                         );
                       }
@@ -139,7 +141,7 @@ const Transactions: React.FC<{ transactions: Transaction[] }> = ({ transactions 
                   {transaction.outputs.map((output, idx) =>
                     (() => {
                       if (output.__typename === "CoinOutput") {
-                        return <TxValue key={idx}>{(output as CoinOutput).amount}</TxValue>;
+                        return <TxValue key={idx}>{output.amount}</TxValue>;
                       }
                       return `N/A ${output.__typename}`;
                     })(),
@@ -151,7 +153,7 @@ const Transactions: React.FC<{ transactions: Transaction[] }> = ({ transactions 
                       if (output.__typename === "CoinOutput") {
                         return (
                           <CoinLink key={idx} to={`/coin`}>
-                            {(output as CoinOutput).color}
+                            {output.color}
                           </CoinLink>
                         );
                       }

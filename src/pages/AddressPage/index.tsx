@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import { useMemo, useState } from "react";
-import { useQuery } from "@apollo/client";
 import { Header } from "../../components/Header";
 import {
   Container,
@@ -36,23 +35,19 @@ import {
   TableNextNavigationTextButton,
 } from "./components";
 import { QRModal } from "../../components/Modals/QRModal";
-import { queries } from "../../api";
-import { CoinOutput, Transaction } from "../../utils/model";
 import * as TableUI from "../../components/Table/components";
 import { dateDiffRelative, getTextForRelativeTimeDifference } from "../../utils/date";
-import { InputCoin, InputContract } from "../../utils/model/input";
+import { AddressPageTransaction, useAddressPageQuery } from "./__generated__/operations";
 
 export function AddressPage() {
   const { address } = useParams() as any;
   const [copyTooltip] = useState("Copy address");
   const [modal, setModal] = useState(false);
-  const { loading, data } = useQuery(queries.getTransactionsByOwner, {
+  const { loading, data } = useAddressPageQuery({
     variables: { first: 10, owner: address },
   });
-  const transactions = useMemo<Transaction[]>(() => {
-    return data?.transactionsByOwner
-      ? data.transactionsByOwner.edges.map((edge: any) => edge.node)
-      : [];
+  const transactions = useMemo<AddressPageTransaction[]>(() => {
+    return data?.transactionsByOwner!.edges!.map((edge) => edge!.node) ?? [];
   }, [data]);
 
   function onClose() {
@@ -135,7 +130,7 @@ export function AddressPage() {
   );
 }
 
-export function TransactionsTable({ transactions }: { transactions: Transaction[] }) {
+export function TransactionsTable({ transactions }: { transactions: AddressPageTransaction[] }) {
   function trimAddress(address: string) {
     if (!address) {
       return "";
@@ -176,37 +171,43 @@ export function TransactionsTable({ transactions }: { transactions: Transaction[
               <TableUI.TableHeadCell>Fee (USD)</TableUI.TableHeadCell>
             </TableUI.TableHeadRow>
             {transactions.map((transaction) => (
-              <TableUI.TableRow>
+              <TableUI.TableRow key={transaction.id}>
                 <TableUI.TableCell>
                   <TxHash to={`/transaction/${transaction.id}`}>{transaction.id}</TxHash>
                 </TableUI.TableCell>
                 <TableUI.TableCell>{transaction.isScript ? "Script" : "Create"}</TableUI.TableCell>
                 <TableUI.TableCell>
-                  {getTextForRelativeTimeDifference(
-                    dateDiffRelative(new Date(), new Date(transaction.status.time)),
-                  )}
+                  {transaction.status ? (
+                    <>
+                      {getTextForRelativeTimeDifference(
+                        dateDiffRelative(new Date(), new Date(transaction.status.time)),
+                      )}
+                    </>
+                  ) : null}
                 </TableUI.TableCell>
                 <TableUI.TableCell>
                   {transaction.inputs.map((input, idx) =>
                     (() => {
-                      if (input.__typename === "InputCoin") {
-                        return (
-                          <TxRecipient key={idx} to={`/address/${(input as InputCoin).owner}`}>
-                            {trimAddress((input as InputCoin).owner)}
-                          </TxRecipient>
-                        );
+                      switch (input.__typename) {
+                        case "InputCoin": {
+                          return (
+                            <TxRecipient key={idx} to={`/address/${input.owner}`}>
+                              {trimAddress(input.owner)}
+                            </TxRecipient>
+                          );
+                        }
+                        case "InputContract": {
+                          return (
+                            <TxRecipient key={idx} to={`/address/${input.contractId}`}>
+                              {trimAddress(input.contractId)}
+                            </TxRecipient>
+                          );
+                        }
+                        default: {
+                          // @ts-ignore
+                          return input.__typename;
+                        }
                       }
-                      if (input.__typename === "InputContract") {
-                        return (
-                          <TxRecipient
-                            key={idx}
-                            to={`/address/${(input as InputContract).contractId}`}
-                          >
-                            {trimAddress((input as InputContract).contractId)}
-                          </TxRecipient>
-                        );
-                      }
-                      return input.__typename;
                     })(),
                   )}
                 </TableUI.TableCell>
@@ -216,8 +217,8 @@ export function TransactionsTable({ transactions }: { transactions: Transaction[
                         (() => {
                           if (output.__typename === "CoinOutput") {
                             return (
-                              <TxRecipient key={idx} to={`/address/${(output as CoinOutput).to}`}>
-                                {trimAddress((output as CoinOutput).to)}
+                              <TxRecipient key={idx} to={`/address/${output.to}`}>
+                                {trimAddress(output.to)}
                               </TxRecipient>
                             );
                           }
@@ -231,11 +232,7 @@ export function TransactionsTable({ transactions }: { transactions: Transaction[
                     ? transaction.outputs.map((output, idx) =>
                         (() => {
                           if (output.__typename === "CoinOutput") {
-                            return (
-                              <TransactionValue key={idx}>
-                                {(output as CoinOutput).amount}
-                              </TransactionValue>
-                            );
+                            return <TransactionValue key={idx}>{output.amount}</TransactionValue>;
                           }
                           return `${output.__typename}`;
                         })(),
@@ -248,7 +245,7 @@ export function TransactionsTable({ transactions }: { transactions: Transaction[
                       if (output.__typename === "CoinOutput") {
                         return (
                           <CoinLink key={idx} to={`/coin`}>
-                            {(output as CoinOutput).color}
+                            {output.color}
                           </CoinLink>
                         );
                       }

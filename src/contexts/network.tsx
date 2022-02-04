@@ -1,8 +1,5 @@
-import { useQuery } from "@apollo/client";
 import { default as React, useMemo } from "react";
-import { queries } from "../api";
-
-import type { Chain } from "../utils/models";
+import { Chain, useChainQuery } from "../api";
 
 export const ChainContext = React.createContext<{
   chains: Chain[];
@@ -13,7 +10,7 @@ export const ChainContext = React.createContext<{
 });
 
 export const ChainProvider: React.FC = ({ children }) => {
-  const { data, loading } = useQuery(queries.getChain);
+  const { data, loading } = useChainQuery();
   const chains = useMemo<Chain[]>(() => {
     return data?.chain ? [data.chain] : [];
   }, [data]);

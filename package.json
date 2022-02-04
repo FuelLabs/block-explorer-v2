@@ -37,7 +37,10 @@
     "format": "prettier --check src",
     "format:fix": "prettier --write src",
     "eject": "react-scripts eject",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "build-operations": "graphql-codegen",
+    "update-schema": "get-graphql-schema http://localhost:4000/graphql > schema.graphql",
+    "postinstall": "npm run build-operations"
   },
   "eslintConfig": {
     "extends": [
@@ -64,6 +67,11 @@
     ]
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.4.0",
+    "@graphql-codegen/near-operation-file-preset": "^2.2.3",
+    "@graphql-codegen/typescript": "^2.4.2",
+    "@graphql-codegen/typescript-operations": "^2.2.2",
+    "@graphql-codegen/typescript-react-apollo": "^3.2.4",
     "@semantic-release/changelog": "^6.0.0",
     "@semantic-release/git": "^10.0.0",
     "@types/qrcode.react": "^1.0.2",
@@ -71,6 +79,8 @@
     "@types/react-router-dom": "^5.3.2",
     "cypress": "^8.7.0",
     "eslint-plugin-cypress": "^2.12.1",
+    "get-graphql-schema": "^2.1.2",
+    "graphqurl": "^1.0.1",
     "prettier": "2.5.1",
     "semantic-release": "^18.0.0"
   }

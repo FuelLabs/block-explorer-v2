@@ -24,3 +24,5 @@ yarn-error.log*
 
 cypress/integration/1-getting-started
 cypress/integration/2-advanced-examples
+
+**/__generated__/**

@@ -1,6 +1,5 @@
 import { default as React, useMemo, useState } from "react";
 import { dateDiff } from "../../utils/date";
-import { Block } from "../../utils/models";
 import {
   BlockNumber,
   RecentBlockColumn1,
@@ -14,9 +13,10 @@ import {
   TxCount,
   BlockProducerText,
 } from "./components";
+import { HomePageBlock } from "./__generated__/operations";
 
 type Props = {
-  blocks: Block[];
+  blocks: HomePageBlock[];
 };
 
 export const RecentBlocks: React.FC<Props> = ({ blocks }) => {
@@ -27,7 +27,7 @@ export const RecentBlocks: React.FC<Props> = ({ blocks }) => {
       <DataTitle>Recent Blocks</DataTitle>
       <DataBox>
         {blocks.map((block) => (
-          <RecentBlockRow>
+          <RecentBlockRow key={block.id}>
             <RecentBlockColumn1>
               <BlockNumber id="recent-block-link" to={`/block/${block.height}`}>
                 {block.height}

@@ -1,0 +1,11 @@
+query ChainQuery {
+  chain {
+    ...Chain
+  }
+}
+
+fragment Chain on ChainInfo {
+  name
+  baseChainHeight
+  peerCount
+}

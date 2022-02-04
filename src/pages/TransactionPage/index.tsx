@@ -38,15 +38,12 @@ import {
 import { useParams } from "react-router-dom";
 import { ExpandIcon, ShrinkIcon } from "../../components/Icons";
 import { trimAddress } from "../../utils";
-import { useQuery } from "@apollo/client";
-import { queries } from "../../api";
-import { CoinOutput, Output, Transaction } from "../../utils/model";
-import { Input, InputCoin } from "../../utils/model/input";
+import { InputFragment, OutputFragment, useTransactionPageQuery } from "./__generated__/operations";
 
 export function TransactionPage() {
   const { transaction } = useParams() as any;
-  const { data } = useQuery(queries.getTransaction, { variables: { id: transaction } });
-  const tx: Transaction = data?.transaction;
+  const { data } = useTransactionPageQuery({ variables: { id: transaction } });
+  const tx = data?.transaction;
 
   if (!tx) return <></>;
 
@@ -64,10 +61,12 @@ export function TransactionPage() {
               <RowKeyColumn>Type:</RowKeyColumn>
               <RowValueColumn>{tx.isScript ? "Script" : "Create"}</RowValueColumn>
             </TransactionDataRow>
-            <TransactionDataRow>
-              <RowKeyColumn>Status:</RowKeyColumn>
-              <TransactionStatus>{tx.status.__typename.replace("Status", "")}</TransactionStatus>
-            </TransactionDataRow>
+            {tx.status ? (
+              <TransactionDataRow>
+                <RowKeyColumn>Status:</RowKeyColumn>
+                <TransactionStatus>{tx.status.__typename.replace("Status", "")}</TransactionStatus>
+              </TransactionDataRow>
+            ) : null}
             <TransactionDataRow>
               <RowKeyColumn>Maturity:</RowKeyColumn>
               <RowValueColumn>{tx.maturity}</RowValueColumn>
@@ -112,6 +111,7 @@ function ScriptComponent({ tabs }: { tabs: string[] }) {
       <ScriptTabsContainer>
         {tabs.map((tabItem, idx) => (
           <ScriptTabButton
+            key={idx}
             isSelected={selectedTab === idx}
             onClick={() => {
               setSelectedTab(idx);
@@ -126,7 +126,13 @@ function ScriptComponent({ tabs }: { tabs: string[] }) {
   );
 }
 
-function UTXOComponent({ inputs, outputs }: { inputs: Input[]; outputs: Output[] }) {
+function UTXOComponent({
+  inputs,
+  outputs,
+}: {
+  inputs: InputFragment[];
+  outputs: OutputFragment[];
+}) {
   const [expanded, setExpanded] = useState(false);
 
   function onClickDetails() {
@@ -162,47 +168,53 @@ function UTXOComponent({ inputs, outputs }: { inputs: Input[]; outputs: Output[]
   );
 }
 
-function UTXOInputBox({ input, expanded, idx }: { input: Input; expanded: boolean; idx: number }) {
+function UTXOInputBox({
+  input,
+  expanded,
+  idx,
+}: {
+  input: InputFragment;
+  expanded: boolean;
+  idx: number;
+}) {
   if (input.__typename === "InputCoin") {
     return (
       <UTXOBoxContainer>
         <UTXOHeadlineContainer>
           <UTXOHeadlineColumn>
             <UTXOTitle>{`Input #${idx + 1}`}</UTXOTitle>
-            <UTXOHash to={`/transaction/${(input as InputCoin).utxoId}`}>
-              {(input as InputCoin).utxoId}
-            </UTXOHash>
+            <UTXOHash to={`/transaction/${input.utxoId}`}>{input.utxoId}</UTXOHash>
           </UTXOHeadlineColumn>
           <UTXOHeadlineColumn2>
             <HeadlineText>TBD</HeadlineText>
-            <HeadlineText>{(input as InputCoin).amount}</HeadlineText>
+            <HeadlineText>{input.amount}</HeadlineText>
           </UTXOHeadlineColumn2>
         </UTXOHeadlineContainer>
         {expanded && (
           <UTXODetailsContainer>
             <UTXODetailsRow>
               <UTXODetailsKey>Owner:</UTXODetailsKey>
-              <UTXODetailsLink to={`/address/${(input as InputCoin).utxoId}`}>
-                {trimAddress((input as InputCoin).owner)}
+              <UTXODetailsLink to={`/address/${input.utxoId}`}>
+                {trimAddress(input.owner)}
               </UTXODetailsLink>
             </UTXODetailsRow>
             <UTXODetailsRow>
               <UTXODetailsKey>Amount:</UTXODetailsKey>
-              {(input as InputCoin).amount}
+              {input.amount}
             </UTXODetailsRow>
             <UTXODetailsRow>
               <UTXODetailsKey>Coin:</UTXODetailsKey>
-              <UTXODetailsLink to={`/coin/${(input as InputCoin).color}`}>
-                {trimAddress((input as InputCoin).color)}
+              <UTXODetailsLink to={`/coin/${input.color}`}>
+                {trimAddress(input.color)}
               </UTXODetailsLink>
             </UTXODetailsRow>
             <UTXODetailsRow>
               <UTXODetailsKey>Predicate bytecode:</UTXODetailsKey>
-              {(input as InputCoin).predicate}
+              {input.predicate}
             </UTXODetailsRow>
             <UTXODetailsRow>
               <UTXODetailsKey>Predicate data:</UTXODetailsKey>
-              {(input as InputCoin).predicateData}
+              {input.predicateData}
             </UTXODetailsRow>
             <UTXODetailsRow>
               <UTXODetailsKey>Predicate length:</UTXODetailsKey>
@@ -216,7 +228,7 @@ function UTXOInputBox({ input, expanded, idx }: { input: Input; expanded: boolea
   return <>{input.__typename}</>;
 }
 
-function UTXOOutputBox({ output, expanded }: { output: Output; expanded: boolean }) {
+function UTXOOutputBox({ output, expanded }: { output: OutputFragment; expanded: boolean }) {
   return (
     <UTXOBoxContainer>
       <UTXOHeadlineContainer>
@@ -227,7 +239,7 @@ function UTXOOutputBox({ output, expanded }: { output: Output; expanded: boolean
         {output.__typename === "CoinOutput" && (
           <UTXOHeadlineColumn2>
             <HeadlineText>TBD</HeadlineText>
-            <HeadlineText>{(output as CoinOutput).amount}</HeadlineText>
+            <HeadlineText>{output.amount}</HeadlineText>
           </UTXOHeadlineColumn2>
         )}
       </UTXOHeadlineContainer>
@@ -238,8 +250,8 @@ function UTXOOutputBox({ output, expanded }: { output: Output; expanded: boolean
             {(() => {
               if (output.__typename === "CoinOutput") {
                 return (
-                  <UTXODetailsLink to={`/address/${(output as CoinOutput).to}`}>
-                    {trimAddress((output as CoinOutput).to)}
+                  <UTXODetailsLink to={`/address/${output.to}`}>
+                    {trimAddress(output.to)}
                   </UTXODetailsLink>
                 );
               }
@@ -249,7 +261,7 @@ function UTXOOutputBox({ output, expanded }: { output: Output; expanded: boolean
             <UTXODetailsKey>Amount:</UTXODetailsKey>
             {(() => {
               if (output.__typename === "CoinOutput") {
-                return (output as CoinOutput).amount;
+                return output.amount;
               }
             })()}
           </UTXODetailsRow>
