@@ -113,6 +113,7 @@ export enum CoinStatus {
 export type ContractCreated = {
   __typename: "ContractCreated";
   contractId: Scalars["HexString256"];
+  stateRoot: Scalars["HexString256"];
 };
 
 export type ContractOutput = {
@@ -359,6 +360,7 @@ export type SuccessStatus = {
 
 export type Transaction = {
   __typename: "Transaction";
+  bytePrice: Scalars["Int"];
   bytecodeWitnessIndex?: Maybe<Scalars["Int"]>;
   gasLimit: Scalars["Int"];
   gasPrice: Scalars["Int"];
@@ -378,6 +380,7 @@ export type Transaction = {
   scriptData?: Maybe<Scalars["HexString"]>;
   staticContracts?: Maybe<Array<Scalars["HexString256"]>>;
   status?: Maybe<TransactionStatus>;
+  storageSlots?: Maybe<Array<Scalars["HexString"]>>;
   witnesses: Array<Scalars["HexString"]>;
 };
 
