@@ -67,11 +67,11 @@
     ]
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.4.0",
-    "@graphql-codegen/near-operation-file-preset": "^2.2.3",
-    "@graphql-codegen/typescript": "^2.4.2",
-    "@graphql-codegen/typescript-operations": "^2.2.2",
-    "@graphql-codegen/typescript-react-apollo": "^3.2.4",
+    "@graphql-codegen/cli": "^2.6.2",
+    "@graphql-codegen/near-operation-file-preset": "^2.2.6",
+    "@graphql-codegen/typescript": "^2.4.5",
+    "@graphql-codegen/typescript-operations": "^2.3.2",
+    "@graphql-codegen/typescript-react-apollo": "^3.2.8",
     "@semantic-release/changelog": "^6.0.0",
     "@semantic-release/git": "^10.0.0",
     "@types/qrcode.react": "^1.0.2",
