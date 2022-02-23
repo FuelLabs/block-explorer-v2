@@ -18,14 +18,14 @@
     "futureProofUnions": true
   },
   "generates": {
-    "./src/api/types.ts": {
+    "./src/api/__generated__/types.ts": {
       "plugins": [{ "typescript": {} }]
     },
     "./src/": {
       "preset": "near-operation-file",
       "presetConfig": {
         "extension": ".ts",
-        "baseTypesPath": "./api/types.ts",
+        "baseTypesPath": "./api/__generated__/types.ts",
         "folder": "__generated__"
       },
       "plugins": [
