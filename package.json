@@ -38,7 +38,7 @@
     "format:fix": "prettier --write src",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
-    "build-operations": "graphql-codegen",
+    "build-operations": "graphql-codegen && prettier --write src/api/types.ts",
     "update-schema": "get-graphql-schema http://localhost:4000/graphql > schema.graphql",
     "postinstall": "npm run build-operations"
   },
