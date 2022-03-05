@@ -31,8 +31,10 @@ fragment HomePageBlock on Block {
 
 fragment HomePageTransaction on Transaction {
   id
-  inputContracts
-  inputColors
+  inputContracts {
+    id
+  }
+  inputAssetIds
   gasPrice
   gasLimit
   maturity
@@ -44,7 +46,7 @@ fragment HomePageTransaction on Transaction {
     ... on CoinOutput {
       to
       amount
-      color
+      assetId
     }
     ... on ContractOutput {
       inputIndex
@@ -54,20 +56,22 @@ fragment HomePageTransaction on Transaction {
     ... on WithdrawalOutput {
       to
       amount
-      color
+      assetId
     }
     ... on ChangeOutput {
       to
       amount
-      color
+      assetId
     }
     ... on VariableOutput {
       to
       amount
-      color
+      assetId
     }
     ... on ContractCreated {
-      contractId
+      contract {
+        id
+      }
     }
   }
   inputs {
@@ -76,7 +80,9 @@ fragment HomePageTransaction on Transaction {
       owner
     }
     ... on InputContract {
-      contractId
+      contract {
+        id
+      }
     }
   }
   status {
