@@ -1,8 +1,10 @@
-query TransactionPageQuery($id: HexString256!) {
+query TransactionPageQuery($id: TransactionId!) {
   transaction(id: $id) {
     id
-    inputContracts
-    inputColors
+    inputContracts {
+      id
+    }
+    inputAssetIds
     gasPrice
     gasLimit
     maturity
@@ -34,7 +36,7 @@ fragment InputFragment on Input {
     utxoId
     owner
     amount
-    color
+    assetId
     witnessIndex
     maturity
     predicate
@@ -44,7 +46,9 @@ fragment InputFragment on Input {
     utxoId
     balanceRoot
     stateRoot
-    contractId
+    contract {
+      id
+    }
   }
 }
 
@@ -52,7 +56,7 @@ fragment OutputFragment on Output {
   ... on CoinOutput {
     to
     amount
-    color
+    assetId
   }
   ... on ContractOutput {
     inputIndex
@@ -62,19 +66,21 @@ fragment OutputFragment on Output {
   ... on WithdrawalOutput {
     to
     amount
-    color
+    assetId
   }
   ... on ChangeOutput {
     to
     amount
-    color
+    assetId
   }
   ... on VariableOutput {
     to
     amount
-    color
+    assetId
   }
   ... on ContractCreated {
-    contractId
+    contract {
+      id
+    }
   }
 }

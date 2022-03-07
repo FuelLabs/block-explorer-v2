@@ -1,4 +1,4 @@
-query AddressPageQuery($first: Int, $owner: HexString256!) {
+query AddressPageQuery($first: Int, $owner: Address!) {
   transactionsByOwner(first: $first, owner: $owner) {
     edges {
       node {
@@ -10,8 +10,10 @@ query AddressPageQuery($first: Int, $owner: HexString256!) {
 
 fragment AddressPageTransaction on Transaction {
   id
-  inputContracts
-  inputColors
+  inputContracts {
+    id
+  }
+  inputAssetIds
   gasPrice
   gasLimit
   maturity
@@ -23,7 +25,7 @@ fragment AddressPageTransaction on Transaction {
     ... on CoinOutput {
       to
       amount
-      color
+      assetId
     }
     ... on ContractOutput {
       inputIndex
@@ -33,20 +35,22 @@ fragment AddressPageTransaction on Transaction {
     ... on WithdrawalOutput {
       to
       amount
-      color
+      assetId
     }
     ... on ChangeOutput {
       to
       amount
-      color
+      assetId
     }
     ... on VariableOutput {
       to
       amount
-      color
+      assetId
     }
     ... on ContractCreated {
-      contractId
+      contract {
+        id
+      }
     }
   }
   inputs {
@@ -55,7 +59,7 @@ fragment AddressPageTransaction on Transaction {
       utxoId
       owner
       amount
-      color
+      assetId
       witnessIndex
       maturity
       predicate
@@ -65,7 +69,9 @@ fragment AddressPageTransaction on Transaction {
       utxoId
       balanceRoot
       stateRoot
-      contractId
+      contract {
+        id
+      }
     }
   }
   status {

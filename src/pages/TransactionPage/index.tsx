@@ -204,8 +204,8 @@ function UTXOInputBox({
             </UTXODetailsRow>
             <UTXODetailsRow>
               <UTXODetailsKey>Coin:</UTXODetailsKey>
-              <UTXODetailsLink to={`/coin/${input.color}`}>
-                {trimAddress(input.color)}
+              <UTXODetailsLink to={`/coin/${input.assetId}`}>
+                {trimAddress(input.assetId)}
               </UTXODetailsLink>
             </UTXODetailsRow>
             <UTXODetailsRow>

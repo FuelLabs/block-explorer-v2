@@ -1,4 +1,4 @@
-query BlockTransactionsPageQuery($height: Int) {
+query BlockTransactionsPageQuery($height: U64) {
   block(height: $height) {
     id
     height
@@ -12,8 +12,10 @@ query BlockTransactionsPageQuery($height: Int) {
 
 fragment BlockTransactionFragment on Transaction {
   id
-  inputContracts
-  inputColors
+  inputContracts {
+    id
+  }
+  inputAssetIds
   gasPrice
   gasLimit
   maturity
@@ -25,7 +27,7 @@ fragment BlockTransactionFragment on Transaction {
     ... on CoinOutput {
       to
       amount
-      color
+      assetId
     }
     ... on ContractOutput {
       inputIndex
@@ -35,20 +37,22 @@ fragment BlockTransactionFragment on Transaction {
     ... on WithdrawalOutput {
       to
       amount
-      color
+      assetId
     }
     ... on ChangeOutput {
       to
       amount
-      color
+      assetId
     }
     ... on VariableOutput {
       to
       amount
-      color
+      assetId
     }
     ... on ContractCreated {
-      contractId
+      contract {
+        id
+      }
     }
   }
   inputs {
@@ -57,7 +61,9 @@ fragment BlockTransactionFragment on Transaction {
       owner
     }
     ... on InputContract {
-      contractId
+      contract {
+        id
+      }
     }
   }
   status {

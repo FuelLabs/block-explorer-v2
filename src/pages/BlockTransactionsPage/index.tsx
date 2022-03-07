@@ -1,3 +1,4 @@
+import { BigNumber } from "@ethersproject/bignumber";
 import { useParams } from "react-router-dom";
 import { Header } from "../../components/Header";
 import {
@@ -34,7 +35,7 @@ import {
 export function BlockTransactionsPage() {
   const { block } = useParams() as any;
   const { data } = useBlockTransactionsPageQuery({
-    variables: { height: parseInt(block) },
+    variables: { height: BigNumber.from(block).toString() },
   });
   const bl = data?.block;
 
@@ -110,8 +111,8 @@ const Transactions: React.FC<{ transactions: BlockTransactionFragment[] }> = ({ 
                         }
                         case "InputContract": {
                           return (
-                            <TxRecipientLink key={idx} to={`/address/${input.contractId}`}>
-                              {trimAddress(input.contractId)}
+                            <TxRecipientLink key={idx} to={`/address/${input.contract.id}`}>
+                              {trimAddress(input.contract.id)}
                             </TxRecipientLink>
                           );
                         }
@@ -153,7 +154,7 @@ const Transactions: React.FC<{ transactions: BlockTransactionFragment[] }> = ({ 
                       if (output.__typename === "CoinOutput") {
                         return (
                           <CoinLink key={idx} to={`/coin`}>
-                            {output.color}
+                            {output.assetId}
                           </CoinLink>
                         );
                       }

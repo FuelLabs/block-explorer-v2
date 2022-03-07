@@ -20,12 +20,16 @@ import {
 import { useParams } from "react-router-dom";
 import { ExternalLinkIcon } from "../../components/Icons";
 import { useBlockPageQuery } from "./__generated__/operations";
+import { BigNumber } from "@ethersproject/bignumber";
 
 export function BlockPage() {
   const { block } = useParams() as any;
 
   const { data, loading } = useBlockPageQuery({
-    variables: { height: parseInt(block), previousHeight: parseInt(block) - 1 },
+    variables: {
+      height: BigNumber.from(block).toString(),
+      previousHeight: BigNumber.from(block).sub(1).toString(),
+    },
   });
 
   const bl = data?.block;

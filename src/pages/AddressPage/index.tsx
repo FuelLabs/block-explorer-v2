@@ -198,8 +198,8 @@ export function TransactionsTable({ transactions }: { transactions: AddressPageT
                         }
                         case "InputContract": {
                           return (
-                            <TxRecipient key={idx} to={`/address/${input.contractId}`}>
-                              {trimAddress(input.contractId)}
+                            <TxRecipient key={idx} to={`/address/${input.contract.id}`}>
+                              {trimAddress(input.contract.id)}
                             </TxRecipient>
                           );
                         }
@@ -245,7 +245,7 @@ export function TransactionsTable({ transactions }: { transactions: AddressPageT
                       if (output.__typename === "CoinOutput") {
                         return (
                           <CoinLink key={idx} to={`/coin`}>
-                            {output.color}
+                            {output.assetId}
                           </CoinLink>
                         );
                       }
