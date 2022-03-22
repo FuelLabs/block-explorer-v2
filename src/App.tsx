@@ -8,13 +8,25 @@ import { TransactionPage } from "./pages/TransactionPage";
 import { BlockTransactionsPage } from "./pages/BlockTransactionsPage";
 import { CreateTransactionPage } from "./pages/CreateTransactionPage";
 import { ContractPage } from "./pages/ContractPage";
-import { config } from "./config";
 import { ChainProvider } from "./contexts/network";
 
+const { REACT_APP_GRAPHQL_API_ENDPOINT } = process.env;
+
 const client = new ApolloClient({
-  uri: config.apiUrl,
-  // link: authLink.concat(httpLink),
+  uri: REACT_APP_GRAPHQL_API_ENDPOINT,
   cache: new InMemoryCache(),
+  // We can configure for each schema the keys to cache, without
+  // this config for each one objects without id, will not work
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'ignore',
+    },
+    query: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'all',
+    },
+  }
 });
 
 function App() {

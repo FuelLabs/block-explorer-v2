@@ -3,6 +3,11 @@ query TransactionPageQuery($id: TransactionId!) {
     id
     inputContracts {
       id
+      bytecode
+    }
+    staticContracts {
+      id
+      bytecode
     }
     inputAssetIds
     gasPrice
@@ -10,7 +15,10 @@ query TransactionPageQuery($id: TransactionId!) {
     maturity
     isScript
     receiptsRoot
+    script
+    scriptData
     witnesses
+    bytecodeWitnessIndex
     outputs {
       ...OutputFragment
     }
