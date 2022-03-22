@@ -4,6 +4,13 @@ import { hexlify } from "@ethersproject/bytes";
 
 const genBytes32 = () => hexlify(new Uint8Array(32).map(() => Math.floor(Math.random() * 256)));
 
+function thousandSeparator(number : any) {
+  var parts = number.toString().split(".");
+  const numberPart = parts[0];
+  const decimalPart = parts[1];
+  const thousands = /\B(?=(\d{3})+(?!\d))/g;
+  return numberPart.replace(thousands, ",") + (decimalPart ? "." + decimalPart : "");
+}
 /**
  * Helper function to send transactions to the Fuel Node
  */
@@ -18,7 +25,7 @@ async function run() {
     return coins.map((coin) => ({
       id: coin.id,
       color: coin.color,
-      amount: BigNumber.from(coin.amount),
+      amount: thousandSeparator(BigNumber.from(coin.amount)),
       owner: coin.owner,
       maturity: BigNumber.from(coin.maturity),
       blockCreated: BigNumber.from(coin.blockCreated),
@@ -28,11 +35,11 @@ async function run() {
   const provider = new Provider("http://127.0.0.1:4000/graphql");
   const from = "0x0101010101010101010101010101010101010101010101010101010101010101";
   const to = genBytes32();
-  const amount = BigNumber.from(1);
+  const amount = thousandSeparator(BigNumber.from(1));
   await provider.sendTransaction({
     type: TransactionType.Script,
-    gasPrice: BigNumber.from(0),
-    gasLimit: BigNumber.from(1000000),
+    gasPrice: thousandSeparator(BigNumber.from(0)),
+    gasLimit: thousandSeparator(BigNumber.from(1000000)),
     script: "0x24400000",
     scriptData: "0x",
     inputs: [
