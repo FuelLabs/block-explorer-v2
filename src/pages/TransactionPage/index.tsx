@@ -32,13 +32,15 @@ import {
   ScriptContainer,
   ScriptTabsContainer,
   ScriptTabButton,
-  ScriptPlaceholder,
+  ScriptTextarea,
   UTXOHeadlineColumn2,
+  ContractTextarea,
 } from "./components";
 import { useParams } from "react-router-dom";
 import { ExpandIcon, ShrinkIcon } from "../../components/Icons";
 import { trimAddress } from "../../utils";
 import { InputFragment, OutputFragment, useTransactionPageQuery } from "./__generated__/operations";
+import { UTXODetailsValue } from "../CreateTransactionPage/components";
 
 export function TransactionPage() {
   const { transaction } = useParams() as any;
@@ -73,7 +75,7 @@ export function TransactionPage() {
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Price:</RowKeyColumn>
-              <RowValueColumn>{`${tx.gasPrice} gwei`}</RowValueColumn>
+              <RowValueColumn>{tx.gasPrice}</RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Limit:</RowKeyColumn>
@@ -81,30 +83,45 @@ export function TransactionPage() {
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Used:</RowKeyColumn>
-              <RowValueColumn>TBD</RowValueColumn>
+              <RowValueColumn>0</RowValueColumn>
             </TransactionDataRow>
           </TransactionDataContainer>
           <UTXOComponent outputs={tx.outputs || []} inputs={tx.inputs || []} />
-          <ScriptsComponent />
+          {tx.isScript ? <ScriptsComponent tx={tx} /> : <ContractComponent tx={tx} />}
         </Content>
       </Container>
     </>
   );
 }
 
-function ScriptsComponent() {
+function ContractComponent({ tx }: { tx: any }) {
+  return tx.witnesses.map((witness: string, index: number) => (
+    <UTXOBoxContainer>
+      <UTXOHeadlineContainer>
+        <UTXOHeadlineColumn>
+          <UTXOTitle>Witness #{index}</UTXOTitle>
+        </UTXOHeadlineColumn>
+      </UTXOHeadlineContainer>
+      <UTXODetailsContainer>
+        <ContractTextarea readOnly={true} value={witness} />
+      </UTXODetailsContainer>
+    </UTXOBoxContainer>
+  ));
+}
+
+function ScriptsComponent({ tx }: { tx: any }) {
   return (
     <ScriptsContainer>
       <ScriptTitle>Script Byte Code:</ScriptTitle>
-      <ScriptComponent tabs={["Assembly", "Hex"]} />
+      <ScriptComponent tabs={["Assembly", "Hex"]} contents={["", tx.script]} />
       <ScriptTitle>Script Data:</ScriptTitle>
-      <ScriptComponent tabs={["ABI Decoded", "Raw Hex"]} />
+      <ScriptComponent tabs={["ABI Decoded", "Raw Hex"]} contents={["", tx.scriptData]} />
     </ScriptsContainer>
   );
 }
 
-function ScriptComponent({ tabs }: { tabs: string[] }) {
-  const [selectedTab, setSelectedTab] = useState(0);
+function ScriptComponent({ tabs, contents }: { tabs: string[]; contents: string[] }) {
+  const [selectedTab, setSelectedTab] = useState(1);
 
   return (
     <ScriptContainer>
@@ -121,7 +138,7 @@ function ScriptComponent({ tabs }: { tabs: string[] }) {
           </ScriptTabButton>
         ))}
       </ScriptTabsContainer>
-      <ScriptPlaceholder />
+      <ScriptTextarea readOnly={true} value={contents[selectedTab]} />
     </ScriptContainer>
   );
 }
@@ -160,7 +177,7 @@ function UTXOComponent({
         </UTXOSeparatorColumn>
         <UTXOBoxesColumn>
           {outputs.map((output, idx) => (
-            <UTXOOutputBox key={idx} output={output} expanded={expanded} />
+            <UTXOOutputBox key={idx} index={idx} output={output} expanded={expanded} />
           ))}
         </UTXOBoxesColumn>
       </UTXOBoxesContainer>
@@ -177,102 +194,177 @@ function UTXOInputBox({
   expanded: boolean;
   idx: number;
 }) {
-  if (input.__typename === "InputCoin") {
-    return (
-      <UTXOBoxContainer>
-        <UTXOHeadlineContainer>
-          <UTXOHeadlineColumn>
-            <UTXOTitle>{`Input #${idx + 1}`}</UTXOTitle>
-            <UTXOHash to={`/transaction/${input.utxoId}`}>{input.utxoId}</UTXOHash>
-          </UTXOHeadlineColumn>
-          <UTXOHeadlineColumn2>
-            <HeadlineText>TBD</HeadlineText>
-            <HeadlineText>{input.amount}</HeadlineText>
-          </UTXOHeadlineColumn2>
-        </UTXOHeadlineContainer>
-        {expanded && (
-          <UTXODetailsContainer>
-            <UTXODetailsRow>
-              <UTXODetailsKey>Owner:</UTXODetailsKey>
-              <UTXODetailsLink to={`/address/${input.utxoId}`}>
-                {trimAddress(input.owner)}
-              </UTXODetailsLink>
-            </UTXODetailsRow>
-            <UTXODetailsRow>
-              <UTXODetailsKey>Amount:</UTXODetailsKey>
-              {input.amount}
-            </UTXODetailsRow>
-            <UTXODetailsRow>
-              <UTXODetailsKey>Coin:</UTXODetailsKey>
-              <UTXODetailsLink to={`/coin/${input.assetId}`}>
-                {trimAddress(input.assetId)}
-              </UTXODetailsLink>
-            </UTXODetailsRow>
-            <UTXODetailsRow>
-              <UTXODetailsKey>Predicate bytecode:</UTXODetailsKey>
-              {input.predicate}
-            </UTXODetailsRow>
-            <UTXODetailsRow>
-              <UTXODetailsKey>Predicate data:</UTXODetailsKey>
-              {input.predicateData}
-            </UTXODetailsRow>
-            <UTXODetailsRow>
-              <UTXODetailsKey>Predicate length:</UTXODetailsKey>
-              TBD
-            </UTXODetailsRow>
-          </UTXODetailsContainer>
-        )}
-      </UTXOBoxContainer>
-    );
+  switch (input.__typename) {
+    case "InputCoin": {
+      return (
+        <UTXOBoxContainer>
+          <UTXOHeadlineContainer>
+            <UTXOHeadlineColumn>
+              <UTXOTitle>{`Input #${idx}`}</UTXOTitle>
+              <UTXOHash to={`/transaction/${input.utxoId}`}>{input.utxoId}</UTXOHash>
+            </UTXOHeadlineColumn>
+            <UTXOHeadlineColumn2>
+              <HeadlineText>Value</HeadlineText>
+              <HeadlineText>{input.amount}</HeadlineText>
+            </UTXOHeadlineColumn2>
+          </UTXOHeadlineContainer>
+          {expanded && (
+            <UTXODetailsContainer>
+              <UTXODetailsRow>
+                <UTXODetailsKey>Owner:</UTXODetailsKey>
+                <UTXODetailsLink to={`/address/${input.utxoId}`}>
+                  {trimAddress(input.owner)}
+                </UTXODetailsLink>
+              </UTXODetailsRow>
+              <UTXODetailsRow>
+                <UTXODetailsKey>Amount:</UTXODetailsKey>
+                {input.amount}
+              </UTXODetailsRow>
+              <UTXODetailsRow>
+                <UTXODetailsKey>Coin:</UTXODetailsKey>
+                <UTXODetailsLink to={`/coin/${input.assetId}`}>
+                  {trimAddress(input.assetId)}
+                </UTXODetailsLink>
+              </UTXODetailsRow>
+              <UTXODetailsRow>
+                <UTXODetailsKey>Predicate bytecode:</UTXODetailsKey>
+                {input.predicate}
+              </UTXODetailsRow>
+              <UTXODetailsRow>
+                <UTXODetailsKey>Predicate data:</UTXODetailsKey>
+                {input.predicateData}
+              </UTXODetailsRow>
+              <UTXODetailsRow>
+                <UTXODetailsKey>Predicate length:</UTXODetailsKey>
+                {0}
+                {/* {TBD} */}
+              </UTXODetailsRow>
+              <UTXODetailsRow>
+                <UTXODetailsKey>Witness Index:</UTXODetailsKey>
+                {input.witnessIndex}
+              </UTXODetailsRow>
+            </UTXODetailsContainer>
+          )}
+        </UTXOBoxContainer>
+      );
+    }
+    case "InputContract": {
+      return (
+        <UTXOBoxContainer>
+          <UTXOHeadlineContainer>
+            <UTXOHeadlineColumn>
+              <UTXOTitle>{`Input #${idx}`}</UTXOTitle>
+              <UTXOHash to={`/transaction/${input.utxoId}`}>{input.utxoId}</UTXOHash>
+            </UTXOHeadlineColumn>
+          </UTXOHeadlineContainer>
+          {expanded && (
+            <UTXODetailsContainer>
+              <UTXODetailsRow>
+                <UTXODetailsKey>Contract Id:</UTXODetailsKey>
+                <UTXODetailsLink to={`/contract/${input.contract.id}`}>
+                  {trimAddress(input.contract.id)}
+                </UTXODetailsLink>
+              </UTXODetailsRow>
+              <UTXODetailsRow>
+                <UTXODetailsKey>Balance Root:</UTXODetailsKey>
+                <UTXODetailsValue>{trimAddress(input.balanceRoot)}</UTXODetailsValue>
+              </UTXODetailsRow>
+              <UTXODetailsRow>
+                <UTXODetailsKey>State Root:</UTXODetailsKey>
+                <UTXODetailsValue>{trimAddress(input.stateRoot)}</UTXODetailsValue>
+              </UTXODetailsRow>
+            </UTXODetailsContainer>
+          )}
+        </UTXOBoxContainer>
+      );
+    }
+    default:
+      return null;
   }
-  return <>{input.__typename}</>;
 }
 
-function UTXOOutputBox({ output, expanded }: { output: OutputFragment; expanded: boolean }) {
+function UTXOOutput({ output }: { output: OutputFragment }) {
+  switch (output.__typename) {
+    case "ContractCreated": {
+      return (
+        <UTXODetailsRow>
+          <UTXODetailsKey>Contract Id:</UTXODetailsKey>
+          <UTXODetailsLink to={`/contract/${output.contract.id}`}>
+            {output.contract.id}
+          </UTXODetailsLink>
+        </UTXODetailsRow>
+      );
+    }
+    case "ContractOutput": {
+      return (
+        <>
+          <UTXODetailsRow>
+            <UTXODetailsKey>Balance Root:</UTXODetailsKey>
+            <UTXODetailsValue>{trimAddress(output.balanceRoot)}</UTXODetailsValue>
+          </UTXODetailsRow>
+          <UTXODetailsRow>
+            <UTXODetailsKey>State Root:</UTXODetailsKey>
+            <UTXODetailsValue>{trimAddress(output.stateRoot)}</UTXODetailsValue>
+          </UTXODetailsRow>
+          <UTXODetailsRow>
+            <UTXODetailsKey>Input index:</UTXODetailsKey>
+            <UTXODetailsValue>{output.inputIndex}</UTXODetailsValue>
+          </UTXODetailsRow>
+        </>
+      );
+    }
+    case "CoinOutput":
+    case "ChangeOutput": {
+      return (
+        <>
+          <UTXODetailsRow>
+            <UTXODetailsKey>To:</UTXODetailsKey>
+            <UTXODetailsLink to={`/address/${output.to}`}>{trimAddress(output.to)}</UTXODetailsLink>
+          </UTXODetailsRow>
+          <UTXODetailsRow>
+            <UTXODetailsKey>Amount:</UTXODetailsKey>
+            <UTXODetailsValue>{output.amount}</UTXODetailsValue>
+          </UTXODetailsRow>
+          <UTXODetailsRow>
+            <UTXODetailsKey>Coin:</UTXODetailsKey>
+            <UTXODetailsLink to={`/coin/${output.assetId}`}>
+              {trimAddress(output.assetId)}
+            </UTXODetailsLink>
+          </UTXODetailsRow>
+        </>
+      );
+    }
+    default:
+      return null;
+  }
+}
+
+function UTXOOutputBox({
+  output,
+  expanded,
+  index,
+}: {
+  output: OutputFragment;
+  expanded: boolean;
+  index: number;
+}) {
   return (
     <UTXOBoxContainer>
       <UTXOHeadlineContainer>
         <UTXOHeadlineColumn>
-          <UTXOTitle>Output</UTXOTitle>
-          <UTXOHash to={`/`}>TBD</UTXOHash>
+          <UTXOTitle>Output #{index}</UTXOTitle>
+          <UTXOHash to={`/`}>{output.__typename}</UTXOHash>
         </UTXOHeadlineColumn>
         {output.__typename === "CoinOutput" && (
           <UTXOHeadlineColumn2>
-            <HeadlineText>TBD</HeadlineText>
+            <HeadlineText>Amount</HeadlineText>
             <HeadlineText>{output.amount}</HeadlineText>
           </UTXOHeadlineColumn2>
         )}
       </UTXOHeadlineContainer>
       {expanded && (
         <UTXODetailsContainer>
-          <UTXODetailsRow>
-            <UTXODetailsKey>To:</UTXODetailsKey>
-            {(() => {
-              if (output.__typename === "CoinOutput") {
-                return (
-                  <UTXODetailsLink to={`/address/${output.to}`}>
-                    {trimAddress(output.to)}
-                  </UTXODetailsLink>
-                );
-              }
-            })()}
-          </UTXODetailsRow>
-          <UTXODetailsRow>
-            <UTXODetailsKey>Amount:</UTXODetailsKey>
-            {(() => {
-              if (output.__typename === "CoinOutput") {
-                return output.amount;
-              }
-            })()}
-          </UTXODetailsRow>
-          {/* <UTXODetailsRow>
-            <UTXODetailsKey>Coin:</UTXODetailsKey>
-            <UTXODetailsLink to={`/coin/${data.symbol}`}>{data.symbol}</UTXODetailsLink>
-          </UTXODetailsRow> */}
-          {/* <UTXODetailsRow>
-            <UTXODetailsKey>Spent:</UTXODetailsKey>
-            {data.spent}
-          </UTXODetailsRow> */}
+          <UTXOOutput output={output} />
         </UTXODetailsContainer>
       )}
     </UTXOBoxContainer>

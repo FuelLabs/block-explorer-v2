@@ -342,3 +342,34 @@ export const ScriptPlaceholder = styled.div`
   height: 236px;
   background-color: #1e2e2b;
 `;
+
+export const ScriptTextarea = styled.textarea`
+  padding: 24px;
+  height: 200px;
+  width: 100%;
+  background-color: #03261e;
+  border: 0;
+  color: #ffffff;
+  resize: none;
+  font-family: SFProDisplay;
+
+  :focus {
+    border: 0;
+    outline: 0;
+  }
+`;
+
+export const ContractTextarea = styled.textarea`
+  height: 200px;
+  width: 100%;
+  background-color: transparent;
+  border: 0;
+  color: #ffffff;
+  resize: none;
+  font-family: SFProDisplay;
+
+  :focus {
+    border: 0;
+    outline: 0;
+  }
+`;
