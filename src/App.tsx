@@ -19,14 +19,14 @@ const client = new ApolloClient({
   // this config for each one objects without id, will not work
   defaultOptions: {
     watchQuery: {
-      fetchPolicy: 'no-cache',
-      errorPolicy: 'ignore',
+      fetchPolicy: "no-cache",
+      errorPolicy: "ignore",
     },
     query: {
-      fetchPolicy: 'no-cache',
-      errorPolicy: 'all',
+      fetchPolicy: "no-cache",
+      errorPolicy: "all",
     },
-  }
+  },
 });
 
 function App() {

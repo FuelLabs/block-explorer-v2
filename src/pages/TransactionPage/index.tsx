@@ -87,11 +87,7 @@ export function TransactionPage() {
             </TransactionDataRow>
           </TransactionDataContainer>
           <UTXOComponent outputs={tx.outputs || []} inputs={tx.inputs || []} />
-          {tx.isScript ? (
-            <ScriptsComponent tx={tx} />
-          ) : (
-            <ContractComponent tx={tx} />
-          )}
+          {tx.isScript ? <ScriptsComponent tx={tx} /> : <ContractComponent tx={tx} />}
         </Content>
       </Container>
     </>
@@ -99,34 +95,32 @@ export function TransactionPage() {
 }
 
 function ContractComponent({ tx }: { tx: any }) {
-  return (
-    tx.witnesses.map((witness: string, index: number) => (
-      <UTXOBoxContainer>
-        <UTXOHeadlineContainer>
-          <UTXOHeadlineColumn>
-            <UTXOTitle>Witness #{index}</UTXOTitle>
-          </UTXOHeadlineColumn>
-        </UTXOHeadlineContainer>
-        <UTXODetailsContainer>
-          <ContractTextarea readOnly={true} value={witness} />
-        </UTXODetailsContainer>
-      </UTXOBoxContainer>
-    ))
-  )
+  return tx.witnesses.map((witness: string, index: number) => (
+    <UTXOBoxContainer>
+      <UTXOHeadlineContainer>
+        <UTXOHeadlineColumn>
+          <UTXOTitle>Witness #{index}</UTXOTitle>
+        </UTXOHeadlineColumn>
+      </UTXOHeadlineContainer>
+      <UTXODetailsContainer>
+        <ContractTextarea readOnly={true} value={witness} />
+      </UTXODetailsContainer>
+    </UTXOBoxContainer>
+  ));
 }
 
 function ScriptsComponent({ tx }: { tx: any }) {
   return (
     <ScriptsContainer>
       <ScriptTitle>Script Byte Code:</ScriptTitle>
-      <ScriptComponent tabs={["Assembly", "Hex"]} contents={['', tx.script]} />
+      <ScriptComponent tabs={["Assembly", "Hex"]} contents={["", tx.script]} />
       <ScriptTitle>Script Data:</ScriptTitle>
-      <ScriptComponent tabs={["ABI Decoded", "Raw Hex"]} contents={['', tx.scriptData]} />
+      <ScriptComponent tabs={["ABI Decoded", "Raw Hex"]} contents={["", tx.scriptData]} />
     </ScriptsContainer>
   );
 }
 
-function ScriptComponent({ tabs, contents }: { tabs: string[], contents: string[] }) {
+function ScriptComponent({ tabs, contents }: { tabs: string[]; contents: string[] }) {
   const [selectedTab, setSelectedTab] = useState(1);
 
   return (
@@ -252,7 +246,7 @@ function UTXOInputBox({
             </UTXODetailsContainer>
           )}
         </UTXOBoxContainer>
-      )
+      );
     }
     case "InputContract": {
       return (
@@ -267,56 +261,57 @@ function UTXOInputBox({
             <UTXODetailsContainer>
               <UTXODetailsRow>
                 <UTXODetailsKey>Contract Id:</UTXODetailsKey>
-                <UTXODetailsLink to={`/contract/${input.contract.id}`}>{trimAddress(input.contract.id)}</UTXODetailsLink>
+                <UTXODetailsLink to={`/contract/${input.contract.id}`}>
+                  {trimAddress(input.contract.id)}
+                </UTXODetailsLink>
               </UTXODetailsRow>
               <UTXODetailsRow>
                 <UTXODetailsKey>Balance Root:</UTXODetailsKey>
-                <UTXODetailsValue>
-                  {trimAddress(input.balanceRoot)}
-                </UTXODetailsValue>
+                <UTXODetailsValue>{trimAddress(input.balanceRoot)}</UTXODetailsValue>
               </UTXODetailsRow>
               <UTXODetailsRow>
                 <UTXODetailsKey>State Root:</UTXODetailsKey>
-                <UTXODetailsValue>
-                  {trimAddress(input.stateRoot)}
-                </UTXODetailsValue>
+                <UTXODetailsValue>{trimAddress(input.stateRoot)}</UTXODetailsValue>
               </UTXODetailsRow>
             </UTXODetailsContainer>
           )}
         </UTXOBoxContainer>
-      )
+      );
     }
-    default: return null;
+    default:
+      return null;
   }
 }
 
-function UTXOOutput ({ output }: { output: OutputFragment }) {
+function UTXOOutput({ output }: { output: OutputFragment }) {
   switch (output.__typename) {
     case "ContractCreated": {
       return (
         <UTXODetailsRow>
           <UTXODetailsKey>Contract Id:</UTXODetailsKey>
-          <UTXODetailsLink to={`/contract/${output.contract.id}`}>{output.contract.id}</UTXODetailsLink>
+          <UTXODetailsLink to={`/contract/${output.contract.id}`}>
+            {output.contract.id}
+          </UTXODetailsLink>
         </UTXODetailsRow>
-      )
+      );
     }
     case "ContractOutput": {
       return (
         <>
-        <UTXODetailsRow>
-          <UTXODetailsKey>Balance Root:</UTXODetailsKey>
-          <UTXODetailsValue>{trimAddress(output.balanceRoot)}</UTXODetailsValue>
-        </UTXODetailsRow>
-        <UTXODetailsRow>
-          <UTXODetailsKey>State Root:</UTXODetailsKey>
-          <UTXODetailsValue>{trimAddress(output.stateRoot)}</UTXODetailsValue>
-        </UTXODetailsRow>
-        <UTXODetailsRow>
-          <UTXODetailsKey>Input index:</UTXODetailsKey>
-          <UTXODetailsValue>{output.inputIndex}</UTXODetailsValue>
-        </UTXODetailsRow>
-      </>
-      )
+          <UTXODetailsRow>
+            <UTXODetailsKey>Balance Root:</UTXODetailsKey>
+            <UTXODetailsValue>{trimAddress(output.balanceRoot)}</UTXODetailsValue>
+          </UTXODetailsRow>
+          <UTXODetailsRow>
+            <UTXODetailsKey>State Root:</UTXODetailsKey>
+            <UTXODetailsValue>{trimAddress(output.stateRoot)}</UTXODetailsValue>
+          </UTXODetailsRow>
+          <UTXODetailsRow>
+            <UTXODetailsKey>Input index:</UTXODetailsKey>
+            <UTXODetailsValue>{output.inputIndex}</UTXODetailsValue>
+          </UTXODetailsRow>
+        </>
+      );
     }
     case "CoinOutput":
     case "ChangeOutput": {
@@ -324,9 +319,7 @@ function UTXOOutput ({ output }: { output: OutputFragment }) {
         <>
           <UTXODetailsRow>
             <UTXODetailsKey>To:</UTXODetailsKey>
-            <UTXODetailsLink to={`/address/${output.to}`}>
-              {trimAddress(output.to)}
-            </UTXODetailsLink>
+            <UTXODetailsLink to={`/address/${output.to}`}>{trimAddress(output.to)}</UTXODetailsLink>
           </UTXODetailsRow>
           <UTXODetailsRow>
             <UTXODetailsKey>Amount:</UTXODetailsKey>
@@ -339,13 +332,22 @@ function UTXOOutput ({ output }: { output: OutputFragment }) {
             </UTXODetailsLink>
           </UTXODetailsRow>
         </>
-      )
+      );
     }
-    default: return null;
+    default:
+      return null;
   }
 }
 
-function UTXOOutputBox({ output, expanded, index }: { output: OutputFragment; expanded: boolean, index: number }) {
+function UTXOOutputBox({
+  output,
+  expanded,
+  index,
+}: {
+  output: OutputFragment;
+  expanded: boolean;
+  index: number;
+}) {
   return (
     <UTXOBoxContainer>
       <UTXOHeadlineContainer>
