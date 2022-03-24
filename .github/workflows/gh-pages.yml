@@ -29,7 +29,7 @@ jobs:
           REACT_APP_GRAPHQL_API_ENDPOINT: "https://dubai.swayswap.io/graphql"
         run: |
           npm ci
-          npm build
+          npm run build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
