@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/block-explorer-v2/static/css/main.9550d4ca.chunk.css",
+    "main.js": "/block-explorer-v2/static/js/main.ae52e4fb.chunk.js",
+    "main.js.map": "/block-explorer-v2/static/js/main.ae52e4fb.chunk.js.map",
+    "runtime-main.js": "/block-explorer-v2/static/js/runtime-main.c7065f2e.js",
+    "runtime-main.js.map": "/block-explorer-v2/static/js/runtime-main.c7065f2e.js.map",
+    "static/js/2.26d69a1f.chunk.js": "/block-explorer-v2/static/js/2.26d69a1f.chunk.js",
+    "static/js/2.26d69a1f.chunk.js.map": "/block-explorer-v2/static/js/2.26d69a1f.chunk.js.map",
+    "static/js/3.c6ad9daa.chunk.js": "/block-explorer-v2/static/js/3.c6ad9daa.chunk.js",
+    "static/js/3.c6ad9daa.chunk.js.map": "/block-explorer-v2/static/js/3.c6ad9daa.chunk.js.map",
+    "index.html": "/block-explorer-v2/index.html",
+    "static/css/main.9550d4ca.chunk.css.map": "/block-explorer-v2/static/css/main.9550d4ca.chunk.css.map",
+    "static/js/2.26d69a1f.chunk.js.LICENSE.txt": "/block-explorer-v2/static/js/2.26d69a1f.chunk.js.LICENSE.txt",
+    "static/media/fonts.css": "/block-explorer-v2/static/media/SFProText-Semibold.78aaa037.woff2"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c7065f2e.js",
+    "static/js/2.26d69a1f.chunk.js",
+    "static/css/main.9550d4ca.chunk.css",
+    "static/js/main.ae52e4fb.chunk.js"
+  ]
+}
