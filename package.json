@@ -29,6 +29,8 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "postbuild": "yarn create404",
+    "create404": "cp ./build/index.html ./build/404.html",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

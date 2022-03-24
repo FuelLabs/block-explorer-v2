@@ -10,7 +10,7 @@ import { CreateTransactionPage } from "./pages/CreateTransactionPage";
 import { ContractPage } from "./pages/ContractPage";
 import { ChainProvider } from "./contexts/network";
 
-const { REACT_APP_GRAPHQL_API_ENDPOINT } = process.env;
+const { REACT_APP_GRAPHQL_API_ENDPOINT, PUBLIC_URL } = process.env;
 
 const client = new ApolloClient({
   uri: REACT_APP_GRAPHQL_API_ENDPOINT,
@@ -33,7 +33,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <ChainProvider>
-        <Router>
+        <Router basename={PUBLIC_URL}>
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path={"/address/:address"} component={AddressPage} />
