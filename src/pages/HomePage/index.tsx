@@ -21,7 +21,7 @@ import {
   SearchIcon,
 } from "./components";
 
-export function HomePage() {
+export default function HomePage() {
   const [blocks, setBlocks] = useState<HomePageBlock[]>([]);
   const [transactions, setTransactions] = useState<HomePageTransaction[]>([]);
   const transactionsQuery = useHomePageTransactionsQuery({

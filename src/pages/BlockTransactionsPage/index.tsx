@@ -35,7 +35,7 @@ import {
   TxValue,
 } from "./components";
 
-export function BlockTransactionsPage() {
+export default function BlockTransactionsPage() {
   const { block } = useParams() as any;
   const { data } = useBlockTransactionsPageQuery({
     variables: { height: BigNumber.from(block).toString() },

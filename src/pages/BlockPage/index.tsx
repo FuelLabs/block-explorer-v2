@@ -24,7 +24,7 @@ import {
   TransactionsCount,
 } from "./components";
 
-export function BlockPage() {
+export default function BlockPage() {
   const { block } = useParams() as any;
 
   const { data, loading } = useBlockPageQuery({

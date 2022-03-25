@@ -58,7 +58,7 @@ import {
   TableTabButton,
 } from "./components";
 
-export function ContractPage() {
+export default function ContractPage() {
   const { contract } = useParams() as any;
   const [copyTooltip] = useState("Copy address");
   const [modal, setModal] = useState(false);

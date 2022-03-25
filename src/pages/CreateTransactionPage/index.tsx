@@ -39,7 +39,7 @@ import {
   WitnessIcon,
 } from "./components";
 
-export function CreateTransactionPage() {
+export default function CreateTransactionPage() {
   const { transaction } = useParams() as any;
 
   return (

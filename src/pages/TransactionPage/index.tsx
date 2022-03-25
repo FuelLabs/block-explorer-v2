@@ -45,7 +45,7 @@ import {
   ContractTextarea,
 } from "./components";
 
-export function TransactionPage() {
+export default function TransactionPage() {
   const { transaction } = useParams() as any;
   const { data } = useTransactionPageQuery({ variables: { id: transaction } });
   const tx = data?.transaction;

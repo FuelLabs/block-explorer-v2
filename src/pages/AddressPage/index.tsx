@@ -36,7 +36,7 @@ import {
   // TokenDropdownIcon,
 } from "./components";
 
-export function AddressPage() {
+export default function AddressPage() {
   const { address } = useParams() as any;
   const [copyTooltip] = useState("Copy address");
   const [modal, setModal] = useState(false);
