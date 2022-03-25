@@ -1,4 +1,11 @@
 query AddressPageQuery($first: Int, $owner: Address!) {
+  coins(filter: { owner: $owner }, first: 9999) {
+    edges {
+      node {
+        ...AddressPageCoin
+      }
+    }
+  }
   transactionsByOwner(first: $first, owner: $owner) {
     edges {
       node {
@@ -6,6 +13,16 @@ query AddressPageQuery($first: Int, $owner: Address!) {
       }
     }
   }
+}
+
+fragment AddressPageCoin on Coin {
+  utxoId
+  owner
+  amount
+  assetId
+  maturity
+  status
+  blockCreated
 }
 
 fragment AddressPageTransaction on Transaction {
