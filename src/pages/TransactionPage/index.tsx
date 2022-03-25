@@ -40,10 +40,19 @@ import { ExpandIcon, ShrinkIcon } from "../../components/Icons";
 import { trimAddress } from "../../utils";
 import { InputFragment, OutputFragment, useTransactionPageQuery } from "./__generated__/operations";
 
+
 export function TransactionPage() {
   const { transaction } = useParams() as any;
   const { data } = useTransactionPageQuery({ variables: { id: transaction } });
   const tx = data?.transaction;
+
+  function thousandSeparator(number : any) {
+    var parts = number.toString().split(".");
+    const numberPart = parts[0];
+    const decimalPart = parts[1];
+    const thousands = /\B(?=(\d{3})+(?!\d))/g;
+    return numberPart.replace(thousands, ",") + (decimalPart ? "." + decimalPart : "");
+  }
 
   if (!tx) return <></>;
 
@@ -73,11 +82,11 @@ export function TransactionPage() {
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Price:</RowKeyColumn>
-              <RowValueColumn>{`${tx.gasPrice} gwei`}</RowValueColumn>
+              <RowValueColumn>{`${thousandSeparator(tx.gasPrice)} gwei`}</RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Limit:</RowKeyColumn>
-              <RowValueColumn>{tx.gasLimit}</RowValueColumn>
+              <RowValueColumn>{thousandSeparator(tx.gasLimit)}</RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Used:</RowKeyColumn>
@@ -254,7 +263,7 @@ function UTXOOutputBox({ output, expanded }: { output: OutputFragment; expanded:
                     {trimAddress(output.to)}
                   </UTXODetailsLink>
                 );
-              }
+              } 
             })()}
           </UTXODetailsRow>
           <UTXODetailsRow>
