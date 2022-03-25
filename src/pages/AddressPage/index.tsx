@@ -1,6 +1,18 @@
-import { useParams } from "react-router-dom";
+import { BigNumber } from "@ethersproject/bignumber";
+import type {
+  CoinQuantity,
+  // NativeAssetId
+} from "fuels";
 import { useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import { Header } from "../../components/Header";
+import { QRModal } from "../../components/Modals/QRModal";
+
+import BalancesTable from "./BalancesTable";
+import TransactionsTable from "./TransactionsTable";
+import type { AddressPageTransaction } from "./__generated__/operations";
+import { useAddressPageQuery } from "./__generated__/operations";
 import {
   Container,
   Content,
@@ -23,15 +35,6 @@ import {
   // TokenButtonIconContainer,
   // TokenDropdownIcon,
 } from "./components";
-import { QRModal } from "../../components/Modals/QRModal";
-import { AddressPageTransaction, useAddressPageQuery } from "./__generated__/operations";
-import {
-  CoinQuantity,
-  // NativeAssetId
-} from "fuels";
-import { BigNumber } from "@ethersproject/bignumber";
-import TransactionsTable from "./TransactionsTable";
-import BalancesTable from "./BalancesTable";
 
 export function AddressPage() {
   const { address } = useParams() as any;
@@ -45,25 +48,29 @@ export function AddressPage() {
     coins?.reduce<{ [assetId: string]: CoinQuantity }>(
       (acc, { assetId, amount }) => ({
         ...acc,
-        [assetId]: { assetId, amount: BigNumber.from(amount).add(acc[assetId]?.amount ?? 0) },
+        [assetId]: {
+          assetId,
+          amount: BigNumber.from(amount).add(acc[assetId]?.amount ?? 0),
+        },
       }),
-      {},
+      {}
     ) ?? null;
-  const transactions = useMemo<AddressPageTransaction[]>(() => {
-    return data?.transactionsByOwner!.edges!.map((edge) => edge!.node) ?? [];
-  }, [data]);
+  const transactions = useMemo<AddressPageTransaction[]>(
+    () => data?.transactionsByOwner!.edges!.map((edge) => edge!.node) ?? [],
+    [data]
+  );
 
-  function onClose() {
+  const onClose = () => {
     setModal(false);
-  }
+  };
 
-  function showModal() {
+  const showModal = () => {
     setModal(true);
-  }
+  };
 
-  function onClickCopy() {
+  const onClickCopy = () => {
     navigator.clipboard.writeText(address);
-  }
+  };
 
   if (loading) {
     return (
@@ -128,7 +135,9 @@ export function AddressPage() {
               </TokenDropdownContainer> */}
             </HeadlineCoinsContainer>
           </HeadlineContainer>
-          {balances ? <BalancesTable balances={Object.values(balances)} /> : null}
+          {balances ? (
+            <BalancesTable balances={Object.values(balances)} />
+          ) : null}
           <div style={{ height: 16 }} />
           <TransactionsTable transactions={transactions} />
         </Content>

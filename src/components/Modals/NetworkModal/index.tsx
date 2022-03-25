@@ -1,3 +1,11 @@
+import * as React from "react";
+import { useMemo, useRef, useState } from "react";
+
+import type { Chain } from "../../../api";
+import { ChainContext } from "../../../contexts/network";
+import { useOnClickOutside } from "../../../hooks";
+import { Modal } from "../Base";
+
 import {
   Title,
   Container,
@@ -7,12 +15,6 @@ import {
   ActiveNetworkIndicator,
   ConfirmNetworkButton,
 } from "./components";
-import * as React from "react";
-import { Modal } from "../Base";
-import { useMemo, useRef, useState } from "react";
-import { useOnClickOutside } from "../../../hooks";
-import { ChainContext } from "../../../contexts/network";
-import { Chain } from "../../../api";
 
 interface Props {
   onClose: () => void;
@@ -25,7 +27,7 @@ export function NetworkModal(props: Props) {
   const [activeChain, setActiveChain] = useState<Chain>(chains?.[0]);
   const highlightedChain = useMemo(
     () => selectedChain || activeChain,
-    [activeChain, selectedChain],
+    [activeChain, selectedChain]
   );
 
   useOnClickOutside(contentRef, onClickOutside);

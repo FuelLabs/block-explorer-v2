@@ -1,18 +1,8 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+
 import { Header } from "../../components/Header";
-import {
-  CoinDetailsContainer,
-  CoinDetailsRow,
-  KeyLabel,
-  KeyValue,
-  Container,
-  Content,
-  ContractLink,
-  TableHeadlineDisclaimer,
-  TableTabsContainer,
-  TableTabButton,
-} from "./components";
+import { QRModal } from "../../components/Modals/QRModal";
 import {
   TableContainer,
   TableHeadlineContainer,
@@ -54,24 +44,36 @@ import {
   TokenDropdownIcon,
 } from "../AddressPage/components";
 import { Transactions } from "../AddressPage/constants";
-import { QRModal } from "../../components/Modals/QRModal";
+
+import {
+  CoinDetailsContainer,
+  CoinDetailsRow,
+  KeyLabel,
+  KeyValue,
+  Container,
+  Content,
+  ContractLink,
+  TableHeadlineDisclaimer,
+  TableTabsContainer,
+  TableTabButton,
+} from "./components";
 
 export function ContractPage() {
   const { contract } = useParams() as any;
   const [copyTooltip] = useState("Copy address");
   const [modal, setModal] = useState(false);
 
-  function onClose() {
+  const onClose = () => {
     setModal(false);
-  }
+  };
 
-  function showModal() {
+  const showModal = () => {
     setModal(true);
-  }
+  };
 
-  function onClickCopy() {
+  const onClickCopy = () => {
     navigator.clipboard.writeText(contract);
-  }
+  };
 
   return (
     <>
@@ -107,7 +109,7 @@ export function ContractPage() {
                 <TokenButton>
                   <TokenButtonSymbol>ETH:</TokenButtonSymbol>
                   <TokenButtonAmount>435.3</TokenButtonAmount>
-                  <TokenButtonSeparator></TokenButtonSeparator>
+                  <TokenButtonSeparator />
                   <TokenButtonIconContainer>
                     <TokenDropdownIcon />
                   </TokenButtonIconContainer>
@@ -119,7 +121,7 @@ export function ContractPage() {
             <CoinDetailsRow>
               <KeyLabel>Creation Tx hash::</KeyLabel>
               <KeyValue>
-                <ContractLink to={`/transaction/0xc5d2460186f7233c927e7db2dcc703c0e500}`}>
+                <ContractLink to="/transaction/0xc5d2460186f7233c927e7db2dcc703c0e500}">
                   0xc5d2460186f7233c927e7db2dcc703c0e500
                 </ContractLink>
               </KeyValue>
@@ -178,7 +180,9 @@ export function TransactionsTable() {
           {Transactions.map((transaction, idx) => (
             <TableRow key={idx}>
               <TableCell>
-                <TxHash to={`/transaction/${transaction.hash}`}>{transaction.hash}</TxHash>
+                <TxHash to={`/transaction/${transaction.hash}`}>
+                  {transaction.hash}
+                </TxHash>
               </TableCell>
               <TableCell>{transaction.type}</TableCell>
               <TableCell>{transaction.timestamp}</TableCell>
@@ -197,7 +201,7 @@ export function TransactionsTable() {
                     </TxRecipient>
                   ) : (
                     <BoldText>N/A</BoldText>
-                  ),
+                  )
                 )}
               </TableCell>
               <TableCell>
@@ -215,13 +219,15 @@ export function TransactionsTable() {
                     </CoinLink>
                   ) : (
                     <BoldText>N/A</BoldText>
-                  ),
+                  )
                 )}
               </TableCell>
               <TableCell>
                 {transaction.subTransactions.map((subTransaction, idx) => (
                   <TransactionValue key={idx}>
-                    {subTransaction.fee ? `$${subTransaction.fee.toFixed(2)}` : ""}
+                    {subTransaction.fee
+                      ? `$${subTransaction.fee.toFixed(2)}`
+                      : ""}
                   </TransactionValue>
                 ))}
               </TableCell>
@@ -237,32 +243,38 @@ function TableNavigation() {
   const pages = [1, 2, 3, 4];
   const [selectedPage, selectPage] = useState(1);
 
-  function onSelectPage(idx: number) {
+  const onSelectPage = (idx: number) => {
     selectPage(idx);
-  }
+  };
 
-  function onClickPrevPage() {
+  const onClickPrevPage = () => {
     selectPage((prevPage) => prevPage - 1);
-  }
+  };
 
-  function onClickNextPage() {
+  const onClickNextPage = () => {
     selectPage((prevPage) => prevPage + 1);
-  }
+  };
 
-  function onClickLastPage() {
+  const onClickLastPage = () => {
     selectPage(pages[pages.length - 1]);
-  }
+  };
 
-  function onClickFirstPage() {
+  const onClickFirstPage = () => {
     selectPage(1);
-  }
+  };
 
   return (
     <TableNavigationButtons>
-      <TableNavigationTextButton disabled={selectedPage === 1} onClick={onClickFirstPage}>
+      <TableNavigationTextButton
+        disabled={selectedPage === 1}
+        onClick={onClickFirstPage}
+      >
         First
       </TableNavigationTextButton>
-      <TableNextNavigationTextButton disabled={selectedPage === 1} onClick={onClickPrevPage}>
+      <TableNextNavigationTextButton
+        disabled={selectedPage === 1}
+        onClick={onClickPrevPage}
+      >
         Previous
       </TableNextNavigationTextButton>
       <TableNavigationNumbersContainer>

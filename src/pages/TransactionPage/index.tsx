@@ -1,5 +1,13 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+
 import { Header } from "../../components/Header";
+import { ExpandIcon, ShrinkIcon } from "../../components/Icons";
+import { trimAddress } from "../../utils";
+import { UTXODetailsValue } from "../CreateTransactionPage/components";
+
+import type { InputFragment, OutputFragment } from "./__generated__/operations";
+import { useTransactionPageQuery } from "./__generated__/operations";
 import {
   Container,
   Content,
@@ -36,18 +44,13 @@ import {
   UTXOHeadlineColumn2,
   ContractTextarea,
 } from "./components";
-import { useParams } from "react-router-dom";
-import { ExpandIcon, ShrinkIcon } from "../../components/Icons";
-import { trimAddress } from "../../utils";
-import { InputFragment, OutputFragment, useTransactionPageQuery } from "./__generated__/operations";
-import { UTXODetailsValue } from "../CreateTransactionPage/components";
 
 export function TransactionPage() {
   const { transaction } = useParams() as any;
   const { data } = useTransactionPageQuery({ variables: { id: transaction } });
   const tx = data?.transaction;
 
-  if (!tx) return <></>;
+  if (!tx) return null;
 
   return (
     <>
@@ -61,12 +64,16 @@ export function TransactionPage() {
           <TransactionDataContainer>
             <TransactionDataRow>
               <RowKeyColumn>Type:</RowKeyColumn>
-              <RowValueColumn>{tx.isScript ? "Script" : "Create"}</RowValueColumn>
+              <RowValueColumn>
+                {tx.isScript ? "Script" : "Create"}
+              </RowValueColumn>
             </TransactionDataRow>
             {tx.status ? (
               <TransactionDataRow>
                 <RowKeyColumn>Status:</RowKeyColumn>
-                <TransactionStatus>{tx.status.__typename.replace("Status", "")}</TransactionStatus>
+                <TransactionStatus>
+                  {tx.status.__typename.replace("Status", "")}
+                </TransactionStatus>
               </TransactionDataRow>
             ) : null}
             <TransactionDataRow>
@@ -87,7 +94,11 @@ export function TransactionPage() {
             </TransactionDataRow>
           </TransactionDataContainer>
           <UTXOComponent outputs={tx.outputs || []} inputs={tx.inputs || []} />
-          {tx.isScript ? <ScriptsComponent tx={tx} /> : <ContractComponent tx={tx} />}
+          {tx.isScript ? (
+            <ScriptsComponent tx={tx} />
+          ) : (
+            <ContractComponent tx={tx} />
+          )}
         </Content>
       </Container>
     </>
@@ -103,7 +114,7 @@ function ContractComponent({ tx }: { tx: any }) {
         </UTXOHeadlineColumn>
       </UTXOHeadlineContainer>
       <UTXODetailsContainer>
-        <ContractTextarea readOnly={true} value={witness} />
+        <ContractTextarea readOnly value={witness} />
       </UTXODetailsContainer>
     </UTXOBoxContainer>
   ));
@@ -115,12 +126,21 @@ function ScriptsComponent({ tx }: { tx: any }) {
       <ScriptTitle>Script Byte Code:</ScriptTitle>
       <ScriptComponent tabs={["Assembly", "Hex"]} contents={["", tx.script]} />
       <ScriptTitle>Script Data:</ScriptTitle>
-      <ScriptComponent tabs={["ABI Decoded", "Raw Hex"]} contents={["", tx.scriptData]} />
+      <ScriptComponent
+        tabs={["ABI Decoded", "Raw Hex"]}
+        contents={["", tx.scriptData]}
+      />
     </ScriptsContainer>
   );
 }
 
-function ScriptComponent({ tabs, contents }: { tabs: string[]; contents: string[] }) {
+function ScriptComponent({
+  tabs,
+  contents,
+}: {
+  tabs: string[];
+  contents: string[];
+}) {
   const [selectedTab, setSelectedTab] = useState(1);
 
   return (
@@ -138,7 +158,7 @@ function ScriptComponent({ tabs, contents }: { tabs: string[]; contents: string[
           </ScriptTabButton>
         ))}
       </ScriptTabsContainer>
-      <ScriptTextarea readOnly={true} value={contents[selectedTab]} />
+      <ScriptTextarea readOnly value={contents[selectedTab]} />
     </ScriptContainer>
   );
 }
@@ -152,9 +172,9 @@ function UTXOComponent({
 }) {
   const [expanded, setExpanded] = useState(false);
 
-  function onClickDetails() {
+  const onClickDetails = () => {
     setExpanded((prevExpanded) => !prevExpanded);
-  }
+  };
 
   if (!outputs.length) return null;
 
@@ -169,7 +189,12 @@ function UTXOComponent({
       <UTXOBoxesContainer>
         <UTXOBoxesColumn>
           {inputs.map((input, idx) => (
-            <UTXOInputBox key={idx} idx={idx} input={input} expanded={expanded} />
+            <UTXOInputBox
+              key={idx}
+              idx={idx}
+              input={input}
+              expanded={expanded}
+            />
           ))}
         </UTXOBoxesColumn>
         <UTXOSeparatorColumn>
@@ -177,7 +202,12 @@ function UTXOComponent({
         </UTXOSeparatorColumn>
         <UTXOBoxesColumn>
           {outputs.map((output, idx) => (
-            <UTXOOutputBox key={idx} index={idx} output={output} expanded={expanded} />
+            <UTXOOutputBox
+              key={idx}
+              index={idx}
+              output={output}
+              expanded={expanded}
+            />
           ))}
         </UTXOBoxesColumn>
       </UTXOBoxesContainer>
@@ -201,7 +231,9 @@ function UTXOInputBox({
           <UTXOHeadlineContainer>
             <UTXOHeadlineColumn>
               <UTXOTitle>{`Input #${idx}`}</UTXOTitle>
-              <UTXOHash to={`/transaction/${input.utxoId}`}>{input.utxoId}</UTXOHash>
+              <UTXOHash to={`/transaction/${input.utxoId}`}>
+                {input.utxoId}
+              </UTXOHash>
             </UTXOHeadlineColumn>
             <UTXOHeadlineColumn2>
               <HeadlineText>Value</HeadlineText>
@@ -254,7 +286,9 @@ function UTXOInputBox({
           <UTXOHeadlineContainer>
             <UTXOHeadlineColumn>
               <UTXOTitle>{`Input #${idx}`}</UTXOTitle>
-              <UTXOHash to={`/transaction/${input.utxoId}`}>{input.utxoId}</UTXOHash>
+              <UTXOHash to={`/transaction/${input.utxoId}`}>
+                {input.utxoId}
+              </UTXOHash>
             </UTXOHeadlineColumn>
           </UTXOHeadlineContainer>
           {expanded && (
@@ -267,11 +301,15 @@ function UTXOInputBox({
               </UTXODetailsRow>
               <UTXODetailsRow>
                 <UTXODetailsKey>Balance Root:</UTXODetailsKey>
-                <UTXODetailsValue>{trimAddress(input.balanceRoot)}</UTXODetailsValue>
+                <UTXODetailsValue>
+                  {trimAddress(input.balanceRoot)}
+                </UTXODetailsValue>
               </UTXODetailsRow>
               <UTXODetailsRow>
                 <UTXODetailsKey>State Root:</UTXODetailsKey>
-                <UTXODetailsValue>{trimAddress(input.stateRoot)}</UTXODetailsValue>
+                <UTXODetailsValue>
+                  {trimAddress(input.stateRoot)}
+                </UTXODetailsValue>
               </UTXODetailsRow>
             </UTXODetailsContainer>
           )}
@@ -300,7 +338,9 @@ function UTXOOutput({ output }: { output: OutputFragment }) {
         <>
           <UTXODetailsRow>
             <UTXODetailsKey>Balance Root:</UTXODetailsKey>
-            <UTXODetailsValue>{trimAddress(output.balanceRoot)}</UTXODetailsValue>
+            <UTXODetailsValue>
+              {trimAddress(output.balanceRoot)}
+            </UTXODetailsValue>
           </UTXODetailsRow>
           <UTXODetailsRow>
             <UTXODetailsKey>State Root:</UTXODetailsKey>
@@ -319,7 +359,9 @@ function UTXOOutput({ output }: { output: OutputFragment }) {
         <>
           <UTXODetailsRow>
             <UTXODetailsKey>To:</UTXODetailsKey>
-            <UTXODetailsLink to={`/address/${output.to}`}>{trimAddress(output.to)}</UTXODetailsLink>
+            <UTXODetailsLink to={`/address/${output.to}`}>
+              {trimAddress(output.to)}
+            </UTXODetailsLink>
           </UTXODetailsRow>
           <UTXODetailsRow>
             <UTXODetailsKey>Amount:</UTXODetailsKey>
@@ -353,7 +395,7 @@ function UTXOOutputBox({
       <UTXOHeadlineContainer>
         <UTXOHeadlineColumn>
           <UTXOTitle>Output #{index}</UTXOTitle>
-          <UTXOHash to={`/`}>{output.__typename}</UTXOHash>
+          <UTXOHash to="/">{output.__typename}</UTXOHash>
         </UTXOHeadlineColumn>
         {output.__typename === "CoinOutput" && (
           <UTXOHeadlineColumn2>

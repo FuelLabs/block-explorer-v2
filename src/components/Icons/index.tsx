@@ -1,4 +1,4 @@
-export const LogoIcon = ({ style = {}, ...rest }) => {
+export function LogoIcon({ style = {}, ...rest }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -28,9 +28,9 @@ export const LogoIcon = ({ style = {}, ...rest }) => {
       </g>
     </svg>
   );
-};
+}
 
-export const SearchIcon = ({ style = {}, ...rest }) => {
+export function SearchIcon({ style = {}, ...rest }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -41,14 +41,14 @@ export const SearchIcon = ({ style = {}, ...rest }) => {
       <defs />
       <path
         fill="gray"
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M14.032 12.458l5.948 5.948-1.574 1.574-5.948-5.948a7.79 7.79 0 111.574-1.574zm-6.24.9a5.565 5.565 0 10-5.565-5.565 5.565 5.565 0 005.565 5.564z"
       />
     </svg>
   );
-};
+}
 
-export const ArrowIcon = ({ style = {}, ...rest }) => {
+export function ArrowIcon({ style = {}, ...rest }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -63,9 +63,9 @@ export const ArrowIcon = ({ style = {}, ...rest }) => {
       />
     </svg>
   );
-};
+}
 
-export const CopyIcon = ({ style = {}, ...rest }) => {
+export function CopyIcon({ style = {}, ...rest }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -85,9 +85,9 @@ export const CopyIcon = ({ style = {}, ...rest }) => {
       />
     </svg>
   );
-};
+}
 
-export const QRIcon = ({ style = {}, ...rest }) => {
+export function QRIcon({ style = {}, ...rest }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -115,12 +115,16 @@ export const QRIcon = ({ style = {}, ...rest }) => {
         fillRule="evenodd"
         d="M73.089 73.089h36.544v36.547H73.089zM219.265 0v182.728h182.729V0H219.265zm146.181 146.178H255.813V36.542h109.633v109.636z"
       />
-      <path fill="currentColor" fillRule="evenodd" d="M292.352 73.089h36.553v36.547h-36.553z" />
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        d="M292.352 73.089h36.553v36.547h-36.553z"
+      />
     </svg>
   );
-};
+}
 
-export const PlusIcon = ({ style = {}, ...rest }) => {
+export function PlusIcon({ style = {}, ...rest }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -135,9 +139,9 @@ export const PlusIcon = ({ style = {}, ...rest }) => {
       />
     </svg>
   );
-};
+}
 
-export const ExternalLinkIcon = ({ style = {}, ...rest }) => {
+export function ExternalLinkIcon({ style = {}, ...rest }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -157,9 +161,9 @@ export const ExternalLinkIcon = ({ style = {}, ...rest }) => {
       />
     </svg>
   );
-};
+}
 
-export const ExpandIcon = ({ style = {}, ...rest }) => {
+export function ExpandIcon({ style = {}, ...rest }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -174,9 +178,9 @@ export const ExpandIcon = ({ style = {}, ...rest }) => {
       />
     </svg>
   );
-};
+}
 
-export const ShrinkIcon = ({ style = {}, ...rest }) => {
+export function ShrinkIcon({ style = {}, ...rest }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -191,9 +195,9 @@ export const ShrinkIcon = ({ style = {}, ...rest }) => {
       />
     </svg>
   );
-};
+}
 
-export const FileIcon = ({ style = {}, ...rest }) => {
+export function FileIcon({ style = {}, ...rest }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -208,4 +212,4 @@ export const FileIcon = ({ style = {}, ...rest }) => {
       />
     </svg>
   );
-};
+}

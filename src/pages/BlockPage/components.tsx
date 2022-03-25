@@ -1,5 +1,6 @@
-import styled from "styled-components";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
 import { ArrowIcon } from "../../components/Icons";
 
 export const Container = styled.section``;

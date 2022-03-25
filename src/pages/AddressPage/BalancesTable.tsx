@@ -1,4 +1,8 @@
 // import { useState } from "react";
+import type { CoinQuantity } from "fuels";
+
+import * as TableUI from "../../components/Table/components";
+
 import {
   TableHeadlineDisclaimer,
   HeadlineHighlighedDisclaimer,
@@ -8,10 +12,12 @@ import {
   // TableNavigationNumbersContainer,
   // TableNextNavigationTextButton,
 } from "./components";
-import * as TableUI from "../../components/Table/components";
-import { CoinQuantity } from "fuels";
 
-export default function BalancesTable({ balances }: { balances: CoinQuantity[] }) {
+export default function BalancesTable({
+  balances,
+}: {
+  balances: CoinQuantity[];
+}) {
   function trimAddress(address: string) {
     if (!address) {
       return "";
@@ -21,36 +27,40 @@ export default function BalancesTable({ balances }: { balances: CoinQuantity[] }
   }
 
   return (
-    <>
-      <TableUI.TableContainer>
-        <TableUI.TableHeadlineContainer>
-          <TableUI.TableHeadlineTitle>Balances</TableUI.TableHeadlineTitle>
-          <TableUI.TableHeadlinerContentItem>
-            <TableHeadlineDisclaimer>
-              {`Showing `}
-              <HeadlineHighlighedDisclaimer>{balances?.length || "0"}</HeadlineHighlighedDisclaimer>
-              {` out of `}
-              <HeadlineHighlighedDisclaimer>{balances?.length || "0"}</HeadlineHighlighedDisclaimer>
-              {` balances`}
-            </TableHeadlineDisclaimer>
-          </TableUI.TableHeadlinerContentItem>
-        </TableUI.TableHeadlineContainer>
-        <TableUI.TableWrapper>
-          <TableUI.Table>
-            <TableUI.TableHeadRow>
-              <TableUI.TableHeadCell>Color</TableUI.TableHeadCell>
-              <TableUI.TableHeadCell>Amount</TableUI.TableHeadCell>
-            </TableUI.TableHeadRow>
-            {balances.map((balance) => (
-              <TableUI.TableRow key={balance.assetId}>
-                <TableUI.TableCell>{trimAddress(balance.assetId)}</TableUI.TableCell>
-                <TableUI.TableCell>{balance.amount.toString()}</TableUI.TableCell>
-              </TableUI.TableRow>
-            ))}
-          </TableUI.Table>
-        </TableUI.TableWrapper>
-      </TableUI.TableContainer>
-    </>
+    <TableUI.TableContainer>
+      <TableUI.TableHeadlineContainer>
+        <TableUI.TableHeadlineTitle>Balances</TableUI.TableHeadlineTitle>
+        <TableUI.TableHeadlinerContentItem>
+          <TableHeadlineDisclaimer>
+            {`Showing `}
+            <HeadlineHighlighedDisclaimer>
+              {balances?.length || "0"}
+            </HeadlineHighlighedDisclaimer>
+            {` out of `}
+            <HeadlineHighlighedDisclaimer>
+              {balances?.length || "0"}
+            </HeadlineHighlighedDisclaimer>
+            {` balances`}
+          </TableHeadlineDisclaimer>
+        </TableUI.TableHeadlinerContentItem>
+      </TableUI.TableHeadlineContainer>
+      <TableUI.TableWrapper>
+        <TableUI.Table>
+          <TableUI.TableHeadRow>
+            <TableUI.TableHeadCell>Color</TableUI.TableHeadCell>
+            <TableUI.TableHeadCell>Amount</TableUI.TableHeadCell>
+          </TableUI.TableHeadRow>
+          {balances.map((balance) => (
+            <TableUI.TableRow key={balance.assetId}>
+              <TableUI.TableCell>
+                {trimAddress(balance.assetId)}
+              </TableUI.TableCell>
+              <TableUI.TableCell>{balance.amount.toString()}</TableUI.TableCell>
+            </TableUI.TableRow>
+          ))}
+        </TableUI.Table>
+      </TableUI.TableWrapper>
+    </TableUI.TableContainer>
   );
 }
 

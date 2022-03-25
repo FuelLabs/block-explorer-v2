@@ -1,14 +1,20 @@
-import { HashRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+
 import "./App.css";
-import { HomePage } from "./pages/HomePage";
+import { ChainProvider } from "./contexts/network";
 import { AddressPage } from "./pages/AddressPage";
 import { BlockPage } from "./pages/BlockPage";
-import { TransactionPage } from "./pages/TransactionPage";
 import { BlockTransactionsPage } from "./pages/BlockTransactionsPage";
-import { CreateTransactionPage } from "./pages/CreateTransactionPage";
 import { ContractPage } from "./pages/ContractPage";
-import { ChainProvider } from "./contexts/network";
+import { CreateTransactionPage } from "./pages/CreateTransactionPage";
+import { HomePage } from "./pages/HomePage";
+import { TransactionPage } from "./pages/TransactionPage";
 
 const { REACT_APP_GRAPHQL_API_ENDPOINT, PUBLIC_URL } = process.env;
 
@@ -36,12 +42,21 @@ function App() {
         <Router basename={PUBLIC_URL}>
           <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route path={"/address/:address"} component={AddressPage} />
-            <Route path={"/block/:block/transactions"} component={BlockTransactionsPage} />
-            <Route path={"/block/:block"} component={BlockPage} />
-            <Route path={"/transaction/:transaction"} component={TransactionPage} />
-            <Route path={"/create-transaction/:transaction"} component={CreateTransactionPage} />
-            <Route path={"/contract/:contract"} component={ContractPage} />
+            <Route path="/address/:address" component={AddressPage} />
+            <Route
+              path="/block/:block/transactions"
+              component={BlockTransactionsPage}
+            />
+            <Route path="/block/:block" component={BlockPage} />
+            <Route
+              path="/transaction/:transaction"
+              component={TransactionPage}
+            />
+            <Route
+              path="/create-transaction/:transaction"
+              component={CreateTransactionPage}
+            />
+            <Route path="/contract/:contract" component={ContractPage} />
             <Redirect to="/" />
           </Switch>
         </Router>

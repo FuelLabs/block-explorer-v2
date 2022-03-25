@@ -1,5 +1,9 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+
 import { Header } from "../../components/Header";
+import { ExpandIcon, ShrinkIcon } from "../../components/Icons";
+
 import {
   Container,
   Content,
@@ -34,8 +38,6 @@ import {
   UTXODetailsValue,
   WitnessIcon,
 } from "./components";
-import { useParams } from "react-router-dom";
-import { ExpandIcon, ShrinkIcon } from "../../components/Icons";
 
 export function CreateTransactionPage() {
   const { transaction } = useParams() as any;
@@ -98,21 +100,27 @@ export function CreateTransactionPage() {
                   <WitnessIconContainer>
                     <WitnessIcon />
                   </WitnessIconContainer>
-                  <WitnessAddress>0xc5d2460186f7233c927e7db2dcc703c0e500</WitnessAddress>
+                  <WitnessAddress>
+                    0xc5d2460186f7233c927e7db2dcc703c0e500
+                  </WitnessAddress>
                 </WitnessContainer>
                 <WitnessContainer>
                   <WitnessIndex>[1]</WitnessIndex>
                   <WitnessIconContainer>
                     <WitnessIcon />
                   </WitnessIconContainer>
-                  <WitnessAddress>0xc5d2460186f7233c927e7db2dcc703c0e500</WitnessAddress>
+                  <WitnessAddress>
+                    0xc5d2460186f7233c927e7db2dcc703c0e500
+                  </WitnessAddress>
                 </WitnessContainer>
                 <WitnessContainer>
                   <WitnessIndex>[2]</WitnessIndex>
                   <WitnessIconContainer>
                     <WitnessIcon />
                   </WitnessIconContainer>
-                  <WitnessAddress>0xc5d2460186f7233c927e7db2dcc703c0e500</WitnessAddress>
+                  <WitnessAddress>
+                    0xc5d2460186f7233c927e7db2dcc703c0e500
+                  </WitnessAddress>
                 </WitnessContainer>
               </RowValueColumn>
             </TransactionDataRow>
@@ -127,9 +135,9 @@ export function CreateTransactionPage() {
 function UTXOComponent() {
   const [expanded, setExpanded] = useState(false);
 
-  function onClickDetails() {
+  const onClickDetails = () => {
     setExpanded((prevExpanded) => !prevExpanded);
-  }
+  };
 
   return (
     <UTXOContainer>
@@ -196,7 +204,9 @@ function UTXOInputBox(props: UTXOInputProps) {
         <UTXODetailsContainer>
           <UTXODetailsRow>
             <UTXODetailsKey>ContractID:</UTXODetailsKey>
-            <UTXODetailsLink to={`/contract/${data.contractId}`}>{data.contractId}</UTXODetailsLink>
+            <UTXODetailsLink to={`/contract/${data.contractId}`}>
+              {data.contractId}
+            </UTXODetailsLink>
           </UTXODetailsRow>
           <UTXODetailsRow>
             <UTXODetailsKey>Balance Root:</UTXODetailsKey>
@@ -250,7 +260,9 @@ function UTXOOutputBox(props: UTXOOutputProps) {
         <UTXODetailsContainer>
           <UTXODetailsRow>
             <UTXODetailsKey>ContractID:</UTXODetailsKey>
-            <UTXODetailsLink to={`/contract/${data.contractId}`}>{data.contractId}</UTXODetailsLink>
+            <UTXODetailsLink to={`/contract/${data.contractId}`}>
+              {data.contractId}
+            </UTXODetailsLink>
           </UTXODetailsRow>
           <UTXODetailsRow>
             <UTXODetailsKey>Balance Root:</UTXODetailsKey>

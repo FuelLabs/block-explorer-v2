@@ -1,5 +1,8 @@
-import { default as React, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
+
 import { dateDiff } from "../../utils/date";
+
+import type { HomePageBlock } from "./__generated__/operations";
 import {
   BlockNumber,
   RecentBlockColumn1,
@@ -13,13 +16,12 @@ import {
   TxCount,
   BlockProducerText,
 } from "./components";
-import { HomePageBlock } from "./__generated__/operations";
 
 type Props = {
   blocks: HomePageBlock[];
 };
 
-export const RecentBlocks: React.FC<Props> = ({ blocks }) => {
+export function RecentBlocks({ blocks }: Props) {
   const [now] = useState(new Date());
 
   return (
@@ -37,7 +39,10 @@ export const RecentBlocks: React.FC<Props> = ({ blocks }) => {
             <RecentBlockColumn2>
               <BlockProducerText>
                 {`Producer: `}
-                <ProducerAddress id="recent-block-producer-link" to={`/address/${block.producer}`}>
+                <ProducerAddress
+                  id="recent-block-producer-link"
+                  to={`/address/${block.producer}`}
+                >
                   {block.producer}
                 </ProducerAddress>
               </BlockProducerText>
@@ -51,12 +56,11 @@ export const RecentBlocks: React.FC<Props> = ({ blocks }) => {
       </DataBox>
     </DataItem>
   );
-};
+}
 
-const BlockTimestamp: React.FC<{ date1: Date; date2: Date }> = ({ date1, date2 }) => {
-  const difference = useMemo(() => {
-    return dateDiff(date1, date2);
-  }, [date1, date2]);
+function BlockTimestamp({ date1, date2 }: { date1: Date; date2: Date }) {
+  const difference = useMemo(() => dateDiff(date1, date2), [date1, date2]);
+  // eslint-disable-next-line consistent-return
   const text = useMemo(() => {
     if (difference?.hours > 0) return `${difference.hours} hours ago`;
     if (difference?.minutes > 0) return `${difference.minutes} minutes ago`;
@@ -64,4 +68,4 @@ const BlockTimestamp: React.FC<{ date1: Date; date2: Date }> = ({ date1, date2 }
   }, [difference]);
 
   return <DataTimestamp>{text}</DataTimestamp>;
-};
+}

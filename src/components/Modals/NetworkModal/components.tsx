@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { ButtonReset } from "../../Button/components";
 
 export const Container = styled.div`
@@ -46,7 +47,8 @@ export const NetworkSelectorButton = styled(ButtonReset)<{
   }
 
   :hover ${NetworkSelectorCheckbox} {
-    border: ${({ isSelected }) => (isSelected ? "solid 1px #f9fefc" : "solid 1px #f9fefc")};
+    border: ${({ isSelected }) =>
+      isSelected ? "solid 1px #f9fefc" : "solid 1px #f9fefc"};
   }
 
   ${NetworkSelectorCheckbox} {

@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+
 import { ButtonReset } from "../../components/Button/components";
 import { CopyIcon, PlusIcon, QRIcon, ArrowIcon } from "../../components/Icons";
-import { Link } from "react-router-dom";
 
 export const Container = styled.section``;
 
@@ -468,10 +469,13 @@ export const TableNavigationButtons = styled.div`
   }
 `;
 
-export const TableNavigationButton = styled(ButtonReset)<{ isSelected?: boolean }>`
+export const TableNavigationButton = styled(ButtonReset)<{
+  isSelected?: boolean;
+}>`
   height: 13px;
   color: ${({ isSelected }) => (isSelected ? "#d1d4d7;" : "#808080")};
-  background-color: ${({ isSelected }) => (isSelected ? "#192f2b;" : "rgba(0, 0, 0, 0)")};
+  background-color: ${({ isSelected }) =>
+    isSelected ? "#192f2b;" : "rgba(0, 0, 0, 0)"};
 
   :hover {
     color: #d1d4d7;

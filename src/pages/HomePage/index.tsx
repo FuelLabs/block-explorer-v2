@@ -1,19 +1,32 @@
 import { useEffect, useState } from "react";
+
 import { Header } from "../../components/Header";
-import { Container, Content, DataContainer, Input, InputContainer, SearchIcon } from "./components";
+
 import { RecentBlocks } from "./RecentBlocks";
 import { RecentTransactions } from "./RecentTransactions";
-import {
+import type {
   HomePageBlock,
   HomePageTransaction,
+} from "./__generated__/operations";
+import {
   useHomePageBlocksQuery,
   useHomePageTransactionsQuery,
 } from "./__generated__/operations";
+import {
+  Container,
+  Content,
+  DataContainer,
+  Input,
+  InputContainer,
+  SearchIcon,
+} from "./components";
 
 export function HomePage() {
   const [blocks, setBlocks] = useState<HomePageBlock[]>([]);
   const [transactions, setTransactions] = useState<HomePageTransaction[]>([]);
-  const transactionsQuery = useHomePageTransactionsQuery({ variables: { count: 50 } });
+  const transactionsQuery = useHomePageTransactionsQuery({
+    variables: { count: 50 },
+  });
   const blocksQuery = useHomePageBlocksQuery({ variables: { count: 5 } });
 
   useEffect(() => {
@@ -30,7 +43,11 @@ export function HomePage() {
     const edges: any[] = transactionsQuery.data?.transactions?.edges || [];
     const transactions: HomePageTransaction[] = edges.map((edge) => edge.node);
     setTransactions(transactions);
-  }, [transactionsQuery.loading, transactionsQuery.data, transactionsQuery.error]);
+  }, [
+    transactionsQuery.loading,
+    transactionsQuery.data,
+    transactionsQuery.error,
+  ]);
 
   return (
     <>
