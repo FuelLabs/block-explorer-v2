@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { HashRouter as Router } from "react-router-dom";
 
 import "./App.css";
-import Routes from "./Routes";
+import AppRoutes from "./AppRoutes";
 import { ChainProvider } from "./contexts/network";
 
 const { REACT_APP_GRAPHQL_API_ENDPOINT, PUBLIC_URL } = process.env;
@@ -34,7 +34,7 @@ export default function App() {
             // TODO: Add a cool loading indicator
             fallback={null}
           >
-            <Routes />
+            <AppRoutes />
           </Suspense>
         </Router>
       </ChainProvider>
