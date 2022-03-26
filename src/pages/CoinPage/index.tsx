@@ -1,22 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+
 import { Header } from "../../components/Header";
-import {
-  CoinDetailsContainer,
-  CoinDetailsRow,
-  CoinIcon,
-  KeyLabel,
-  KeyValue,
-  CoinName,
-  CoinSymbolContainer,
-  Container,
-  Content,
-  Title,
-  ContractLink,
-  TableHeadlineDisclaimer,
-  TableTabsContainer,
-  TableTabButton,
-} from "./components";
 import {
   TableContainer,
   TableHeadlineContainer,
@@ -41,6 +26,23 @@ import {
 } from "../AddressPage/components";
 import { Transactions } from "../AddressPage/constants";
 
+import {
+  CoinDetailsContainer,
+  CoinDetailsRow,
+  CoinIcon,
+  KeyLabel,
+  KeyValue,
+  CoinName,
+  CoinSymbolContainer,
+  Container,
+  Content,
+  Title,
+  ContractLink,
+  TableHeadlineDisclaimer,
+  TableTabsContainer,
+  TableTabButton,
+} from "./components";
+
 export function CoinPage() {
   const { coin } = useParams() as any;
 
@@ -64,7 +66,9 @@ export function CoinPage() {
             <CoinDetailsRow>
               <KeyLabel>Max Supply:</KeyLabel>
               <KeyValue>
-                {Number(10000000).toLocaleString("en", { minimumFractionDigits: 2 })}
+                {Number(10000000).toLocaleString("en", {
+                  minimumFractionDigits: 2,
+                })}
               </KeyValue>
             </CoinDetailsRow>
             <CoinDetailsRow>
@@ -82,7 +86,7 @@ export function CoinPage() {
             <CoinDetailsRow>
               <KeyLabel>Contract:</KeyLabel>
               <KeyValue>
-                <ContractLink to={`/contract/0xc5d2460186f7233c927e7db2dcc703c0e500}`}>
+                <ContractLink to="/contract/0xc5d2460186f7233c927e7db2dcc703c0e500}">
                   0xc5d2460186f7233c927e7db2dcc703c0e500
                 </ContractLink>
               </KeyValue>
@@ -137,7 +141,9 @@ export function TransactionsTable() {
           {Transactions.map((transaction, idx) => (
             <TableRow key={idx}>
               <TableCell>
-                <TxHash to={`/transaction/${transaction.hash}`}>{transaction.hash}</TxHash>
+                <TxHash to={`/transaction/${transaction.hash}`}>
+                  {transaction.hash}
+                </TxHash>
               </TableCell>
               <TableCell>{transaction.type}</TableCell>
               <TableCell>{transaction.timestamp}</TableCell>
@@ -156,7 +162,7 @@ export function TransactionsTable() {
                     </TxRecipient>
                   ) : (
                     <BoldText>N/A</BoldText>
-                  ),
+                  )
                 )}
               </TableCell>
               <TableCell>
@@ -174,13 +180,15 @@ export function TransactionsTable() {
                     </CoinLink>
                   ) : (
                     <BoldText>N/A</BoldText>
-                  ),
+                  )
                 )}
               </TableCell>
               <TableCell>
                 {transaction.subTransactions.map((subTransaction, idx) => (
                   <TransactionValue key={idx}>
-                    {subTransaction.fee ? `$${subTransaction.fee.toFixed(2)}` : ""}
+                    {subTransaction.fee
+                      ? `$${subTransaction.fee.toFixed(2)}`
+                      : ""}
                   </TransactionValue>
                 ))}
               </TableCell>
@@ -196,32 +204,38 @@ function TableNavigation() {
   const pages = [1, 2, 3, 4];
   const [selectedPage, selectPage] = useState(1);
 
-  function onSelectPage(idx: number) {
+  const onSelectPage = (idx: number) => {
     selectPage(idx);
-  }
+  };
 
-  function onClickPrevPage() {
+  const onClickPrevPage = () => {
     selectPage((prevPage) => prevPage - 1);
-  }
+  };
 
-  function onClickNextPage() {
+  const onClickNextPage = () => {
     selectPage((prevPage) => prevPage + 1);
-  }
+  };
 
-  function onClickLastPage() {
+  const onClickLastPage = () => {
     selectPage(pages[pages.length - 1]);
-  }
+  };
 
-  function onClickFirstPage() {
+  const onClickFirstPage = () => {
     selectPage(1);
-  }
+  };
 
   return (
     <TableNavigationButtons>
-      <TableNavigationTextButton disabled={selectedPage === 1} onClick={onClickFirstPage}>
+      <TableNavigationTextButton
+        disabled={selectedPage === 1}
+        onClick={onClickFirstPage}
+      >
         First
       </TableNavigationTextButton>
-      <TableNextNavigationTextButton disabled={selectedPage === 1} onClick={onClickPrevPage}>
+      <TableNextNavigationTextButton
+        disabled={selectedPage === 1}
+        onClick={onClickPrevPage}
+      >
         Previous
       </TableNextNavigationTextButton>
       <TableNavigationNumbersContainer>

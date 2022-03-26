@@ -1,5 +1,6 @@
-import styled from "styled-components";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
 import { ButtonReset } from "../../components/Button/components";
 import { ArrowIcon, FileIcon } from "../../components/Icons";
 

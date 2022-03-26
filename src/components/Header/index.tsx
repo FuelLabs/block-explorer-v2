@@ -1,3 +1,8 @@
+import { useContext, useState } from "react";
+
+import { ChainContext } from "../../contexts/network";
+import { NetworkModal } from "../Modals/NetworkModal";
+
 import {
   ContentItem,
   HeaderContainer,
@@ -9,9 +14,6 @@ import {
   NetworkSelectorButton,
   NetworkSelectorIcon,
 } from "./components";
-import { useContext, useState } from "react";
-import { NetworkModal } from "../Modals/NetworkModal";
-import { ChainContext } from "../../contexts/network";
 
 const NavigationLinks = [
   {
@@ -44,13 +46,13 @@ export function Header() {
   const [modal, setModal] = useState(false);
   const { chains } = useContext(ChainContext);
 
-  function onClose() {
+  const onClose = () => {
     setModal(false);
-  }
+  };
 
-  function showModal() {
+  const showModal = () => {
     setModal(true);
-  }
+  };
 
   return (
     <>

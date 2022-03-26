@@ -1,4 +1,10 @@
+import { BigNumber } from "@ethersproject/bignumber";
+import { useParams } from "react-router-dom";
+
 import { Header } from "../../components/Header";
+import { ExternalLinkIcon } from "../../components/Icons";
+
+import { useBlockPageQuery } from "./__generated__/operations";
 import {
   AddressesCount,
   BlockDataContainer,
@@ -17,12 +23,8 @@ import {
   Title,
   TransactionsCount,
 } from "./components";
-import { useParams } from "react-router-dom";
-import { ExternalLinkIcon } from "../../components/Icons";
-import { useBlockPageQuery } from "./__generated__/operations";
-import { BigNumber } from "@ethersproject/bignumber";
 
-export function BlockPage() {
+export default function BlockPage() {
   const { block } = useParams() as any;
 
   const { data, loading } = useBlockPageQuery({
@@ -71,11 +73,11 @@ export function BlockPage() {
             <BlockDataRow>
               <RowKeyColumn>Block height:</RowKeyColumn>
               <BlockHeightContainer>
-                <BlockNavigationButton to={`/block/${parseInt(block) - 1}`}>
+                <BlockNavigationButton to={`/block/${parseInt(block, 10) - 1}`}>
                   <BlockNavigationIcon rotate />
                 </BlockNavigationButton>
                 <BlockHeight>{bl.height}</BlockHeight>
-                <BlockNavigationButton to={`/block/${parseInt(block) + 1}`}>
+                <BlockNavigationButton to={`/block/${parseInt(block, 10) + 1}`}>
                   <BlockNavigationIcon />
                 </BlockNavigationButton>
               </BlockHeightContainer>
@@ -88,7 +90,9 @@ export function BlockPage() {
             </BlockDataRow>
             <BlockDataRow>
               <RowKeyColumn>Previous block hash:</RowKeyColumn>
-              <BlockHash to={`/block/${prevBl?.height}`}>{prevBl?.id}</BlockHash>
+              <BlockHash to={`/block/${prevBl?.height}`}>
+                {prevBl?.id}
+              </BlockHash>
             </BlockDataRow>
             <BlockDataRow>
               <RowKeyColumn>Ethereum block number:</RowKeyColumn>

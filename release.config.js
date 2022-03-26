@@ -1,29 +1,29 @@
 module.exports = {
   branches: [
-    "+([0-9])?(.{+([0-9]),x}).x",
-    "master",
-    "next",
-    "develop",
-    { name: "beta", prerelease: true },
-    { name: "alpha", prerelease: true },
+    '+([0-9])?(.{+([0-9]),x}).x',
+    'master',
+    'next',
+    'develop',
+    { name: 'beta', prerelease: true },
+    { name: 'alpha', prerelease: true },
   ],
   plugins: [
-    "@semantic-release/commit-analyzer",
-    "@semantic-release/release-notes-generator",
-    "@semantic-release/changelog",
+    '@semantic-release/commit-analyzer',
+    '@semantic-release/release-notes-generator',
+    '@semantic-release/changelog',
     [
-      "@semantic-release/npm",
+      '@semantic-release/npm',
       {
-        tarballDir: "release",
+        tarballDir: 'release',
       },
     ],
     [
-      "@semantic-release/github",
+      '@semantic-release/github',
       {
-        assets: "release/*.tgz",
+        assets: 'release/*.tgz',
       },
     ],
-    "@semantic-release/git",
+    '@semantic-release/git',
   ],
-  preset: "angular",
+  preset: 'angular',
 };
