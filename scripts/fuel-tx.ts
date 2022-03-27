@@ -4,7 +4,6 @@ import { hexlify } from "@ethersproject/bytes";
 
 const genBytes32 = () => hexlify(new Uint8Array(32).map(() => Math.floor(Math.random() * 256)));
 
-
 /**
  * Helper function to send transactions to the Fuel Node
  */

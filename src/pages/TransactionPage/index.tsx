@@ -40,7 +40,6 @@ import { ExpandIcon, ShrinkIcon } from "../../components/Icons";
 import { trimAddress } from "../../utils";
 import { InputFragment, OutputFragment, useTransactionPageQuery } from "./__generated__/operations";
 
-
 export function TransactionPage() {
   const { transaction } = useParams() as any;
   const { data } = useTransactionPageQuery({ variables: { id: transaction } });
