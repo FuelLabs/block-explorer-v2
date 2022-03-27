@@ -81,7 +81,6 @@ export const NavigationLink = styled.a`
 `;
 
 export const NetworkSelectorButton = styled(ButtonReset)`
-  margin: 0 16px 0 8px;
   padding: 8px 12px 8px 16px;
   font-family: SFProDisplay;
   font-size: 10px;
