@@ -45,7 +45,7 @@ export function TransactionPage() {
   const { data } = useTransactionPageQuery({ variables: { id: transaction } });
   const tx = data?.transaction;
 
-  function thousandSeparator(number : any) {
+  function thousandSeparator(number : string) {
     var parts = number.toString().split(".");
     const numberPart = parts[0];
     const decimalPart = parts[1];
