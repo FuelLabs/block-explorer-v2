@@ -24,16 +24,17 @@ interface Props {
   onClose: () => void;
 }
 
-const { REACT_APP_GRAPHQL_API_ENDPOINT } = process.env;
+const { REACT_APP_GRAPHQL_API_ENDPOINT = "" } = process.env;
 
 export function NetworkModal(props: Props) {
-  const [customEndpoint, setCustomEndpoint] = useLocalStorage<string | null>(
+  const [customEndpoint, setCustomEndpoint] = useLocalStorage<string>(
     "GRAPHQL_API_ENDPOINT",
     REACT_APP_GRAPHQL_API_ENDPOINT
   );
+  const [showCustomInput, setshowCustomInput] = useState<boolean>(false);
+  const [inputField, setInputField] = useState<string>(customEndpoint);
 
   const [selectedChain, selectChain] = useState<Chain | undefined>();
-  const [showCustomInput, setshowCustomInput] = useState<boolean>(false);
   const contentRef = useRef<HTMLDivElement>(null);
   const { chains } = React.useContext(ChainContext);
   const [activeChain, setActiveChain] = useState<Chain>(chains?.[0]);
@@ -51,7 +52,7 @@ export function NetworkModal(props: Props) {
   function onNetworkSwitch() {
     if (selectedChain) {
       setActiveChain(selectedChain);
-      setCustomEndpoint(null);
+      setCustomEndpoint(REACT_APP_GRAPHQL_API_ENDPOINT);
       props.onClose();
     }
     selectChain(undefined);
@@ -84,21 +85,28 @@ export function NetworkModal(props: Props) {
         <SubTitle onClick={() => setshowCustomInput(!showCustomInput)}>
           Add Custom Network
         </SubTitle>
-        <CustomInputContainer show={showCustomInput}>
+        <CustomInputContainer
+          onSubmit={() => {
+            setCustomEndpoint(inputField);
+            window.location.reload();
+          }}
+          show={showCustomInput}
+        >
           <CustomInputField
             type="text"
-            placeholder={customEndpoint ?? ""}
-            value={customEndpoint || REACT_APP_GRAPHQL_API_ENDPOINT}
+            placeholder="Custom Network"
+            required
+            value={inputField}
             onChange={(event) => {
-              setCustomEndpoint(encodeURI(event.target.value));
-            }}
-            onKeyPress={() => {
-              window.location.reload();
+              setInputField(encodeURI(event.target.value));
             }}
           />
           <CustomInputReset
             type="button"
-            onClick={() => setCustomEndpoint(null)}
+            onClick={() => {
+              setCustomEndpoint(REACT_APP_GRAPHQL_API_ENDPOINT);
+              window.location.reload();
+            }}
           >
             Reset
           </CustomInputReset>
@@ -106,6 +114,7 @@ export function NetworkModal(props: Props) {
         <ConfirmNetworkButton
           onClick={() => {
             if (showCustomInput) {
+              setCustomEndpoint(inputField);
               window.location.reload();
             } else {
               onNetworkSwitch();
