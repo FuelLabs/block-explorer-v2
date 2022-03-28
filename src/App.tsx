@@ -8,8 +8,18 @@ import { ChainProvider } from "./contexts/network";
 
 const { REACT_APP_GRAPHQL_API_ENDPOINT, PUBLIC_URL } = process.env;
 
+let parsedLocalStorageGraphQLEndpoint = null;
+try {
+  // Get from local storage by key
+  const item = localStorage.getItem("GRAPHQL_API_ENDPOINT");
+  // Parse stored json or if none return initialValue
+  parsedLocalStorageGraphQLEndpoint = item ? JSON.parse(item) : null;
+} catch (error) {
+  console.debug(error);
+}
+
 const client = new ApolloClient({
-  uri: REACT_APP_GRAPHQL_API_ENDPOINT,
+  uri: parsedLocalStorageGraphQLEndpoint || REACT_APP_GRAPHQL_API_ENDPOINT,
   cache: new InMemoryCache(),
   // We can configure for each schema the keys to cache, without
   // this config for each one objects without id, will not work

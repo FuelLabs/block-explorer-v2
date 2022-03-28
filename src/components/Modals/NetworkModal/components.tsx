@@ -20,6 +20,41 @@ export const Title = styled.h2`
   color: #f8fefc;
 `;
 
+export const SubTitle = styled.h3`
+  margin: 20px 0;
+  font-family: SFProDisplay;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  color: #f8fefc;
+  cursor: pointer;
+`;
+
+export const CustomInputContainer = styled.div<{ show: boolean }>`
+  margin: 22px 40px 22px 32px;
+  display: ${({ show }) => (show ? "flex" : "none")};
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const CustomInputField = styled.input`
+  flex-grow: 1;
+  margin-right: 8px;
+`;
+
+export const CustomInputReset = styled(ButtonReset)`
+  background-color: #58c09b;
+  font-family: SFProDisplay;
+  padding: 2px 4px;
+  font-weight: 500;
+  color: #fff;
+
+  :hover,
+  :active {
+    box-shadow: 0 0 6px 0 #58c09b;
+  }
+`;
+
 export const NetworkSelectorCheckbox = styled.div`
   width: 24px;
   height: 24px;
