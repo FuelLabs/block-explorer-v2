@@ -262,7 +262,7 @@ function UTXOOutputBox({ output, expanded }: { output: OutputFragment; expanded:
                     {trimAddress(output.to)}
                   </UTXODetailsLink>
                 );
-              } 
+              }
             })()}
           </UTXODetailsRow>
           <UTXODetailsRow>
