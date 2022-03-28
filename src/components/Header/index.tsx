@@ -9,38 +9,9 @@ import {
   HeaderContent,
   Logo,
   LogoLink,
-  NavigationLink,
-  NavigationLinksContainer,
   NetworkSelectorButton,
   NetworkSelectorIcon,
 } from "./components";
-
-const NavigationLinks = [
-  {
-    text: "v1 Docs",
-    link: "https://docs.fuel.sh",
-  },
-  {
-    text: "GitHub",
-    link: "https://github.com/FuelLabs",
-  },
-  {
-    text: "Discord",
-    link: "https://discord.com/invite/xfpK4Pe",
-  },
-  {
-    text: "Twitter",
-    link: "https://twitter.com/fuellabs_",
-  },
-  {
-    text: "Medium",
-    link: "https://fuellabs.medium.com",
-  },
-  {
-    text: "Jobs",
-    link: "https://jobs.lever.co/fuellabs",
-  },
-];
 
 export function Header() {
   const [modal, setModal] = useState(false);
@@ -69,18 +40,6 @@ export function Header() {
               {chains?.[0]?.name}
               <NetworkSelectorIcon />
             </NetworkSelectorButton>
-            <NavigationLinksContainer>
-              {NavigationLinks.map((navigationItem, idx) => (
-                <NavigationLink
-                  key={idx}
-                  href={navigationItem.link}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {navigationItem.text}
-                </NavigationLink>
-              ))}
-            </NavigationLinksContainer>
           </ContentItem>
         </HeaderContent>
       </HeaderContainer>
