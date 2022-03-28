@@ -30,7 +30,7 @@ export const SubTitle = styled.h3`
   cursor: pointer;
 `;
 
-export const CustomInputContainer = styled.div<{ show: boolean }>`
+export const CustomInputContainer = styled.form<{ show: boolean }>`
   margin: 22px 40px 22px 32px;
   display: ${({ show }) => (show ? "flex" : "none")};
   align-items: center;
