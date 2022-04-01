@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.4.13",
-    "@craco/craco": "^6.4.3",
+    "@craco/craco": "7.0.0-alpha.3",
     "@ethersproject/bignumber": "^5.5.0",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.1.0",
