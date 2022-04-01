@@ -1,8 +1,8 @@
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
-import { dateDiff, getTextForTimeDifference } from "../../utils/date";
+import { dateDiff, getTextForTimeDifference } from '../../utils/date';
 
-import type { HomePageTransaction } from "./__generated__/operations";
+import type { HomePageTransaction } from './__generated__/operations';
 import {
   DataTimestamp,
   DataBox,
@@ -18,20 +18,18 @@ import {
   TransactionRecipientsWrapper,
   TransactionsDataBoxRow,
   TransactionRowColumn,
-} from "./components";
+} from './components';
 
 type Props = {
   transactions: HomePageTransaction[];
 };
 
+type Ouputs = HomePageTransaction['outputs'];
+
 export function RecentTransactions({ transactions }: Props) {
   const sortedTransactions = transactions
     .sort((t1, t2) =>
-      new Date(t1.status!.time).getTime() -
-        new Date(t2.status!.time).getTime() <=
-      0
-        ? 1
-        : -1
+      new Date(t1.status!.time).getTime() - new Date(t2.status!.time).getTime() <= 0 ? 1 : -1
     )
     .slice(0, 5);
 
@@ -52,22 +50,16 @@ function TransactionRow({ transaction }: { transaction: HomePageTransaction }) {
     () => dateDiff(new Date(), new Date(transaction.status!.time)),
     [transaction]
   );
-  const timestamp = useMemo(
-    () => getTextForTimeDifference(difference),
-    [difference]
-  );
+  const timestamp = useMemo(() => getTextForTimeDifference(difference), [difference]);
 
   return (
     <TransactionsDataBoxRow key={transaction.id}>
       <TransactionRowColumn>
         <TransactionTypeColumn>
-          <TxType>{transaction.isScript ? "Script" : "Create"}</TxType>
+          <TxType>{transaction.isScript ? 'Script' : 'Create'}</TxType>
         </TransactionTypeColumn>
         <TransactionHashColumn>
-          <TransactionAddress
-            id="recent-transaction-link"
-            to={`/transaction/${transaction.id}`}
-          >
+          <TransactionAddress id="recent-transaction-link" to={`/transaction/${transaction.id}`}>
             {transaction.id}
           </TransactionAddress>
           <DataTimestamp>{timestamp}</DataTimestamp>
@@ -77,7 +69,7 @@ function TransactionRow({ transaction }: { transaction: HomePageTransaction }) {
         <TransactionRecipientsWrapper>
           <TransactionRecipientLabel>From:</TransactionRecipientLabel>
           {transaction.inputs.map((input) =>
-            input.__typename === "InputCoin" ? (
+            input.__typename === 'InputCoin' ? (
               <TransactionRecipientLink to={`/address/${input.owner}`}>
                 {input.owner}
               </TransactionRecipientLink>

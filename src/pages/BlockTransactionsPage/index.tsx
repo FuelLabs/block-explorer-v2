@@ -1,7 +1,7 @@
-import { BigNumber } from "@ethersproject/bignumber";
-import { useParams } from "react-router-dom";
+import { BigNumber } from '@ethersproject/bignumber';
+import { useParams } from 'react-router-dom';
 
-import { Header } from "../../components/Header";
+import { Header } from '../../components/Header';
 import {
   Table,
   TableCell,
@@ -13,16 +13,13 @@ import {
   TableHeadRow,
   TableRow,
   TableWrapper,
-} from "../../components/Table/components";
-import { trimAddress } from "../../utils/address";
-import {
-  dateDiffRelative,
-  getTextForRelativeTimeDifference,
-} from "../../utils/date";
-import { TableContainer } from "../AddressPage/components";
+} from '../../components/Table/components';
+import { trimAddress } from '../../utils/address';
+import { dateDiffRelative, getTextForRelativeTimeDifference } from '../../utils/date';
+import { TableContainer } from '../AddressPage/components';
 
-import type { BlockTransactionFragment } from "./__generated__/operations";
-import { useBlockTransactionsPageQuery } from "./__generated__/operations";
+import type { BlockTransactionFragment } from './__generated__/operations';
+import { useBlockTransactionsPageQuery } from './__generated__/operations';
 import {
   CoinLink,
   Container,
@@ -33,7 +30,7 @@ import {
   TxHashLink,
   TxRecipientLink,
   TxValue,
-} from "./components";
+} from './components';
 
 export default function BlockTransactionsPage() {
   const { block } = useParams() as any;
@@ -56,11 +53,7 @@ export default function BlockTransactionsPage() {
   );
 }
 
-function Transactions({
-  transactions,
-}: {
-  transactions: BlockTransactionFragment[];
-}) {
+function Transactions({ transactions }: { transactions: BlockTransactionFragment[] }) {
   return (
     <TableContainer>
       <TableHeadlineContainer>
@@ -93,21 +86,14 @@ function Transactions({
             {transactions.map((transaction) => (
               <TableRow key={transaction.id}>
                 <TableCell>
-                  <TxHashLink to={`/transaction/${transaction.id}`}>
-                    {transaction.id}
-                  </TxHashLink>
+                  <TxHashLink to={`/transaction/${transaction.id}`}>{transaction.id}</TxHashLink>
                 </TableCell>
-                <TableCell>
-                  {transaction.isScript ? "Script" : "Create"}
-                </TableCell>
+                <TableCell>{transaction.isScript ? 'Script' : 'Create'}</TableCell>
                 <TableCell>
                   {transaction.status ? (
                     <>
                       {getTextForRelativeTimeDifference(
-                        dateDiffRelative(
-                          new Date(),
-                          new Date(transaction.status.time)
-                        )
+                        dateDiffRelative(new Date(), new Date(transaction.status.time))
                       )}
                     </>
                   ) : null}
@@ -116,22 +102,16 @@ function Transactions({
                   {transaction.inputs.map((input, idx) =>
                     (() => {
                       switch (input.__typename) {
-                        case "InputCoin": {
+                        case 'InputCoin': {
                           return (
-                            <TxRecipientLink
-                              key={idx}
-                              to={`/address/${input.owner}`}
-                            >
+                            <TxRecipientLink key={idx} to={`/address/${input.owner}`}>
                               {trimAddress(input.owner)}
                             </TxRecipientLink>
                           );
                         }
-                        case "InputContract": {
+                        case 'InputContract': {
                           return (
-                            <TxRecipientLink
-                              key={idx}
-                              to={`/address/${input.contract.id}`}
-                            >
+                            <TxRecipientLink key={idx} to={`/address/${input.contract.id}`}>
                               {trimAddress(input.contract.id)}
                             </TxRecipientLink>
                           );
@@ -147,12 +127,9 @@ function Transactions({
                 <TableCell>
                   {transaction.outputs.map((output, idx) =>
                     (() => {
-                      if (output.__typename === "CoinOutput") {
+                      if (output.__typename === 'CoinOutput') {
                         return (
-                          <TxRecipientLink
-                            key={idx}
-                            to={`/address/${output.to}`}
-                          >
+                          <TxRecipientLink key={idx} to={`/address/${output.to}`}>
                             {trimAddress(output.to)}
                           </TxRecipientLink>
                         );
@@ -164,7 +141,7 @@ function Transactions({
                 <TableCell>
                   {transaction.outputs.map((output, idx) =>
                     (() => {
-                      if (output.__typename === "CoinOutput") {
+                      if (output.__typename === 'CoinOutput') {
                         return <TxValue key={idx}>{output.amount}</TxValue>;
                       }
                       return `N/A ${output.__typename}`;
@@ -174,14 +151,14 @@ function Transactions({
                 <TableCell>
                   {transaction.outputs.map((output, idx) =>
                     (() => {
-                      if (output.__typename === "CoinOutput") {
+                      if (output.__typename === 'CoinOutput') {
                         return (
                           <CoinLink key={idx} to="/coin">
                             {output.assetId}
                           </CoinLink>
                         );
                       }
-                      return "N/A";
+                      return 'N/A';
                     })()
                   )}
                 </TableCell>

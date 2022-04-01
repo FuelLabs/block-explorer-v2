@@ -1,18 +1,18 @@
-import { BigNumber } from "@ethersproject/bignumber";
+import { BigNumber } from '@ethersproject/bignumber';
 import type {
   CoinQuantity,
   // NativeAssetId
-} from "fuels";
-import { useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+} from 'fuels';
+import { useMemo, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-import { Header } from "../../components/Header";
-import { QRModal } from "../../components/Modals/QRModal";
+import { Header } from '../../components/Header';
+import { QRModal } from '../../components/Modals/QRModal';
 
-import BalancesTable from "./BalancesTable";
-import TransactionsTable from "./TransactionsTable";
-import type { AddressPageTransaction } from "./__generated__/operations";
-import { useAddressPageQuery } from "./__generated__/operations";
+import BalancesTable from './BalancesTable';
+import TransactionsTable from './TransactionsTable';
+import type { AddressPageTransaction } from './__generated__/operations';
+import { useAddressPageQuery } from './__generated__/operations';
 import {
   Container,
   Content,
@@ -34,11 +34,11 @@ import {
   // TokenButtonSeparator,
   // TokenButtonIconContainer,
   // TokenDropdownIcon,
-} from "./components";
+} from './components';
 
 export default function AddressPage() {
   const { address } = useParams() as any;
-  const [copyTooltip] = useState("Copy address");
+  const [copyTooltip] = useState('Copy address');
   const [modal, setModal] = useState(false);
   const { loading, data } = useAddressPageQuery({
     variables: { first: 10, owner: address },
@@ -119,7 +119,7 @@ export default function AddressPage() {
             <HeadlineCoinsContainer>
               <CoinsCounterLabel>
                 Coins:
-                <CoinsCounter>{coins?.length ?? "..."}</CoinsCounter>
+                <CoinsCounter>{coins?.length ?? '...'}</CoinsCounter>
               </CoinsCounterLabel>
               {/* <TokenDropdownContainer>
                 <TokenButton>
@@ -135,9 +135,7 @@ export default function AddressPage() {
               </TokenDropdownContainer> */}
             </HeadlineCoinsContainer>
           </HeadlineContainer>
-          {balances ? (
-            <BalancesTable balances={Object.values(balances)} />
-          ) : null}
+          {balances ? <BalancesTable balances={Object.values(balances)} /> : null}
           <div style={{ height: 16 }} />
           <TransactionsTable transactions={transactions} />
         </Content>

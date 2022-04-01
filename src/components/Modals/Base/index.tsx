@@ -1,6 +1,6 @@
-import type * as React from "react";
+import type * as React from 'react';
 
-import { Container, Wrapper } from "./components";
+import { Container, Wrapper } from './components';
 
 interface Props {
   children?: React.ReactNode;

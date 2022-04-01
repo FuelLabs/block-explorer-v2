@@ -115,11 +115,7 @@ export function QRIcon({ style = {}, ...rest }) {
         fillRule="evenodd"
         d="M73.089 73.089h36.544v36.547H73.089zM219.265 0v182.728h182.729V0H219.265zm146.181 146.178H255.813V36.542h109.633v109.636z"
       />
-      <path
-        fill="currentColor"
-        fillRule="evenodd"
-        d="M292.352 73.089h36.553v36.547h-36.553z"
-      />
+      <path fill="currentColor" fillRule="evenodd" d="M292.352 73.089h36.553v36.547h-36.553z" />
     </svg>
   );
 }

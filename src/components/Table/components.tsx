@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const TableContainer = styled.div`
   padding: 8px;
@@ -93,7 +93,7 @@ export const TableCell = styled.td<{ bold?: boolean }>`
   padding: 18px 12px;
   font-family: SFProText;
   font-size: 13px;
-  font-weight: ${({ bold }) => (bold ? "600" : "normal")};
+  font-weight: ${({ bold }) => (bold ? '600' : 'normal')};
   line-height: 15px;
   text-align: left;
   white-space: nowrap;

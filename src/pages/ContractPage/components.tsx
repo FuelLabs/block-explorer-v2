@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { ButtonReset } from "../../components/Button/components";
-import { LogoIcon } from "../../components/Icons";
+import { ButtonReset } from '../../components/Button/components';
+import { LogoIcon } from '../../components/Icons';
 
 export const Container = styled.section``;
 
@@ -139,7 +139,7 @@ export const TableTabsContainer = styled.div`
   display: flex;
   margin: 0 0 4px;
   ::after {
-    content: "";
+    content: '';
     position: absolute;
     height: 1px;
     left: -8px;
@@ -158,11 +158,11 @@ export const TableTabButton = styled(ButtonReset)<{ isSelected?: boolean }>`
   font-size: 16px;
   line-height: 20px;
   font-weight: 500;
-  color: ${({ isSelected }) => (isSelected ? "#eafff8" : "#808080")};
+  color: ${({ isSelected }) => (isSelected ? '#eafff8' : '#808080')};
   transition: 0.2s ease-out;
   border-bottom: ${({ isSelected }) =>
-    isSelected ? "solid 1px #f9fefc" : "solid 1px rgba(0, 0, 0, 0)"};
-  text-shadow: ${({ isSelected }) => (isSelected ? "0 0 6px #e9fff8" : "none")};
+    isSelected ? 'solid 1px #f9fefc' : 'solid 1px rgba(0, 0, 0, 0)'};
+  text-shadow: ${({ isSelected }) => (isSelected ? '0 0 6px #e9fff8' : 'none')};
 
   :hover {
     text-shadow: 0 0 6px #f9fefc;

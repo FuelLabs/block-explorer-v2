@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { ButtonReset } from "../../components/Button/components";
-import { CopyIcon, PlusIcon, QRIcon, ArrowIcon } from "../../components/Icons";
+import { ButtonReset } from '../../components/Button/components';
+import { CopyIcon, PlusIcon, QRIcon, ArrowIcon } from '../../components/Icons';
 
 export const Container = styled.section``;
 
@@ -178,7 +178,7 @@ export const TokenButton = styled(ButtonReset)<{ isActive?: boolean }>`
   border-radius: 5px;
   border: solid 1px #808080;
   background-color: #192f2b;
-  box-shadow: ${({ isActive }) => (isActive ? "0 0 2px 0 #58c09b" : "none")};
+  box-shadow: ${({ isActive }) => (isActive ? '0 0 2px 0 #58c09b' : 'none')};
 
   :hover {
     border: solid 1px #58c09b;
@@ -415,7 +415,7 @@ export const InputsExpandButton = styled(ButtonReset)`
 export const ExpandIcon = styled(PlusIcon)<{ rotated?: boolean }>`
   width: 16px !important;
   height: 16px !important;
-  transform: ${({ rotated }) => (rotated ? "rotate(45deg)" : "rotate(0deg)")};
+  transform: ${({ rotated }) => (rotated ? 'rotate(45deg)' : 'rotate(0deg)')};
   transition: 0.2s ease-out;
 `;
 
@@ -473,9 +473,8 @@ export const TableNavigationButton = styled(ButtonReset)<{
   isSelected?: boolean;
 }>`
   height: 13px;
-  color: ${({ isSelected }) => (isSelected ? "#d1d4d7;" : "#808080")};
-  background-color: ${({ isSelected }) =>
-    isSelected ? "#192f2b;" : "rgba(0, 0, 0, 0)"};
+  color: ${({ isSelected }) => (isSelected ? '#d1d4d7;' : '#808080')};
+  background-color: ${({ isSelected }) => (isSelected ? '#192f2b;' : 'rgba(0, 0, 0, 0)')};
 
   :hover {
     color: #d1d4d7;

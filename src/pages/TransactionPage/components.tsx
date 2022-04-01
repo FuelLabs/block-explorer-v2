@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { ButtonReset } from "../../components/Button/components";
-import { ArrowIcon } from "../../components/Icons";
+import { ButtonReset } from '../../components/Button/components';
+import { ArrowIcon } from '../../components/Icons';
 
 export const Container = styled.section``;
 
@@ -137,7 +137,7 @@ export const DetailsButton = styled(ButtonReset)<{ isActive?: boolean }>`
   padding: 8px 16px;
   border-radius: 1px;
   border: solid 1px #57c09b;
-  background-color: ${({ isActive }) => (isActive ? "#1e2e2b" : "#081C17")};
+  background-color: ${({ isActive }) => (isActive ? '#1e2e2b' : '#081C17')};
   font-family: SFProDisplay;
   font-size: 10px;
   font-weight: 500;
@@ -322,11 +322,11 @@ export const ScriptTabButton = styled(ButtonReset)<{ isSelected?: boolean }>`
   font-size: 16px;
   line-height: 20px;
   font-weight: 500;
-  color: ${({ isSelected }) => (isSelected ? "#eafff8" : "#808080")};
+  color: ${({ isSelected }) => (isSelected ? '#eafff8' : '#808080')};
   transition: 0.2s ease-out;
   border-bottom: ${({ isSelected }) =>
-    isSelected ? "solid 1px #f9fefc" : "solid 1px rgba(0, 0, 0, 0)"};
-  text-shadow: ${({ isSelected }) => (isSelected ? "0 0 6px #e9fff8" : "none")};
+    isSelected ? 'solid 1px #f9fefc' : 'solid 1px rgba(0, 0, 0, 0)'};
+  text-shadow: ${({ isSelected }) => (isSelected ? '0 0 6px #e9fff8' : 'none')};
 
   :hover {
     text-shadow: 0 0 6px #f9fefc;

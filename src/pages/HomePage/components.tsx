@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { SearchIcon as SearchSvg } from "../../components/Icons";
-import { InputReset } from "../../components/Input/components";
+import { SearchIcon as SearchSvg } from '../../components/Icons';
+import { InputReset } from '../../components/Input/components';
 
 export const Container = styled.section``;
 

@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-import { Header } from "../../components/Header";
+import { Header } from '../../components/Header';
 import {
   TableContainer,
   TableHeadlineContainer,
@@ -23,8 +23,8 @@ import {
   CoinLink,
   TableWrapper,
   TableNextNavigationTextButton,
-} from "../AddressPage/components";
-import { Transactions } from "../AddressPage/constants";
+} from '../AddressPage/components';
+import { Transactions } from '../AddressPage/constants';
 
 import {
   CoinDetailsContainer,
@@ -41,7 +41,7 @@ import {
   TableHeadlineDisclaimer,
   TableTabsContainer,
   TableTabButton,
-} from "./components";
+} from './components';
 
 export function CoinPage() {
   const { coin } = useParams() as any;
@@ -66,7 +66,7 @@ export function CoinPage() {
             <CoinDetailsRow>
               <KeyLabel>Max Supply:</KeyLabel>
               <KeyValue>
-                {Number(10000000).toLocaleString("en", {
+                {Number(10000000).toLocaleString('en', {
                   minimumFractionDigits: 2,
                 })}
               </KeyValue>
@@ -102,7 +102,7 @@ export function CoinPage() {
 export function TransactionsTable() {
   function trimAddress(address: string) {
     if (!address) {
-      return "";
+      return '';
     }
 
     return `${address.slice(0, 6)}...${address.slice(-6, address.length - 1)}`;
@@ -141,9 +141,7 @@ export function TransactionsTable() {
           {Transactions.map((transaction, idx) => (
             <TableRow key={idx}>
               <TableCell>
-                <TxHash to={`/transaction/${transaction.hash}`}>
-                  {transaction.hash}
-                </TxHash>
+                <TxHash to={`/transaction/${transaction.hash}`}>{transaction.hash}</TxHash>
               </TableCell>
               <TableCell>{transaction.type}</TableCell>
               <TableCell>{transaction.timestamp}</TableCell>
@@ -168,7 +166,7 @@ export function TransactionsTable() {
               <TableCell>
                 {transaction.subTransactions.map((subTransaction, idx) => (
                   <TransactionValue key={idx}>
-                    {subTransaction.value ? subTransaction.value : "N/A"}
+                    {subTransaction.value ? subTransaction.value : 'N/A'}
                   </TransactionValue>
                 ))}
               </TableCell>
@@ -176,7 +174,7 @@ export function TransactionsTable() {
                 {transaction.subTransactions.map((subTransaction, idx) =>
                   subTransaction.coin ? (
                     <CoinLink key={idx} to={`/coin/${subTransaction.coin}`}>
-                      {subTransaction.coin ? subTransaction.coin : "N/A"}
+                      {subTransaction.coin ? subTransaction.coin : 'N/A'}
                     </CoinLink>
                   ) : (
                     <BoldText>N/A</BoldText>
@@ -186,9 +184,7 @@ export function TransactionsTable() {
               <TableCell>
                 {transaction.subTransactions.map((subTransaction, idx) => (
                   <TransactionValue key={idx}>
-                    {subTransaction.fee
-                      ? `$${subTransaction.fee.toFixed(2)}`
-                      : ""}
+                    {subTransaction.fee ? `$${subTransaction.fee.toFixed(2)}` : ''}
                   </TransactionValue>
                 ))}
               </TableCell>
@@ -226,16 +222,10 @@ function TableNavigation() {
 
   return (
     <TableNavigationButtons>
-      <TableNavigationTextButton
-        disabled={selectedPage === 1}
-        onClick={onClickFirstPage}
-      >
+      <TableNavigationTextButton disabled={selectedPage === 1} onClick={onClickFirstPage}>
         First
       </TableNavigationTextButton>
-      <TableNextNavigationTextButton
-        disabled={selectedPage === 1}
-        onClick={onClickPrevPage}
-      >
+      <TableNextNavigationTextButton disabled={selectedPage === 1} onClick={onClickPrevPage}>
         Previous
       </TableNextNavigationTextButton>
       <TableNavigationNumbersContainer>

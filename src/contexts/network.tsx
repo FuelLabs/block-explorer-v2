@@ -1,7 +1,7 @@
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
 
-import type { Chain } from "../api";
-import { useChainQuery } from "../api";
+import type { Chain } from '../api';
+import { useChainQuery } from '../api';
 
 export const ChainContext = React.createContext<{
   chains: Chain[];
@@ -13,10 +13,7 @@ export const ChainContext = React.createContext<{
 
 export function ChainProvider({ children }: { children: React.ReactNode }) {
   const { data, loading } = useChainQuery();
-  const chains = useMemo<Chain[]>(
-    () => (data?.chain ? [data.chain] : []),
-    [data]
-  );
+  const chains = useMemo<Chain[]>(() => (data?.chain ? [data.chain] : []), [data]);
 
   const value = useMemo(
     () => ({
@@ -26,7 +23,5 @@ export function ChainProvider({ children }: { children: React.ReactNode }) {
     [chains, loading]
   );
 
-  return (
-    <ChainContext.Provider value={value}>{children}</ChainContext.Provider>
-  );
+  return <ChainContext.Provider value={value}>{children}</ChainContext.Provider>;
 }
