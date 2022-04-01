@@ -67,15 +67,17 @@ function TransactionRow({ transaction }: { transaction: HomePageTransaction }) {
       </TransactionRowColumn>
       <TransactionRecipientsColumn>
         <TransactionRecipientsWrapper>
-          <TransactionRecipientLabel>From:</TransactionRecipientLabel>
-          {transaction.inputs.map((input) =>
-            input.__typename === 'InputCoin' ? (
-              <TransactionRecipientLink to={`/address/${input.owner}`}>
-                {input.owner}
-              </TransactionRecipientLink>
-            ) : (
-              input.__typename
-            )
+          {transaction.inputs.map(
+            (input) =>
+              input.__typename === 'InputCoin' && (
+                <>
+                  <TransactionRecipientLabel>From:</TransactionRecipientLabel>
+                  {input.__typename}
+                  <TransactionRecipientLink to={`/address/${input.owner}`}>
+                    {input.owner}
+                  </TransactionRecipientLink>
+                </>
+              )
           )}
         </TransactionRecipientsWrapper>
         <TransactionRecipientsWrapper>
