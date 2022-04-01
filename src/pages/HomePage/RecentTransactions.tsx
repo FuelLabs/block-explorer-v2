@@ -79,15 +79,20 @@ function TransactionRow({ transaction }: { transaction: HomePageTransaction }) {
           )}
         </TransactionRecipientsWrapper>
         <TransactionRecipientsWrapper>
-          <TransactionRecipientLabel>To:</TransactionRecipientLabel>
-          {transaction.outputs.map((output) =>
-            output.__typename === "CoinOutput" ? (
-              <TransactionRecipientLink to={`/address/${output.to}`}>
-                {output.to}
-              </TransactionRecipientLink>
-            ) : (
-              output.__typename
-            )
+          {transaction.outputs.map(
+            (output) =>
+              (output.__typename === 'ChangeOutput' ||
+                output.__typename === 'CoinOutput' ||
+                output.__typename === 'VariableOutput' ||
+                output.__typename === 'WithdrawalOutput') && (
+                <>
+                  <TransactionRecipientLabel>To:</TransactionRecipientLabel>
+                  {output.__typename}
+                  <TransactionRecipientLink to={`/address/${output.to}`}>
+                    {output.to}
+                  </TransactionRecipientLink>
+                </>
+              )
           )}
         </TransactionRecipientsWrapper>
       </TransactionRecipientsColumn>
