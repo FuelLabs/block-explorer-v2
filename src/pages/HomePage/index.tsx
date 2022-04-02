@@ -1,25 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { Header } from "../../components/Header";
+import { Header } from '../../components/Header';
 
-import { RecentBlocks } from "./RecentBlocks";
-import { RecentTransactions } from "./RecentTransactions";
-import type {
-  HomePageBlock,
-  HomePageTransaction,
-} from "./__generated__/operations";
-import {
-  useHomePageBlocksQuery,
-  useHomePageTransactionsQuery,
-} from "./__generated__/operations";
-import {
-  Container,
-  Content,
-  DataContainer,
-  Input,
-  InputContainer,
-  SearchIcon,
-} from "./components";
+import { RecentBlocks } from './RecentBlocks';
+import { RecentTransactions } from './RecentTransactions';
+import type { HomePageBlock, HomePageTransaction } from './__generated__/operations';
+import { useHomePageBlocksQuery, useHomePageTransactionsQuery } from './__generated__/operations';
+import { Container, Content, DataContainer, Input, InputContainer, SearchIcon } from './components';
 
 export default function HomePage() {
   const [blocks, setBlocks] = useState<HomePageBlock[]>([]);
@@ -43,11 +30,7 @@ export default function HomePage() {
     const edges: any[] = transactionsQuery.data?.transactions?.edges || [];
     const transactions: HomePageTransaction[] = edges.map((edge) => edge.node);
     setTransactions(transactions);
-  }, [
-    transactionsQuery.loading,
-    transactionsQuery.data,
-    transactionsQuery.error,
-  ]);
+  }, [transactionsQuery.loading, transactionsQuery.data, transactionsQuery.error]);
 
   return (
     <>

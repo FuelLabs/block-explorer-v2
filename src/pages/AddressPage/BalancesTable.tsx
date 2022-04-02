@@ -1,7 +1,7 @@
 // import { useState } from "react";
-import type { CoinQuantity } from "fuels";
+import type { CoinQuantity } from 'fuels';
 
-import * as TableUI from "../../components/Table/components";
+import * as TableUI from '../../components/Table/components';
 
 import {
   TableHeadlineDisclaimer,
@@ -11,16 +11,12 @@ import {
   // TableNavigationTextButton,
   // TableNavigationNumbersContainer,
   // TableNextNavigationTextButton,
-} from "./components";
+} from './components';
 
-export default function BalancesTable({
-  balances,
-}: {
-  balances: CoinQuantity[];
-}) {
+export default function BalancesTable({ balances }: { balances: CoinQuantity[] }) {
   function trimAddress(address: string) {
     if (!address) {
-      return "";
+      return '';
     }
 
     return `${address.slice(0, 6)}...${address.slice(-6, address.length - 1)}`;
@@ -33,13 +29,9 @@ export default function BalancesTable({
         <TableUI.TableHeadlinerContentItem>
           <TableHeadlineDisclaimer>
             {`Showing `}
-            <HeadlineHighlighedDisclaimer>
-              {balances?.length || "0"}
-            </HeadlineHighlighedDisclaimer>
+            <HeadlineHighlighedDisclaimer>{balances?.length || '0'}</HeadlineHighlighedDisclaimer>
             {` out of `}
-            <HeadlineHighlighedDisclaimer>
-              {balances?.length || "0"}
-            </HeadlineHighlighedDisclaimer>
+            <HeadlineHighlighedDisclaimer>{balances?.length || '0'}</HeadlineHighlighedDisclaimer>
             {` balances`}
           </TableHeadlineDisclaimer>
         </TableUI.TableHeadlinerContentItem>
@@ -52,9 +44,7 @@ export default function BalancesTable({
           </TableUI.TableHeadRow>
           {balances.map((balance) => (
             <TableUI.TableRow key={balance.assetId}>
-              <TableUI.TableCell>
-                {trimAddress(balance.assetId)}
-              </TableUI.TableCell>
+              <TableUI.TableCell>{trimAddress(balance.assetId)}</TableUI.TableCell>
               <TableUI.TableCell>{balance.amount.toString()}</TableUI.TableCell>
             </TableUI.TableRow>
           ))}

@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-import { Header } from "../../components/Header";
-import { ExpandIcon, ShrinkIcon } from "../../components/Icons";
+import { Header } from '../../components/Header';
+import { ExpandIcon, ShrinkIcon } from '../../components/Icons';
 
 import {
   Container,
@@ -37,7 +37,7 @@ import {
   WitnessAddress,
   UTXODetailsValue,
   WitnessIcon,
-} from "./components";
+} from './components';
 
 export default function CreateTransactionPage() {
   const { transaction } = useParams() as any;
@@ -100,27 +100,21 @@ export default function CreateTransactionPage() {
                   <WitnessIconContainer>
                     <WitnessIcon />
                   </WitnessIconContainer>
-                  <WitnessAddress>
-                    0xc5d2460186f7233c927e7db2dcc703c0e500
-                  </WitnessAddress>
+                  <WitnessAddress>0xc5d2460186f7233c927e7db2dcc703c0e500</WitnessAddress>
                 </WitnessContainer>
                 <WitnessContainer>
                   <WitnessIndex>[1]</WitnessIndex>
                   <WitnessIconContainer>
                     <WitnessIcon />
                   </WitnessIconContainer>
-                  <WitnessAddress>
-                    0xc5d2460186f7233c927e7db2dcc703c0e500
-                  </WitnessAddress>
+                  <WitnessAddress>0xc5d2460186f7233c927e7db2dcc703c0e500</WitnessAddress>
                 </WitnessContainer>
                 <WitnessContainer>
                   <WitnessIndex>[2]</WitnessIndex>
                   <WitnessIconContainer>
                     <WitnessIcon />
                   </WitnessIconContainer>
-                  <WitnessAddress>
-                    0xc5d2460186f7233c927e7db2dcc703c0e500
-                  </WitnessAddress>
+                  <WitnessAddress>0xc5d2460186f7233c927e7db2dcc703c0e500</WitnessAddress>
                 </WitnessContainer>
               </RowValueColumn>
             </TransactionDataRow>
@@ -176,11 +170,11 @@ interface UTXOInputData {
 
 const Inputs: UTXOInputData[] = [
   {
-    title: "Input #1",
-    hash: "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
-    contractId: "0xc5d2460186f7233c927e7db2dcc703c0e500",
-    balanceRoot: "0xc5d2460186f7233c927e7db2dcc703c0e500",
-    stateRoot: "0xc5d2460186f7233c927e7db2dcc703c0e500",
+    title: 'Input #1',
+    hash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
+    contractId: '0xc5d2460186f7233c927e7db2dcc703c0e500',
+    balanceRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500',
+    stateRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500',
   },
 ];
 
@@ -204,9 +198,7 @@ function UTXOInputBox(props: UTXOInputProps) {
         <UTXODetailsContainer>
           <UTXODetailsRow>
             <UTXODetailsKey>ContractID:</UTXODetailsKey>
-            <UTXODetailsLink to={`/contract/${data.contractId}`}>
-              {data.contractId}
-            </UTXODetailsLink>
+            <UTXODetailsLink to={`/contract/${data.contractId}`}>{data.contractId}</UTXODetailsLink>
           </UTXODetailsRow>
           <UTXODetailsRow>
             <UTXODetailsKey>Balance Root:</UTXODetailsKey>
@@ -232,11 +224,11 @@ interface UTXOOutputData {
 
 const Outputs: UTXOOutputData[] = [
   {
-    title: "Input #1",
-    hash: "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
-    contractId: "0xc5d2460186f7233c927e7db2dcc703c0e500",
-    balanceRoot: "0xc5d2460186f7233c927e7db2dcc703c0e500",
-    stateRoot: "0xc5d2460186f7233c927e7db2dcc703c0e500",
+    title: 'Input #1',
+    hash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
+    contractId: '0xc5d2460186f7233c927e7db2dcc703c0e500',
+    balanceRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500',
+    stateRoot: '0xc5d2460186f7233c927e7db2dcc703c0e500',
   },
 ];
 
@@ -260,9 +252,7 @@ function UTXOOutputBox(props: UTXOOutputProps) {
         <UTXODetailsContainer>
           <UTXODetailsRow>
             <UTXODetailsKey>ContractID:</UTXODetailsKey>
-            <UTXODetailsLink to={`/contract/${data.contractId}`}>
-              {data.contractId}
-            </UTXODetailsLink>
+            <UTXODetailsLink to={`/contract/${data.contractId}`}>{data.contractId}</UTXODetailsLink>
           </UTXODetailsRow>
           <UTXODetailsRow>
             <UTXODetailsKey>Balance Root:</UTXODetailsKey>

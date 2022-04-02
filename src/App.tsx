@@ -1,17 +1,17 @@
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import { Suspense } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { Suspense } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-import "./App.css";
-import AppRoutes from "./AppRoutes";
-import { ChainProvider } from "./contexts/network";
+import './App.css';
+import AppRoutes from './AppRoutes';
+import { ChainProvider } from './contexts/network';
 
 const { REACT_APP_GRAPHQL_API_ENDPOINT, PUBLIC_URL } = process.env;
 
 let parsedLocalStorageGraphQLEndpoint = null;
 try {
   // Get from local storage by key
-  const item = localStorage.getItem("GRAPHQL_API_ENDPOINT");
+  const item = localStorage.getItem('GRAPHQL_API_ENDPOINT');
   // Parse stored json or if none return initialValue
   parsedLocalStorageGraphQLEndpoint = item ? JSON.parse(item) : null;
 } catch (error) {
@@ -25,12 +25,12 @@ const client = new ApolloClient({
   // this config for each one objects without id, will not work
   defaultOptions: {
     watchQuery: {
-      fetchPolicy: "no-cache",
-      errorPolicy: "ignore",
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'ignore',
     },
     query: {
-      fetchPolicy: "no-cache",
-      errorPolicy: "all",
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'all',
     },
   },
 });

@@ -1,10 +1,10 @@
-import QRCode from "qrcode.react";
-import { useRef } from "react";
+import QRCode from 'qrcode.react';
+import { useRef } from 'react';
 
-import { useOnClickOutside } from "../../../hooks";
-import { Modal } from "../Base";
+import { useOnClickOutside } from '../../../hooks';
+import { Modal } from '../Base';
 
-import { Title, Container, QRAddress, QRCodeContainer } from "./components";
+import { Title, Container, QRAddress, QRCodeContainer } from './components';
 
 interface Props {
   onClose: () => void;

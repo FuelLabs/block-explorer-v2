@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { ButtonReset } from "../Button/components";
-import { ArrowIcon, LogoIcon } from "../Icons";
+import { ButtonReset } from '../Button/components';
+import { ArrowIcon, LogoIcon } from '../Icons';
 
 export const HeaderContainer = styled.header``;
 

@@ -1,10 +1,10 @@
-import * as React from "react";
-import { useMemo, useRef, useState } from "react";
+import * as React from 'react';
+import { useMemo, useRef, useState } from 'react';
 
-import type { Chain } from "../../../api";
-import { ChainContext } from "../../../contexts/network";
-import { useOnClickOutside, useLocalStorage } from "../../../hooks";
-import { Modal } from "../Base";
+import type { Chain } from '../../../api';
+import { ChainContext } from '../../../contexts/network';
+import { useOnClickOutside, useLocalStorage } from '../../../hooks';
+import { Modal } from '../Base';
 
 import {
   Title,
@@ -18,17 +18,17 @@ import {
   CustomInputContainer,
   CustomInputField,
   CustomInputReset,
-} from "./components";
+} from './components';
 
 interface Props {
   onClose: () => void;
 }
 
-const { REACT_APP_GRAPHQL_API_ENDPOINT = "" } = process.env;
+const { REACT_APP_GRAPHQL_API_ENDPOINT = '' } = process.env;
 
 export function NetworkModal(props: Props) {
   const [customEndpoint, setCustomEndpoint] = useLocalStorage<string>(
-    "GRAPHQL_API_ENDPOINT",
+    'GRAPHQL_API_ENDPOINT',
     REACT_APP_GRAPHQL_API_ENDPOINT
   );
   const [showCustomInput, setshowCustomInput] = useState<boolean>(false);
@@ -82,9 +82,7 @@ export function NetworkModal(props: Props) {
             <NetworkSelectorCheckbox />
           </NetworkSelectorButton>
         ))}
-        <SubTitle onClick={() => setshowCustomInput(!showCustomInput)}>
-          Add Custom Network
-        </SubTitle>
+        <SubTitle onClick={() => setshowCustomInput(!showCustomInput)}>Add Custom Network</SubTitle>
         <CustomInputContainer
           onSubmit={() => {
             setCustomEndpoint(inputField);

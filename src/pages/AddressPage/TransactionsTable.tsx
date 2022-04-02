@@ -1,11 +1,8 @@
 // import { useState } from "react";
-import * as TableUI from "../../components/Table/components";
-import {
-  dateDiffRelative,
-  getTextForRelativeTimeDifference,
-} from "../../utils/date";
+import * as TableUI from '../../components/Table/components';
+import { dateDiffRelative, getTextForRelativeTimeDifference } from '../../utils/date';
 
-import type { AddressPageTransaction } from "./__generated__/operations";
+import type { AddressPageTransaction } from './__generated__/operations';
 import {
   TableHeadlineDisclaimer,
   HeadlineHighlighedDisclaimer,
@@ -18,7 +15,7 @@ import {
   // TableNavigationTextButton,
   // TableNavigationNumbersContainer,
   // TableNextNavigationTextButton,
-} from "./components";
+} from './components';
 
 export default function TransactionsTable({
   transactions,
@@ -27,7 +24,7 @@ export default function TransactionsTable({
 }) {
   function trimAddress(address: string) {
     if (!address) {
-      return "";
+      return '';
     }
 
     return `${address.slice(0, 6)}...${address.slice(-6, address.length - 1)}`;
@@ -41,11 +38,11 @@ export default function TransactionsTable({
           <TableHeadlineDisclaimer>
             {`Showing `}
             <HeadlineHighlighedDisclaimer>
-              {transactions?.length || "0"}
+              {transactions?.length || '0'}
             </HeadlineHighlighedDisclaimer>
             {` out of `}
             <HeadlineHighlighedDisclaimer>
-              {transactions?.length || "0"}
+              {transactions?.length || '0'}
             </HeadlineHighlighedDisclaimer>
             {` transactions`}
           </TableHeadlineDisclaimer>
@@ -66,21 +63,14 @@ export default function TransactionsTable({
           {transactions.map((transaction) => (
             <TableUI.TableRow key={transaction.id}>
               <TableUI.TableCell>
-                <TxHash to={`/transaction/${transaction.id}`}>
-                  {transaction.id}
-                </TxHash>
+                <TxHash to={`/transaction/${transaction.id}`}>{transaction.id}</TxHash>
               </TableUI.TableCell>
-              <TableUI.TableCell>
-                {transaction.isScript ? "Script" : "Create"}
-              </TableUI.TableCell>
+              <TableUI.TableCell>{transaction.isScript ? 'Script' : 'Create'}</TableUI.TableCell>
               <TableUI.TableCell>
                 {transaction.status ? (
                   <>
                     {getTextForRelativeTimeDifference(
-                      dateDiffRelative(
-                        new Date(),
-                        new Date(transaction.status.time)
-                      )
+                      dateDiffRelative(new Date(), new Date(transaction.status.time))
                     )}
                   </>
                 ) : null}
@@ -89,19 +79,16 @@ export default function TransactionsTable({
                 {transaction.inputs.map((input, idx) =>
                   (() => {
                     switch (input.__typename) {
-                      case "InputCoin": {
+                      case 'InputCoin': {
                         return (
                           <TxRecipient key={idx} to={`/address/${input.owner}`}>
                             {trimAddress(input.owner)}
                           </TxRecipient>
                         );
                       }
-                      case "InputContract": {
+                      case 'InputContract': {
                         return (
-                          <TxRecipient
-                            key={idx}
-                            to={`/address/${input.contract.id}`}
-                          >
+                          <TxRecipient key={idx} to={`/address/${input.contract.id}`}>
                             {trimAddress(input.contract.id)}
                           </TxRecipient>
                         );
@@ -118,7 +105,7 @@ export default function TransactionsTable({
                 {transaction.outputs.length > 0
                   ? transaction.outputs.map((output, idx) =>
                       (() => {
-                        if (output.__typename === "CoinOutput") {
+                        if (output.__typename === 'CoinOutput') {
                           return (
                             <TxRecipient key={idx} to={`/address/${output.to}`}>
                               {trimAddress(output.to)}
@@ -128,28 +115,24 @@ export default function TransactionsTable({
                         return output.__typename;
                       })()
                     )
-                  : "N/A"}
+                  : 'N/A'}
               </TableUI.TableCell>
               <TableUI.TableCell>
                 {transaction.outputs.length > 0
                   ? transaction.outputs.map((output, idx) =>
                       (() => {
-                        if (output.__typename === "CoinOutput") {
-                          return (
-                            <TransactionValue key={idx}>
-                              {output.amount}
-                            </TransactionValue>
-                          );
+                        if (output.__typename === 'CoinOutput') {
+                          return <TransactionValue key={idx}>{output.amount}</TransactionValue>;
                         }
                         return `${output.__typename}`;
                       })()
                     )
-                  : "N/A"}
+                  : 'N/A'}
               </TableUI.TableCell>
               <TableUI.TableCell>
                 {transaction.outputs.map((output, idx) =>
                   (() => {
-                    if (output.__typename === "CoinOutput") {
+                    if (output.__typename === 'CoinOutput') {
                       return (
                         <CoinLink key={idx} to="/coin">
                           {output.assetId}

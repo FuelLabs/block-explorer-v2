@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { ButtonReset } from "../../Button/components";
+import { ButtonReset } from '../../Button/components';
 
 export const Container = styled.div`
   width: 100%;
@@ -32,7 +32,7 @@ export const SubTitle = styled.h3`
 
 export const CustomInputContainer = styled.form<{ show: boolean }>`
   margin: 22px 40px 22px 32px;
-  display: ${({ show }) => (show ? "flex" : "none")};
+  display: ${({ show }) => (show ? 'flex' : 'none')};
   align-items: center;
   justify-content: space-between;
 `;
@@ -82,15 +82,14 @@ export const NetworkSelectorButton = styled(ButtonReset)<{
   }
 
   :hover ${NetworkSelectorCheckbox} {
-    border: ${({ isSelected }) =>
-      isSelected ? "solid 1px #f9fefc" : "solid 1px #f9fefc"};
+    border: ${({ isSelected }) => (isSelected ? 'solid 1px #f9fefc' : 'solid 1px #f9fefc')};
   }
 
   ${NetworkSelectorCheckbox} {
-    background-color: ${({ isSelected }) => (isSelected ? "#58c09b" : "none")};
+    background-color: ${({ isSelected }) => (isSelected ? '#58c09b' : 'none')};
     box-shadow: ${({ isHighlighted, isSelected }) =>
-      isHighlighted && isSelected ? "0 0 3px 0 #58c09b" : "none"};
-    border: ${({ isSelected }) => (isSelected ? "none" : "solid 1px #808080")};
+      isHighlighted && isSelected ? '0 0 3px 0 #58c09b' : 'none'};
+    border: ${({ isSelected }) => (isSelected ? 'none' : 'solid 1px #808080')};
   }
 `;
 

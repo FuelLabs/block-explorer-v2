@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { ArrowIcon } from "../../components/Icons";
+import { ArrowIcon } from '../../components/Icons';
 
 export const Container = styled.section``;
 
@@ -212,5 +212,5 @@ export const BlockNavigationButton = styled(Link)`
 export const BlockNavigationIcon = styled(ArrowIcon)<{ rotate?: boolean }>`
   width: 6px !important;
   height: 6px !important;
-  transform: ${({ rotate }) => (rotate ? "rotate(180deg)" : "none")};
+  transform: ${({ rotate }) => (rotate ? 'rotate(180deg)' : 'none')};
 `;

@@ -1,10 +1,10 @@
-import { BigNumber } from "@ethersproject/bignumber";
-import { useParams } from "react-router-dom";
+import { BigNumber } from '@ethersproject/bignumber';
+import { useParams } from 'react-router-dom';
 
-import { Header } from "../../components/Header";
-import { ExternalLinkIcon } from "../../components/Icons";
+import { Header } from '../../components/Header';
+import { ExternalLinkIcon } from '../../components/Icons';
 
-import { useBlockPageQuery } from "./__generated__/operations";
+import { useBlockPageQuery } from './__generated__/operations';
 import {
   AddressesCount,
   BlockDataContainer,
@@ -22,7 +22,7 @@ import {
   RowKeyColumn,
   Title,
   TransactionsCount,
-} from "./components";
+} from './components';
 
 export default function BlockPage() {
   const { block } = useParams() as any;
@@ -90,9 +90,7 @@ export default function BlockPage() {
             </BlockDataRow>
             <BlockDataRow>
               <RowKeyColumn>Previous block hash:</RowKeyColumn>
-              <BlockHash to={`/block/${prevBl?.height}`}>
-                {prevBl?.id}
-              </BlockHash>
+              <BlockHash to={`/block/${prevBl?.height}`}>{prevBl?.id}</BlockHash>
             </BlockDataRow>
             <BlockDataRow>
               <RowKeyColumn>Ethereum block number:</RowKeyColumn>

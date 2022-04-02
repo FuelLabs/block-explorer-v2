@@ -1,8 +1,8 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState } from 'react';
 
-import { dateDiff } from "../../utils/date";
+import { dateDiff } from '../../utils/date';
 
-import type { HomePageBlock } from "./__generated__/operations";
+import type { HomePageBlock } from './__generated__/operations';
 import {
   BlockNumber,
   RecentBlockColumn1,
@@ -15,7 +15,7 @@ import {
   ProducerAddress,
   TxCount,
   BlockProducerText,
-} from "./components";
+} from './components';
 
 type Props = {
   blocks: HomePageBlock[];
@@ -39,10 +39,7 @@ export function RecentBlocks({ blocks }: Props) {
             <RecentBlockColumn2>
               <BlockProducerText>
                 {`Producer: `}
-                <ProducerAddress
-                  id="recent-block-producer-link"
-                  to={`/address/${block.producer}`}
-                >
+                <ProducerAddress id="recent-block-producer-link" to={`/address/${block.producer}`}>
                   {block.producer}
                 </ProducerAddress>
               </BlockProducerText>

@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext, useState } from 'react';
 
-import { ChainContext } from "../../contexts/network";
-import { NetworkModal } from "../Modals/NetworkModal";
+import { ChainContext } from '../../contexts/network';
+import { NetworkModal } from '../Modals/NetworkModal';
 
 import {
   ContentItem,
@@ -11,7 +11,7 @@ import {
   LogoLink,
   NetworkSelectorButton,
   NetworkSelectorIcon,
-} from "./components";
+} from './components';
 
 export function Header() {
   const [modal, setModal] = useState(false);
