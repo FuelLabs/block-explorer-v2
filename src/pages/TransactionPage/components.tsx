@@ -199,14 +199,14 @@ export const UTXOHeadlineContainer = styled.div`
 `;
 
 export const UTXOHeadlineColumn = styled.div`
-  width: calc(100% - 100px);
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `;
 
 export const UTXOHeadlineColumn2 = styled.div`
-  width: 100px;
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -228,8 +228,12 @@ export const UTXOHash = styled(BaseLink)`
   white-space: nowrap;
 `;
 
-export const HeadlineText = styled.span`
+export const HeadlineText = styled.p`
+  margin: 0;
   display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 export const UTXODetailsContainer = styled.div`
@@ -257,6 +261,9 @@ export const UTXODetailsRow = styled.div`
 export const UTXODetailsKey = styled.span`
   display: block;
   width: 170px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 export const UTXODetailsLink = styled(Link)`
