@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/block-explorer-v2/static/css/main.36d789a2.css",
-    "main.js": "/block-explorer-v2/static/js/main.7c3e27cf.js",
+    "main.js": "/block-explorer-v2/static/js/main.9e9b0815.js",
     "static/js/521.13742cfb.chunk.js": "/block-explorer-v2/static/js/521.13742cfb.chunk.js",
     "static/js/502.ad58e4b6.chunk.js": "/block-explorer-v2/static/js/502.ad58e4b6.chunk.js",
     "static/js/158.f4c6388d.chunk.js": "/block-explorer-v2/static/js/158.f4c6388d.chunk.js",
     "static/js/343.c9e3c633.chunk.js": "/block-explorer-v2/static/js/343.c9e3c633.chunk.js",
     "static/js/162.7f17f668.chunk.js": "/block-explorer-v2/static/js/162.7f17f668.chunk.js",
     "static/js/569.27ebf441.chunk.js": "/block-explorer-v2/static/js/569.27ebf441.chunk.js",
-    "static/js/910.684f65ef.chunk.js": "/block-explorer-v2/static/js/910.684f65ef.chunk.js",
+    "static/js/910.c71d2664.chunk.js": "/block-explorer-v2/static/js/910.c71d2664.chunk.js",
     "static/js/787.5100e84c.chunk.js": "/block-explorer-v2/static/js/787.5100e84c.chunk.js",
     "static/js/237.b369120d.chunk.js": "/block-explorer-v2/static/js/237.b369120d.chunk.js",
     "static/js/963.acb109c0.chunk.js": "/block-explorer-v2/static/js/963.acb109c0.chunk.js",
@@ -28,14 +28,14 @@
     "static/media/Cyberspace-Raceway-Front.woff2": "/block-explorer-v2/static/media/Cyberspace-Raceway-Front.db70322b4e45e4c21f24.woff2",
     "index.html": "/block-explorer-v2/index.html",
     "main.36d789a2.css.map": "/block-explorer-v2/static/css/main.36d789a2.css.map",
-    "main.7c3e27cf.js.map": "/block-explorer-v2/static/js/main.7c3e27cf.js.map",
+    "main.9e9b0815.js.map": "/block-explorer-v2/static/js/main.9e9b0815.js.map",
     "521.13742cfb.chunk.js.map": "/block-explorer-v2/static/js/521.13742cfb.chunk.js.map",
     "502.ad58e4b6.chunk.js.map": "/block-explorer-v2/static/js/502.ad58e4b6.chunk.js.map",
     "158.f4c6388d.chunk.js.map": "/block-explorer-v2/static/js/158.f4c6388d.chunk.js.map",
     "343.c9e3c633.chunk.js.map": "/block-explorer-v2/static/js/343.c9e3c633.chunk.js.map",
     "162.7f17f668.chunk.js.map": "/block-explorer-v2/static/js/162.7f17f668.chunk.js.map",
     "569.27ebf441.chunk.js.map": "/block-explorer-v2/static/js/569.27ebf441.chunk.js.map",
-    "910.684f65ef.chunk.js.map": "/block-explorer-v2/static/js/910.684f65ef.chunk.js.map",
+    "910.c71d2664.chunk.js.map": "/block-explorer-v2/static/js/910.c71d2664.chunk.js.map",
     "787.5100e84c.chunk.js.map": "/block-explorer-v2/static/js/787.5100e84c.chunk.js.map",
     "237.b369120d.chunk.js.map": "/block-explorer-v2/static/js/237.b369120d.chunk.js.map",
     "963.acb109c0.chunk.js.map": "/block-explorer-v2/static/js/963.acb109c0.chunk.js.map",
@@ -44,6 +44,6 @@
   },
   "entrypoints": [
     "static/css/main.36d789a2.css",
-    "static/js/main.7c3e27cf.js"
+    "static/js/main.9e9b0815.js"
   ]
 }
