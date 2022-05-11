@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Header } from '../../components/Header';
 import { ExpandIcon, ShrinkIcon } from '../../components/Icons';
 import { trimAddress } from '../../utils';
+import { parseToFormattedNumber } from '../../utils/bigNumber';
 import { UTXODetailsValue } from '../CreateTransactionPage/components';
 
 import type { InputFragment, OutputFragment } from './__generated__/operations';
@@ -82,7 +83,7 @@ export default function TransactionPage() {
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Limit:</RowKeyColumn>
-              <RowValueColumn>{tx.gasLimit}</RowValueColumn>
+              <RowValueColumn>{parseToFormattedNumber(tx.gasLimit)}</RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Used:</RowKeyColumn>
@@ -208,7 +209,7 @@ function UTXOInputBox({
             </UTXOHeadlineColumn>
             <UTXOHeadlineColumn2>
               <HeadlineText>Value</HeadlineText>
-              <HeadlineText>{input.amount}</HeadlineText>
+              <HeadlineText>{parseToFormattedNumber(input.amount)}</HeadlineText>
             </UTXOHeadlineColumn2>
           </UTXOHeadlineContainer>
           {expanded && (
@@ -361,7 +362,7 @@ function UTXOOutputBox({
         {output.__typename === 'CoinOutput' && (
           <UTXOHeadlineColumn2>
             <HeadlineText>Amount</HeadlineText>
-            <HeadlineText>{output.amount}</HeadlineText>
+            <HeadlineText>{parseToFormattedNumber(output.amount)}</HeadlineText>
           </UTXOHeadlineColumn2>
         )}
       </UTXOHeadlineContainer>
