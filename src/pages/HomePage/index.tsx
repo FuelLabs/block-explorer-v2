@@ -44,7 +44,7 @@ export default function HomePage() {
   };
 
   const handlePrevPage = () => {
-    transactionsQuery.refetch({ after: pageInfo?.endCursor, before: undefined, first: PAGE_LIMIT, last: undefined });
+    transactionsQuery.refetch({ after: pageInfo?.endCursor, before: undefined, last: undefined, first: PAGE_LIMIT });
     setCurrentPage(currentPage - 1);
   };
 
