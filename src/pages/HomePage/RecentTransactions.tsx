@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 import { dateDiff, getTextForTimeDifference } from '../../utils/date';
 
@@ -18,6 +18,15 @@ import {
   TransactionRecipientsWrapper,
   TransactionsDataBoxRow,
   TransactionRowColumn,
+  DataHeader,
+  DataPagination,
+  DataPaginationText,
+  DataPaginationTextCurrentPage,
+  ArrowRightIcon,
+  ArrowLeftIcon,
+  IconButtonLeft,
+  IconButtonRight,
+  DataPaginationTextWrapper,
 } from './components';
 
 type Props = {
@@ -27,15 +36,42 @@ type Props = {
 type Ouputs = HomePageTransaction['outputs'];
 
 export function RecentTransactions({ transactions }: Props) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const PAGE_LIMIT = 5;
+  const totalPages = Math.ceil(transactions.length / PAGE_LIMIT);
+
   const sortedTransactions = transactions
     .sort((t1, t2) =>
       new Date(t1.status!.time).getTime() - new Date(t2.status!.time).getTime() <= 0 ? 1 : -1
     )
-    .slice(0, 5);
+    .slice(PAGE_LIMIT * (currentPage - 1), PAGE_LIMIT * currentPage);
+
+  const isFirstPage = currentPage <= 1;
+  const isLastPage = currentPage >= totalPages;
 
   return (
     <DataItem>
-      <DataTitle>Recent Transactions</DataTitle>
+      <DataHeader>
+        <DataTitle>Recent Transactions</DataTitle>
+        <DataPagination>
+          <IconButtonLeft
+            isDisabled={isFirstPage}
+            onClick={isFirstPage ? undefined : () => setCurrentPage(currentPage - 1)}
+          >
+            <ArrowLeftIcon />
+          </IconButtonLeft>
+          <DataPaginationTextWrapper>
+            <DataPaginationTextCurrentPage>{currentPage}</DataPaginationTextCurrentPage>
+            <DataPaginationText>&nbsp;/ {totalPages}</DataPaginationText>
+          </DataPaginationTextWrapper>
+          <IconButtonRight
+            isDisabled={isLastPage}
+            onClick={isLastPage ? undefined : () => setCurrentPage(currentPage + 1)}
+          >
+            <ArrowRightIcon />
+          </IconButtonRight>
+        </DataPagination>
+      </DataHeader>
       <DataBox>
         {sortedTransactions.map((transaction) => (
           <TransactionRow key={transaction.id} transaction={transaction} />

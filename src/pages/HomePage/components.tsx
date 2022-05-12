@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { SearchIcon as SearchSvg } from '../../components/Icons';
+import { ButtonReset } from '../../components/Button/components';
+import { ArrowIcon, SearchIcon as SearchSvg } from '../../components/Icons';
 import { InputReset } from '../../components/Input/components';
 
 export const Container = styled.section``;
@@ -76,12 +77,97 @@ export const DataItem = styled.div`
   }
 `;
 
+export const DataHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export const DataTitle = styled.h2`
   margin: 0 0 16px;
   font-family: SFProDisplay;
   font-size: 21px;
   font-weight: 600;
   color: #eafff8;
+`;
+
+export const DataPagination = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+export const DataPaginationTextWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+`;
+
+export const DataPaginationText = styled.div`
+  font-family: SFProDisplay;
+  font-size: 16px;
+  color: #808080;
+`;
+
+export const DataPaginationTextCurrentPage = styled(DataPaginationText)`
+  font-size: 18px;
+  color: #eafff8;
+  margin-top: 2px;
+  margin-right: 2px;
+`;
+
+export const ArrowRightIcon = styled(ArrowIcon)`
+  width: 10px !important;
+  height: 10px !important;
+`;
+
+export const ArrowLeftIcon = styled(ArrowIcon)`
+  width: 10px !important;
+  height: 10px !important;
+  transform: rotate(180deg);
+`;
+
+export const IconButton = styled(ButtonReset)<{ isDisabled?: boolean }>`
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  background-color: #081c17;
+  color: ${({ isDisabled }) => (isDisabled ? '#808080' : '#eafff8')};
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: ${({ isDisabled }) => (isDisabled ? 'auto' : 'pointer')};
+
+  :hover {
+    ${({ isDisabled }) => (isDisabled ? '' : 'background-color: #1e2e2b;')}
+  }
+
+  :active {
+    ${({ isDisabled }) => (isDisabled ? '' : 'background-color: #294842;')}
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 24px;
+    height: 24px;
+  }
+`;
+
+export const IconButtonLeft = styled(IconButton)`
+  margin-right: 8px;
+
+  @media screen and (max-width: 768px) {
+    margin-right: 4px;
+  }
+`;
+
+export const IconButtonRight = styled(IconButton)`
+  margin-left: 8px;
+
+  @media screen and (max-width: 768px) {
+    margin-left: 4px;
+  }
 `;
 
 export const DataBox = styled.div`
