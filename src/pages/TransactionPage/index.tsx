@@ -44,6 +44,7 @@ import {
   ScriptTextarea,
   UTXOHeadlineColumn2,
   ContractTextarea,
+  UTXOHashOutputSkip,
 } from './components';
 
 export default function TransactionPage() {
@@ -117,15 +118,17 @@ function ScriptsComponent({ tx }: { tx: any }) {
   return (
     <ScriptsContainer>
       <ScriptTitle>Script Byte Code:</ScriptTitle>
-      <ScriptComponent tabs={['Assembly', 'Hex']} contents={['', tx.script]} />
+      {/* <ScriptComponent tabs={['Assembly', 'Hex']} contents={['', tx.script]} /> */}
+      <ScriptComponent tabs={['Hex']} contents={[tx.script]} />
       <ScriptTitle>Script Data:</ScriptTitle>
-      <ScriptComponent tabs={['ABI Decoded', 'Raw Hex']} contents={['', tx.scriptData]} />
+      {/* <ScriptComponent tabs={['ABI Decoded', 'Raw Hex']} contents={['', tx.scriptData]} /> */}
+      <ScriptComponent tabs={['Raw Hex']} contents={[tx.scriptData]} />
     </ScriptsContainer>
   );
 }
 
 function ScriptComponent({ tabs, contents }: { tabs: string[]; contents: string[] }) {
-  const [selectedTab, setSelectedTab] = useState(1);
+  const [selectedTab, setSelectedTab] = useState(0);
 
   return (
     <ScriptContainer>
@@ -357,7 +360,7 @@ function UTXOOutputBox({
       <UTXOHeadlineContainer>
         <UTXOHeadlineColumn>
           <UTXOTitle>Output #{index}</UTXOTitle>
-          <UTXOHash to="/">{output.__typename}</UTXOHash>
+          <UTXOHashOutputSkip to="">{output.__typename}</UTXOHashOutputSkip>
         </UTXOHeadlineColumn>
         {output.__typename === 'CoinOutput' && (
           <UTXOHeadlineColumn2>
