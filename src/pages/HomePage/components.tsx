@@ -101,7 +101,7 @@ export const DataPaginationTextWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
+  width: 24px;
 `;
 
 export const DataPaginationText = styled.div`
@@ -111,6 +111,7 @@ export const DataPaginationText = styled.div`
 `;
 
 export const DataPaginationTextCurrentPage = styled(DataPaginationText)`
+  font-family: SFProDisplay;
   font-size: 18px;
   color: #eafff8;
   margin-top: 2px;

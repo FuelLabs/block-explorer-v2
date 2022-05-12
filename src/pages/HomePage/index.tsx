@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import type { PageInfo } from '../../api/__generated__/types';
 import { Header } from '../../components/Header';
 
 import { RecentBlocks } from './RecentBlocks';
@@ -8,11 +9,15 @@ import type { HomePageBlock, HomePageTransaction } from './__generated__/operati
 import { useHomePageBlocksQuery, useHomePageTransactionsQuery } from './__generated__/operations';
 import { Container, Content, DataContainer, Input, InputContainer, SearchIcon } from './components';
 
+const PAGE_LIMIT = 5;
+
 export default function HomePage() {
   const [blocks, setBlocks] = useState<HomePageBlock[]>([]);
   const [transactions, setTransactions] = useState<HomePageTransaction[]>([]);
+  const [pageInfo, setPageInfo] = useState<PageInfo>();
+  const [currentPage, setCurrentPage] = useState(1);
   const transactionsQuery = useHomePageTransactionsQuery({
-    variables: { count: 50 },
+    variables: { last: PAGE_LIMIT },
   });
   const blocksQuery = useHomePageBlocksQuery({ variables: { count: 5 } });
 
@@ -30,7 +35,18 @@ export default function HomePage() {
     const edges: any[] = transactionsQuery.data?.transactions?.edges || [];
     const transactions: HomePageTransaction[] = edges.map((edge) => edge.node);
     setTransactions(transactions);
+    setPageInfo(transactionsQuery.data?.transactions?.pageInfo);
   }, [transactionsQuery.loading, transactionsQuery.data, transactionsQuery.error]);
+
+  const handleNextPage = () => {
+    transactionsQuery.refetch({ before: pageInfo?.startCursor, after: undefined, last: PAGE_LIMIT, first: undefined });
+    setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    transactionsQuery.refetch({ after: pageInfo?.endCursor, before: undefined, first: PAGE_LIMIT, last: undefined });
+    setCurrentPage(currentPage - 1);
+  };
 
   return (
     <>
@@ -43,7 +59,14 @@ export default function HomePage() {
           </InputContainer>
           <DataContainer>
             <RecentBlocks blocks={blocks} />
-            <RecentTransactions transactions={transactions} />
+            <RecentTransactions
+              transactions={transactions}
+              loading={transactionsQuery.loading}
+              pageInfo={pageInfo}
+              onNextPage={handleNextPage}
+              onPrevPage={handlePrevPage}
+              currentPage={currentPage}
+            />
           </DataContainer>
         </Content>
       </Container>

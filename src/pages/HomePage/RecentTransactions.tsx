@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 
+import type { PageInfo } from '../../api/__generated__/types';
 import { dateDiff, getTextForTimeDifference } from '../../utils/date';
 
 import type { HomePageTransaction } from './__generated__/operations';
@@ -31,23 +32,30 @@ import {
 
 type Props = {
   transactions: HomePageTransaction[];
+  loading: boolean;
+  onNextPage: () => void;
+  onPrevPage: () => void;
+  pageInfo?: PageInfo;
+  currentPage: number;
 };
 
 type Ouputs = HomePageTransaction['outputs'];
+const PAGE_LIMIT = 5;
 
-export function RecentTransactions({ transactions }: Props) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const PAGE_LIMIT = 5;
-  const totalPages = Math.ceil(transactions.length / PAGE_LIMIT);
+export function RecentTransactions({
+  transactions,
+  loading,
+  onNextPage,
+  onPrevPage,
+  pageInfo,
+  currentPage,
+}: Props) {
+  const sortedTransactions = transactions.sort((t1, t2) =>
+    new Date(t1.status!.time).getTime() - new Date(t2.status!.time).getTime() <= 0 ? 1 : -1
+  );
 
-  const sortedTransactions = transactions
-    .sort((t1, t2) =>
-      new Date(t1.status!.time).getTime() - new Date(t2.status!.time).getTime() <= 0 ? 1 : -1
-    )
-    .slice(PAGE_LIMIT * (currentPage - 1), PAGE_LIMIT * currentPage);
-
-  const isFirstPage = currentPage <= 1;
-  const isLastPage = currentPage >= totalPages;
+  const isPrevPageClickable = pageInfo?.hasPreviousPage && !loading;
+  const isNextPageClickable = pageInfo?.hasNextPage && !loading;
 
   return (
     <DataItem>
@@ -55,18 +63,17 @@ export function RecentTransactions({ transactions }: Props) {
         <DataTitle>Recent Transactions</DataTitle>
         <DataPagination>
           <IconButtonLeft
-            isDisabled={isFirstPage}
-            onClick={isFirstPage ? undefined : () => setCurrentPage(currentPage - 1)}
+            isDisabled={!isPrevPageClickable}
+            onClick={isPrevPageClickable ? onPrevPage : undefined}
           >
             <ArrowLeftIcon />
           </IconButtonLeft>
           <DataPaginationTextWrapper>
             <DataPaginationTextCurrentPage>{currentPage}</DataPaginationTextCurrentPage>
-            <DataPaginationText>&nbsp;/ {totalPages}</DataPaginationText>
           </DataPaginationTextWrapper>
           <IconButtonRight
-            isDisabled={isLastPage}
-            onClick={isLastPage ? undefined : () => setCurrentPage(currentPage + 1)}
+            isDisabled={!isNextPageClickable}
+            onClick={isNextPageClickable ? onNextPage : undefined}
           >
             <ArrowRightIcon />
           </IconButtonRight>
