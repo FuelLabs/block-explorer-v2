@@ -2,6 +2,7 @@
 import type { CoinQuantity } from 'fuels';
 
 import * as TableUI from '../../components/Table/components';
+import { parseToFormattedNumber } from '../../utils/bigNumber';
 
 import {
   TableHeadlineDisclaimer,
@@ -45,7 +46,7 @@ export default function BalancesTable({ balances }: { balances: CoinQuantity[] }
           {balances.map((balance) => (
             <TableUI.TableRow key={balance.assetId}>
               <TableUI.TableCell>{trimAddress(balance.assetId)}</TableUI.TableCell>
-              <TableUI.TableCell>{balance.amount.toString()}</TableUI.TableCell>
+              <TableUI.TableCell>{parseToFormattedNumber(balance.amount)}</TableUI.TableCell>
             </TableUI.TableRow>
           ))}
         </TableUI.Table>

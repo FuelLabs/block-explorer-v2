@@ -93,23 +93,6 @@ export default function BlockPage() {
               <BlockHash to={`/block/${prevBl?.height}`}>{prevBl?.id}</BlockHash>
             </BlockDataRow>
             <BlockDataRow>
-              <RowKeyColumn>Ethereum block number:</RowKeyColumn>
-              <BlockNumber>
-                TBD
-                <EtherscanBlockLink
-                  href={`https://etherscan.io/block/${block}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <ExternalLinkIcon />
-                </EtherscanBlockLink>
-              </BlockNumber>
-            </BlockDataRow>
-            <BlockDataRow>
-              <RowKeyColumn>Number of addresses:</RowKeyColumn>
-              <AddressesCount>TBD</AddressesCount>
-            </BlockDataRow>
-            <BlockDataRow>
               <RowKeyColumn>Number of transactions:</RowKeyColumn>
               <TransactionsCount to={`/block/${block}/transactions`}>
                 {bl.transactions?.length}

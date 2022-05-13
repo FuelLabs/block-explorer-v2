@@ -225,13 +225,13 @@ function UTXOInputBox({
               </UTXODetailsRow>
               <UTXODetailsRow>
                 <UTXODetailsKey>Amount:</UTXODetailsKey>
-                {input.amount}
+                {parseToFormattedNumber(input.amount)}
               </UTXODetailsRow>
               <UTXODetailsRow>
                 <UTXODetailsKey>Coin:</UTXODetailsKey>
-                <UTXODetailsLink to={`/coin/${input.assetId}`}>
+                <UTXOHashOutputSkip to="">
                   {trimAddress(input.assetId)}
-                </UTXODetailsLink>
+                </UTXOHashOutputSkip>
               </UTXODetailsRow>
               <UTXODetailsRow>
                 <UTXODetailsKey>Predicate bytecode:</UTXODetailsKey>
@@ -268,9 +268,9 @@ function UTXOInputBox({
             <UTXODetailsContainer>
               <UTXODetailsRow>
                 <UTXODetailsKey>Contract Id:</UTXODetailsKey>
-                <UTXODetailsLink to={`/contract/${input.contract.id}`}>
+                <UTXOHashOutputSkip to="">
                   {trimAddress(input.contract.id)}
-                </UTXODetailsLink>
+                </UTXOHashOutputSkip>
               </UTXODetailsRow>
               <UTXODetailsRow>
                 <UTXODetailsKey>Balance Root:</UTXODetailsKey>
@@ -296,9 +296,9 @@ function UTXOOutput({ output }: { output: OutputFragment }) {
       return (
         <UTXODetailsRow>
           <UTXODetailsKey>Contract Id:</UTXODetailsKey>
-          <UTXODetailsLink to={`/contract/${output.contract.id}`}>
+          <UTXOHashOutputSkip to="">
             {output.contract.id}
-          </UTXODetailsLink>
+          </UTXOHashOutputSkip>
         </UTXODetailsRow>
       );
     }
@@ -326,17 +326,17 @@ function UTXOOutput({ output }: { output: OutputFragment }) {
         <>
           <UTXODetailsRow>
             <UTXODetailsKey>To:</UTXODetailsKey>
-            <UTXODetailsLink to={`/address/${output.to}`}>{trimAddress(output.to)}</UTXODetailsLink>
+            <UTXOHashOutputSkip to="">{trimAddress(output.to)}</UTXOHashOutputSkip>
           </UTXODetailsRow>
           <UTXODetailsRow>
             <UTXODetailsKey>Amount:</UTXODetailsKey>
-            <UTXODetailsValue>{output.amount}</UTXODetailsValue>
+            <UTXODetailsValue>{parseToFormattedNumber(output.amount)}</UTXODetailsValue>
           </UTXODetailsRow>
           <UTXODetailsRow>
             <UTXODetailsKey>Coin:</UTXODetailsKey>
-            <UTXODetailsLink to={`/coin/${output.assetId}`}>
+            <UTXOHashOutputSkip to="">
               {trimAddress(output.assetId)}
-            </UTXODetailsLink>
+            </UTXOHashOutputSkip>
           </UTXODetailsRow>
         </>
       );

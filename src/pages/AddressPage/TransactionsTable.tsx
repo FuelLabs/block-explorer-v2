@@ -1,5 +1,6 @@
 // import { useState } from "react";
 import * as TableUI from '../../components/Table/components';
+import { parseToFormattedNumber } from '../../utils/bigNumber';
 import { dateDiffRelative, getTextForRelativeTimeDifference } from '../../utils/date';
 
 import type { AddressPageTransaction } from './__generated__/operations';
@@ -10,6 +11,7 @@ import {
   TxRecipient,
   TransactionValue,
   CoinLink,
+  CoinLinkSkip,
   // TableNavigationButtons,
   // TableNavigationNumberButton,
   // TableNavigationTextButton,
@@ -58,7 +60,6 @@ export default function TransactionsTable({
             <TableUI.TableHeadCell>To</TableUI.TableHeadCell>
             <TableUI.TableHeadCell>Value</TableUI.TableHeadCell>
             <TableUI.TableHeadCell>Coin</TableUI.TableHeadCell>
-            <TableUI.TableHeadCell>Fee (USD)</TableUI.TableHeadCell>
           </TableUI.TableHeadRow>
           {transactions.map((transaction) => (
             <TableUI.TableRow key={transaction.id}>
@@ -122,7 +123,7 @@ export default function TransactionsTable({
                   ? transaction.outputs.map((output, idx) =>
                       (() => {
                         if (output.__typename === 'CoinOutput') {
-                          return <TransactionValue key={idx}>{output.amount}</TransactionValue>;
+                          return <TransactionValue key={idx}>{parseToFormattedNumber(output.amount)}</TransactionValue>;
                         }
                         return `${output.__typename}`;
                       })()
@@ -134,16 +135,15 @@ export default function TransactionsTable({
                   (() => {
                     if (output.__typename === 'CoinOutput') {
                       return (
-                        <CoinLink key={idx} to="/coin">
+                        <CoinLinkSkip key={idx} to="">
                           {output.assetId}
-                        </CoinLink>
+                        </CoinLinkSkip>
                       );
                     }
                     return output.__typename;
                   })()
                 )}
               </TableUI.TableCell>
-              <TableUI.TableCell>N/A</TableUI.TableCell>
             </TableUI.TableRow>
           ))}
         </TableUI.Table>

@@ -37,7 +37,6 @@ export const Subtitle = styled.span`
 
 export const TxHashLink = styled(GreenLink)`
   display: block;
-  max-width: 124px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -49,6 +48,10 @@ export const TxHashLink = styled(GreenLink)`
   :active {
     text-shadow: 0 0 6px #4fad83;
     color: #4fad83;
+  }
+
+  @media screen and (max-width: 425px) {
+    max-width: 124px;
   }
 `;
 
