@@ -40,6 +40,11 @@ export const TxHashLink = styled(GreenLink)`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  margin: 0 0 12px;
+
+  :last-of-type {
+    margin: 0;
+  }
 
   :hover {
     text-shadow: 0 0 6px #58c09b;

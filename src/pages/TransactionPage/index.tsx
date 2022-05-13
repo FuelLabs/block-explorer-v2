@@ -208,7 +208,7 @@ function UTXOInputBox({
           <UTXOHeadlineContainer>
             <UTXOHeadlineColumn>
               <UTXOTitle>{`Input #${idx}`}</UTXOTitle>
-              <UTXOHash to={`/transaction/${input.utxoId}`}>{input.utxoId}</UTXOHash>
+              <UTXOHashOutputSkip to="">{input.utxoId}</UTXOHashOutputSkip>
             </UTXOHeadlineColumn>
             <UTXOHeadlineColumn2>
               <HeadlineText>Value</HeadlineText>
@@ -261,7 +261,7 @@ function UTXOInputBox({
           <UTXOHeadlineContainer>
             <UTXOHeadlineColumn>
               <UTXOTitle>{`Input #${idx}`}</UTXOTitle>
-              <UTXOHash to={`/transaction/${input.utxoId}`}>{input.utxoId}</UTXOHash>
+              <UTXOHashOutputSkip to="">{input.utxoId}</UTXOHashOutputSkip>
             </UTXOHeadlineColumn>
           </UTXOHeadlineContainer>
           {expanded && (

@@ -75,6 +75,7 @@ function Transactions({ transactions }: { transactions: BlockTransactionFragment
               <TableHeadCell>Tx Hash</TableHeadCell>
               <TableHeadCell>Type</TableHeadCell>
               <TableHeadCell>Age</TableHeadCell>
+              <TableHeadCell>From</TableHeadCell>
             </TableHeadRow>
           </thead>
           <tbody>
@@ -92,6 +93,32 @@ function Transactions({ transactions }: { transactions: BlockTransactionFragment
                       )}
                     </>
                   ) : null}
+                </TableCell>
+                <TableCell>
+                {transaction.inputs.map((input, idx) =>
+                  (() => {
+                    switch (input.__typename) {
+                      case 'InputCoin': {
+                        return (
+                          <TxHashLink key={idx} to={`/address/${input.owner}`}>
+                            {trimAddress(input.owner)}
+                          </TxHashLink>
+                        );
+                      }
+                      case 'InputContract': {
+                        return (
+                          <TxHashLink key={idx} to={`/address/${input.contract.id}`}>
+                            {trimAddress(input.contract.id)}
+                          </TxHashLink>
+                        );
+                      }
+                      default: {
+                        // @ts-ignore
+                        return input.__typename;
+                      }
+                    }
+                  })()
+                )}
                 </TableCell>
               </TableRow>
             ))}

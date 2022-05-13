@@ -57,9 +57,6 @@ export default function TransactionsTable({
             <TableUI.TableHeadCell>Type</TableUI.TableHeadCell>
             <TableUI.TableHeadCell>Age</TableUI.TableHeadCell>
             <TableUI.TableHeadCell>From</TableUI.TableHeadCell>
-            <TableUI.TableHeadCell>To</TableUI.TableHeadCell>
-            <TableUI.TableHeadCell>Value</TableUI.TableHeadCell>
-            <TableUI.TableHeadCell>Coin</TableUI.TableHeadCell>
           </TableUI.TableHeadRow>
           {transactions.map((transaction) => (
             <TableUI.TableRow key={transaction.id}>
@@ -99,48 +96,6 @@ export default function TransactionsTable({
                         return input.__typename;
                       }
                     }
-                  })()
-                )}
-              </TableUI.TableCell>
-              <TableUI.TableCell>
-                {transaction.outputs.length > 0
-                  ? transaction.outputs.map((output, idx) =>
-                      (() => {
-                        if (output.__typename === 'CoinOutput') {
-                          return (
-                            <TxRecipient key={idx} to={`/address/${output.to}`}>
-                              {trimAddress(output.to)}
-                            </TxRecipient>
-                          );
-                        }
-                        return output.__typename;
-                      })()
-                    )
-                  : 'N/A'}
-              </TableUI.TableCell>
-              <TableUI.TableCell>
-                {transaction.outputs.length > 0
-                  ? transaction.outputs.map((output, idx) =>
-                      (() => {
-                        if (output.__typename === 'CoinOutput') {
-                          return <TransactionValue key={idx}>{parseToFormattedNumber(output.amount)}</TransactionValue>;
-                        }
-                        return `${output.__typename}`;
-                      })()
-                    )
-                  : 'N/A'}
-              </TableUI.TableCell>
-              <TableUI.TableCell>
-                {transaction.outputs.map((output, idx) =>
-                  (() => {
-                    if (output.__typename === 'CoinOutput') {
-                      return (
-                        <CoinLinkSkip key={idx} to="">
-                          {output.assetId}
-                        </CoinLinkSkip>
-                      );
-                    }
-                    return output.__typename;
                   })()
                 )}
               </TableUI.TableCell>
