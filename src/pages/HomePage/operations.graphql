@@ -1,5 +1,16 @@
-query HomePageTransactionsQuery($count: Int) {
-  transactions(last: $count) {
+query HomePageTransactionsQuery(
+  $last: Int
+  $first: Int
+  $before: String
+  $after: String
+) {
+  transactions(first: $first, last: $last, before: $before, after: $after) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
     edges {
       node {
         ...HomePageTransaction

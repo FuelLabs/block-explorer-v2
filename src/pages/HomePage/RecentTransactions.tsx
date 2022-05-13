@@ -1,5 +1,6 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
+import type { PageInfo } from '../../api/__generated__/types';
 import { dateDiff, getTextForTimeDifference } from '../../utils/date';
 
 import type { HomePageTransaction } from './__generated__/operations';
@@ -18,24 +19,66 @@ import {
   TransactionRecipientsWrapper,
   TransactionsDataBoxRow,
   TransactionRowColumn,
+  DataHeader,
+  DataPagination,
+  DataPaginationText,
+  DataPaginationTextCurrentPage,
+  ArrowRightIcon,
+  ArrowLeftIcon,
+  IconButtonLeft,
+  IconButtonRight,
+  DataPaginationTextWrapper,
 } from './components';
 
 type Props = {
   transactions: HomePageTransaction[];
+  loading: boolean;
+  onNextPage: () => void;
+  onPrevPage: () => void;
+  pageInfo?: PageInfo;
+  currentPage: number;
 };
 
 type Ouputs = HomePageTransaction['outputs'];
+const PAGE_LIMIT = 5;
 
-export function RecentTransactions({ transactions }: Props) {
-  const sortedTransactions = transactions
-    .sort((t1, t2) =>
-      new Date(t1.status!.time).getTime() - new Date(t2.status!.time).getTime() <= 0 ? 1 : -1
-    )
-    .slice(0, 5);
+export function RecentTransactions({
+  transactions,
+  loading,
+  onNextPage,
+  onPrevPage,
+  pageInfo,
+  currentPage,
+}: Props) {
+  const sortedTransactions = transactions.sort((t1, t2) =>
+    new Date(t1.status!.time).getTime() - new Date(t2.status!.time).getTime() <= 0 ? 1 : -1
+  );
+
+  const isPrevPageClickable = currentPage > 1 && pageInfo?.hasPreviousPage && !loading;
+  const isNextPageClickable = pageInfo?.hasNextPage && !loading;
 
   return (
     <DataItem>
-      <DataTitle>Recent Transactions</DataTitle>
+      <DataHeader>
+        <DataTitle>Recent Transactions</DataTitle>
+        <DataPagination>
+          <IconButtonLeft
+            isDisabled={!isPrevPageClickable}
+            onClick={isPrevPageClickable ? onPrevPage : undefined}
+          >
+            <ArrowLeftIcon />
+          </IconButtonLeft>
+          <DataPaginationTextWrapper>
+            <DataPaginationTextCurrentPage>{currentPage}</DataPaginationTextCurrentPage>
+          </DataPaginationTextWrapper>
+          <IconButtonRight
+            isDisabled={!isNextPageClickable}
+            onClick={isNextPageClickable ? onNextPage : undefined}
+          >
+            <ArrowRightIcon />
+          </IconButtonRight>
+        </DataPagination>
+      </DataHeader>
       <DataBox>
         {sortedTransactions.map((transaction) => (
           <TransactionRow key={transaction.id} transaction={transaction} />
