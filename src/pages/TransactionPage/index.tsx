@@ -229,9 +229,7 @@ function UTXOInputBox({
               </UTXODetailsRow>
               <UTXODetailsRow>
                 <UTXODetailsKey>Coin:</UTXODetailsKey>
-                <UTXOHashOutputSkip to="">
-                  {trimAddress(input.assetId)}
-                </UTXOHashOutputSkip>
+                <UTXOHashOutputSkip to="">{trimAddress(input.assetId)}</UTXOHashOutputSkip>
               </UTXODetailsRow>
               <UTXODetailsRow>
                 <UTXODetailsKey>Predicate bytecode:</UTXODetailsKey>
@@ -268,9 +266,7 @@ function UTXOInputBox({
             <UTXODetailsContainer>
               <UTXODetailsRow>
                 <UTXODetailsKey>Contract Id:</UTXODetailsKey>
-                <UTXOHashOutputSkip to="">
-                  {trimAddress(input.contract.id)}
-                </UTXOHashOutputSkip>
+                <UTXOHashOutputSkip to="">{trimAddress(input.contract.id)}</UTXOHashOutputSkip>
               </UTXODetailsRow>
               <UTXODetailsRow>
                 <UTXODetailsKey>Balance Root:</UTXODetailsKey>
@@ -296,9 +292,7 @@ function UTXOOutput({ output }: { output: OutputFragment }) {
       return (
         <UTXODetailsRow>
           <UTXODetailsKey>Contract Id:</UTXODetailsKey>
-          <UTXOHashOutputSkip to="">
-            {output.contract.id}
-          </UTXOHashOutputSkip>
+          <UTXOHashOutputSkip to="">{output.contract.id}</UTXOHashOutputSkip>
         </UTXODetailsRow>
       );
     }
@@ -334,9 +328,7 @@ function UTXOOutput({ output }: { output: OutputFragment }) {
           </UTXODetailsRow>
           <UTXODetailsRow>
             <UTXODetailsKey>Coin:</UTXODetailsKey>
-            <UTXOHashOutputSkip to="">
-              {trimAddress(output.assetId)}
-            </UTXOHashOutputSkip>
+            <UTXOHashOutputSkip to="">{trimAddress(output.assetId)}</UTXOHashOutputSkip>
           </UTXODetailsRow>
         </>
       );
