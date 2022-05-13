@@ -44,6 +44,7 @@ import {
   ScriptTextarea,
   UTXOHeadlineColumn2,
   ContractTextarea,
+  UTXOHashOutputSkip,
 } from './components';
 
 export default function TransactionPage() {
@@ -117,15 +118,17 @@ function ScriptsComponent({ tx }: { tx: any }) {
   return (
     <ScriptsContainer>
       <ScriptTitle>Script Byte Code:</ScriptTitle>
-      <ScriptComponent tabs={['Assembly', 'Hex']} contents={['', tx.script]} />
+      {/* <ScriptComponent tabs={['Assembly', 'Hex']} contents={['', tx.script]} /> */}
+      <ScriptComponent tabs={['Hex']} contents={[tx.script]} />
       <ScriptTitle>Script Data:</ScriptTitle>
-      <ScriptComponent tabs={['ABI Decoded', 'Raw Hex']} contents={['', tx.scriptData]} />
+      {/* <ScriptComponent tabs={['ABI Decoded', 'Raw Hex']} contents={['', tx.scriptData]} /> */}
+      <ScriptComponent tabs={['Raw Hex']} contents={[tx.scriptData]} />
     </ScriptsContainer>
   );
 }
 
 function ScriptComponent({ tabs, contents }: { tabs: string[]; contents: string[] }) {
-  const [selectedTab, setSelectedTab] = useState(1);
+  const [selectedTab, setSelectedTab] = useState(0);
 
   return (
     <ScriptContainer>
@@ -205,7 +208,7 @@ function UTXOInputBox({
           <UTXOHeadlineContainer>
             <UTXOHeadlineColumn>
               <UTXOTitle>{`Input #${idx}`}</UTXOTitle>
-              <UTXOHash to={`/transaction/${input.utxoId}`}>{input.utxoId}</UTXOHash>
+              <UTXOHashOutputSkip to="">{input.utxoId}</UTXOHashOutputSkip>
             </UTXOHeadlineColumn>
             <UTXOHeadlineColumn2>
               <HeadlineText>Value</HeadlineText>
@@ -222,13 +225,11 @@ function UTXOInputBox({
               </UTXODetailsRow>
               <UTXODetailsRow>
                 <UTXODetailsKey>Amount:</UTXODetailsKey>
-                {input.amount}
+                {parseToFormattedNumber(input.amount)}
               </UTXODetailsRow>
               <UTXODetailsRow>
                 <UTXODetailsKey>Coin:</UTXODetailsKey>
-                <UTXODetailsLink to={`/coin/${input.assetId}`}>
-                  {trimAddress(input.assetId)}
-                </UTXODetailsLink>
+                <UTXOHashOutputSkip to="">{trimAddress(input.assetId)}</UTXOHashOutputSkip>
               </UTXODetailsRow>
               <UTXODetailsRow>
                 <UTXODetailsKey>Predicate bytecode:</UTXODetailsKey>
@@ -258,16 +259,14 @@ function UTXOInputBox({
           <UTXOHeadlineContainer>
             <UTXOHeadlineColumn>
               <UTXOTitle>{`Input #${idx}`}</UTXOTitle>
-              <UTXOHash to={`/transaction/${input.utxoId}`}>{input.utxoId}</UTXOHash>
+              <UTXOHashOutputSkip to="">{input.utxoId}</UTXOHashOutputSkip>
             </UTXOHeadlineColumn>
           </UTXOHeadlineContainer>
           {expanded && (
             <UTXODetailsContainer>
               <UTXODetailsRow>
                 <UTXODetailsKey>Contract Id:</UTXODetailsKey>
-                <UTXODetailsLink to={`/contract/${input.contract.id}`}>
-                  {trimAddress(input.contract.id)}
-                </UTXODetailsLink>
+                <UTXOHashOutputSkip to="">{trimAddress(input.contract.id)}</UTXOHashOutputSkip>
               </UTXODetailsRow>
               <UTXODetailsRow>
                 <UTXODetailsKey>Balance Root:</UTXODetailsKey>
@@ -293,9 +292,7 @@ function UTXOOutput({ output }: { output: OutputFragment }) {
       return (
         <UTXODetailsRow>
           <UTXODetailsKey>Contract Id:</UTXODetailsKey>
-          <UTXODetailsLink to={`/contract/${output.contract.id}`}>
-            {output.contract.id}
-          </UTXODetailsLink>
+          <UTXOHashOutputSkip to="">{output.contract.id}</UTXOHashOutputSkip>
         </UTXODetailsRow>
       );
     }
@@ -323,17 +320,15 @@ function UTXOOutput({ output }: { output: OutputFragment }) {
         <>
           <UTXODetailsRow>
             <UTXODetailsKey>To:</UTXODetailsKey>
-            <UTXODetailsLink to={`/address/${output.to}`}>{trimAddress(output.to)}</UTXODetailsLink>
+            <UTXOHashOutputSkip to="">{trimAddress(output.to)}</UTXOHashOutputSkip>
           </UTXODetailsRow>
           <UTXODetailsRow>
             <UTXODetailsKey>Amount:</UTXODetailsKey>
-            <UTXODetailsValue>{output.amount}</UTXODetailsValue>
+            <UTXODetailsValue>{parseToFormattedNumber(output.amount)}</UTXODetailsValue>
           </UTXODetailsRow>
           <UTXODetailsRow>
             <UTXODetailsKey>Coin:</UTXODetailsKey>
-            <UTXODetailsLink to={`/coin/${output.assetId}`}>
-              {trimAddress(output.assetId)}
-            </UTXODetailsLink>
+            <UTXOHashOutputSkip to="">{trimAddress(output.assetId)}</UTXOHashOutputSkip>
           </UTXODetailsRow>
         </>
       );
@@ -357,7 +352,7 @@ function UTXOOutputBox({
       <UTXOHeadlineContainer>
         <UTXOHeadlineColumn>
           <UTXOTitle>Output #{index}</UTXOTitle>
-          <UTXOHash to="/">{output.__typename}</UTXOHash>
+          <UTXOHashOutputSkip to="">{output.__typename}</UTXOHashOutputSkip>
         </UTXOHeadlineColumn>
         {output.__typename === 'CoinOutput' && (
           <UTXOHeadlineColumn2>

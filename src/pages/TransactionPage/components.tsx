@@ -228,6 +228,16 @@ export const UTXOHash = styled(BaseLink)`
   white-space: nowrap;
 `;
 
+export const UTXOHashOutputSkip = styled(UTXOHash)`
+  cursor: auto;
+  color: #f8fefc;
+
+  :active {
+    text-shadow: 0;
+    color: #f8fefc;
+  }
+`;
+
 export const HeadlineText = styled.p`
   margin: 0;
   display: block;

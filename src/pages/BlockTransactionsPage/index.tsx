@@ -16,7 +16,7 @@ import {
 } from '../../components/Table/components';
 import { trimAddress } from '../../utils/address';
 import { dateDiffRelative, getTextForRelativeTimeDifference } from '../../utils/date';
-import { TableContainer } from '../AddressPage/components';
+import { CoinLinkSkip, TableContainer } from '../AddressPage/components';
 
 import type { BlockTransactionFragment } from './__generated__/operations';
 import { useBlockTransactionsPageQuery } from './__generated__/operations';
@@ -76,10 +76,6 @@ function Transactions({ transactions }: { transactions: BlockTransactionFragment
               <TableHeadCell>Type</TableHeadCell>
               <TableHeadCell>Age</TableHeadCell>
               <TableHeadCell>From</TableHeadCell>
-              <TableHeadCell>To</TableHeadCell>
-              <TableHeadCell>Value</TableHeadCell>
-              <TableHeadCell>Coin</TableHeadCell>
-              <TableHeadCell>Fee (USD)</TableHeadCell>
             </TableHeadRow>
           </thead>
           <tbody>
@@ -104,16 +100,16 @@ function Transactions({ transactions }: { transactions: BlockTransactionFragment
                       switch (input.__typename) {
                         case 'InputCoin': {
                           return (
-                            <TxRecipientLink key={idx} to={`/address/${input.owner}`}>
+                            <TxHashLink key={idx} to={`/address/${input.owner}`}>
                               {trimAddress(input.owner)}
-                            </TxRecipientLink>
+                            </TxHashLink>
                           );
                         }
                         case 'InputContract': {
                           return (
-                            <TxRecipientLink key={idx} to={`/address/${input.contract.id}`}>
+                            <TxHashLink key={idx} to={`/address/${input.contract.id}`}>
                               {trimAddress(input.contract.id)}
-                            </TxRecipientLink>
+                            </TxHashLink>
                           );
                         }
                         default: {
@@ -124,45 +120,6 @@ function Transactions({ transactions }: { transactions: BlockTransactionFragment
                     })()
                   )}
                 </TableCell>
-                <TableCell>
-                  {transaction.outputs.map((output, idx) =>
-                    (() => {
-                      if (output.__typename === 'CoinOutput') {
-                        return (
-                          <TxRecipientLink key={idx} to={`/address/${output.to}`}>
-                            {trimAddress(output.to)}
-                          </TxRecipientLink>
-                        );
-                      }
-                      return output.__typename;
-                    })()
-                  )}
-                </TableCell>
-                <TableCell>
-                  {transaction.outputs.map((output, idx) =>
-                    (() => {
-                      if (output.__typename === 'CoinOutput') {
-                        return <TxValue key={idx}>{output.amount}</TxValue>;
-                      }
-                      return `N/A ${output.__typename}`;
-                    })()
-                  )}
-                </TableCell>
-                <TableCell>
-                  {transaction.outputs.map((output, idx) =>
-                    (() => {
-                      if (output.__typename === 'CoinOutput') {
-                        return (
-                          <CoinLink key={idx} to="/coin">
-                            {output.assetId}
-                          </CoinLink>
-                        );
-                      }
-                      return 'N/A';
-                    })()
-                  )}
-                </TableCell>
-                <TableCell bold>N/A</TableCell>
               </TableRow>
             ))}
           </tbody>

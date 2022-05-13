@@ -455,6 +455,16 @@ export const CoinLink = styled(BaseLink)`
   }
 `;
 
+export const CoinLinkSkip = styled(CoinLink)`
+  cursor: auto;
+  color: #f8fefc;
+
+  :active {
+    text-shadow: 0;
+    color: #f8fefc;
+  }
+`;
+
 export const TableNavigationButtons = styled.div`
   margin: 4px 0 0;
   display: flex;
