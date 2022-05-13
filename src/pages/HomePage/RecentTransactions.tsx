@@ -54,7 +54,7 @@ export function RecentTransactions({
     new Date(t1.status!.time).getTime() - new Date(t2.status!.time).getTime() <= 0 ? 1 : -1
   );
 
-  const isPrevPageClickable = pageInfo?.hasPreviousPage && !loading;
+  const isPrevPageClickable = currentPage > 1 && pageInfo?.hasPreviousPage && !loading;
   const isNextPageClickable = pageInfo?.hasNextPage && !loading;
 
   return (

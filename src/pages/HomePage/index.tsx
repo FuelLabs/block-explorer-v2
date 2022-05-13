@@ -39,12 +39,22 @@ export default function HomePage() {
   }, [transactionsQuery.loading, transactionsQuery.data, transactionsQuery.error]);
 
   const handleNextPage = () => {
-    transactionsQuery.refetch({ before: pageInfo?.startCursor, after: undefined, last: PAGE_LIMIT, first: undefined });
+    transactionsQuery.refetch({
+      before: pageInfo?.startCursor,
+      after: undefined,
+      last: PAGE_LIMIT,
+      first: undefined,
+    });
     setCurrentPage(currentPage + 1);
   };
 
   const handlePrevPage = () => {
-    transactionsQuery.refetch({ after: pageInfo?.endCursor, before: undefined, last: undefined, first: PAGE_LIMIT });
+    transactionsQuery.refetch({
+      after: pageInfo?.endCursor,
+      before: undefined,
+      last: undefined,
+      first: PAGE_LIMIT,
+    });
     setCurrentPage(currentPage - 1);
   };
 
