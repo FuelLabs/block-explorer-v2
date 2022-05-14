@@ -30,6 +30,12 @@ query HomePageBlocksQuery($count: Int) {
   }
 }
 
+query HomePageSearchTransactionQuery($id: TransactionId!) {
+  transaction(id: $id) {
+    id
+  }
+}
+
 fragment HomePageBlock on Block {
   id
   height

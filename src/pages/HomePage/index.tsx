@@ -6,8 +6,20 @@ import { Header } from '../../components/Header';
 import { RecentBlocks } from './RecentBlocks';
 import { RecentTransactions } from './RecentTransactions';
 import type { HomePageBlock, HomePageTransaction } from './__generated__/operations';
-import { useHomePageBlocksQuery, useHomePageTransactionsQuery } from './__generated__/operations';
-import { Container, Content, DataContainer, Input, InputContainer, SearchIcon } from './components';
+import {
+  useHomePageBlocksQuery,
+  useHomePageTransactionsQuery,
+  useHomePageSearchTransactionQueryLazyQuery,
+} from './__generated__/operations';
+import {
+  Container,
+  Content,
+  DataContainer,
+  Input,
+  InputContainer,
+  SearchIcon,
+  SearchNotFound,
+} from './components';
 
 const PAGE_LIMIT = 5;
 
@@ -16,10 +28,19 @@ export default function HomePage() {
   const [transactions, setTransactions] = useState<HomePageTransaction[]>([]);
   const [pageInfo, setPageInfo] = useState<PageInfo>();
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchText, setSearchText] = useState<string>('');
+  const [isSearchNotFound, setIsSearchNotFound] = useState(false);
   const transactionsQuery = useHomePageTransactionsQuery({
     variables: { last: PAGE_LIMIT },
   });
   const blocksQuery = useHomePageBlocksQuery({ variables: { count: 5 } });
+  const [searchTransactionQuery, { loading, error, data: searchTransactionData }] =
+    useHomePageSearchTransactionQueryLazyQuery({
+      variables: { id: '' },
+      fetchPolicy: 'network-only',
+    });
+
+  const isAllowedToSearch = searchText.length === 66;
 
   useEffect(() => {
     if (blocksQuery.loading) return;
@@ -58,14 +79,34 @@ export default function HomePage() {
     setCurrentPage(currentPage - 1);
   };
 
+  const handleClickSearch = async () => {
+    if (isAllowedToSearch && searchText) {
+      const result = await searchTransactionQuery({ variables: { id: searchText } });
+
+      if (!result.data?.transaction) {
+        setIsSearchNotFound(true);
+        setTimeout(() => setIsSearchNotFound(false), 1500);
+      } else if (result.data?.transaction?.id) {
+        window.location.assign(`/transaction/${searchTransactionData?.transaction?.id}`);
+      }
+    }
+  };
+
   return (
     <>
       <Header />
       <Container>
         <Content>
           <InputContainer>
-            <Input placeholder="Search an address, transaction or block" />
-            <SearchIcon />
+            <Input
+              placeholder="Search for a transaction"
+              onChange={(e) => setSearchText(e?.target?.value)}
+            />
+            <SearchIcon
+              isDisabled={!isAllowedToSearch}
+              onClick={isAllowedToSearch ? handleClickSearch : undefined}
+            />
+            {isSearchNotFound && <SearchNotFound>Not Found</SearchNotFound>}
           </InputContainer>
           <DataContainer>
             <RecentBlocks blocks={blocks} />

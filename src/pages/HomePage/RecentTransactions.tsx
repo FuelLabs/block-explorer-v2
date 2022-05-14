@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, Fragment } from 'react';
 
 import type { PageInfo } from '../../api/__generated__/types';
 import { dateDiff, getTextForTimeDifference } from '../../utils/date';
@@ -113,13 +113,13 @@ function TransactionRow({ transaction }: { transaction: HomePageTransaction }) {
           {transaction.inputs.map(
             (input) =>
               input.__typename === 'InputCoin' && (
-                <>
+                <Fragment key={input.owner}>
                   <TransactionRecipientLabel>From:</TransactionRecipientLabel>
                   {input.__typename}
                   <TransactionRecipientLink to={`/address/${input.owner}`}>
                     {input.owner}
                   </TransactionRecipientLink>
-                </>
+                </Fragment>
               )
           )}
         </TransactionRecipientsWrapper>
@@ -130,13 +130,13 @@ function TransactionRow({ transaction }: { transaction: HomePageTransaction }) {
                 output.__typename === 'CoinOutput' ||
                 output.__typename === 'VariableOutput' ||
                 output.__typename === 'WithdrawalOutput') && (
-                <>
+                <Fragment key={output.assetId + output.to}>
                   <TransactionRecipientLabel>To:</TransactionRecipientLabel>
                   {output.__typename}
                   <TransactionRecipientLink to={`/address/${output.to}`}>
                     {output.to}
                   </TransactionRecipientLink>
-                </>
+                </Fragment>
               )
           )}
         </TransactionRecipientsWrapper>
