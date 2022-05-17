@@ -30,9 +30,16 @@ query HomePageBlocksQuery($count: Int) {
   }
 }
 
-query HomePageSearchTransactionQuery($id: TransactionId!) {
-  transaction(id: $id) {
+query HomePageSearchQuery($transaction: TransactionId!, $address: Address!) {
+  transaction(id: $transaction) {
     id
+  }
+  transactionsByOwner (owner:$address, first: 1) {
+    edges {
+      node {
+        id
+      }
+    }
   }
 }
 

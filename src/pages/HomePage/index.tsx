@@ -9,7 +9,7 @@ import type { HomePageBlock, HomePageTransaction } from './__generated__/operati
 import {
   useHomePageBlocksQuery,
   useHomePageTransactionsQuery,
-  useHomePageSearchTransactionQueryLazyQuery,
+  useHomePageSearchQueryLazyQuery,
 } from './__generated__/operations';
 import {
   Container,
@@ -35,8 +35,8 @@ export default function HomePage() {
   });
   const blocksQuery = useHomePageBlocksQuery({ variables: { count: 5 } });
   const [searchTransactionQuery, { loading, error, data: searchTransactionData }] =
-    useHomePageSearchTransactionQueryLazyQuery({
-      variables: { id: '' },
+    useHomePageSearchQueryLazyQuery({
+      variables: { transaction: '', address: '' },
       fetchPolicy: 'network-only',
     });
 
@@ -81,13 +81,19 @@ export default function HomePage() {
 
   const handleClickSearch = async () => {
     if (isAllowedToSearch && searchText) {
-      const result = await searchTransactionQuery({ variables: { id: searchText } });
+      const result = await searchTransactionQuery({ variables: { transaction: searchText, address: searchText } });
 
-      if (!result.data?.transaction) {
+      console.log(`result.data`, result.data);
+
+      if (result.data?.transaction?.id) {
+        window.location.assign(`/transaction/${searchText}`);
+
+      } else if (result.data?.transactionsByOwner?.edges?.length) {
+        window.location.assign(`/address/${searchText}`);
+
+      } else {
         setIsSearchNotFound(true);
         setTimeout(() => setIsSearchNotFound(false), 1500);
-      } else if (result.data?.transaction?.id) {
-        window.location.assign(`/transaction/${searchTransactionData?.transaction?.id}`);
       }
     }
   };
