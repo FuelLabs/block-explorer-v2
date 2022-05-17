@@ -123,7 +123,7 @@ export const HeadlineAddressButton = styled(ButtonReset)`
 
 export const TableHeadlineAddressButton = styled(HeadlineAddressButton)`
   margin: -4px 0 0 8px;
-`
+`;
 
 export const CopyButtonIcon = styled(CopyIcon)`
   width: 14px !important;
@@ -540,4 +540,4 @@ export const TransactionFromAddressWrapper = styled.div`
 
 export const ContractLinkSkip = styled(UTXOHashOutputSkip)`
   margin-bottom: 8px;
-`
+`;

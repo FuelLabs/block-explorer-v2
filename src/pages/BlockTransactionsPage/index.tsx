@@ -16,7 +16,17 @@ import {
 } from '../../components/Table/components';
 import { trimAddress } from '../../utils/address';
 import { dateDiffRelative, getTextForRelativeTimeDifference } from '../../utils/date';
-import { CoinLinkSkip, ContractLinkSkip, CopyButtonIcon, HeadlineAddressButton, TableContainer, TableHeadlineAddressButton, Tooltip, TransactionFromAddressWrapper, TxRecipient } from '../AddressPage/components';
+import {
+  CoinLinkSkip,
+  ContractLinkSkip,
+  CopyButtonIcon,
+  HeadlineAddressButton,
+  TableContainer,
+  TableHeadlineAddressButton,
+  Tooltip,
+  TransactionFromAddressWrapper,
+  TxRecipient,
+} from '../AddressPage/components';
 
 import type { BlockTransactionFragment } from './__generated__/operations';
 import { useBlockTransactionsPageQuery } from './__generated__/operations';
@@ -105,7 +115,7 @@ function Transactions({ transactions }: { transactions: BlockTransactionFragment
                         case 'InputCoin': {
                           return (
                             <TransactionFromAddressWrapper key={idx}>
-                              <TxRecipient  to={`/address/${input.owner}`}>
+                              <TxRecipient to={`/address/${input.owner}`}>
                                 {trimAddress(input.owner)}
                               </TxRecipient>
                               <TableHeadlineAddressButton

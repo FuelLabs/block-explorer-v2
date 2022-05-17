@@ -337,9 +337,7 @@ function UTXOOutput({ output }: { output: OutputFragment }) {
         <>
           <UTXODetailsRow>
             <UTXODetailsKey>To:</UTXODetailsKey>
-            <UTXODetailsLink to={`/address/${output.to}`}>
-              {trimAddress(output.to)}
-            </UTXODetailsLink>
+            <UTXODetailsLink to={`/address/${output.to}`}>{trimAddress(output.to)}</UTXODetailsLink>
             <TableHeadlineAddressButton
               onClick={() => {
                 onClickCopy(output.to);

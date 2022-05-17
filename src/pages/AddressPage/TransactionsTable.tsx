@@ -91,7 +91,7 @@ export default function TransactionsTable({
                       case 'InputCoin': {
                         return (
                           <TransactionFromAddressWrapper key={idx}>
-                            <TxRecipient  to={`/address/${input.owner}`}>
+                            <TxRecipient to={`/address/${input.owner}`}>
                               {trimAddress(input.owner)}
                             </TxRecipient>
                             <TableHeadlineAddressButton
