@@ -34,7 +34,7 @@ query HomePageSearchQuery($transaction: TransactionId!, $address: Address!) {
   transaction(id: $transaction) {
     id
   }
-  transactionsByOwner (owner:$address, first: 1) {
+  transactionsByOwner(owner: $address, first: 1) {
     edges {
       node {
         id

@@ -81,16 +81,14 @@ export default function HomePage() {
 
   const handleClickSearch = async () => {
     if (isAllowedToSearch && searchText) {
-      const result = await searchTransactionQuery({ variables: { transaction: searchText, address: searchText } });
-
-      console.log(`result.data`, result.data);
+      const result = await searchTransactionQuery({
+        variables: { transaction: searchText, address: searchText },
+      });
 
       if (result.data?.transaction?.id) {
         window.location.assign(`/transaction/${searchText}`);
-
       } else if (result.data?.transactionsByOwner?.edges?.length) {
         window.location.assign(`/address/${searchText}`);
-
       } else {
         setIsSearchNotFound(true);
         setTimeout(() => setIsSearchNotFound(false), 1500);
