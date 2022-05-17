@@ -5,6 +5,7 @@ import { Header } from '../../components/Header';
 import { ExpandIcon, ShrinkIcon } from '../../components/Icons';
 import { trimAddress } from '../../utils';
 import { parseToFormattedNumber } from '../../utils/bigNumber';
+import { CopyButtonIcon, TableHeadlineAddressButton, Tooltip } from '../AddressPage/components';
 import { UTXODetailsValue } from '../CreateTransactionPage/components';
 
 import type { InputFragment, OutputFragment } from './__generated__/operations';
@@ -201,6 +202,10 @@ function UTXOInputBox({
   expanded: boolean;
   idx: number;
 }) {
+  const onClickCopy = (address: string) => {
+    navigator.clipboard.writeText(address);
+  };
+
   switch (input.__typename) {
     case 'InputCoin': {
       return (
@@ -219,9 +224,17 @@ function UTXOInputBox({
             <UTXODetailsContainer>
               <UTXODetailsRow>
                 <UTXODetailsKey>Owner:</UTXODetailsKey>
-                <UTXODetailsLink to={`/address/${input.utxoId}`}>
+                <UTXODetailsLink to={`/address/${input.owner}`}>
                   {trimAddress(input.owner)}
                 </UTXODetailsLink>
+                <TableHeadlineAddressButton
+                  onClick={() => {
+                    onClickCopy(input.owner);
+                  }}
+                >
+                  <CopyButtonIcon />
+                  <Tooltip>Copy Address</Tooltip>
+                </TableHeadlineAddressButton>
               </UTXODetailsRow>
               <UTXODetailsRow>
                 <UTXODetailsKey>Amount:</UTXODetailsKey>
@@ -287,6 +300,10 @@ function UTXOInputBox({
 }
 
 function UTXOOutput({ output }: { output: OutputFragment }) {
+  const onClickCopy = (address: string) => {
+    navigator.clipboard.writeText(address);
+  };
+
   switch (output.__typename) {
     case 'ContractCreated': {
       return (
@@ -320,7 +337,17 @@ function UTXOOutput({ output }: { output: OutputFragment }) {
         <>
           <UTXODetailsRow>
             <UTXODetailsKey>To:</UTXODetailsKey>
-            <UTXOHashOutputSkip to="">{trimAddress(output.to)}</UTXOHashOutputSkip>
+            <UTXODetailsLink to={`/address/${output.to}`}>
+              {trimAddress(output.to)}
+            </UTXODetailsLink>
+            <TableHeadlineAddressButton
+              onClick={() => {
+                onClickCopy(output.to);
+              }}
+            >
+              <CopyButtonIcon />
+              <Tooltip>Copy Address</Tooltip>
+            </TableHeadlineAddressButton>
           </UTXODetailsRow>
           <UTXODetailsRow>
             <UTXODetailsKey>Amount:</UTXODetailsKey>

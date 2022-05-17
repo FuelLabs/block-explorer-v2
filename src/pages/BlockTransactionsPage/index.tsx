@@ -16,7 +16,7 @@ import {
 } from '../../components/Table/components';
 import { trimAddress } from '../../utils/address';
 import { dateDiffRelative, getTextForRelativeTimeDifference } from '../../utils/date';
-import { CoinLinkSkip, TableContainer } from '../AddressPage/components';
+import { CoinLinkSkip, ContractLinkSkip, CopyButtonIcon, HeadlineAddressButton, TableContainer, TableHeadlineAddressButton, Tooltip, TransactionFromAddressWrapper, TxRecipient } from '../AddressPage/components';
 
 import type { BlockTransactionFragment } from './__generated__/operations';
 import { useBlockTransactionsPageQuery } from './__generated__/operations';
@@ -54,6 +54,10 @@ export default function BlockTransactionsPage() {
 }
 
 function Transactions({ transactions }: { transactions: BlockTransactionFragment[] }) {
+  const onClickCopy = (address: string) => {
+    navigator.clipboard.writeText(address);
+  };
+
   return (
     <TableContainer>
       <TableHeadlineContainer>
@@ -100,16 +104,26 @@ function Transactions({ transactions }: { transactions: BlockTransactionFragment
                       switch (input.__typename) {
                         case 'InputCoin': {
                           return (
-                            <TxHashLink key={idx} to={`/address/${input.owner}`}>
-                              {trimAddress(input.owner)}
-                            </TxHashLink>
+                            <TransactionFromAddressWrapper key={idx}>
+                              <TxRecipient  to={`/address/${input.owner}`}>
+                                {trimAddress(input.owner)}
+                              </TxRecipient>
+                              <TableHeadlineAddressButton
+                                onClick={() => {
+                                  onClickCopy(input.owner);
+                                }}
+                              >
+                                <CopyButtonIcon />
+                                <Tooltip>Copy Address</Tooltip>
+                              </TableHeadlineAddressButton>
+                            </TransactionFromAddressWrapper>
                           );
                         }
                         case 'InputContract': {
                           return (
-                            <TxHashLink key={idx} to={`/address/${input.contract.id}`}>
+                            <ContractLinkSkip key={idx} to="">
                               {trimAddress(input.contract.id)}
-                            </TxHashLink>
+                            </ContractLinkSkip>
                           );
                         }
                         default: {
