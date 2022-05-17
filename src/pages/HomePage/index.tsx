@@ -98,6 +98,13 @@ export default function HomePage() {
     }
   };
 
+  const handleSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleClickSearch();
+    }
+  };
+
   return (
     <>
       <Header />
@@ -107,6 +114,7 @@ export default function HomePage() {
             <Input
               placeholder="Search for transaction / address"
               onChange={(e) => setSearchText(e?.target?.value)}
+              onKeyPress={handleSearchKeyPress}
             />
             <SearchIcon
               isDisabled={!isAllowedToSearch}
