@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import type { PageInfo } from '../../api/__generated__/types';
 import { Header } from '../../components/Header';
@@ -38,6 +39,7 @@ export default function HomePage() {
     variables: { transaction: '', address: '' },
     fetchPolicy: 'network-only',
   });
+  const navigate = useNavigate();
 
   const isAllowedToSearch = searchText.length === 66;
 
@@ -86,9 +88,9 @@ export default function HomePage() {
       });
 
       if (result.data?.transaction?.id) {
-        window.location.assign(`/transaction/${searchText}`);
+        navigate(`/transaction/${searchText}`);
       } else if (result.data?.transactionsByOwner?.edges?.length) {
-        window.location.assign(`/address/${searchText}`);
+        navigate(`/address/${searchText}`);
       } else {
         setIsSearchNotFound(true);
         setTimeout(() => setIsSearchNotFound(false), 1500);
