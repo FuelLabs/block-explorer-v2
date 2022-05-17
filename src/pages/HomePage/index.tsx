@@ -34,11 +34,10 @@ export default function HomePage() {
     variables: { last: PAGE_LIMIT },
   });
   const blocksQuery = useHomePageBlocksQuery({ variables: { count: 5 } });
-  const [searchTransactionQuery, { loading, error, data: searchTransactionData }] =
-    useHomePageSearchQueryLazyQuery({
-      variables: { transaction: '', address: '' },
-      fetchPolicy: 'network-only',
-    });
+  const [searchTransactionQuery] = useHomePageSearchQueryLazyQuery({
+    variables: { transaction: '', address: '' },
+    fetchPolicy: 'network-only',
+  });
 
   const isAllowedToSearch = searchText.length === 66;
 
@@ -103,7 +102,7 @@ export default function HomePage() {
         <Content>
           <InputContainer>
             <Input
-              placeholder="Search for a transaction"
+              placeholder="Search for transaction / address"
               onChange={(e) => setSearchText(e?.target?.value)}
             />
             <SearchIcon
