@@ -9,7 +9,7 @@ import type { HomePageBlock, HomePageTransaction } from './__generated__/operati
 import {
   useHomePageBlocksQuery,
   useHomePageTransactionsQuery,
-  useHomePageSearchQueryLazyQuery,
+  useHomePageSearchQuery,
 } from './__generated__/operations';
 import {
   Container,
@@ -34,7 +34,7 @@ export default function HomePage() {
     variables: { last: PAGE_LIMIT },
   });
   const blocksQuery = useHomePageBlocksQuery({ variables: { count: 5 } });
-  const [searchTransactionQuery] = useHomePageSearchQueryLazyQuery({
+  const searchQuery = useHomePageSearchQuery({
     variables: { transaction: '', address: '' },
     fetchPolicy: 'network-only',
   });
@@ -80,8 +80,9 @@ export default function HomePage() {
 
   const handleClickSearch = async () => {
     if (isAllowedToSearch && searchText) {
-      const result = await searchTransactionQuery({
-        variables: { transaction: searchText, address: searchText },
+      const result = await searchQuery.refetch({
+        transaction: searchText,
+        address: searchText,
       });
 
       if (result.data?.transaction?.id) {
