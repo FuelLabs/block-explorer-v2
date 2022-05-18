@@ -30,17 +30,18 @@ export function LogoIcon({ style = {}, ...rest }) {
   );
 }
 
-export function SearchIcon({ style = {}, ...rest }) {
+export function SearchIcon({ style = {}, isDisabled = false, ...rest }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 19.979 19.979"
       style={{ width: 20, height: 20, ...style }}
+      color="gray"
       {...rest}
     >
       <defs />
       <path
-        fill="gray"
+        fill="currentColor"
         fillRule="evenodd"
         d="M14.032 12.458l5.948 5.948-1.574 1.574-5.948-5.948a7.79 7.79 0 111.574-1.574zm-6.24.9a5.565 5.565 0 10-5.565-5.565 5.565 5.565 0 005.565 5.564z"
       />

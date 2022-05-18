@@ -48,11 +48,19 @@ export const Input = styled(InputReset)`
   }
 `;
 
-export const SearchIcon = styled(SearchSvg)`
+export const SearchIcon = styled(SearchSvg)<{ isDisabled?: boolean }>`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   right: 8px;
+  cursor: ${({ isDisabled }) => (isDisabled ? 'auto' : 'pointer')};
+  color: ${({ isDisabled }) => (isDisabled ? 'gray' : 'white')};
+`;
+
+export const SearchNotFound = styled.div`
+  position: absolute;
+  left: 14px;
+  top: 50px;
 `;
 
 export const DataContainer = styled.div`
