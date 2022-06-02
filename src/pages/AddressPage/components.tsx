@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { ButtonReset } from '../../components/Button/components';
 import { CopyIcon, PlusIcon, QRIcon, ArrowIcon } from '../../components/Icons';
+import { UTXOHashOutputSkip } from '../TransactionPage/components';
 
 export const Container = styled.section``;
 
@@ -118,6 +119,10 @@ export const HeadlineAddressButton = styled(ButtonReset)`
   :hover ${Tooltip} {
     display: block;
   }
+`;
+
+export const TableHeadlineAddressButton = styled(HeadlineAddressButton)`
+  margin: -4px 0 0 8px;
 `;
 
 export const CopyButtonIcon = styled(CopyIcon)`
@@ -525,4 +530,14 @@ export const TableNextNavigationTextButton = styled(TableNavigationTextButton)`
   @media screen and (max-width: 768px) {
     display: none;
   }
+`;
+
+export const TransactionFromAddressWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+`;
+
+export const ContractLinkSkip = styled(UTXOHashOutputSkip)`
+  margin-bottom: 8px;
 `;

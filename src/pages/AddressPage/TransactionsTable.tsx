@@ -2,6 +2,7 @@
 import * as TableUI from '../../components/Table/components';
 import { parseToFormattedNumber } from '../../utils/bigNumber';
 import { dateDiffRelative, getTextForRelativeTimeDifference } from '../../utils/date';
+import { UTXOHashOutputSkip } from '../TransactionPage/components';
 
 import type { AddressPageTransaction } from './__generated__/operations';
 import {
@@ -12,6 +13,12 @@ import {
   TransactionValue,
   CoinLink,
   CoinLinkSkip,
+  CopyButtonIcon,
+  Tooltip,
+  HeadlineAddressButton,
+  TransactionFromAddressWrapper,
+  TableHeadlineAddressButton,
+  ContractLinkSkip,
   // TableNavigationButtons,
   // TableNavigationNumberButton,
   // TableNavigationTextButton,
@@ -31,6 +38,10 @@ export default function TransactionsTable({
 
     return `${address.slice(0, 6)}...${address.slice(-6, address.length - 1)}`;
   }
+
+  const onClickCopy = (address: string) => {
+    navigator.clipboard.writeText(address);
+  };
 
   return (
     <TableUI.TableContainer>
@@ -79,16 +90,26 @@ export default function TransactionsTable({
                     switch (input.__typename) {
                       case 'InputCoin': {
                         return (
-                          <TxRecipient key={idx} to={`/address/${input.owner}`}>
-                            {trimAddress(input.owner)}
-                          </TxRecipient>
+                          <TransactionFromAddressWrapper key={idx}>
+                            <TxRecipient to={`/address/${input.owner}`}>
+                              {trimAddress(input.owner)}
+                            </TxRecipient>
+                            <TableHeadlineAddressButton
+                              onClick={() => {
+                                onClickCopy(input.owner);
+                              }}
+                            >
+                              <CopyButtonIcon />
+                              <Tooltip>Copy Address</Tooltip>
+                            </TableHeadlineAddressButton>
+                          </TransactionFromAddressWrapper>
                         );
                       }
                       case 'InputContract': {
                         return (
-                          <TxRecipient key={idx} to={`/address/${input.contract.id}`}>
+                          <ContractLinkSkip key={idx} to="">
                             {trimAddress(input.contract.id)}
-                          </TxRecipient>
+                          </ContractLinkSkip>
                         );
                       }
                       default: {
