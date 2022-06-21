@@ -19,6 +19,8 @@ query TransactionPageQuery($id: TransactionId!) {
     scriptData
     witnesses
     bytecodeWitnessIndex
+    bytePrice
+    rawPayload
     outputs {
       ...OutputFragment
     }
