@@ -34,7 +34,7 @@ export function RecentBlocks({ blocks }: Props) {
               <BlockNumber id="recent-block-link" to={`/block/${block.height}`}>
                 {block.height}
               </BlockNumber>
-              <BlockTimestamp date1={now} date2={new Date(block.time)} />
+              {/* <BlockTimestamp date1={now} date2={new Date(block.time)} /> */}
             </RecentBlockColumn1>
             <RecentBlockColumn2>
               <BlockProducerText>
