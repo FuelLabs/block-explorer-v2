@@ -21,7 +21,10 @@ export function useOnClickOutside(ref: any, handler: () => void) {
 }
 
 // Hook
-export function useLocalStorage<T>(key: string, initialValue?: T): [T, (update: T) => void] {
+export function useLocalStorage<T>(
+  key: string,
+  initialValue?: T
+): [T, (update: T) => void, () => void] {
   // State to store our value
   // Pass initial state function to useState so logic is only executed once
   const [storedValue, setStoredValue] = useState<T>(() => {
@@ -55,5 +58,10 @@ export function useLocalStorage<T>(key: string, initialValue?: T): [T, (update: 
       console.log(error);
     }
   };
-  return [storedValue, setValue];
+
+  const removeItem = () => {
+    window.localStorage.removeItem(key);
+  };
+
+  return [storedValue, setValue, removeItem];
 }
