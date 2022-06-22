@@ -9,12 +9,18 @@ import { ChainProvider } from './contexts/network';
 
 const { REACT_APP_GRAPHQL_API_ENDPOINT, PUBLIC_URL } = process.env;
 
-const queryParams = new URLSearchParams(window.location.search);
+const { location } = window;
+const queryParams = new URLSearchParams(location.search);
 const providerUrl = queryParams.get('providerUrl');
 // If providerUrl is provided on the query params
 // Override the current providerUrl
 if (providerUrl) {
-  localStorage.setItem(PROVIDER_URL_STORAGE_KEY, JSON.stringify(providerUrl));
+  if (REACT_APP_GRAPHQL_API_ENDPOINT === providerUrl) {
+    localStorage.removeItem(PROVIDER_URL_STORAGE_KEY);
+  } else {
+    localStorage.setItem(PROVIDER_URL_STORAGE_KEY, JSON.stringify(providerUrl));
+  }
+  location.href = location.href.replace(location.search, '');
 }
 
 let parsedLocalStorageGraphQLEndpoint = null;
