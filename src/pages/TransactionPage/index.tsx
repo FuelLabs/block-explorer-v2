@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { Header } from '../../components/Header';
 import { ExpandIcon, ShrinkIcon } from '../../components/Icons';
+import { BASE_COIN_NAME } from '../../constants';
 import { trimAddress } from '../../utils';
 import { parseToFormattedNumber } from '../../utils/bigNumber';
 import { CopyButtonIcon, TableHeadlineAddressButton, Tooltip } from '../AddressPage/components';
@@ -81,7 +82,9 @@ export default function TransactionPage() {
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Price:</RowKeyColumn>
-              <RowValueColumn>{tx.gasPrice}</RowValueColumn>
+              <RowValueColumn>
+                {parseToFormattedNumber(tx.gasPrice)} {BASE_COIN_NAME}
+              </RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Limit:</RowKeyColumn>
