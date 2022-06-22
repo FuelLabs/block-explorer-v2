@@ -8,6 +8,14 @@ import { ChainProvider } from './contexts/network';
 
 const { REACT_APP_GRAPHQL_API_ENDPOINT, PUBLIC_URL } = process.env;
 
+const queryParams = new URLSearchParams(window.location.search);
+const providerUrl = queryParams.get('providerUrl');
+// If providerUrl is provided on the query params
+// Override the current providerUrl
+if (providerUrl) {
+  localStorage.setItem('GRAPHQL_API_ENDPOINT', JSON.stringify(providerUrl));
+}
+
 let parsedLocalStorageGraphQLEndpoint = null;
 try {
   // Get from local storage by key
