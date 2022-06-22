@@ -116,12 +116,12 @@ export default function AddressPage() {
                 <Tooltip>Click to copy QR code</Tooltip>
               </HeadlineAddressButton>
             </HeadlineAddressContainer>
-            <HeadlineCoinsContainer>
+            {/* <HeadlineCoinsContainer>
               <CoinsCounterLabel>
                 Coins:
                 <CoinsCounter>{coins?.length ?? '...'}</CoinsCounter>
               </CoinsCounterLabel>
-              {/* <TokenDropdownContainer>
+              <TokenDropdownContainer>
                 <TokenButton>
                   <TokenButtonSymbol>ETH:</TokenButtonSymbol>
                   <TokenButtonAmount>
@@ -132,8 +132,8 @@ export default function AddressPage() {
                     <TokenDropdownIcon />
                   </TokenButtonIconContainer>
                 </TokenButton>
-              </TokenDropdownContainer> */}
-            </HeadlineCoinsContainer>
+              </TokenDropdownContainer>
+            </HeadlineCoinsContainer> */}
           </HeadlineContainer>
           {balances ? <BalancesTable balances={Object.values(balances)} /> : null}
           <div style={{ height: 16 }} />
