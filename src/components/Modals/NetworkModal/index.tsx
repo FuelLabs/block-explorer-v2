@@ -27,8 +27,6 @@ interface Props {
 
 const { REACT_APP_GRAPHQL_API_ENDPOINT = '' } = process.env;
 
-console.log(REACT_APP_GRAPHQL_API_ENDPOINT);
-
 export function NetworkModal(props: Props) {
   const [customEndpoint, setCustomEndpoint, removeEndpoint] = useLocalStorage<string>(
     PROVIDER_URL_STORAGE_KEY,
@@ -55,7 +53,6 @@ export function NetworkModal(props: Props) {
   function onNetworkSwitch() {
     if (selectedChain) {
       setActiveChain(selectedChain);
-      // setCustomEndpoint(REACT_APP_GRAPHQL_API_ENDPOINT);
       props.onClose();
     }
     selectChain(undefined);
