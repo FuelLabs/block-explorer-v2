@@ -58,13 +58,14 @@ export default function TransactionPage() {
 
   if (!tx) return null;
 
+  const lastReceipt = tx.receipts?.[tx.receipts.length - 1];
   const transactionFee = calculateTransactionFee({
     bytePrice: +tx.bytePrice,
     rawPayload: tx.rawPayload,
     witnesses: tx.witnesses,
     gasPriceFactor: +(chains[0].consensusParameters?.gasPriceFactor || 0),
     gasPrice: +tx.gasPrice,
-    gasLimit: +tx.gasLimit,
+    gasUsed: +(lastReceipt?.gasUsed || 0),
   });
 
   return (

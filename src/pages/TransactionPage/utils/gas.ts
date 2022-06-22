@@ -6,7 +6,7 @@ export type CalculateGasUsedParams = {
   witnesses: string[];
   gasPriceFactor: number;
   gasPrice: number;
-  gasLimit: number;
+  gasUsed: number;
 };
 
 export const calculateTransactionFee = ({
@@ -15,15 +15,12 @@ export const calculateTransactionFee = ({
   witnesses,
   gasPriceFactor,
   gasPrice,
-  gasLimit,
+  gasUsed,
 }: CalculateGasUsedParams) => {
   const processedByte =
     bytePrice *
     (arrayify(rawPayload).length - witnesses.reduce((t, w) => t + arrayify(w).length, 0));
+  const gasUsedAmount = gasPrice * gasUsed;
 
-  const gasLimitAmount = gasPrice * gasLimit;
-  const calc =
-    Math.ceil(processedByte / gasPriceFactor) + Math.ceil(gasLimitAmount / gasPriceFactor);
-
-  return calc;
+  return Math.ceil(processedByte / gasPriceFactor) + Math.ceil(gasUsedAmount / gasPriceFactor);
 };

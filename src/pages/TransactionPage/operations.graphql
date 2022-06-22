@@ -21,6 +21,9 @@ query TransactionPageQuery($id: TransactionId!) {
     bytecodeWitnessIndex
     bytePrice
     rawPayload
+    receipts {
+      gasUsed
+    }
     outputs {
       ...OutputFragment
     }
