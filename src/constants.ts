@@ -1,1 +1,2 @@
 export const BASE_COIN_NAME = 'Ether';
+export const PROVIDER_URL_STORAGE_KEY = 'GRAPHQL_API_ENDPOINT';

@@ -4,14 +4,29 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import './App.css';
 import AppRoutes from './AppRoutes';
+import { PROVIDER_URL_STORAGE_KEY } from './constants';
 import { ChainProvider } from './contexts/network';
 
 const { REACT_APP_GRAPHQL_API_ENDPOINT, PUBLIC_URL } = process.env;
 
+const { location } = window;
+const queryParams = new URLSearchParams(location.search);
+const providerUrl = queryParams.get('providerUrl');
+// If providerUrl is provided on the query params
+// Override the current providerUrl
+if (providerUrl) {
+  if (REACT_APP_GRAPHQL_API_ENDPOINT === providerUrl) {
+    localStorage.removeItem(PROVIDER_URL_STORAGE_KEY);
+  } else {
+    localStorage.setItem(PROVIDER_URL_STORAGE_KEY, JSON.stringify(providerUrl));
+  }
+  location.href = location.href.replace(location.search, '');
+}
+
 let parsedLocalStorageGraphQLEndpoint = null;
 try {
   // Get from local storage by key
-  const item = localStorage.getItem('GRAPHQL_API_ENDPOINT');
+  const item = localStorage.getItem(PROVIDER_URL_STORAGE_KEY);
   // Parse stored json or if none return initialValue
   parsedLocalStorageGraphQLEndpoint = item ? JSON.parse(item) : null;
 } catch (error) {

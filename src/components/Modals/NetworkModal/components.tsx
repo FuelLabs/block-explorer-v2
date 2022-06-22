@@ -43,16 +43,14 @@ export const CustomInputField = styled.input`
 `;
 
 export const CustomInputReset = styled(ButtonReset)`
-  background-color: #58c09b;
   font-family: SFProDisplay;
+  width: calc(100%);
+  justify-content: center;
   padding: 2px 4px;
   font-weight: 500;
-  color: #fff;
-
-  :hover,
-  :active {
-    box-shadow: 0 0 6px 0 #58c09b;
-  }
+  font-size: 14px;
+  margin-bottom: 24px;
+  color: #ffffff9b;
 `;
 
 export const NetworkSelectorCheckbox = styled.div`
@@ -110,12 +108,12 @@ export const ActiveNetworkIndicator = styled.span`
 
 export const ConfirmNetworkButton = styled(ButtonReset)`
   width: calc(100% - 48px);
-  margin: 24px 24px;
-  padding: 16px 8px;
+  margin: 12px 24px;
+  padding: 8px 8px;
   justify-content: center;
   background-color: #58c09b;
   font-family: SFProDisplay;
-  font-size: 21px;
+  font-size: 16px;
   line-height: 28px;
   font-weight: 500;
   color: #fff;
