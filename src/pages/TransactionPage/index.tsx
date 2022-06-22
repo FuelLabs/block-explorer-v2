@@ -100,7 +100,7 @@ export default function TransactionPage() {
               <RowValueColumn>{parseToFormattedNumber(tx.gasLimit)}</RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
-              <RowKeyColumn>Gas Used:</RowKeyColumn>
+              <RowKeyColumn>Transaction fee:</RowKeyColumn>
               <RowValueColumn>{parseToFormattedNumber(gasUsed)}</RowValueColumn>
             </TransactionDataRow>
           </TransactionDataContainer>
