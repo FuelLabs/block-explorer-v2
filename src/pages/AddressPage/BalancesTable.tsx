@@ -40,7 +40,7 @@ export default function BalancesTable({ balances }: { balances: CoinQuantity[] }
       <TableUI.TableWrapper>
         <TableUI.Table>
           <TableUI.TableHeadRow>
-            <TableUI.TableHeadCell>Color</TableUI.TableHeadCell>
+            <TableUI.TableHeadCell>Asset ID</TableUI.TableHeadCell>
             <TableUI.TableHeadCell>Amount</TableUI.TableHeadCell>
           </TableUI.TableHeadRow>
           {balances.map((balance) => (
