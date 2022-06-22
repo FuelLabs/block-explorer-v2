@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Header } from '../../components/Header';
 import { ExpandIcon, ShrinkIcon } from '../../components/Icons';
 import { BASE_COIN_NAME } from '../../constants';
+import { ChainContext } from '../../contexts/network';
 import { trimAddress } from '../../utils';
 import { parseToFormattedNumber } from '../../utils/bigNumber';
 import { CopyButtonIcon, TableHeadlineAddressButton, Tooltip } from '../AddressPage/components';
@@ -48,13 +49,25 @@ import {
   ContractTextarea,
   UTXOHashOutputSkip,
 } from './components';
+import { calculateTransactionFee } from './utils/gas';
 
 export default function TransactionPage() {
   const { transaction } = useParams() as any;
   const { data } = useTransactionPageQuery({ variables: { id: transaction } });
   const tx = data?.transaction;
+  const { chains } = useContext(ChainContext);
 
   if (!tx) return null;
+
+  const lastReceipt = tx.receipts?.[tx.receipts.length - 1];
+  const transactionFee = calculateTransactionFee({
+    bytePrice: +tx.bytePrice,
+    rawPayload: tx.rawPayload,
+    witnesses: tx.witnesses,
+    gasPriceFactor: +(chains[0].consensusParameters?.gasPriceFactor || 0),
+    gasPrice: +tx.gasPrice,
+    gasUsed: +(lastReceipt?.gasUsed || 0),
+  });
 
   return (
     <>
@@ -76,10 +89,10 @@ export default function TransactionPage() {
                 <TransactionStatus>{tx.status.__typename.replace('Status', '')}</TransactionStatus>
               </TransactionDataRow>
             ) : null}
-            <TransactionDataRow>
+            {/* <TransactionDataRow>
               <RowKeyColumn>Maturity:</RowKeyColumn>
               <RowValueColumn>{tx.maturity}</RowValueColumn>
-            </TransactionDataRow>
+            </TransactionDataRow> */}
             <TransactionDataRow>
               <RowKeyColumn>Gas Price:</RowKeyColumn>
               <RowValueColumn>
@@ -88,11 +101,17 @@ export default function TransactionPage() {
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Limit:</RowKeyColumn>
-              <RowValueColumn>{parseToFormattedNumber(tx.gasLimit)}</RowValueColumn>
+              <RowValueColumn>{tx.gasLimit}</RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Used:</RowKeyColumn>
-              <RowValueColumn>0</RowValueColumn>
+              <RowValueColumn>{lastReceipt?.gasUsed}</RowValueColumn>
+            </TransactionDataRow>
+            <TransactionDataRow>
+              <RowKeyColumn>Transaction fee:</RowKeyColumn>
+              <RowValueColumn>
+                {parseToFormattedNumber(transactionFee)} {BASE_COIN_NAME}
+              </RowValueColumn>
             </TransactionDataRow>
           </TransactionDataContainer>
           <UTXOComponent outputs={tx.outputs || []} inputs={tx.inputs || []} />
