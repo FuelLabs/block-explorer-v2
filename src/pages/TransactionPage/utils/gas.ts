@@ -9,7 +9,7 @@ export type CalculateGasUsedParams = {
   gasLimit: number;
 };
 
-export const calculateGasUsed = ({
+export const calculateTransactionFee = ({
   bytePrice,
   rawPayload,
   witnesses,

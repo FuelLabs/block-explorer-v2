@@ -48,7 +48,7 @@ import {
   ContractTextarea,
   UTXOHashOutputSkip,
 } from './components';
-import { calculateGasUsed } from './utils/gas';
+import { calculateTransactionFee } from './utils/gas';
 
 export default function TransactionPage() {
   const { transaction } = useParams() as any;
@@ -58,7 +58,7 @@ export default function TransactionPage() {
 
   if (!tx) return null;
 
-  const gasUsed = calculateGasUsed({
+  const transactionFee = calculateTransactionFee({
     bytePrice: +tx.bytePrice,
     rawPayload: tx.rawPayload,
     witnesses: tx.witnesses,
@@ -101,7 +101,7 @@ export default function TransactionPage() {
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Transaction fee:</RowKeyColumn>
-              <RowValueColumn>{parseToFormattedNumber(gasUsed)}</RowValueColumn>
+              <RowValueColumn>{parseToFormattedNumber(transactionFee)}</RowValueColumn>
             </TransactionDataRow>
           </TransactionDataContainer>
           <UTXOComponent outputs={tx.outputs || []} inputs={tx.inputs || []} />
