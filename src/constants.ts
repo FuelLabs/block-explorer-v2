@@ -1,1 +1,1 @@
-export const BASE_COIN_NAME = "Ether";
+export const BASE_COIN_NAME = 'Ether';

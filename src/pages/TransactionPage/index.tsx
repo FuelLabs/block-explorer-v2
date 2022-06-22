@@ -82,7 +82,9 @@ export default function TransactionPage() {
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Price:</RowKeyColumn>
-              <RowValueColumn>{parseToFormattedNumber(tx.gasPrice)} {BASE_COIN_NAME}</RowValueColumn>
+              <RowValueColumn>
+                {parseToFormattedNumber(tx.gasPrice)} {BASE_COIN_NAME}
+              </RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Limit:</RowKeyColumn>
