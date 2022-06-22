@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { Header } from '../../components/Header';
 import { ExpandIcon, ShrinkIcon } from '../../components/Icons';
+import { BASE_COIN_NAME } from '../../constants';
 import { ChainContext } from '../../contexts/network';
 import { trimAddress } from '../../utils';
 import { parseToFormattedNumber } from '../../utils/bigNumber';
@@ -94,7 +95,15 @@ export default function TransactionPage() {
             </TransactionDataRow> */}
             <TransactionDataRow>
               <RowKeyColumn>Gas Price:</RowKeyColumn>
-              <RowValueColumn>{parseToFormattedNumber(tx.gasPrice)}</RowValueColumn>
+              <RowValueColumn>
+                {parseToFormattedNumber(tx.gasPrice)} {BASE_COIN_NAME}
+              </RowValueColumn>
+            </TransactionDataRow>
+            <TransactionDataRow>
+              <RowKeyColumn>Byte Price:</RowKeyColumn>
+              <RowValueColumn>
+                {parseToFormattedNumber(tx.bytePrice)} {BASE_COIN_NAME}
+              </RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Limit:</RowKeyColumn>
@@ -106,7 +115,9 @@ export default function TransactionPage() {
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Transaction fee:</RowKeyColumn>
-              <RowValueColumn>{parseToFormattedNumber(transactionFee)}</RowValueColumn>
+              <RowValueColumn>
+                {parseToFormattedNumber(transactionFee)} {BASE_COIN_NAME}
+              </RowValueColumn>
             </TransactionDataRow>
           </TransactionDataContainer>
           <UTXOComponent outputs={tx.outputs || []} inputs={tx.inputs || []} />
