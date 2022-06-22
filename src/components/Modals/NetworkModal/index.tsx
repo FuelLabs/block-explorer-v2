@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useMemo, useRef, useState } from 'react';
 
 import type { Chain } from '../../../api';
+import { PROVIDER_URL_STORAGE_KEY } from '../../../constants';
 import { ChainContext } from '../../../contexts/network';
 import { useOnClickOutside, useLocalStorage } from '../../../hooks';
 import { Modal } from '../Base';
@@ -28,7 +29,7 @@ const { REACT_APP_GRAPHQL_API_ENDPOINT = '' } = process.env;
 
 export function NetworkModal(props: Props) {
   const [customEndpoint, setCustomEndpoint] = useLocalStorage<string>(
-    'GRAPHQL_API_ENDPOINT',
+    PROVIDER_URL_STORAGE_KEY,
     REACT_APP_GRAPHQL_API_ENDPOINT
   );
   const [showCustomInput, setshowCustomInput] = useState<boolean>(false);
