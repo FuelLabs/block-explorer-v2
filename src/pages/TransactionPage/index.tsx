@@ -94,11 +94,15 @@ export default function TransactionPage() {
             </TransactionDataRow> */}
             <TransactionDataRow>
               <RowKeyColumn>Gas Price:</RowKeyColumn>
-              <RowValueColumn>{tx.gasPrice}</RowValueColumn>
+              <RowValueColumn>{parseToFormattedNumber(tx.gasPrice)}</RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Limit:</RowKeyColumn>
-              <RowValueColumn>{parseToFormattedNumber(tx.gasLimit)}</RowValueColumn>
+              <RowValueColumn>{tx.gasLimit}</RowValueColumn>
+            </TransactionDataRow>
+            <TransactionDataRow>
+              <RowKeyColumn>Gas Used:</RowKeyColumn>
+              <RowValueColumn>{lastReceipt?.gasUsed}</RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Transaction fee:</RowKeyColumn>
