@@ -264,7 +264,7 @@ function UTXOInputBox({
                 {parseToFormattedNumber(input.amount)}
               </UTXODetailsRow>
               <UTXODetailsRow>
-                <UTXODetailsKey>Coin:</UTXODetailsKey>
+                <UTXODetailsKey>Asset ID:</UTXODetailsKey>
                 <UTXOHashOutputSkip to="">{trimAddress(input.assetId)}</UTXOHashOutputSkip>
               </UTXODetailsRow>
               <UTXODetailsRow>
@@ -375,7 +375,7 @@ function UTXOOutput({ output }: { output: OutputFragment }) {
             <UTXODetailsValue>{parseToFormattedNumber(output.amount)}</UTXODetailsValue>
           </UTXODetailsRow>
           <UTXODetailsRow>
-            <UTXODetailsKey>Coin:</UTXODetailsKey>
+            <UTXODetailsKey>Asset ID:</UTXODetailsKey>
             <UTXOHashOutputSkip to="">{trimAddress(output.assetId)}</UTXOHashOutputSkip>
           </UTXODetailsRow>
         </>
