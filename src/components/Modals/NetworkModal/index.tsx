@@ -27,8 +27,10 @@ interface Props {
 
 const { REACT_APP_GRAPHQL_API_ENDPOINT = '' } = process.env;
 
+console.log(REACT_APP_GRAPHQL_API_ENDPOINT);
+
 export function NetworkModal(props: Props) {
-  const [customEndpoint, setCustomEndpoint] = useLocalStorage<string>(
+  const [customEndpoint, setCustomEndpoint, removeEndpoint] = useLocalStorage<string>(
     PROVIDER_URL_STORAGE_KEY,
     REACT_APP_GRAPHQL_API_ENDPOINT
   );
@@ -53,11 +55,24 @@ export function NetworkModal(props: Props) {
   function onNetworkSwitch() {
     if (selectedChain) {
       setActiveChain(selectedChain);
-      setCustomEndpoint(REACT_APP_GRAPHQL_API_ENDPOINT);
+      // setCustomEndpoint(REACT_APP_GRAPHQL_API_ENDPOINT);
       props.onClose();
     }
     selectChain(undefined);
   }
+
+  const onSwitchNetwork = () => {
+    if (showCustomInput) {
+      if (inputField === REACT_APP_GRAPHQL_API_ENDPOINT) {
+        removeEndpoint();
+      } else {
+        setCustomEndpoint(inputField);
+      }
+      window.location.reload();
+    } else {
+      onNetworkSwitch();
+    }
+  };
 
   function onClickOutside() {
     props.onClose();
@@ -86,7 +101,11 @@ export function NetworkModal(props: Props) {
         <SubTitle onClick={() => setshowCustomInput(!showCustomInput)}>Add Custom Network</SubTitle>
         <CustomInputContainer
           onSubmit={() => {
-            setCustomEndpoint(inputField);
+            if (inputField === REACT_APP_GRAPHQL_API_ENDPOINT) {
+              removeEndpoint();
+            } else {
+              setCustomEndpoint(inputField);
+            }
             window.location.reload();
           }}
           show={showCustomInput}
@@ -100,28 +119,19 @@ export function NetworkModal(props: Props) {
               setInputField(encodeURI(event.target.value));
             }}
           />
-          <CustomInputReset
-            type="button"
-            onClick={() => {
-              setCustomEndpoint(REACT_APP_GRAPHQL_API_ENDPOINT);
-              window.location.reload();
-            }}
-          >
-            Reset
-          </CustomInputReset>
         </CustomInputContainer>
-        <ConfirmNetworkButton
+        {showCustomInput && (
+          <ConfirmNetworkButton onClick={onSwitchNetwork}>Switch</ConfirmNetworkButton>
+        )}
+        <CustomInputReset
+          type="button"
           onClick={() => {
-            if (showCustomInput) {
-              setCustomEndpoint(inputField);
-              window.location.reload();
-            } else {
-              onNetworkSwitch();
-            }
+            removeEndpoint();
+            window.location.reload();
           }}
         >
-          Switch
-        </ConfirmNetworkButton>
+          Reset network
+        </CustomInputReset>
       </Container>
     </Modal>
   );
