@@ -100,12 +100,6 @@ export default function TransactionPage() {
               </RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
-              <RowKeyColumn>Byte Price:</RowKeyColumn>
-              <RowValueColumn>
-                {parseToFormattedNumber(tx.bytePrice)} {BASE_COIN_NAME}
-              </RowValueColumn>
-            </TransactionDataRow>
-            <TransactionDataRow>
               <RowKeyColumn>Gas Limit:</RowKeyColumn>
               <RowValueColumn>{tx.gasLimit}</RowValueColumn>
             </TransactionDataRow>
