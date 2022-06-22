@@ -46,7 +46,7 @@ export function RecentBlocks({ blocks }: Props) {
               <TxCount
                 id="recent-block-transactions-link"
                 to={`/block/${block.height}/transactions`}
-              >{`${block.transactions?.length} Tx's`}</TxCount>
+              >{`${block.transactions?.length} txn(s)`}</TxCount>
             </RecentBlockColumn2>
           </RecentBlockRow>
         ))}
