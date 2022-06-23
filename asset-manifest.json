@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/block-explorer-v2/static/css/main.36d789a2.css",
-    "main.js": "/block-explorer-v2/static/js/main.e71a683d.js",
-    "static/js/521.48cb7005.chunk.js": "/block-explorer-v2/static/js/521.48cb7005.chunk.js",
+    "main.js": "/block-explorer-v2/static/js/main.0a2baf00.js",
+    "static/js/521.e173ece3.chunk.js": "/block-explorer-v2/static/js/521.e173ece3.chunk.js",
     "static/js/502.01597cd1.chunk.js": "/block-explorer-v2/static/js/502.01597cd1.chunk.js",
     "static/js/158.df2720f5.chunk.js": "/block-explorer-v2/static/js/158.df2720f5.chunk.js",
     "static/js/343.cf023e3d.chunk.js": "/block-explorer-v2/static/js/343.cf023e3d.chunk.js",
@@ -30,8 +30,8 @@
     "static/media/Cyberspace-Raceway-Front.woff2": "/block-explorer-v2/static/media/Cyberspace-Raceway-Front.db70322b4e45e4c21f24.woff2",
     "index.html": "/block-explorer-v2/index.html",
     "main.36d789a2.css.map": "/block-explorer-v2/static/css/main.36d789a2.css.map",
-    "main.e71a683d.js.map": "/block-explorer-v2/static/js/main.e71a683d.js.map",
-    "521.48cb7005.chunk.js.map": "/block-explorer-v2/static/js/521.48cb7005.chunk.js.map",
+    "main.0a2baf00.js.map": "/block-explorer-v2/static/js/main.0a2baf00.js.map",
+    "521.e173ece3.chunk.js.map": "/block-explorer-v2/static/js/521.e173ece3.chunk.js.map",
     "502.01597cd1.chunk.js.map": "/block-explorer-v2/static/js/502.01597cd1.chunk.js.map",
     "158.df2720f5.chunk.js.map": "/block-explorer-v2/static/js/158.df2720f5.chunk.js.map",
     "343.cf023e3d.chunk.js.map": "/block-explorer-v2/static/js/343.cf023e3d.chunk.js.map",
@@ -48,6 +48,6 @@
   },
   "entrypoints": [
     "static/css/main.36d789a2.css",
-    "static/js/main.e71a683d.js"
+    "static/js/main.0a2baf00.js"
   ]
 }
