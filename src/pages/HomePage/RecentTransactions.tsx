@@ -105,7 +105,7 @@ function TransactionRow({ transaction }: { transaction: HomePageTransaction }) {
           <TransactionAddress id="recent-transaction-link" to={`/transaction/${transaction.id}`}>
             {transaction.id}
           </TransactionAddress>
-          {/* <DataTimestamp>{timestamp}</DataTimestamp> */}
+          <DataTimestamp>{timestamp}</DataTimestamp>
         </TransactionHashColumn>
       </TransactionRowColumn>
       <TransactionRecipientsColumn>
