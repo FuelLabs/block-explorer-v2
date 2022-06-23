@@ -1,3 +1,4 @@
+import { formatUnits } from '@ethersproject/units';
 import { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -6,7 +7,8 @@ import { ExpandIcon, ShrinkIcon } from '../../components/Icons';
 import { BASE_COIN_NAME } from '../../constants';
 import { ChainContext } from '../../contexts/network';
 import { trimAddress } from '../../utils';
-import { parseToFormattedNumber } from '../../utils/bigNumber';
+import { DECIMAL_UNITS, parseToFormattedNumber } from '../../utils/bigNumber';
+import { toPlainString } from '../../utils/number';
 import { CopyButtonIcon, TableHeadlineAddressButton, Tooltip } from '../AddressPage/components';
 import { UTXODetailsValue } from '../CreateTransactionPage/components';
 
@@ -70,6 +72,9 @@ export default function TransactionPage() {
     gasUsed: +(lastReceipt?.gasUsed || 0),
   });
 
+  const gasPriceDecimal = +formatUnits(tx.gasPrice, DECIMAL_UNITS);
+  const gasPriceInEth = gasPriceDecimal / gasPriceFactor;
+
   return (
     <>
       <Header />
@@ -97,7 +102,7 @@ export default function TransactionPage() {
             <TransactionDataRow>
               <RowKeyColumn>Gas Price:</RowKeyColumn>
               <RowValueColumn>
-                {parseToFormattedNumber(tx.gasPrice)} {BASE_COIN_NAME}
+                {toPlainString(gasPriceInEth)} {BASE_COIN_NAME}
               </RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
