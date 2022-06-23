@@ -13,11 +13,8 @@ import {
   TransactionValue,
   CoinLink,
   CoinLinkSkip,
-  CopyButtonIcon,
-  Tooltip,
   HeadlineAddressButton,
   TransactionFromAddressWrapper,
-  TableHeadlineAddressButton,
   ContractLinkSkip,
   // TableNavigationButtons,
   // TableNavigationNumberButton,
@@ -94,14 +91,6 @@ export default function TransactionsTable({
                             <TxRecipient to={`/address/${input.owner}`}>
                               {trimAddress(input.owner)}
                             </TxRecipient>
-                            <TableHeadlineAddressButton
-                              onClick={() => {
-                                onClickCopy(input.owner);
-                              }}
-                            >
-                              <CopyButtonIcon />
-                              <Tooltip>Copy Address</Tooltip>
-                            </TableHeadlineAddressButton>
                           </TransactionFromAddressWrapper>
                         );
                       }
