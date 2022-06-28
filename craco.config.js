@@ -61,5 +61,8 @@ module.exports = () => {
     webpack: {
       plugins,
     },
+    babel: {
+      plugins: ['relay'],
+    },
   };
 };
