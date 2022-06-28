@@ -3,7 +3,7 @@ import { arrayify } from '@ethersproject/bytes';
 export type CalculateGasUsedParams = {
   bytePrice: number;
   rawPayload: string;
-  witnesses: string[];
+  witnesses: readonly string[];
   gasPriceFactor: number;
   gasPrice: number;
   gasUsed: number;
