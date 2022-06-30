@@ -6,8 +6,8 @@
     "npm": ">=8.0.0"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
+    "start": "npm run relay && craco start",
+    "build": "npm run relay && craco build",
     "test": "craco test",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
@@ -18,7 +18,8 @@
     "postinstall": "npm run build-operations",
     "cypress:open": "cypress open",
     "postbuild": "npm run create404",
-    "create404": "cp ./build/index.html ./build/404.html"
+    "create404": "cp ./build/index.html ./build/404.html",
+    "relay": "npm exec relay-compiler"
   },
   "browserslist": {
     "production": [
@@ -41,18 +42,20 @@
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^26.0.15",
     "@types/node": "^12.20.37",
-    "@types/react-dom": "^17.0.11",
+    "@types/react-dom": "^18.0.5",
     "@types/styled-components": "^5.1.15",
     "bignumber.js": "^9.0.1",
     "fuels": "^0.0.0-master-9a71ed8",
     "graphql": "^15.7.2",
     "qrcode.react": "^1.0.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-relay": "^14.0.0",
     "react-router-dom": "^6.2.2",
-    "react-scripts": "5.0.0",
+    "react-scripts": "^5.0.1",
+    "relay-runtime": "^14.0.0",
     "styled-components": "^5.3.3",
-    "typescript": "^4.4.4",
+    "typescript": "^4.7.4",
     "web-vitals": "^1.0.1"
   },
   "devDependencies": {
@@ -67,6 +70,9 @@
     "@semantic-release/git": "^10.0.0",
     "@types/qrcode.react": "^1.0.2",
     "@types/react": "^17.0.34",
+    "@types/react-relay": "^13.0.2",
+    "@types/relay-runtime": "^13.0.3",
+    "babel-plugin-relay": "^14.0.0",
     "bundle-stats-webpack-plugin": "^3.3.2",
     "cypress": "^8.7.0",
     "eslint": "^8.11.0",
@@ -83,6 +89,7 @@
     "graphqurl": "^1.0.1",
     "html-webpack-plugin": "^5.5.0",
     "prettier": "2.5.1",
+    "relay-compiler": "^14.0.0",
     "semantic-release": "^18.0.0",
     "webpack-bundle-analyzer": "^4.5.0"
   }

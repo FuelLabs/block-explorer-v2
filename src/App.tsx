@@ -1,9 +1,11 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { Suspense } from 'react';
+import { RelayEnvironmentProvider } from 'react-relay/hooks';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import './App.css';
 import AppRoutes from './AppRoutes';
+import createRelayEnvironment from './api/createRelayEnvironment';
 import { PROVIDER_URL_STORAGE_KEY } from './constants';
 import { ChainProvider } from './contexts/network';
 
@@ -33,8 +35,10 @@ try {
   console.debug(error);
 }
 
+const gqlUrl = parsedLocalStorageGraphQLEndpoint || REACT_APP_GRAPHQL_API_ENDPOINT;
+
 const client = new ApolloClient({
-  uri: parsedLocalStorageGraphQLEndpoint || REACT_APP_GRAPHQL_API_ENDPOINT,
+  uri: gqlUrl,
   cache: new InMemoryCache(),
   // We can configure for each schema the keys to cache, without
   // this config for each one objects without id, will not work
@@ -50,19 +54,23 @@ const client = new ApolloClient({
   },
 });
 
+const relayEnvironment = createRelayEnvironment(gqlUrl);
+
 export default function App() {
   return (
-    <ApolloProvider client={client}>
-      <ChainProvider>
-        <Router basename={PUBLIC_URL}>
-          <Suspense
-            // TODO: Add a cool loading indicator
-            fallback={null}
-          >
-            <AppRoutes />
-          </Suspense>
-        </Router>
-      </ChainProvider>
-    </ApolloProvider>
+    <RelayEnvironmentProvider environment={relayEnvironment}>
+      <ApolloProvider client={client}>
+        <ChainProvider>
+          <Router basename={PUBLIC_URL}>
+            <Suspense
+              // TODO: Add a cool loading indicator
+              fallback={null}
+            >
+              <AppRoutes />
+            </Suspense>
+          </Router>
+        </ChainProvider>
+      </ApolloProvider>
+    </RelayEnvironmentProvider>
   );
 }
