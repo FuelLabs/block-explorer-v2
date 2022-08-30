@@ -5,10 +5,6 @@ query TransactionPageQuery($id: TransactionId!) {
       id
       bytecode
     }
-    staticContracts {
-      id
-      bytecode
-    }
     inputAssetIds
     gasPrice
     gasLimit
@@ -19,7 +15,6 @@ query TransactionPageQuery($id: TransactionId!) {
     scriptData
     witnesses
     bytecodeWitnessIndex
-    bytePrice
     rawPayload
     receipts {
       gasUsed
@@ -75,11 +70,6 @@ fragment OutputFragment on Output {
     inputIndex
     balanceRoot
     stateRoot
-  }
-  ... on WithdrawalOutput {
-    to
-    amount
-    assetId
   }
   ... on ChangeOutput {
     to

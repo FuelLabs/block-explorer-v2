@@ -128,8 +128,7 @@ function TransactionRow({ transaction }: { transaction: HomePageTransaction }) {
             (output) =>
               (output.__typename === 'ChangeOutput' ||
                 output.__typename === 'CoinOutput' ||
-                output.__typename === 'VariableOutput' ||
-                output.__typename === 'WithdrawalOutput') && (
+                output.__typename === 'VariableOutput') && (
                 <Fragment key={output.assetId + output.to}>
                   <TransactionRecipientLabel>To:</TransactionRecipientLabel>
                   {output.__typename}

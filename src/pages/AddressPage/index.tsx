@@ -1,8 +1,4 @@
-import { BigNumber } from '@ethersproject/bignumber';
-import type {
-  CoinQuantity,
-  // NativeAssetId
-} from 'fuels';
+import type { CoinQuantity } from 'fuels';
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -22,18 +18,8 @@ import {
   HeadlineAddressButton,
   HeadlineAddressContainer,
   HeadlineAddressHeader,
-  HeadlineCoinsContainer,
   HeadlineContainer,
   QRButtonIcon,
-  CoinsCounterLabel,
-  CoinsCounter,
-  // TokenDropdownContainer,
-  // TokenButton,
-  // TokenButtonSymbol,
-  // TokenButtonAmount,
-  // TokenButtonSeparator,
-  // TokenButtonIconContainer,
-  // TokenDropdownIcon,
 } from './components';
 
 export default function AddressPage() {
@@ -50,7 +36,7 @@ export default function AddressPage() {
         ...acc,
         [assetId]: {
           assetId,
-          amount: BigNumber.from(amount).add(acc[assetId]?.amount ?? 0),
+          amount: BigInt(amount) + (acc[assetId]?.amount || BigInt(0)),
         },
       }),
       {}
@@ -116,24 +102,6 @@ export default function AddressPage() {
                 <Tooltip>Click to copy QR code</Tooltip>
               </HeadlineAddressButton>
             </HeadlineAddressContainer>
-            {/* <HeadlineCoinsContainer>
-              <CoinsCounterLabel>
-                Coins:
-                <CoinsCounter>{coins?.length ?? '...'}</CoinsCounter>
-              </CoinsCounterLabel>
-              <TokenDropdownContainer>
-                <TokenButton>
-                  <TokenButtonSymbol>ETH:</TokenButtonSymbol>
-                  <TokenButtonAmount>
-                    {balances?.[NativeAssetId]?.amount.toString() ?? 0}
-                  </TokenButtonAmount>
-                  <TokenButtonSeparator></TokenButtonSeparator>
-                  <TokenButtonIconContainer>
-                    <TokenDropdownIcon />
-                  </TokenButtonIconContainer>
-                </TokenButton>
-              </TokenDropdownContainer>
-            </HeadlineCoinsContainer> */}
           </HeadlineContainer>
           {balances ? <BalancesTable balances={Object.values(balances)} /> : null}
           <div style={{ height: 16 }} />

@@ -12,7 +12,9 @@
       "U64": "string",
       "Address": "string",
       "BlockId": "string",
+      "MessageId": "string",
       "TransactionId": "string",
+      "TxPointer": "string",
       "AssetId": "string",
       "ContractId": "string",
       "Salt": "string"
@@ -25,7 +27,11 @@
   },
   "generates": {
     "./src/api/__generated__/types.ts": {
-      "plugins": [{ "typescript": {} }]
+      "plugins": [
+        {
+          "typescript": {}
+        }
+      ]
     },
     "./src/": {
       "preset": "near-operation-file",
@@ -35,7 +41,9 @@
         "folder": "__generated__"
       },
       "plugins": [
-        { "typescript-operations": {} },
+        {
+          "typescript-operations": {}
+        },
         {
           "typescript-react-apollo": {
             "omitOperationSuffix": false,
@@ -46,6 +54,8 @@
     }
   },
   "hooks": {
-    "afterAllFileWrite": ["npx prettier --write"]
+    "afterAllFileWrite": [
+      "npx prettier --write"
+    ]
   }
 }

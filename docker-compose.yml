@@ -2,10 +2,10 @@ version: "3"
 
 services:
   fuel-core:
-    image: ghcr.io/fuellabs/fuel-core:v0.4.1
+    build: ./services/fuel-core
     ports:
       - "4000:4000"
     volumes:
-      - fuel-core-db:/mnt/db
+      - block-explorer-db:/mnt/db
 volumes:
-  fuel-core-db:
+  block-explorer-db:
