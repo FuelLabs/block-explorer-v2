@@ -1,4 +1,5 @@
 import type { CoinQuantity } from 'fuels';
+import { toBech32 } from 'fuels';
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -87,7 +88,10 @@ export default function AddressPage() {
             <HeadlineAddressContainer>
               <HeadlineAddressHeader>
                 {`Address:  `}
-                <HeadlineAddress>{address}</HeadlineAddress>
+                <div>
+                  <HeadlineAddress>{toBech32(address)}</HeadlineAddress>
+                  <HeadlineAddress>{address}</HeadlineAddress>
+                </div>
               </HeadlineAddressHeader>
               <HeadlineAddressButton
                 onClick={() => {

@@ -2,6 +2,7 @@
 import type { CoinQuantity } from 'fuels';
 
 import * as TableUI from '../../components/Table/components';
+import { trimAddress } from '../../utils';
 import { parseToFormattedNumber } from '../../utils/bigNumber';
 
 import {
@@ -15,14 +16,6 @@ import {
 } from './components';
 
 export default function BalancesTable({ balances }: { balances: CoinQuantity[] }) {
-  function trimAddress(address: string) {
-    if (!address) {
-      return '';
-    }
-
-    return `${address.slice(0, 6)}...${address.slice(-6, address.length - 1)}`;
-  }
-
   return (
     <TableUI.TableContainer>
       <TableUI.TableHeadlineContainer>
