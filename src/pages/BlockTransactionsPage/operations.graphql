@@ -34,11 +34,6 @@ fragment BlockTransactionFragment on Transaction {
       balanceRoot
       stateRoot
     }
-    ... on WithdrawalOutput {
-      to
-      amount
-      assetId
-    }
     ... on ChangeOutput {
       to
       amount

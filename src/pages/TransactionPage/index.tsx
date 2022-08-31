@@ -64,7 +64,6 @@ export default function TransactionPage() {
   const lastReceipt = tx.receipts?.[tx.receipts.length - 1];
   const gasPriceFactor = +(chains[0].consensusParameters?.gasPriceFactor || 1);
   const transactionFee = calculateTransactionFee({
-    bytePrice: +tx.bytePrice,
     rawPayload: tx.rawPayload,
     witnesses: tx.witnesses,
     gasPriceFactor,
