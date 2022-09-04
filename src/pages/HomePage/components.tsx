@@ -59,8 +59,15 @@ export const SearchIcon = styled(SearchSvg)<{ isDisabled?: boolean }>`
 
 export const SearchNotFound = styled.div`
   position: absolute;
-  left: 14px;
+  left: 0px;
   top: 50px;
+`;
+
+export const SearchNotValid = styled.div`
+  position: absolute;
+  left: 0px;
+  top: 50px;
+  color: #f54747;
 `;
 
 export const DataContainer = styled.div`

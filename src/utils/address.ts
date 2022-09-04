@@ -8,6 +8,14 @@ export const trimAddress = (address: string) => {
   return `${address.slice(0, 6)}...${address.slice(-6, address.length - 1)}`;
 };
 
+export const isValidAddress = (address: string) => {
+  try {
+    return !!Address.fromString(address).toB256();
+  } catch (e) {
+    return false;
+  }
+};
+
 export const getB56Address = (address: string) => {
   try {
     return Address.fromString(address).toB256();
