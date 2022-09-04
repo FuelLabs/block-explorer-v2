@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import type { PageInfo } from '../../api/__generated__/types';
 import { Header } from '../../components/Header';
+import { getB56Address, getValidTransactionId } from '../../utils/address';
 
 import { RecentBlocks } from './RecentBlocks';
 import { RecentTransactions } from './RecentTransactions';
@@ -41,7 +42,7 @@ export default function HomePage() {
   });
   const navigate = useNavigate();
 
-  const isAllowedToSearch = searchText.length === 66;
+  const isAllowedToSearch = [66, 63].includes(searchText.length);
 
   useEffect(() => {
     if (blocksQuery.loading) return;
@@ -83,8 +84,8 @@ export default function HomePage() {
   const handleClickSearch = async () => {
     if (isAllowedToSearch && searchText) {
       const result = await searchQuery.refetch({
-        transaction: searchText,
-        address: searchText,
+        transaction: getValidTransactionId(searchText),
+        address: getB56Address(searchText),
       });
 
       if (result.data?.transaction?.id) {

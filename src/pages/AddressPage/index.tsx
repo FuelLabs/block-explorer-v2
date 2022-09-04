@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import { Header } from '../../components/Header';
 import { QRModal } from '../../components/Modals/QRModal';
+import { getB56Address } from '../../utils/address';
 
 import BalancesTable from './BalancesTable';
 import TransactionsTable from './TransactionsTable';
@@ -24,7 +25,8 @@ import {
 } from './components';
 
 export default function AddressPage() {
-  const { address } = useParams() as any;
+  const params = useParams() as any;
+  const address = getB56Address(params.address);
   const [copyTooltip] = useState('Copy address');
   const [modal, setModal] = useState(false);
   const { loading, data } = useAddressPageQuery({
@@ -69,7 +71,10 @@ export default function AddressPage() {
               <HeadlineAddressContainer>
                 <HeadlineAddressHeader>
                   {`Address:  `}
-                  <HeadlineAddress>{address}</HeadlineAddress>
+                  <div>
+                    <HeadlineAddress>{toBech32(address)}</HeadlineAddress>
+                    <HeadlineAddress>{address}</HeadlineAddress>
+                  </div>
                 </HeadlineAddressHeader>
               </HeadlineAddressContainer>
             </HeadlineContainer>
