@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import type { PageInfo } from '../../api/__generated__/types';
 import { Header } from '../../components/Header';
+import { getB56Address, getValidTransactionId, isValidAddress } from '../../utils/address';
 
 import { RecentBlocks } from './RecentBlocks';
 import { RecentTransactions } from './RecentTransactions';
@@ -20,6 +21,7 @@ import {
   InputContainer,
   SearchIcon,
   SearchNotFound,
+  SearchNotValid,
 } from './components';
 
 const PAGE_LIMIT = 5;
@@ -31,6 +33,7 @@ export default function HomePage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchText, setSearchText] = useState<string>('');
   const [isSearchNotFound, setIsSearchNotFound] = useState(false);
+  const timerRef = useRef<number | undefined>();
   const transactionsQuery = useHomePageTransactionsQuery({
     variables: { last: PAGE_LIMIT },
   });
@@ -41,7 +44,19 @@ export default function HomePage() {
   });
   const navigate = useNavigate();
 
-  const isAllowedToSearch = searchText.length === 66;
+  const searchState = useMemo<{
+    isValid: boolean;
+    empty: boolean;
+  }>(
+    () => ({
+      // Mark search as valid, when the text inputted has the length;
+      // 66 witch indicates a valid hex address or txId
+      // or if this is a valid bech32 address
+      isValid: searchText.length === 66 || isValidAddress(searchText),
+      empty: searchText.length === 0,
+    }),
+    [searchText]
+  );
 
   useEffect(() => {
     if (blocksQuery.loading) return;
@@ -59,6 +74,14 @@ export default function HomePage() {
     setTransactions(transactions);
     setPageInfo(transactionsQuery.data?.transactions?.pageInfo);
   }, [transactionsQuery.loading, transactionsQuery.data, transactionsQuery.error]);
+
+  useEffect(
+    () => () => {
+      // Clear timeout when component is unmounted
+      clearTimeout(timerRef.current);
+    },
+    []
+  );
 
   const handleNextPage = () => {
     transactionsQuery.refetch({
@@ -80,11 +103,19 @@ export default function HomePage() {
     setCurrentPage(currentPage - 1);
   };
 
+  const showNotFound = (show: boolean) => {
+    clearTimeout(timerRef.current);
+    setIsSearchNotFound(show);
+    if (show) {
+      timerRef.current = setTimeout(() => setIsSearchNotFound(false), 5000) as any;
+    }
+  };
+
   const handleClickSearch = async () => {
-    if (isAllowedToSearch && searchText) {
+    if (searchState.isValid && !searchState.empty) {
       const result = await searchQuery.refetch({
-        transaction: searchText,
-        address: searchText,
+        transaction: getValidTransactionId(searchText),
+        address: getB56Address(searchText),
       });
 
       if (result.data?.transaction?.id) {
@@ -92,8 +123,7 @@ export default function HomePage() {
       } else if (result.data?.transactionsByOwner?.edges?.length) {
         navigate(`/address/${searchText}`);
       } else {
-        setIsSearchNotFound(true);
-        setTimeout(() => setIsSearchNotFound(false), 1500);
+        showNotFound(true);
       }
     }
   };
@@ -105,6 +135,11 @@ export default function HomePage() {
     }
   };
 
+  const handleInputSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e?.target?.value);
+    setIsSearchNotFound(false);
+  };
+
   return (
     <>
       <Header />
@@ -113,14 +148,17 @@ export default function HomePage() {
           <InputContainer>
             <Input
               placeholder="Search for transaction / address"
-              onChange={(e) => setSearchText(e?.target?.value)}
+              onChange={handleInputSearchText}
               onKeyPress={handleSearchKeyPress}
             />
             <SearchIcon
-              isDisabled={!isAllowedToSearch}
-              onClick={isAllowedToSearch ? handleClickSearch : undefined}
+              isDisabled={!searchState.isValid}
+              onClick={searchState.isValid ? handleClickSearch : undefined}
             />
             {isSearchNotFound && <SearchNotFound>Not Found</SearchNotFound>}
+            {!searchState.isValid && !searchState.empty && (
+              <SearchNotValid>Text is not a valid TransactionId or Address</SearchNotValid>
+            )}
           </InputContainer>
           <DataContainer>
             <RecentBlocks blocks={blocks} />
