@@ -55,7 +55,7 @@ export const TitleTransaction = styled.span`
   }
 `;
 
-export const TransactionDataContainer = styled.div`
+export const TransactionDataContainer = styled(StandardSurface)`
   margin: 0 0 36px;
   padding: 16px 32px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
