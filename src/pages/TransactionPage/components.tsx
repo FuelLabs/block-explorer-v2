@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { ButtonReset } from '../../components/Button/components';
 import { ArrowIcon } from '../../components/Icons';
+import { StandardSurface } from '../../components/Surface/components';
 
 export const Container = styled.section``;
 
@@ -54,7 +55,7 @@ export const TitleTransaction = styled.span`
   }
 `;
 
-export const TransactionDataContainer = styled.div`
+export const TransactionDataContainer = styled(StandardSurface)`
   margin: 0 0 36px;
   padding: 16px 32px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
@@ -181,7 +182,7 @@ export const UTXOSeparatorColumn = styled.div`
     margin: 4px auto 24px;
   }
 `;
-export const UTXOBoxContainer = styled.div`
+export const UTXOBoxContainer = styled(StandardSurface)`
   margin: 0 0 24px;
   border: solid 3px #03261e;
 `;
@@ -321,7 +322,7 @@ export const ScriptTitle = styled.span`
   color: #f8fefc;
 `;
 
-export const ScriptContainer = styled.div`
+export const ScriptContainer = styled(StandardSurface)`
   margin: 0 0 36px;
   max-width: 442px;
   border: solid 1px #1e2e2b;

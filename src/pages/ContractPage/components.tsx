@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { ButtonReset } from '../../components/Button/components';
 import { LogoIcon } from '../../components/Icons';
+import { StandardSurface } from '../../components/Surface/components';
 
 export const Container = styled.section``;
 
@@ -55,7 +56,7 @@ export const CoinName = styled.span`
 
 export const CoinIcon = styled(LogoIcon)``;
 
-export const CoinDetailsContainer = styled.div`
+export const CoinDetailsContainer = styled(StandardSurface)`
   margin: 0 0 40px;
   padding: 20px 24px;
   border: solid 1px #808080;

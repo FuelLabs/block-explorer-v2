@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { ButtonReset } from '../../components/Button/components';
 import { ArrowIcon, FileIcon } from '../../components/Icons';
+import { StandardSurface } from '../../components/Surface/components';
 
 export const Container = styled.section``;
 
@@ -222,7 +223,7 @@ export const UTXOSeparatorColumn = styled.div`
     margin: 4px auto 24px;
   }
 `;
-export const UTXOBoxContainer = styled.div`
+export const UTXOBoxContainer = styled(StandardSurface)`
   margin: 0 0 24px;
   border: solid 3px #03261e;
 `;
