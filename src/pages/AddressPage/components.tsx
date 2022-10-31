@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { ButtonReset } from '../../components/Button/components';
 import { CopyIcon, PlusIcon, QRIcon, ArrowIcon } from '../../components/Icons';
+import { StandardSurface } from '../../components/Surface/components';
 import { UTXOHashOutputSkip } from '../TransactionPage/components';
 
 export const Container = styled.section``;
@@ -227,7 +228,7 @@ export const TokenDropdownIcon = styled(ArrowIcon)`
   height: 12px !important;
 `;
 
-export const TableContainer = styled.div`
+export const TableContainer = styled(StandardSurface)`
   padding: 8px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
   border: solid 1px #808080;

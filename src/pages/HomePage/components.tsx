@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { ButtonReset } from '../../components/Button/components';
 import { ArrowIcon, SearchIcon as SearchSvg } from '../../components/Icons';
 import { InputReset } from '../../components/Input/components';
+import { StandardSurface } from '../../components/Surface/components';
 
 export const Container = styled.section``;
 
@@ -186,7 +187,7 @@ export const IconButtonRight = styled(IconButton)`
   }
 `;
 
-export const DataBox = styled.div`
+export const DataBox = styled(StandardSurface)`
   border-radius: 12px;
   border: solid 1px #808080;
 `;

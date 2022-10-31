@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { ArrowIcon } from '../../components/Icons';
+import { StandardSurface } from '../../components/Surface/components';
 
 export const Container = styled.section``;
 
@@ -30,7 +31,7 @@ export const Title = styled.h2`
   }
 `;
 
-export const BlockDataContainer = styled.div`
+export const BlockDataContainer = styled(StandardSurface)`
   padding: 16px 32px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
   border: solid 0.5px #808080;

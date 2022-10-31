@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const TableContainer = styled.div`
+import { StandardSurface } from '../Surface/components';
+
+export const TableContainer = styled(StandardSurface)`
   padding: 8px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
   border: solid 1px #808080;
