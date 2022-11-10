@@ -1,5 +1,5 @@
 import type { CoinQuantity } from 'fuels';
-import { toBech32 } from 'fuels';
+import { bn, toBech32 } from 'fuels';
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -39,7 +39,7 @@ export default function AddressPage() {
         ...acc,
         [assetId]: {
           assetId,
-          amount: BigInt(amount) + (acc[assetId]?.amount || BigInt(0)),
+          amount: bn(amount).add(acc[assetId]?.amount),
         },
       }),
       {}

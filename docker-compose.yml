@@ -2,10 +2,16 @@ version: "3"
 
 services:
   fuel-core:
+    container_name: "block-explorer_fuel-core"
     build: ./services/fuel-core
     ports:
       - "4000:4000"
     volumes:
       - block-explorer-db:/mnt/db
+    healthcheck:
+      test: curl --fail http://localhost:4000/health || exit 1
+      interval: 1s
+      timeout: 5s
+      retries: 10
 volumes:
   block-explorer-db:

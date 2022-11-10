@@ -44,7 +44,7 @@
     "@types/react-dom": "^17.0.11",
     "@types/styled-components": "^5.1.15",
     "bignumber.js": "^9.0.1",
-    "fuels": "^0.12.0",
+    "fuels": "next",
     "graphql": "^15.7.2",
     "qrcode.react": "^1.0.1",
     "react": "^17.0.2",
