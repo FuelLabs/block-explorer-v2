@@ -109,7 +109,7 @@ function Transactions({ transactions }: { transactions: BlockTransactionFragment
                   ) : null}
                 </TableCell>
                 <TableCell>
-                  {transaction.inputs.map((input, idx) =>
+                  {transaction.inputs?.map((input, idx) =>
                     (() => {
                       switch (input.__typename) {
                         case 'InputCoin': {

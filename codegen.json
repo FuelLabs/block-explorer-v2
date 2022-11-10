@@ -3,7 +3,22 @@
   "schema": "./fuel-core-schema.graphql",
   "documents": "./src/**/*.graphql",
   "config": {
-    "strictScalars": true,
+    "strictScalars": {
+      "DateTime": "string",
+      "HexString": "string",
+      "Bytes32": "string",
+      "UtxoId": "string",
+      "U64": "string",
+      "Address": "string",
+      "BlockId": "string",
+      "MessageId": "string",
+      "TransactionId": "string",
+      "TxPointer": "string",
+      "AssetId": "string",
+      "ContractId": "string",
+      "Salt": "string",
+      "Signature": "string"
+    },
     "scalars": {
       "DateTime": "string",
       "HexString": "string",
@@ -17,7 +32,8 @@
       "TxPointer": "string",
       "AssetId": "string",
       "ContractId": "string",
-      "Salt": "string"
+      "Salt": "string",
+      "Signature": "string"
     },
     "useTypeImports": true,
     "nonOptionalTypename": true,
@@ -54,8 +70,6 @@
     }
   },
   "hooks": {
-    "afterAllFileWrite": [
-      "npx prettier --write"
-    ]
+    "afterAllFileWrite": ["npx prettier --write"]
   }
 }

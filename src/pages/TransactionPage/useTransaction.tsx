@@ -23,9 +23,6 @@ export const useTransaction = (transactionId: string) => {
     }
   }, [provider, transactionId]);
 
-  console.log(`transaction`, transaction);
-  console.log(`transactionResult`, transactionResult);
-
   return {
     transaction,
     transactionResult,

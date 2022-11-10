@@ -76,7 +76,7 @@ export default function BlockPage() {
                 <BlockNavigationButton to={`/block/${parseInt(block, 10) - 1}`}>
                   <BlockNavigationIcon rotate />
                 </BlockNavigationButton>
-                <BlockHeight>{bl.height}</BlockHeight>
+                <BlockHeight>{bl.header.height}</BlockHeight>
                 <BlockNavigationButton to={`/block/${parseInt(block, 10) + 1}`}>
                   <BlockNavigationIcon />
                 </BlockNavigationButton>
@@ -84,13 +84,13 @@ export default function BlockPage() {
             </BlockDataRow>
             <BlockDataRow>
               <RowKeyColumn>Block producer:</RowKeyColumn>
-              <ProducerLink to="/address/0xc5d2460186f7233c927e7db2dcc703c0e500">
+              {/* <ProducerLink to="/address/0xc5d2460186f7233c927e7db2dcc703c0e500">
                 {bl.producer}
-              </ProducerLink>
+              </ProducerLink> */}
             </BlockDataRow>
             <BlockDataRow>
               <RowKeyColumn>Previous block hash:</RowKeyColumn>
-              <BlockHash to={`/block/${prevBl?.height}`}>{prevBl?.id}</BlockHash>
+              <BlockHash to={`/block/${prevBl?.header.height}`}>{prevBl?.id}</BlockHash>
             </BlockDataRow>
             <BlockDataRow>
               <RowKeyColumn>Number of transactions:</RowKeyColumn>

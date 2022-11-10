@@ -59,7 +59,7 @@ export default function TransactionsTable({
                 ) : null}
               </TableUI.TableCell>
               <TableUI.TableCell>
-                {transaction.inputs.map((input, idx) =>
+                {transaction.inputs?.map((input, idx) =>
                   (() => {
                     switch (input.__typename) {
                       case 'InputCoin': {
