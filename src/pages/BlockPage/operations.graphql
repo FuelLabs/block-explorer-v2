@@ -12,6 +12,7 @@ fragment BlockPageBlock on Block {
   header {
     height
     time
+    applicationHash
   }
   transactions {
     __typename

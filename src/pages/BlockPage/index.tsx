@@ -84,8 +84,8 @@ export default function BlockPage() {
             </BlockDataRow>
             <BlockDataRow>
               <RowKeyColumn>Block producer:</RowKeyColumn>
-              {/* <ProducerLink to="/address/0xc5d2460186f7233c927e7db2dcc703c0e500">
-                {bl.producer}
+              {/* <ProducerLink to={`/address/${bl.header.applicationHash}`}>
+                {bl.header.applicationHash}
               </ProducerLink> */}
             </BlockDataRow>
             <BlockDataRow>
