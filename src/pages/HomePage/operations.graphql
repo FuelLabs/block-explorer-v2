@@ -45,9 +45,10 @@ query HomePageSearchQuery($transaction: TransactionId!, $address: Address!) {
 
 fragment HomePageBlock on Block {
   id
-  height
-  time
-  producer
+  header {
+    height
+    time
+  }
   transactions {
     id
   }

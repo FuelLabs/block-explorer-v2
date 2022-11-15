@@ -1,4 +1,4 @@
-import { useMemo, useState, Fragment } from 'react';
+import { useMemo, Fragment } from 'react';
 
 import type { PageInfo } from '../../api/__generated__/types';
 import { dateDiff, getTextForTimeDifference } from '../../utils/date';
@@ -21,7 +21,6 @@ import {
   TransactionRowColumn,
   DataHeader,
   DataPagination,
-  DataPaginationText,
   DataPaginationTextCurrentPage,
   ArrowRightIcon,
   ArrowLeftIcon,
@@ -110,7 +109,7 @@ function TransactionRow({ transaction }: { transaction: HomePageTransaction }) {
       </TransactionRowColumn>
       <TransactionRecipientsColumn>
         <TransactionRecipientsWrapper>
-          {transaction.inputs.map(
+          {transaction.inputs?.map(
             (input) =>
               input.__typename === 'InputCoin' && (
                 <Fragment key={input.owner}>
@@ -124,7 +123,7 @@ function TransactionRow({ transaction }: { transaction: HomePageTransaction }) {
           )}
         </TransactionRecipientsWrapper>
         <TransactionRecipientsWrapper>
-          {transaction.outputs.map(
+          {transaction.outputs?.map(
             (output) =>
               (output.__typename === 'ChangeOutput' ||
                 output.__typename === 'CoinOutput' ||

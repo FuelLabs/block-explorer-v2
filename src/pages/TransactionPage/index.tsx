@@ -1,4 +1,6 @@
-import { formatUnits } from '@ethersproject/units';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { Input, Output } from 'fuels';
+import { bn, DECIMAL_UNITS, InputType, OutputType, TransactionType } from 'fuels';
 import { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -6,14 +8,11 @@ import { Header } from '../../components/Header';
 import { ExpandIcon, ShrinkIcon } from '../../components/Icons';
 import { BASE_COIN_NAME } from '../../constants';
 import { ChainContext } from '../../contexts/network';
-import { trimAddress } from '../../utils';
-import { DECIMAL_UNITS, parseToFormattedNumber } from '../../utils/bigNumber';
+import { getOutputTypeText, trimAddress } from '../../utils';
 import { toPlainString } from '../../utils/number';
 import { CopyButtonIcon, TableHeadlineAddressButton, Tooltip } from '../AddressPage/components';
 import { UTXODetailsValue } from '../CreateTransactionPage/components';
 
-import type { InputFragment, OutputFragment } from './__generated__/operations';
-import { useTransactionPageQuery } from './__generated__/operations';
 import {
   Container,
   Content,
@@ -33,7 +32,6 @@ import {
   UTXOHeadlineContainer,
   UTXOHeadlineColumn,
   UTXOTitle,
-  UTXOHash,
   HeadlineText,
   UTXODetailsContainer,
   UTXODetailsRow,
@@ -51,28 +49,20 @@ import {
   ContractTextarea,
   UTXOHashOutputSkip,
 } from './components';
-import { calculateTransactionFee } from './utils/gas';
+import { useTransaction } from './useTransaction';
 
 export default function TransactionPage() {
-  const { transaction } = useParams() as any;
-  const { data } = useTransactionPageQuery({ variables: { id: transaction } });
-  const tx = data?.transaction;
+  const { transaction: transactionId } = useParams() as any;
   const { chains } = useContext(ChainContext);
+  const { transaction, transactionResult } = useTransaction(transactionId);
 
-  if (!tx) return null;
+  if (!transaction) return null;
 
-  const lastReceipt = tx.receipts?.[tx.receipts.length - 1];
   const gasPriceFactor = +(chains[0].consensusParameters?.gasPriceFactor || 1);
-  const transactionFee = calculateTransactionFee({
-    rawPayload: tx.rawPayload,
-    witnesses: tx.witnesses,
-    gasPriceFactor,
-    gasPrice: +tx.gasPrice,
-    gasUsed: +(lastReceipt?.gasUsed || 0),
-  });
-
-  const gasPriceDecimal = +formatUnits(tx.gasPrice, DECIMAL_UNITS);
+  const gasPriceDecimal = parseFloat(transaction.gasPrice.format({ precision: DECIMAL_UNITS }));
   const gasPriceInEth = gasPriceDecimal / gasPriceFactor;
+
+  const isScript = transaction.type === TransactionType.Script;
 
   return (
     <>
@@ -81,19 +71,19 @@ export default function TransactionPage() {
         <Content>
           <Title>
             <span>Transaction:</span>
-            <TitleTransaction>{transaction}</TitleTransaction>
+            <TitleTransaction>{transactionId}</TitleTransaction>
           </Title>
           <TransactionDataContainer>
             <TransactionDataRow>
               <RowKeyColumn>Type:</RowKeyColumn>
-              <RowValueColumn>{tx.isScript ? 'Script' : 'Create'}</RowValueColumn>
+              <RowValueColumn>{isScript ? 'Script' : 'Create'}</RowValueColumn>
             </TransactionDataRow>
-            {tx.status ? (
-              <TransactionDataRow>
-                <RowKeyColumn>Status:</RowKeyColumn>
-                <TransactionStatus>{tx.status.__typename.replace('Status', '')}</TransactionStatus>
-              </TransactionDataRow>
-            ) : null}
+            <TransactionDataRow>
+              <RowKeyColumn>Status:</RowKeyColumn>
+              <TransactionStatus>
+                {transactionResult?.status ? transactionResult?.status.type : 'Pending'}
+              </TransactionStatus>
+            </TransactionDataRow>
             {/* <TransactionDataRow>
               <RowKeyColumn>Maturity:</RowKeyColumn>
               <RowValueColumn>{tx.maturity}</RowValueColumn>
@@ -106,21 +96,25 @@ export default function TransactionPage() {
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Limit:</RowKeyColumn>
-              <RowValueColumn>{tx.gasLimit}</RowValueColumn>
+              <RowValueColumn>{transaction.gasLimit.toString(10)}</RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Gas Used:</RowKeyColumn>
-              <RowValueColumn>{lastReceipt?.gasUsed}</RowValueColumn>
+              <RowValueColumn>{transactionResult?.gasUsed.toString(10)}</RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Transaction fee:</RowKeyColumn>
               <RowValueColumn>
-                {parseToFormattedNumber(transactionFee)} {BASE_COIN_NAME}
+                {transactionResult?.fee?.format({ precision: DECIMAL_UNITS })} {BASE_COIN_NAME}
               </RowValueColumn>
             </TransactionDataRow>
           </TransactionDataContainer>
-          <UTXOComponent outputs={tx.outputs || []} inputs={tx.inputs || []} />
-          {tx.isScript ? <ScriptsComponent tx={tx} /> : <ContractComponent tx={tx} />}
+          <UTXOComponent outputs={transaction.outputs || []} inputs={transaction.inputs || []} />
+          {isScript ? (
+            <ScriptsComponent tx={transaction} />
+          ) : (
+            <ContractComponent tx={transaction} />
+          )}
         </Content>
       </Container>
     </>
@@ -128,18 +122,20 @@ export default function TransactionPage() {
 }
 
 function ContractComponent({ tx }: { tx: any }) {
-  return tx.witnesses.map((witness: string, index: number) => (
-    <UTXOBoxContainer>
-      <UTXOHeadlineContainer>
-        <UTXOHeadlineColumn>
-          <UTXOTitle>Witness #{index}</UTXOTitle>
-        </UTXOHeadlineColumn>
-      </UTXOHeadlineContainer>
-      <UTXODetailsContainer>
-        <ContractTextarea readOnly value={witness} />
-      </UTXODetailsContainer>
-    </UTXOBoxContainer>
-  ));
+  return (
+    tx.witnesses?.map((witness: string, index: number) => (
+      <UTXOBoxContainer>
+        <UTXOHeadlineContainer>
+          <UTXOHeadlineColumn>
+            <UTXOTitle>Witness #{index}</UTXOTitle>
+          </UTXOHeadlineColumn>
+        </UTXOHeadlineContainer>
+        <UTXODetailsContainer>
+          <ContractTextarea readOnly value={witness} />
+        </UTXODetailsContainer>
+      </UTXOBoxContainer>
+    )) || null
+  );
 }
 
 function ScriptsComponent({ tx }: { tx: any }) {
@@ -161,7 +157,7 @@ function ScriptComponent({ tabs, contents }: { tabs: string[]; contents: string[
   return (
     <ScriptContainer>
       <ScriptTabsContainer>
-        {tabs.map((tabItem, idx) => (
+        {tabs?.map((tabItem, idx) => (
           <ScriptTabButton
             key={idx}
             isSelected={selectedTab === idx}
@@ -178,13 +174,7 @@ function ScriptComponent({ tabs, contents }: { tabs: string[]; contents: string[
   );
 }
 
-function UTXOComponent({
-  inputs,
-  outputs,
-}: {
-  inputs: InputFragment[];
-  outputs: OutputFragment[];
-}) {
+function UTXOComponent({ inputs, outputs }: { inputs: Input[]; outputs: Output[] }) {
   const [expanded, setExpanded] = useState(false);
 
   const onClickDetails = () => {
@@ -203,7 +193,7 @@ function UTXOComponent({
       </DetailsButtonContainer>
       <UTXOBoxesContainer>
         <UTXOBoxesColumn>
-          {inputs.map((input, idx) => (
+          {inputs?.map((input, idx) => (
             <UTXOInputBox key={idx} idx={idx} input={input} expanded={expanded} />
           ))}
         </UTXOBoxesColumn>
@@ -211,7 +201,7 @@ function UTXOComponent({
           <UTXOSeparatorArrow />
         </UTXOSeparatorColumn>
         <UTXOBoxesColumn>
-          {outputs.map((output, idx) => (
+          {outputs?.map((output, idx) => (
             <UTXOOutputBox key={idx} index={idx} output={output} expanded={expanded} />
           ))}
         </UTXOBoxesColumn>
@@ -220,31 +210,23 @@ function UTXOComponent({
   );
 }
 
-function UTXOInputBox({
-  input,
-  expanded,
-  idx,
-}: {
-  input: InputFragment;
-  expanded: boolean;
-  idx: number;
-}) {
+function UTXOInputBox({ input, expanded, idx }: { input: Input; expanded: boolean; idx: number }) {
   const onClickCopy = (address: string) => {
     navigator.clipboard.writeText(address);
   };
 
-  switch (input.__typename) {
-    case 'InputCoin': {
+  switch (input.type) {
+    case InputType.Coin: {
       return (
         <UTXOBoxContainer>
           <UTXOHeadlineContainer>
             <UTXOHeadlineColumn>
               <UTXOTitle>{`Input #${idx}`}</UTXOTitle>
-              <UTXOHashOutputSkip to="">{input.utxoId}</UTXOHashOutputSkip>
+              <UTXOHashOutputSkip to="">{input.utxoID.transactionId}</UTXOHashOutputSkip>
             </UTXOHeadlineColumn>
             <UTXOHeadlineColumn2>
               <HeadlineText>Value</HeadlineText>
-              <HeadlineText>{parseToFormattedNumber(input.amount)}</HeadlineText>
+              <HeadlineText>{bn(input.amount).format({ precision: DECIMAL_UNITS })}</HeadlineText>
             </UTXOHeadlineColumn2>
           </UTXOHeadlineContainer>
           {expanded && (
@@ -265,7 +247,7 @@ function UTXOInputBox({
               </UTXODetailsRow>
               <UTXODetailsRow>
                 <UTXODetailsKey>Amount:</UTXODetailsKey>
-                {parseToFormattedNumber(input.amount)}
+                {bn(input.amount).format({ precision: DECIMAL_UNITS })}
               </UTXODetailsRow>
               <UTXODetailsRow>
                 <UTXODetailsKey>Asset ID:</UTXODetailsKey>
@@ -293,20 +275,20 @@ function UTXOInputBox({
         </UTXOBoxContainer>
       );
     }
-    case 'InputContract': {
+    case InputType.Contract: {
       return (
         <UTXOBoxContainer>
           <UTXOHeadlineContainer>
             <UTXOHeadlineColumn>
               <UTXOTitle>{`Input #${idx}`}</UTXOTitle>
-              <UTXOHashOutputSkip to="">{input.utxoId}</UTXOHashOutputSkip>
+              <UTXOHashOutputSkip to="">{input.utxoID.transactionId}</UTXOHashOutputSkip>
             </UTXOHeadlineColumn>
           </UTXOHeadlineContainer>
           {expanded && (
             <UTXODetailsContainer>
               <UTXODetailsRow>
                 <UTXODetailsKey>Contract Id:</UTXODetailsKey>
-                <UTXOHashOutputSkip to="">{trimAddress(input.contract.id)}</UTXOHashOutputSkip>
+                <UTXOHashOutputSkip to="">{trimAddress(input.contractID)}</UTXOHashOutputSkip>
               </UTXODetailsRow>
               <UTXODetailsRow>
                 <UTXODetailsKey>Balance Root:</UTXODetailsKey>
@@ -326,21 +308,21 @@ function UTXOInputBox({
   }
 }
 
-function UTXOOutput({ output }: { output: OutputFragment }) {
+function UTXOOutput({ output }: { output: Output }) {
   const onClickCopy = (address: string) => {
     navigator.clipboard.writeText(address);
   };
 
-  switch (output.__typename) {
-    case 'ContractCreated': {
+  switch (output.type) {
+    case OutputType.ContractCreated: {
       return (
         <UTXODetailsRow>
           <UTXODetailsKey>Contract Id:</UTXODetailsKey>
-          <UTXOHashOutputSkip to="">{output.contract.id}</UTXOHashOutputSkip>
+          <UTXOHashOutputSkip to="">{output.contractId}</UTXOHashOutputSkip>
         </UTXODetailsRow>
       );
     }
-    case 'ContractOutput': {
+    case OutputType.Contract: {
       return (
         <>
           <UTXODetailsRow>
@@ -358,8 +340,8 @@ function UTXOOutput({ output }: { output: OutputFragment }) {
         </>
       );
     }
-    case 'CoinOutput':
-    case 'ChangeOutput': {
+    case OutputType.Coin:
+    case OutputType.Change: {
       return (
         <>
           <UTXODetailsRow>
@@ -376,7 +358,9 @@ function UTXOOutput({ output }: { output: OutputFragment }) {
           </UTXODetailsRow>
           <UTXODetailsRow>
             <UTXODetailsKey>Amount:</UTXODetailsKey>
-            <UTXODetailsValue>{parseToFormattedNumber(output.amount)}</UTXODetailsValue>
+            <UTXODetailsValue>
+              {bn(output.amount).format({ precision: DECIMAL_UNITS })}
+            </UTXODetailsValue>
           </UTXODetailsRow>
           <UTXODetailsRow>
             <UTXODetailsKey>Asset ID:</UTXODetailsKey>
@@ -395,7 +379,7 @@ function UTXOOutputBox({
   expanded,
   index,
 }: {
-  output: OutputFragment;
+  output: Output;
   expanded: boolean;
   index: number;
 }) {
@@ -404,12 +388,13 @@ function UTXOOutputBox({
       <UTXOHeadlineContainer>
         <UTXOHeadlineColumn>
           <UTXOTitle>Output #{index}</UTXOTitle>
-          <UTXOHashOutputSkip to="">{output.__typename}</UTXOHashOutputSkip>
+          <UTXOHashOutputSkip to="">{getOutputTypeText(output.type)}</UTXOHashOutputSkip>
+          {/* <UTXOHashOutputSkip to="">{output.__typename}</UTXOHashOutputSkip> */}
         </UTXOHeadlineColumn>
-        {output.__typename === 'CoinOutput' && (
+        {output.type === OutputType.Coin && (
           <UTXOHeadlineColumn2>
             <HeadlineText>Amount</HeadlineText>
-            <HeadlineText>{parseToFormattedNumber(output.amount)}</HeadlineText>
+            <HeadlineText>{bn(output.amount).format({ precision: DECIMAL_UNITS })}</HeadlineText>
           </UTXOHeadlineColumn2>
         )}
       </UTXOHeadlineContainer>

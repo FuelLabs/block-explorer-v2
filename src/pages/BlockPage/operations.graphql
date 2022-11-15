@@ -9,9 +9,11 @@ query BlockPageQuery($height: U64, $previousHeight: U64) {
 
 fragment BlockPageBlock on Block {
   id
-  height
-  time
-  producer
+  header {
+    height
+    time
+    applicationHash
+  }
   transactions {
     __typename
   }

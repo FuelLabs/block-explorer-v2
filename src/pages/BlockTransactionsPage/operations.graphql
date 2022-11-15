@@ -1,9 +1,10 @@
 query BlockTransactionsPageQuery($height: U64) {
   block(height: $height) {
     id
-    height
-    time
-    producer
+    header {
+      height
+      time
+    }
     transactions {
       ...BlockTransactionFragment
     }

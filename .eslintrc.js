@@ -49,6 +49,7 @@ module.exports = {
     'eslint-comments/no-unused-disable': 'error',
     'import/prefer-default-export': 'off',
     'no-underscore-dangle': 'off',
+    'no-debugger': 'off',
     'react/no-array-index-key': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
     '@typescript-eslint/no-shadow': 'off',

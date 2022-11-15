@@ -31,21 +31,21 @@ export function RecentBlocks({ blocks }: Props) {
         {blocks.map((block) => (
           <RecentBlockRow key={block.id}>
             <RecentBlockColumn1>
-              <BlockNumber id="recent-block-link" to={`/block/${block.height}`}>
-                {block.height}
+              <BlockNumber id="recent-block-link" to={`/block/${block.header.height}`}>
+                {block.header.height}
               </BlockNumber>
-              <BlockTimestamp date1={now} date2={new Date(block.time)} />
+              <BlockTimestamp date1={now} date2={new Date(block.header.time)} />
             </RecentBlockColumn1>
             <RecentBlockColumn2>
               <BlockProducerText>
                 {`Producer: `}
-                <ProducerAddress id="recent-block-producer-link" to={`/address/${block.producer}`}>
+                {/* <ProducerAddress id="recent-block-producer-link" to={`/address/${block.producer}`}>
                   {block.producer}
-                </ProducerAddress>
+                </ProducerAddress> */}
               </BlockProducerText>
               <TxCount
                 id="recent-block-transactions-link"
-                to={`/block/${block.height}/transactions`}
+                to={`/block/${block.header.height}/transactions`}
               >{`${block.transactions?.length} txn(s)`}</TxCount>
             </RecentBlockColumn2>
           </RecentBlockRow>
