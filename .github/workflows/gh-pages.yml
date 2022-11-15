@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  NODE_VERSION: '16'
+  NODE_VERSION: "16"
 
 jobs:
   deploy:
@@ -19,14 +19,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
           cache-dependency-path: ./package-lock.json
 
       - name: npm ci and build
         env:
           CI: false
           PUBLIC_URL: "/${{ github.event.repository.name }}"
-          REACT_APP_GRAPHQL_API_ENDPOINT: "https://node-beta-1.fuel.network/graphql"
+          REACT_APP_GRAPHQL_API_ENDPOINT: "https://node-beta-2.fuel.network/graphql"
         run: |
           npm ci
           npm run build
