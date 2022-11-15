@@ -26,7 +26,7 @@ jobs:
         env:
           CI: false
           PUBLIC_URL: "/${{ github.event.repository.name }}"
-          REACT_APP_GRAPHQL_API_ENDPOINT: "https://node-beta-1.fuel.network/graphql"
+          REACT_APP_GRAPHQL_API_ENDPOINT: "https://node-beta-2.fuel.network/graphql"
         run: |
           npm ci
           npm run build
