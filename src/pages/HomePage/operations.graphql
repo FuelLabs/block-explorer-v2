@@ -64,6 +64,8 @@ fragment HomePageTransaction on Transaction {
   gasLimit
   maturity
   isScript
+  isCreate
+  isMint
   receiptsRoot
   witnesses
   outputs {

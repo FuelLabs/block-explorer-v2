@@ -59,10 +59,14 @@ export default function TransactionPage() {
   if (!transaction) return null;
 
   const gasPriceFactor = +(chains[0].consensusParameters?.gasPriceFactor || 1);
-  const gasPriceDecimal = parseFloat(transaction.gasPrice.format({ precision: DECIMAL_UNITS }));
+  const gasPriceDecimal = parseFloat(
+    transaction.gasPrice?.format({ precision: DECIMAL_UNITS }) || '0'
+  );
   const gasPriceInEth = gasPriceDecimal / gasPriceFactor;
 
   const isScript = transaction.type === TransactionType.Script;
+  const isCreate = transaction.type === TransactionType.Create;
+  const isMint = transaction.type === TransactionType.Mint;
 
   return (
     <>
@@ -76,7 +80,11 @@ export default function TransactionPage() {
           <TransactionDataContainer>
             <TransactionDataRow>
               <RowKeyColumn>Type:</RowKeyColumn>
-              <RowValueColumn>{isScript ? 'Script' : 'Create'}</RowValueColumn>
+              <RowValueColumn>
+                {isScript && 'Script'}
+                {isCreate && 'Create'}
+                {isMint && 'Mint'}
+              </RowValueColumn>
             </TransactionDataRow>
             <TransactionDataRow>
               <RowKeyColumn>Status:</RowKeyColumn>
@@ -88,26 +96,34 @@ export default function TransactionPage() {
               <RowKeyColumn>Maturity:</RowKeyColumn>
               <RowValueColumn>{tx.maturity}</RowValueColumn>
             </TransactionDataRow> */}
-            <TransactionDataRow>
-              <RowKeyColumn>Gas Price:</RowKeyColumn>
-              <RowValueColumn>
-                {toPlainString(gasPriceInEth)} {BASE_COIN_NAME}
-              </RowValueColumn>
-            </TransactionDataRow>
-            <TransactionDataRow>
-              <RowKeyColumn>Gas Limit:</RowKeyColumn>
-              <RowValueColumn>{transaction.gasLimit.toString(10)}</RowValueColumn>
-            </TransactionDataRow>
-            <TransactionDataRow>
-              <RowKeyColumn>Gas Used:</RowKeyColumn>
-              <RowValueColumn>{transactionResult?.gasUsed.toString(10)}</RowValueColumn>
-            </TransactionDataRow>
-            <TransactionDataRow>
-              <RowKeyColumn>Transaction fee:</RowKeyColumn>
-              <RowValueColumn>
-                {transactionResult?.fee?.format({ precision: DECIMAL_UNITS })} {BASE_COIN_NAME}
-              </RowValueColumn>
-            </TransactionDataRow>
+            {Boolean(gasPriceInEth) && (
+              <TransactionDataRow>
+                <RowKeyColumn>Gas Price:</RowKeyColumn>
+                <RowValueColumn>
+                  {toPlainString(gasPriceInEth)} {BASE_COIN_NAME}
+                </RowValueColumn>
+              </TransactionDataRow>
+            )}
+            {Boolean(transaction.gasLimit) && (
+              <TransactionDataRow>
+                <RowKeyColumn>Gas Limit:</RowKeyColumn>
+                <RowValueColumn>{transaction.gasLimit?.toString(10)}</RowValueColumn>
+              </TransactionDataRow>
+            )}
+            {Boolean(transactionResult?.gasUsed?.toNumber()) && (
+              <TransactionDataRow>
+                <RowKeyColumn>Gas Used:</RowKeyColumn>
+                <RowValueColumn>{transactionResult?.gasUsed.toString(10)}</RowValueColumn>
+              </TransactionDataRow>
+            )}
+            {Boolean(transactionResult?.fee?.toNumber()) && (
+              <TransactionDataRow>
+                <RowKeyColumn>Transaction fee:</RowKeyColumn>
+                <RowValueColumn>
+                  {transactionResult?.fee?.format({ precision: DECIMAL_UNITS })} {BASE_COIN_NAME}
+                </RowValueColumn>
+              </TransactionDataRow>
+            )}
           </TransactionDataContainer>
           <UTXOComponent outputs={transaction.outputs || []} inputs={transaction.inputs || []} />
           {isScript ? (

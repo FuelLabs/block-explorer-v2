@@ -21,6 +21,8 @@ fragment BlockTransactionFragment on Transaction {
   gasLimit
   maturity
   isScript
+  isCreate
+  isMint
   receiptsRoot
   witnesses
   outputs {
