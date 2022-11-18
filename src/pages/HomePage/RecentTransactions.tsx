@@ -98,7 +98,11 @@ function TransactionRow({ transaction }: { transaction: HomePageTransaction }) {
     <TransactionsDataBoxRow key={transaction.id}>
       <TransactionRowColumn>
         <TransactionTypeColumn>
-          <TxType>{transaction.isScript ? 'Script' : 'Create'}</TxType>
+          <TxType>
+            {transaction.isScript && 'Script'}
+            {transaction.isCreate && 'Create'}
+            {transaction.isMint && 'Mint'}
+          </TxType>
         </TransactionTypeColumn>
         <TransactionHashColumn>
           <TransactionAddress id="recent-transaction-link" to={`/transaction/${transaction.id}`}>

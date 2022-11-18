@@ -98,7 +98,11 @@ function Transactions({ transactions }: { transactions: BlockTransactionFragment
                 <TableCell>
                   <TxHashLink to={`/transaction/${transaction.id}`}>{transaction.id}</TxHashLink>
                 </TableCell>
-                <TableCell>{transaction.isScript ? 'Script' : 'Create'}</TableCell>
+                <TableCell>
+                  {transaction.isScript && 'Script'}
+                  {transaction.isCreate && 'Create'}
+                  {transaction.isMint && 'Mint'}
+                </TableCell>
                 <TableCell>
                   {transaction.status ? (
                     <>
