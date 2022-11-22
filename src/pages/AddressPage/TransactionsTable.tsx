@@ -40,7 +40,7 @@ export default function TransactionsTable({
           <TableUI.TableHeadRow>
             <TableUI.TableHeadCell>Tx Hash</TableUI.TableHeadCell>
             <TableUI.TableHeadCell>Type</TableUI.TableHeadCell>
-            <TableUI.TableHeadCell>Age</TableUI.TableHeadCell>
+            {/* <TableUI.TableHeadCell>Age</TableUI.TableHeadCell> */}
             <TableUI.TableHeadCell>From</TableUI.TableHeadCell>
           </TableUI.TableHeadRow>
           {transactions.map((transaction) => (
@@ -49,7 +49,7 @@ export default function TransactionsTable({
                 <TxHash to={`/transaction/${transaction.id}`}>{transaction.id}</TxHash>
               </TableUI.TableCell>
               <TableUI.TableCell>{transaction.isScript ? 'Script' : 'Create'}</TableUI.TableCell>
-              <TableUI.TableCell>
+              {/* <TableUI.TableCell>
                 {transaction.status ? (
                   <>
                     {getTextForRelativeTimeDifference(
@@ -57,7 +57,7 @@ export default function TransactionsTable({
                     )}
                   </>
                 ) : null}
-              </TableUI.TableCell>
+              </TableUI.TableCell> */}
               <TableUI.TableCell>
                 {transaction.inputs?.map((input, idx) =>
                   (() => {
