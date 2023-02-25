@@ -5,8 +5,9 @@ const path = require('path');
 const packageJson = require('./package.json');
 
 const protocol = packageJson.protocol;
-const BASE_URL = `/${path.join(process.env.REPOSITORY_NAME || '', protocol)}/`;
+const BASE_URL = path.join(process.env.REPOSITORY_NAME || '', protocol);
 
+process.env.REACT_APP_REPOSITORY_NAME = process.env.REPOSITORY_NAME || '';
 process.env.PUBLIC_URL = BASE_URL;
 
 const { BundleStatsWebpackPlugin } = require('bundle-stats-webpack-plugin');
@@ -69,6 +70,11 @@ module.exports = () => {
         {
           from: './public/404.html',
           to: '../',
+          transform(content) {
+            return content
+              .toString()
+              .replace('%REPOSITORY_NAME%', process.env.REPOSITORY_NAME || '');
+          },
         },
       ],
     }),

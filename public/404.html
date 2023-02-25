@@ -1,12 +1,8 @@
 <html>
   <head>
     <script>
-      var loc = window.location;
-      if (!/\/beta\-[0-9]\//.test(loc.pathname)) {
-        var finalUrl =
-          "/beta-2/" + location.search + "#" + loc.pathname + loc.search;
-        window.location = finalUrl;
-      }
+      var a = "%REPOSITORY_NAME%";
+      console.log(a);
     </script>
   </head>
   <body></body>

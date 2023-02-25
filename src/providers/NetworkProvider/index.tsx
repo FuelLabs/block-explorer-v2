@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import urlJoin from 'url-join';
 
 import { httplink } from '../../client';
 
@@ -7,11 +8,12 @@ import { getQueryProviderUrl } from './utils/queryProviderUrl';
 import { getProviderUrl, setNetworkVersion, setProviderUrl } from './utils/storage';
 
 const versions: { [key: string]: string } = {
-  '14': '/beta-2/',
-  '15': '/beta-2/',
-  '17': '/beta-3/',
+  '14': 'beta-2',
+  '15': 'beta-2',
+  '17': 'beta-3',
 };
 const { location } = window;
+const { REACT_APP_REPOSITORY_NAME } = process.env;
 
 export function NetworkProvider({ children }: { children: React.ReactNode }) {
   const { loading } = useNetworkInformationQuery({
@@ -21,9 +23,9 @@ export function NetworkProvider({ children }: { children: React.ReactNode }) {
       setNetworkVersion(nodeVersion);
       const compatibleVersion = Object.keys(versions).find((k) => Number(k) >= Number(version));
       if (compatibleVersion) {
-        if (!window.location.pathname.startsWith(versions[compatibleVersion])) {
-          window.location.href =
-            window.location.origin + versions[compatibleVersion] + location.hash;
+        if (!location.pathname.includes(versions[compatibleVersion])) {
+          const pathname = urlJoin(REACT_APP_REPOSITORY_NAME || '', versions[compatibleVersion]);
+          location.href = `${location.origin}${pathname}/${location.hash}`;
         }
       }
     },
