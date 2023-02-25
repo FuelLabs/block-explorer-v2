@@ -1,7 +1,7 @@
 {
   "name": "explorer",
   "version": "0.1.0",
-  "protocol": "beta-2",
+  "protocol": "beta-3",
   "private": true,
   "engines": {
     "npm": ">=8.0.0"

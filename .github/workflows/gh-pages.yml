@@ -26,7 +26,7 @@ jobs:
         env:
           CI: false
           REPOSITORY_NAME: "/${{ github.event.repository.name }}"
-          REACT_APP_GRAPHQL_API_ENDPOINT: "https://node-beta-2.fuel.network/graphql"
+          REACT_APP_GRAPHQL_API_ENDPOINT: "https://sentry-1.swayswap.io/graphql"
         run: |
           npm ci &&
           npm run build
@@ -36,4 +36,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
-          keep_files: false
+          keep_files: true

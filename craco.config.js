@@ -73,7 +73,8 @@ module.exports = () => {
           transform(content) {
             return content
               .toString()
-              .replace('%REPOSITORY_NAME%', process.env.REPOSITORY_NAME || '');
+              .replace('%REPOSITORY_NAME%', process.env.REPOSITORY_NAME || '')
+              .replace('%PROTOCOL_NAME%', packageJson.protocol);
           },
         },
       ],
