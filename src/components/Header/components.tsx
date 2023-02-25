@@ -24,6 +24,16 @@ export const ContentItem = styled.div`
   align-items: center;
 `;
 
+export const ContentItemButtons = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: 768px) {
+    align-items: flex-end;
+    flex-direction: column-reverse;
+  }
+`;
+
 export const Logo = styled(LogoIcon)`
   flex: 0 0 48px;
   margin: 0 8px 0 0;
@@ -94,6 +104,24 @@ export const NetworkSelectorButton = styled(ButtonReset)`
   :hover,
   :active {
     box-shadow: 0 0 6px 0 #58c09b;
+  }
+`;
+
+export const NetworkVersion = styled.div`
+  padding: 8px 12px 8px 16px;
+  font-family: SFProDisplay;
+  font-size: 10px;
+  line-height: 14px;
+  font-weight: 500;
+  color: #081c17;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  background-color: #808080;
+  transition: 0.2s ease-out;
+  margin-right: 8px;
+
+  @media screen and (max-width: 768px) {
+    margin-right: 0px;
+    margin-top: 8px;
   }
 `;
 

@@ -2,9 +2,14 @@ import * as React from 'react';
 import { useMemo, useRef, useState } from 'react';
 
 import type { Chain } from '../../../api';
-import { PROVIDER_URL_STORAGE_KEY } from '../../../constants';
+import { httplink } from '../../../client';
 import { ChainContext } from '../../../contexts/network';
-import { useOnClickOutside, useLocalStorage } from '../../../hooks';
+import { useOnClickOutside } from '../../../hooks';
+import {
+  removeProviderUrl,
+  setProviderUrl,
+  getProviderUrl,
+} from '../../../providers/NetworkProvider/utils';
 import { Modal } from '../Base';
 
 import {
@@ -28,12 +33,10 @@ interface Props {
 const { REACT_APP_GRAPHQL_API_ENDPOINT = '' } = process.env;
 
 export function NetworkModal(props: Props) {
-  const [customEndpoint, setCustomEndpoint, removeEndpoint] = useLocalStorage<string>(
-    PROVIDER_URL_STORAGE_KEY,
-    REACT_APP_GRAPHQL_API_ENDPOINT
-  );
   const [showCustomInput, setshowCustomInput] = useState<boolean>(false);
-  const [inputField, setInputField] = useState<string>(customEndpoint);
+  const [inputField, setInputField] = useState<string>(
+    (getProviderUrl() || httplink.options.uri) as string
+  );
 
   const [selectedChain, selectChain] = useState<Chain | undefined>();
   const contentRef = useRef<HTMLDivElement>(null);
@@ -61,9 +64,9 @@ export function NetworkModal(props: Props) {
   const onSwitchNetwork = () => {
     if (showCustomInput) {
       if (inputField === REACT_APP_GRAPHQL_API_ENDPOINT) {
-        removeEndpoint();
+        removeProviderUrl();
       } else {
-        setCustomEndpoint(inputField);
+        setProviderUrl(inputField);
       }
       window.location.reload();
     } else {
@@ -99,9 +102,9 @@ export function NetworkModal(props: Props) {
         <CustomInputContainer
           onSubmit={() => {
             if (inputField === REACT_APP_GRAPHQL_API_ENDPOINT) {
-              removeEndpoint();
+              removeProviderUrl();
             } else {
-              setCustomEndpoint(inputField);
+              setProviderUrl(inputField);
             }
             window.location.reload();
           }}
@@ -123,7 +126,7 @@ export function NetworkModal(props: Props) {
         <CustomInputReset
           type="button"
           onClick={() => {
-            removeEndpoint();
+            removeProviderUrl();
             window.location.reload();
           }}
         >
