@@ -45,7 +45,7 @@
     "bignumber.js": "^9.0.1",
     "copy-webpack-plugin": "^11.0.0",
     "create-file-webpack": "^1.0.2",
-    "fuels": "0.21.2",
+    "fuels": "^0.33.0",
     "graphql": "^15.7.2",
     "qrcode.react": "^1.0.1",
     "react": "^17.0.2",

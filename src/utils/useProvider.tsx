@@ -7,7 +7,7 @@ export const useProvider = () => {
   const client = useApolloClient();
 
   const provider = useMemo(() => {
-    const providerUrl: string | undefined = (client?.link as any)?.options?.uri;
+    const providerUrl: string | undefined = (client?.link as any)?.options?.uri();
     if (!providerUrl) return undefined;
 
     return new Provider(providerUrl);

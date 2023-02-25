@@ -1,6 +1,6 @@
-import { Provider, TransactionType, InputType, OutputType } from "fuels";
-import { BigNumber } from "@ethersproject/bignumber";
-import { hexlify } from "@ethersproject/bytes";
+import { BigNumber } from '@ethersproject/bignumber';
+import { hexlify } from '@ethersproject/bytes';
+import { Provider, TransactionType, InputType, OutputType } from 'fuels';
 
 const genBytes32 = () => hexlify(new Uint8Array(32).map(() => Math.floor(Math.random() * 256)));
 
@@ -13,7 +13,7 @@ async function run() {
 
     const coins = result.coinsByOwner.edges
       .map((edge) => edge.node)
-      .filter((coin) => coin.status === "UNSPENT");
+      .filter((coin) => coin.status === 'UNSPENT');
 
     return coins.map((coin) => ({
       id: coin.id,
@@ -25,38 +25,38 @@ async function run() {
     }));
   }
 
-  const provider = new Provider("http://127.0.0.1:4000/graphql");
-  const from = "0x0101010101010101010101010101010101010101010101010101010101010101";
+  const provider = new Provider('http://127.0.0.1:4000/graphql');
+  const from = '0x0101010101010101010101010101010101010101010101010101010101010101';
   const to = genBytes32();
   const amount = BigNumber.from(1);
   await provider.sendTransaction({
     type: TransactionType.Script,
     gasPrice: BigNumber.from(0),
     gasLimit: BigNumber.from(1000000),
-    script: "0x24400000",
-    scriptData: "0x",
+    script: '0x24400000',
+    scriptData: '0x',
     inputs: [
       {
         type: InputType.Coin,
         utxoId: (await getUnspentCoins(from))[0].id,
         owner: from,
-        color: "0x0000000000000000000000000000000000000000000000000000000000000000",
+        color: '0x0000000000000000000000000000000000000000000000000000000000000000',
         amount,
         witnessIndex: 0,
         maturity: 0,
-        predicate: "0x",
-        predicateData: "0x",
+        predicate: '0x',
+        predicateData: '0x',
       },
     ],
     outputs: [
       {
         type: OutputType.Coin,
         to,
-        color: "0x0000000000000000000000000000000000000000000000000000000000000000",
+        color: '0x0000000000000000000000000000000000000000000000000000000000000000',
         amount,
       },
     ],
-    witnesses: ["0x"],
+    witnesses: ['0x'],
   });
 }
 
