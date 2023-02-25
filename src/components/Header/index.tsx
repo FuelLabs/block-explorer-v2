@@ -35,7 +35,7 @@ export function Header() {
           <ContentItem>
             <LogoLink to="/">
               <Logo />
-              NETWORK EXPLORER
+              NETWORK EXPLORER2
             </LogoLink>
           </ContentItem>
           <ContentItemButtons>
