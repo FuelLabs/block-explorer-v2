@@ -1,7 +1,8 @@
 import { useMemo, Fragment } from 'react';
 
 import type { PageInfo } from '../../api/__generated__/types';
-import { dateDiff, getTextForTimeDifference } from '../../utils/date';
+import { getTextForTimeDifference } from '../../utils/date';
+import { getTransactionDateDiff, getTransactionDate } from '../../utils/transaction';
 
 import type { HomePageTransaction } from './__generated__/operations';
 import {
@@ -50,7 +51,9 @@ export function RecentTransactions({
   currentPage,
 }: Props) {
   const sortedTransactions = transactions.sort((t1, t2) =>
-    new Date(t1.status!.time).getTime() - new Date(t2.status!.time).getTime() <= 0 ? 1 : -1
+    (getTransactionDate(t1)?.getTime() || 0) - (getTransactionDate(t2)?.getTime() || 0) <= 0
+      ? 1
+      : -1
   );
 
   const isPrevPageClickable = currentPage > 1 && pageInfo?.hasPreviousPage && !loading;
@@ -88,11 +91,11 @@ export function RecentTransactions({
 }
 
 function TransactionRow({ transaction }: { transaction: HomePageTransaction }) {
-  const difference = useMemo(
-    () => dateDiff(new Date(), new Date(transaction.status!.time)),
-    [transaction]
+  const difference = useMemo(() => getTransactionDateDiff(transaction), [transaction]);
+  const timeDifference = useMemo(
+    () => (difference ? getTextForTimeDifference(difference) : undefined),
+    [difference]
   );
-  const timestamp = useMemo(() => getTextForTimeDifference(difference), [difference]);
 
   return (
     <TransactionsDataBoxRow key={transaction.id}>
@@ -108,7 +111,7 @@ function TransactionRow({ transaction }: { transaction: HomePageTransaction }) {
           <TransactionAddress id="recent-transaction-link" to={`/transaction/${transaction.id}`}>
             {transaction.id}
           </TransactionAddress>
-          <DataTimestamp>{timestamp}</DataTimestamp>
+          <DataTimestamp>{timeDifference}</DataTimestamp>
         </TransactionHashColumn>
       </TransactionRowColumn>
       <TransactionRecipientsColumn>

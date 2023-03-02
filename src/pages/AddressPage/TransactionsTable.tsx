@@ -1,6 +1,6 @@
 import * as TableUI from '../../components/Table/components';
 import { trimAddress } from '../../utils';
-// import { dateDiffRelative, getTextForRelativeTimeDifference } from '../../utils/date';
+import { getTransactionRelativeTimeDifference } from '../../utils/transaction';
 
 import type { AddressPageTransaction } from './__generated__/operations';
 import {
@@ -40,7 +40,7 @@ export default function TransactionsTable({
           <TableUI.TableHeadRow>
             <TableUI.TableHeadCell>Tx Hash</TableUI.TableHeadCell>
             <TableUI.TableHeadCell>Type</TableUI.TableHeadCell>
-            {/* <TableUI.TableHeadCell>Age</TableUI.TableHeadCell> */}
+            <TableUI.TableHeadCell>Age</TableUI.TableHeadCell>
             <TableUI.TableHeadCell>From</TableUI.TableHeadCell>
           </TableUI.TableHeadRow>
           {transactions.map((transaction) => (
@@ -49,15 +49,9 @@ export default function TransactionsTable({
                 <TxHash to={`/transaction/${transaction.id}`}>{transaction.id}</TxHash>
               </TableUI.TableCell>
               <TableUI.TableCell>{transaction.isScript ? 'Script' : 'Create'}</TableUI.TableCell>
-              {/* <TableUI.TableCell>
-                {transaction.status ? (
-                  <>
-                    {getTextForRelativeTimeDifference(
-                      dateDiffRelative(new Date(), new Date(transaction.status.time))
-                    )}
-                  </>
-                ) : null}
-              </TableUI.TableCell> */}
+              <TableUI.TableCell>
+                {getTransactionRelativeTimeDifference(transaction)}
+              </TableUI.TableCell>
               <TableUI.TableCell>
                 {transaction.inputs?.map((input, idx) =>
                   (() => {

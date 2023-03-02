@@ -1,12 +1,12 @@
 import { BigNumber } from '@ethersproject/bignumber';
+import { Signer } from 'fuels';
+import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Header } from '../../components/Header';
-import { ExternalLinkIcon } from '../../components/Icons';
 
 import { useBlockPageQuery } from './__generated__/operations';
 import {
-  AddressesCount,
   BlockDataContainer,
   BlockDataRow,
   BlockHash,
@@ -14,10 +14,8 @@ import {
   BlockHeightContainer,
   BlockNavigationButton,
   BlockNavigationIcon,
-  BlockNumber,
   Container,
   Content,
-  EtherscanBlockLink,
   ProducerLink,
   RowKeyColumn,
   Title,
@@ -36,6 +34,24 @@ export default function BlockPage() {
 
   const bl = data?.block;
   const prevBl = data?.previousBlock;
+
+  const headerId = bl?.header?.id;
+  const consensusSignature = useMemo(() => {
+    switch (bl?.consensus.__typename) {
+      case 'PoAConsensus':
+        return bl?.consensus?.signature;
+      default:
+        return '';
+    }
+  }, [bl?.consensus]);
+
+  const producerAddress = useMemo(() => {
+    if (headerId && consensusSignature) {
+      return Signer.recoverAddress(headerId, consensusSignature).toString();
+    }
+
+    return '';
+  }, [headerId, consensusSignature]);
 
   if (loading)
     return (
@@ -84,9 +100,7 @@ export default function BlockPage() {
             </BlockDataRow>
             <BlockDataRow>
               <RowKeyColumn>Block producer:</RowKeyColumn>
-              {/* <ProducerLink to={`/address/${bl.header.applicationHash}`}>
-                {bl.header.applicationHash}
-              </ProducerLink> */}
+              <ProducerLink to={`/address/${producerAddress}`}>{producerAddress}</ProducerLink>
             </BlockDataRow>
             <BlockDataRow>
               <RowKeyColumn>Previous block hash:</RowKeyColumn>

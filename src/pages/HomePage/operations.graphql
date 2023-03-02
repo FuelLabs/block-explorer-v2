@@ -46,8 +46,15 @@ query HomePageSearchQuery($transaction: TransactionId!, $address: Address!) {
 fragment HomePageBlock on Block {
   id
   header {
+    id
     height
     time
+  }
+  consensus {
+    __typename
+    ... on PoAConsensus {
+      signature
+    }
   }
   transactions {
     id
