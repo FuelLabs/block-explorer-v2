@@ -1,10 +1,20 @@
 /* eslint-disable no-param-reassign */
+/* eslint-disable import/order */
 /* eslint-disable @typescript-eslint/no-var-requires */
+const path = require('path');
+const packageJson = require('./package.json');
+
+const protocol = packageJson.protocol;
+const BASE_URL = path.join(process.env.REPOSITORY_NAME || '', protocol);
+
+process.env.REACT_APP_REPOSITORY_NAME = process.env.REPOSITORY_NAME || '';
+process.env.PUBLIC_URL = BASE_URL;
+
 const { BundleStatsWebpackPlugin } = require('bundle-stats-webpack-plugin');
+const CopyPluginWebpack = require('copy-webpack-plugin');
+const CreateFileWebpack = require('create-file-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
-const packageJson = require('./package.json');
 
 // https://github.com/Cap32/html-webpack-banner-plugin/blob/3b5f3f1adf1240b1f744aaa78eabefae50fa53b7/index.js
 class HtmlWebpackBannerPlugin {
@@ -44,6 +54,30 @@ module.exports = () => {
     new HtmlWebpackBannerPlugin({
       banner,
     }),
+    new CreateFileWebpack({
+      // path to folder in which the file will be created
+      path: `./build/${packageJson.protocol}`,
+      // file name
+      fileName: 'versions',
+      // content of the file
+      content: [
+        `BE_VERSION="${packageJson.version}"`,
+        `BE_PROTOCOL="${packageJson.protocol}"`,
+      ].join('\n'),
+    }),
+    new CopyPluginWebpack({
+      patterns: [
+        {
+          from: './public/404.html',
+          to: '../',
+          transform(content) {
+            return content
+              .toString()
+              .replace('%REPOSITORY_NAME%', process.env.REPOSITORY_NAME || '');
+          },
+        },
+      ],
+    }),
   ];
 
   if (isProductionBuild && analyze) {
@@ -59,6 +93,11 @@ module.exports = () => {
 
   return {
     webpack: {
+      configure: (webpackConfig, { paths }) => {
+        paths.appBuild = path.join(paths.appBuild, packageJson.protocol);
+        webpackConfig.output.path = paths.appBuild;
+        return webpackConfig;
+      },
       plugins,
     },
   };
