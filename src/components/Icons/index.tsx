@@ -30,7 +30,8 @@ export function LogoIcon({ style = {}, ...rest }) {
   );
 }
 
-export function SearchIcon({ style = {}, ...rest }) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function SearchIcon({ style = {}, isDisabled = false, ...rest }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
