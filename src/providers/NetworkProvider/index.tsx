@@ -39,7 +39,6 @@ export function NetworkProvider({ children }: { children: React.ReactNode }) {
       setProviderUrl(queryProviderUrl);
       location.href = location.href.replace(location.search, '');
     }
-
     httplink.options.uri = getProviderUrl() || httplink.options.uri;
   }, []);
 
