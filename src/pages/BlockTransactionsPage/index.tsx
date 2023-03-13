@@ -38,6 +38,7 @@ import {
 } from './components';
 
 export default function BlockTransactionsPage() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { block } = useParams() as any;
   const { data } = useBlockTransactionsPageQuery({
     variables: { height: BigNumber.from(block).toString() },

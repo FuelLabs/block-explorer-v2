@@ -1,5 +1,5 @@
 import { Signer } from 'fuels';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import { dateDiff, getTextForTimeDifference, tai64toDate } from '../../utils/date';
 

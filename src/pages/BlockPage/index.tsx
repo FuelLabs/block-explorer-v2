@@ -23,6 +23,7 @@ import {
 } from './components';
 
 export default function BlockPage() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { block } = useParams() as any;
 
   const { data, loading } = useBlockPageQuery({
