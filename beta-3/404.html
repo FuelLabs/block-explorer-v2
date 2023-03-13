@@ -2,7 +2,7 @@
   <head>
     <script>
       var loc = window.location;
-      const repoURL = "/block-explorer-v2".replaceAll("/", "");
+      const repoURL = "%REPOSITORY_NAME%".replaceAll("/", "");
       const parts = location.pathname.split("/").filter((i) => !!i);
       const versionIndex = parts.findIndex((p) => /beta\-[0-9]/.test(p));
 
@@ -14,7 +14,7 @@
         }
 
         const url = new URL("", window.location);
-        url.pathname = [repoURL, "beta-3"].join("/");
+        url.pathname = [repoURL, "%PROTOCOL_NAME%"].join("/");
         url.hash = `/${parts.join("/")}`;
         url.search = loc.search;
 
