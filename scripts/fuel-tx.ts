@@ -1,6 +1,4 @@
-import { BigNumber } from '@ethersproject/bignumber';
-import { hexlify } from '@ethersproject/bytes';
-import { Provider, TransactionType, InputType, OutputType } from 'fuels';
+import { BigNumber, hexlify, Provider, TransactionType, InputType, OutputType } from 'fuels';
 
 const genBytes32 = () => hexlify(new Uint8Array(32).map(() => Math.floor(Math.random() * 256)));
 

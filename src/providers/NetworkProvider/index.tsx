@@ -2,16 +2,13 @@ import { useEffect } from 'react';
 import urlJoin from 'url-join';
 
 import { httplink } from '../../client';
+import protocolVersions from '../../protocol-versions.json';
 
 import { useNetworkInformationQuery } from './__generated__/operations';
 import { getQueryProviderUrl } from './utils/queryProviderUrl';
 import { getProviderUrl, setNetworkVersion, setProviderUrl } from './utils/storage';
 
-const versions: { [key: string]: string } = {
-  '14': 'beta-2',
-  '15': 'beta-2',
-  '17': 'beta-3',
-};
+const versions: { [key: string]: string } = protocolVersions;
 const { location } = window;
 const { REACT_APP_REPOSITORY_NAME } = process.env;
 
@@ -42,6 +39,7 @@ export function NetworkProvider({ children }: { children: React.ReactNode }) {
       setProviderUrl(queryProviderUrl);
       location.href = location.href.replace(location.search, '');
     }
+
     httplink.options.uri = getProviderUrl() || httplink.options.uri;
   }, []);
 

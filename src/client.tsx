@@ -6,10 +6,8 @@ import { getProviderUrl } from './providers/NetworkProvider/utils';
 const { REACT_APP_GRAPHQL_API_ENDPOINT } = process.env;
 
 export const httplink = new HttpLink({
-  uri: () => {
-    const providerUrl = getProviderUrl() || REACT_APP_GRAPHQL_API_ENDPOINT!;
-    return providerUrl;
-  },
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  uri: () => getProviderUrl() || REACT_APP_GRAPHQL_API_ENDPOINT!,
 });
 
 export const graphqlClient = new ApolloClient({
