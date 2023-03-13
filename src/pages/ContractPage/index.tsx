@@ -59,6 +59,7 @@ import {
 } from './components';
 
 export default function ContractPage() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { contract } = useParams() as any;
   const [copyTooltip] = useState('Copy address');
   const [modal, setModal] = useState(false);

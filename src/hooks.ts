@@ -1,5 +1,7 @@
+/* eslint-disable no-console */
 import { useEffect, useState } from 'react';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useOnClickOutside(ref: any, handler: () => void) {
   useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
