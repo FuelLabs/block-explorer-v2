@@ -1,6 +1,6 @@
 import * as TableUI from '../../components/Table/components';
 import { trimAddress } from '../../utils';
-import { dateDiffRelative, getTextForRelativeTimeDifference } from '../../utils/date';
+// import { dateDiffRelative, getTextForRelativeTimeDifference } from '../../utils/date';
 
 import type { AddressPageTransaction } from './__generated__/operations';
 import {

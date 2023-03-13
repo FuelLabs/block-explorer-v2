@@ -14,7 +14,7 @@
         }
 
         const url = new URL("", window.location);
-        url.pathname = [repoURL, "beta-2"].join("/");
+        url.pathname = [repoURL, "%PROTOCOL_NAME%"].join("/");
         url.hash = `/${parts.join("/")}`;
         url.search = loc.search;
 

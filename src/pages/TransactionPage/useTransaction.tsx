@@ -1,5 +1,5 @@
 import type { Transaction, TransactionResult } from 'fuels';
-import { DECIMAL_UNITS, TransactionResponse } from 'fuels';
+import { TransactionResponse } from 'fuels';
 import { useEffect, useState } from 'react';
 
 import { useProvider } from '../../utils/useProvider';
