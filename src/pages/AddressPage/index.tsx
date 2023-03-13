@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import type { CoinQuantity } from 'fuels';
 import { bn, toBech32 } from 'fuels';
 import { useMemo, useState } from 'react';
