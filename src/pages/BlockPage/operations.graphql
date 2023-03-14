@@ -10,9 +10,16 @@ query BlockPageQuery($height: U64, $previousHeight: U64) {
 fragment BlockPageBlock on Block {
   id
   header {
+    id
     height
     time
     applicationHash
+  }
+  consensus {
+    __typename
+    ... on PoAConsensus {
+      signature
+    }
   }
   transactions {
     __typename

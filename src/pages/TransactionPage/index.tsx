@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Input, Output } from 'fuels';
 import { bn, DECIMAL_UNITS, InputType, OutputType, TransactionType } from 'fuels';
-import { useContext, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Header } from '../../components/Header';
@@ -9,6 +9,7 @@ import { ExpandIcon, ShrinkIcon } from '../../components/Icons';
 import { BASE_COIN_NAME } from '../../constants';
 import { ChainContext } from '../../contexts/network';
 import { getOutputTypeText, trimAddress } from '../../utils';
+import { tai64toDayjs } from '../../utils/date';
 import { toPlainString } from '../../utils/number';
 import { CopyButtonIcon, TableHeadlineAddressButton, Tooltip } from '../AddressPage/components';
 import { UTXODetailsValue } from '../CreateTransactionPage/components';
@@ -55,6 +56,14 @@ export default function TransactionPage() {
   const { transaction: transactionId } = useParams() as any;
   const { chains } = useContext(ChainContext);
   const { transaction, transactionResult } = useTransaction(transactionId);
+  const txDate = useMemo(() => {
+    const dateT = transactionResult?.time;
+    if (dateT) {
+      const dateDayJS = tai64toDayjs(dateT);
+      return `${dateDayJS.fromNow()} (${dateDayJS.format('MMMM-DD-YYYY HH:mm:ss A')})`;
+    }
+    return '';
+  }, [transactionResult?.time]);
 
   if (!transaction) return null;
 
@@ -114,6 +123,12 @@ export default function TransactionPage() {
               <TransactionDataRow>
                 <RowKeyColumn>Gas Used:</RowKeyColumn>
                 <RowValueColumn>{transactionResult?.gasUsed.toString(10)}</RowValueColumn>
+              </TransactionDataRow>
+            )}
+            {Boolean(txDate) && (
+              <TransactionDataRow>
+                <RowKeyColumn>Timestamp:</RowKeyColumn>
+                <RowValueColumn>{txDate}</RowValueColumn>
               </TransactionDataRow>
             )}
             {Boolean(transactionResult?.fee?.toNumber()) && (

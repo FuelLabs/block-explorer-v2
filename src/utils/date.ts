@@ -1,3 +1,9 @@
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import { TAI64 } from 'tai64';
+
+dayjs.extend(relativeTime);
+
 type DateDifference = {
   seconds: number;
   minutes: number;
@@ -43,10 +49,22 @@ export const getTextForRelativeTimeDifference = (dateDiff: DateDifference) => {
 };
 
 export const getTextForTimeDifference = (dateDiff: DateDifference) => {
-  if (dateDiff.days > 0) return `${dateDiff.hours} hours ago`;
+  if (dateDiff.days > 0) return `${dateDiff.days} days ago`;
   if (dateDiff.hours > 0) return `${dateDiff.hours} hours ago`;
   if (dateDiff.minutes > 0) return `${dateDiff.minutes} minutes ago`;
   if (dateDiff.seconds > 0) return `${dateDiff.seconds} seconds ago`;
 
   return '';
 };
+
+export const tai64toDayjs = (tai64Timestamp: string) => {
+  const timestamp = TAI64.fromString(tai64Timestamp, 10).toUnix();
+  return dayjs(timestamp * 1000);
+};
+
+export const tai64toDate = (tai64Timestamp: string) => tai64toDayjs(tai64Timestamp).toDate();
+
+export const formatDate = (tai64Timestamp: string) => tai64toDayjs(tai64Timestamp).fromNow();
+
+export const dateToTai64 = (date: Date) =>
+  TAI64.fromUnix(Math.floor(date.getTime() / 1000)).toString(10);

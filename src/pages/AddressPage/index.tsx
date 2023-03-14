@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import type { CoinQuantity } from 'fuels';
 import { bn, toBech32 } from 'fuels';
 import { useMemo, useState } from 'react';
@@ -6,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import { Header } from '../../components/Header';
 import { QRModal } from '../../components/Modals/QRModal';
 import { getB56Address } from '../../utils/address';
+import { getTransactionDate } from '../../utils/transaction';
 
 import BalancesTable from './BalancesTable';
 import TransactionsTable from './TransactionsTable';
@@ -47,6 +50,11 @@ export default function AddressPage() {
   const transactions = useMemo<AddressPageTransaction[]>(
     () => data?.transactionsByOwner!.edges!.map((edge) => edge!.node) ?? [],
     [data]
+  );
+  const sortedTransactions = transactions.sort((t1, t2) =>
+    (getTransactionDate(t1)?.getTime() || 0) - (getTransactionDate(t2)?.getTime() || 0) <= 0
+      ? 1
+      : -1
   );
 
   const onClose = () => {
@@ -114,7 +122,7 @@ export default function AddressPage() {
           </HeadlineContainer>
           {balances ? <BalancesTable balances={Object.values(balances)} /> : null}
           <div style={{ height: 16 }} />
-          <TransactionsTable transactions={transactions} />
+          <TransactionsTable transactions={sortedTransactions} />
         </Content>
       </Container>
     </>

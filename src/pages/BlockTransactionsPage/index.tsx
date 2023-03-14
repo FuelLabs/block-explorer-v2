@@ -15,12 +15,10 @@ import {
   TableWrapper,
 } from '../../components/Table/components';
 import { trimAddress } from '../../utils/address';
-import { dateDiffRelative, getTextForRelativeTimeDifference } from '../../utils/date';
+import { getTransactionRelativeTimeDifference } from '../../utils/transaction';
 import {
-  CoinLinkSkip,
   ContractLinkSkip,
   CopyButtonIcon,
-  HeadlineAddressButton,
   TableContainer,
   TableHeadlineAddressButton,
   Tooltip,
@@ -31,18 +29,16 @@ import {
 import type { BlockTransactionFragment } from './__generated__/operations';
 import { useBlockTransactionsPageQuery } from './__generated__/operations';
 import {
-  CoinLink,
   Container,
   Content,
   HeadlineTransactionsNumber,
   Subtitle,
   Title,
   TxHashLink,
-  TxRecipientLink,
-  TxValue,
 } from './components';
 
 export default function BlockTransactionsPage() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { block } = useParams() as any;
   const { data } = useBlockTransactionsPageQuery({
     variables: { height: BigNumber.from(block).toString() },
@@ -103,15 +99,7 @@ function Transactions({ transactions }: { transactions: BlockTransactionFragment
                   {transaction.isCreate && 'Create'}
                   {transaction.isMint && 'Mint'}
                 </TableCell>
-                <TableCell>
-                  {transaction.status ? (
-                    <>
-                      {getTextForRelativeTimeDifference(
-                        dateDiffRelative(new Date(), new Date(transaction.status.time))
-                      )}
-                    </>
-                  ) : null}
-                </TableCell>
+                <TableCell>{getTransactionRelativeTimeDifference(transaction)}</TableCell>
                 <TableCell>
                   {transaction.inputs?.map((input, idx) =>
                     (() => {

@@ -17,7 +17,8 @@
       "AssetId": "string",
       "ContractId": "string",
       "Salt": "string",
-      "Signature": "string"
+      "Signature": "string",
+      "Tai64Timestamp": "string"
     },
     "scalars": {
       "DateTime": "string",
@@ -33,7 +34,8 @@
       "AssetId": "string",
       "ContractId": "string",
       "Salt": "string",
-      "Signature": "string"
+      "Signature": "string",
+      "Tai64Timestamp": "string"
     },
     "useTypeImports": true,
     "nonOptionalTypename": true,

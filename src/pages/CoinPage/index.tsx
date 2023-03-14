@@ -44,6 +44,7 @@ import {
 } from './components';
 
 export function CoinPage() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { coin } = useParams() as any;
 
   return (

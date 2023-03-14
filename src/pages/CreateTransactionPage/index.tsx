@@ -40,6 +40,7 @@ import {
 } from './components';
 
 export default function CreateTransactionPage() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { transaction } = useParams() as any;
 
   return (
