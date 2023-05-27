@@ -154,7 +154,7 @@ export default function TransactionPage() {
 
 function ContractComponent({ tx }: { tx: any }) {
   return (
-    tx.witnesses?.map((witness: string, index: number) => (
+    tx.witnesses?.map((witness: { data: string }, index: number) => (
       <UTXOBoxContainer>
         <UTXOHeadlineContainer>
           <UTXOHeadlineColumn>
@@ -162,7 +162,7 @@ function ContractComponent({ tx }: { tx: any }) {
           </UTXOHeadlineColumn>
         </UTXOHeadlineContainer>
         <UTXODetailsContainer>
-          <ContractTextarea readOnly value={witness} />
+          <ContractTextarea readOnly value={witness.data} />
         </UTXODetailsContainer>
       </UTXOBoxContainer>
     )) || null
