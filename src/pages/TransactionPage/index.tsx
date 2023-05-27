@@ -40,12 +40,6 @@ import {
   UTXODetailsLink,
   UTXOSeparatorColumn,
   UTXOSeparatorArrow,
-  ScriptsContainer,
-  ScriptTitle,
-  ScriptContainer,
-  ScriptTabsContainer,
-  ScriptTabButton,
-  ScriptTextarea,
   UTXOHeadlineColumn2,
   ContractTextarea,
   UTXOHashOutputSkip,
@@ -141,11 +135,8 @@ export default function TransactionPage() {
             )}
           </TransactionDataContainer>
           <UTXOComponent outputs={transaction.outputs || []} inputs={transaction.inputs || []} />
-          {isScript ? (
-            <ScriptsComponent tx={transaction} />
-          ) : (
-            <ContractComponent tx={transaction} />
-          )}
+          <ScriptsComponent tx={transaction} />
+          <ContractComponent tx={transaction} />
         </Content>
       </Container>
     </>
@@ -155,7 +146,7 @@ export default function TransactionPage() {
 function ContractComponent({ tx }: { tx: any }) {
   return (
     tx.witnesses?.map((witness: { data: string }, index: number) => (
-      <UTXOBoxContainer>
+      <UTXOBoxContainer key={witness.data}>
         <UTXOHeadlineContainer>
           <UTXOHeadlineColumn>
             <UTXOTitle>Witness #{index}</UTXOTitle>
@@ -171,39 +162,56 @@ function ContractComponent({ tx }: { tx: any }) {
 
 function ScriptsComponent({ tx }: { tx: any }) {
   return (
-    <ScriptsContainer>
-      <ScriptTitle>Script Byte Code:</ScriptTitle>
-      {/* <ScriptComponent tabs={['Assembly', 'Hex']} contents={['', tx.script]} /> */}
-      <ScriptComponent tabs={['Hex']} contents={[tx.script]} />
-      <ScriptTitle>Script Data:</ScriptTitle>
-      {/* <ScriptComponent tabs={['ABI Decoded', 'Raw Hex']} contents={['', tx.scriptData]} /> */}
-      <ScriptComponent tabs={['Raw Hex']} contents={[tx.scriptData]} />
-    </ScriptsContainer>
+    <>
+      {tx.script && (
+        <UTXOBoxContainer>
+          <UTXOHeadlineContainer>
+            <UTXOHeadlineColumn>
+              <UTXOTitle>Script Byte Code:</UTXOTitle>
+            </UTXOHeadlineColumn>
+          </UTXOHeadlineContainer>
+          <UTXODetailsContainer>
+            <ContractTextarea readOnly value={tx.script} />
+          </UTXODetailsContainer>
+        </UTXOBoxContainer>
+      )}
+      {tx.scriptData && (
+        <UTXOBoxContainer>
+          <UTXOHeadlineContainer>
+            <UTXOHeadlineColumn>
+              <UTXOTitle>Script Data:</UTXOTitle>
+            </UTXOHeadlineColumn>
+          </UTXOHeadlineContainer>
+          <UTXODetailsContainer>
+            <ContractTextarea readOnly value={tx.scriptData} />
+          </UTXODetailsContainer>
+        </UTXOBoxContainer>
+      )}
+    </>
   );
 }
 
-function ScriptComponent({ tabs, contents }: { tabs: string[]; contents: string[] }) {
-  const [selectedTab, setSelectedTab] = useState(0);
-
-  return (
-    <ScriptContainer>
-      <ScriptTabsContainer>
-        {tabs?.map((tabItem, idx) => (
-          <ScriptTabButton
-            key={idx}
-            isSelected={selectedTab === idx}
-            onClick={() => {
-              setSelectedTab(idx);
-            }}
-          >
-            {tabItem}
-          </ScriptTabButton>
-        ))}
-      </ScriptTabsContainer>
-      <ScriptTextarea readOnly value={contents[selectedTab]} />
-    </ScriptContainer>
-  );
-}
+// function ScriptComponent({ tabs, contents }: { tabs: string[]; contents: string[] }) {
+//   const [selectedTab, setSelectedTab] = useState(0);
+//   return (
+//     <ScriptContainer>
+//       <ScriptTabsContainer>
+//         {tabs?.map((tabItem, idx) => (
+//           <ScriptTabButton
+//             key={idx}
+//             isSelected={selectedTab === idx}
+//             onClick={() => {
+//               setSelectedTab(idx);
+//             }}
+//           >
+//             {tabItem}
+//           </ScriptTabButton>
+//         ))}
+//       </ScriptTabsContainer>
+//       <ScriptTextarea readOnly value={contents[selectedTab]} />
+//     </ScriptContainer>
+//   );
+// }
 
 function UTXOComponent({ inputs, outputs }: { inputs: Input[]; outputs: Output[] }) {
   const [expanded, setExpanded] = useState(false);
