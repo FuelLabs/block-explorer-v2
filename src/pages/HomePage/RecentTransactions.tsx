@@ -39,8 +39,8 @@ type Props = {
   currentPage: number;
 };
 
-type Ouputs = HomePageTransaction['outputs'];
-const PAGE_LIMIT = 5;
+// type Ouputs = HomePageTransaction['outputs'];
+// const PAGE_LIMIT = 5;
 
 export function RecentTransactions({
   transactions,
