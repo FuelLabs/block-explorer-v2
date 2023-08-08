@@ -8,7 +8,9 @@ const protocol = packageJson.protocol;
 const BASE_URL = path.join(process.env.REPOSITORY_NAME || '', protocol);
 
 process.env.REACT_APP_REPOSITORY_NAME = process.env.REPOSITORY_NAME || '';
-process.env.PUBLIC_URL = BASE_URL;
+if (process.env.NODE_ENV === 'production') {
+  process.env.PUBLIC_URL = BASE_URL;
+}
 
 const { BundleStatsWebpackPlugin } = require('bundle-stats-webpack-plugin');
 const CopyPluginWebpack = require('copy-webpack-plugin');
@@ -80,6 +82,10 @@ module.exports = () => {
                 .replace('%PROTOCOL_NAME%', 'beta-3')
             );
           },
+        },
+        {
+          from: './public/protocol-versions.json',
+          to: '../',
         },
       ],
     }),
