@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <script>
+      var loc = window.location;
+      const repoURL = "%REPOSITORY_NAME%".replaceAll("/", "");
+      const parts = location.pathname.split("/").filter((i) => !!i);
+      const versionIndex = parts.findIndex((p) => /beta\-[0-9]/.test(p));
+
+      if (versionIndex === -1) {
+        const baseRepoUrl = parts.findIndex((p) => p === repoURL);
+
+        if (baseRepoUrl > -1) {
+          parts.splice(baseRepoUrl, 1);
+        }
+
+        const url = new URL("", window.location);
+        url.pathname = [repoURL, "%PROTOCOL_NAME%"].join("/");
+        url.hash = `/${parts.join("/")}`;
+        url.search = loc.search;
+
+        window.location = url.toString();
+      }
+    </script>
+  </head>
+  <body></body>
+</html>
