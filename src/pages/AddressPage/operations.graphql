@@ -21,8 +21,8 @@ fragment AddressPageCoin on Coin {
   amount
   assetId
   maturity
-  status
   blockCreated
+  txCreatedIdx
 }
 
 fragment AddressPageTransaction on Transaction {

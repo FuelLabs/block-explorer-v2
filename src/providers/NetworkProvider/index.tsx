@@ -21,7 +21,7 @@ export function NetworkProvider({ children }: { children: React.ReactNode }) {
       const compatibleVersion = Object.keys(versions).find((k) => Number(k) >= Number(version));
       if (compatibleVersion) {
         if (!location.pathname.includes(versions[compatibleVersion])) {
-          const pathname = urlJoin(REACT_APP_REPOSITORY_NAME || '', versions[compatibleVersion]);
+          const pathname = urlJoin(REACT_APP_REPOSITORY_NAME || '/', versions[compatibleVersion]);
           location.href = `${location.origin}${pathname}/${location.hash}`;
         }
       }
