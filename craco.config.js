@@ -71,11 +71,14 @@ module.exports = () => {
           from: './public/404.html',
           to: '../',
           transform(content) {
-            return content
-              .toString()
-              .replace('%REPOSITORY_NAME%', process.env.REPOSITORY_NAME || '')
-              .replace('%PROTOCOL_NAME%', 'beta-3');
-            // .replace('%PROTOCOL_NAME%', packageJson.protocol);
+            return (
+              content
+                .toString()
+                .replace('%REPOSITORY_NAME%', process.env.REPOSITORY_NAME || '')
+                // TODO: replace with beta-3 to not change default protocol
+                // .replace('%PROTOCOL_NAME%', packageJson.protocol);
+                .replace('%PROTOCOL_NAME%', 'beta-3')
+            );
           },
         },
       ],
