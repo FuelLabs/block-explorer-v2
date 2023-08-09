@@ -21,8 +21,12 @@ export function NetworkProvider({ children }: { children: React.ReactNode }) {
       const [, version] = nodeVersion.split('.');
       setNetworkVersion(nodeVersion);
       const compatibleVersion = Object.keys(versions).find((k) => Number(k) >= Number(version));
+
       if (compatibleVersion) {
-        if (!location.pathname.includes(versions[compatibleVersion])) {
+        const isCompatibleVersion = new RegExp(`${versions[compatibleVersion]}$`);
+        const pathnameClean = location.pathname.replaceAll('/', '');
+
+        if (!isCompatibleVersion.test(pathnameClean)) {
           const pathname = urlJoin(repositoryName, versions[compatibleVersion]);
           location.href = `${location.origin}${pathname}/${location.hash}`;
         }
