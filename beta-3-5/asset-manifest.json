@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/block-explorer-v2/beta-3-5/static/css/main.7460cd1a.css",
-    "main.js": "/block-explorer-v2/beta-3-5/static/js/main.e7c8b782.js",
+    "main.js": "/block-explorer-v2/beta-3-5/static/js/main.ccdbf358.js",
     "static/js/906.e6cdbd5c.chunk.js": "/block-explorer-v2/beta-3-5/static/js/906.e6cdbd5c.chunk.js",
     "static/js/926.17cc0272.chunk.js": "/block-explorer-v2/beta-3-5/static/js/926.17cc0272.chunk.js",
     "static/js/229.7f5a6346.chunk.js": "/block-explorer-v2/beta-3-5/static/js/229.7f5a6346.chunk.js",
@@ -32,7 +32,7 @@
     "../404.html": "/block-explorer-v2/beta-3-5/../404.html",
     "../protocol-versions.json": "/block-explorer-v2/beta-3-5/../protocol-versions.json",
     "main.7460cd1a.css.map": "/block-explorer-v2/beta-3-5/static/css/main.7460cd1a.css.map",
-    "main.e7c8b782.js.map": "/block-explorer-v2/beta-3-5/static/js/main.e7c8b782.js.map",
+    "main.ccdbf358.js.map": "/block-explorer-v2/beta-3-5/static/js/main.ccdbf358.js.map",
     "906.e6cdbd5c.chunk.js.map": "/block-explorer-v2/beta-3-5/static/js/906.e6cdbd5c.chunk.js.map",
     "926.17cc0272.chunk.js.map": "/block-explorer-v2/beta-3-5/static/js/926.17cc0272.chunk.js.map",
     "229.7f5a6346.chunk.js.map": "/block-explorer-v2/beta-3-5/static/js/229.7f5a6346.chunk.js.map",
@@ -50,6 +50,6 @@
   },
   "entrypoints": [
     "static/css/main.7460cd1a.css",
-    "static/js/main.e7c8b782.js"
+    "static/js/main.ccdbf358.js"
   ]
 }
