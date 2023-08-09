@@ -18,8 +18,6 @@ export const getOutputTypeText = (outputType: OutputType) => {
       return 'Contract';
     case OutputType.ContractCreated:
       return 'ContractCreated';
-    case OutputType.Message:
-      return 'Message';
     case OutputType.Variable:
       return 'Variable';
     default:
