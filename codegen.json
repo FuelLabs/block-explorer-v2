@@ -8,6 +8,7 @@
       "HexString": "string",
       "Bytes32": "string",
       "UtxoId": "string",
+      "U32": "string",
       "U64": "string",
       "Address": "string",
       "BlockId": "string",
@@ -18,13 +19,15 @@
       "ContractId": "string",
       "Salt": "string",
       "Signature": "string",
-      "Tai64Timestamp": "string"
+      "Tai64Timestamp": "string",
+      "Nonce": "string"
     },
     "scalars": {
       "DateTime": "string",
       "HexString": "string",
       "Bytes32": "string",
       "UtxoId": "string",
+      "U32": "string",
       "U64": "string",
       "Address": "string",
       "BlockId": "string",
@@ -35,7 +38,8 @@
       "ContractId": "string",
       "Salt": "string",
       "Signature": "string",
-      "Tai64Timestamp": "string"
+      "Tai64Timestamp": "string",
+      "Nonce": "string"
     },
     "useTypeImports": true,
     "nonOptionalTypename": true,
