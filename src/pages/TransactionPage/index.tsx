@@ -92,7 +92,7 @@ export default function TransactionPage() {
             <TransactionDataRow>
               <RowKeyColumn>Status:</RowKeyColumn>
               <TransactionStatus>
-                {transactionResult?.status ? transactionResult?.status.type : 'Pending'}
+                {transactionResult?.status ? transactionResult?.status : 'submitted'}
               </TransactionStatus>
             </TransactionDataRow>
             {/* <TransactionDataRow>
