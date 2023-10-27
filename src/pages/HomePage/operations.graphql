@@ -41,6 +41,13 @@ query HomePageSearchQuery($transaction: TransactionId!, $address: Address!) {
       }
     }
   }
+  balances(filter: { owner: $address }, first: 1) {
+    edges {
+      node {
+        amount
+      }
+    }
+  }
 }
 
 fragment HomePageBlock on Block {
