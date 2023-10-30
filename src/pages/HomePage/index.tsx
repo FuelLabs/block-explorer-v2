@@ -121,7 +121,10 @@ export default function HomePage() {
 
       if (result.data?.transaction?.id) {
         navigate(`/transaction/${searchText}`);
-      } else if (result.data?.transactionsByOwner?.edges?.length) {
+      } else if (
+        result.data?.transactionsByOwner?.edges?.length ||
+        result.data?.balances.edges.length
+      ) {
         navigate(`/address/${searchText}`);
       } else {
         showNotFound(true);

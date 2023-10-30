@@ -35,18 +35,15 @@ export default function AddressPage() {
   const { loading, data } = useAddressPageQuery({
     variables: { first: 10, owner: address },
   });
-  const coins = data?.coins!.edges!.map((edge) => edge!.node);
-  const balances =
-    coins?.reduce<{ [assetId: string]: CoinQuantity }>(
-      (acc, { assetId, amount }) => ({
-        ...acc,
-        [assetId]: {
-          assetId,
-          amount: bn(amount).add(acc[assetId]?.amount),
-        },
-      }),
-      {}
-    ) ?? null;
+  const balances = useMemo(
+    () =>
+      data?.balances.edges.map((edge) => {
+        const balance = edge!.node;
+        const formattedBalance = { ...balance, amount: bn(balance.amount) };
+        return formattedBalance;
+      }) ?? [],
+    [data]
+  );
   const transactions = useMemo<AddressPageTransaction[]>(
     () => data?.transactionsByOwner!.edges!.map((edge) => edge!.node) ?? [],
     [data]

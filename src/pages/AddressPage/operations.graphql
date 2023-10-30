@@ -1,8 +1,9 @@
 query AddressPageQuery($first: Int, $owner: Address!) {
-  coins(filter: { owner: $owner }, first: 9999) {
+  balances(filter: { owner: $owner }, first: $first) {
     edges {
       node {
-        ...AddressPageCoin
+        amount
+        assetId
       }
     }
   }
