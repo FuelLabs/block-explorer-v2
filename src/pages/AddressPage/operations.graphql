@@ -33,11 +33,11 @@ fragment AddressPageTransaction on Transaction {
   }
   inputAssetIds
   gasPrice
-  gasLimit
   maturity
   isScript
   receiptsRoot
   witnesses
+  scriptGasLimit
   outputs {
     __typename
     ... on CoinOutput {

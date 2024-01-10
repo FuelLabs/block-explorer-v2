@@ -1,18 +1,19 @@
 import type { Transaction, TransactionResult } from 'fuels';
-import { TransactionResponse } from 'fuels';
+import { Provider, TransactionResponse } from 'fuels';
 import { useEffect, useState } from 'react';
 
-import { useProvider } from '../../utils/useProvider';
+import { useProviderUrl } from '../../utils/useProvider';
 
 export const useTransaction = (transactionId: string) => {
   const [transaction, setTransaction] = useState<Transaction>();
   const [transactionResult, setTransactionResult] =
     useState<TransactionResult<'success' | 'failure'>>();
-  const { provider } = useProvider();
+  const { providerUrl } = useProviderUrl();
 
   useEffect(() => {
-    if (provider && transactionId) {
+    if (providerUrl && transactionId) {
       (async () => {
+        const provider = await Provider.create(providerUrl);
         const tx = await provider.getTransaction(transactionId);
         if (!tx) return;
         setTransaction(tx);
@@ -21,7 +22,7 @@ export const useTransaction = (transactionId: string) => {
         setTransactionResult(txResp);
       })();
     }
-  }, [provider, transactionId]);
+  }, [providerUrl, transactionId]);
 
   return {
     transaction,
