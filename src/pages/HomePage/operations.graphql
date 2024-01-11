@@ -75,7 +75,6 @@ fragment HomePageTransaction on Transaction {
   }
   inputAssetIds
   gasPrice
-  gasLimit
   maturity
   isScript
   isCreate

@@ -25,7 +25,7 @@ import {
   SearchNotValid,
 } from './components';
 
-const PAGE_LIMIT = 5;
+const PAGE_LIMIT = 10;
 
 export default function HomePage() {
   const [blocks, setBlocks] = useState<HomePageBlock[]>([]);

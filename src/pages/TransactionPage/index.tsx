@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Input, Output } from 'fuels';
-import { bn, DECIMAL_UNITS, InputType, OutputType, TransactionType } from 'fuels';
+import type { BN, Input, Output, Policy } from 'fuels';
+import { bn, DECIMAL_UNITS, InputType, OutputType, PolicyType, TransactionType } from 'fuels';
 import { useContext, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -10,7 +10,6 @@ import { BASE_COIN_NAME } from '../../constants';
 import { ChainContext } from '../../contexts/network';
 import { getOutputTypeText, trimAddress } from '../../utils';
 import { tai64toDayjs } from '../../utils/date';
-import { toPlainString } from '../../utils/number';
 import { CopyButtonIcon, TableHeadlineAddressButton, Tooltip } from '../AddressPage/components';
 import { UTXODetailsValue } from '../CreateTransactionPage/components';
 
@@ -46,6 +45,10 @@ import {
 } from './components';
 import { useTransaction } from './useTransaction';
 
+function findPolicy(policies: Array<Policy> | undefined, policyType: PolicyType) {
+  return (policies || []).find((policy) => policy.type === policyType);
+}
+
 export default function TransactionPage() {
   const { transaction: transactionId } = useParams() as any;
   const { chains } = useContext(ChainContext);
@@ -58,14 +61,23 @@ export default function TransactionPage() {
     }
     return '';
   }, [transactionResult?.time]);
+  const polcies = useMemo(() => {
+    if (!transaction || !transaction?.policies) return {};
+    return {
+      gasPrice: findPolicy(transaction.policies, PolicyType.GasPrice),
+      maturity: findPolicy(transaction.policies, PolicyType.Maturity),
+      maxFee: findPolicy(transaction.policies, PolicyType.MaxFee),
+      witnessLimit: findPolicy(transaction.policies, PolicyType.WitnessLimit),
+    };
+  }, [transaction]);
 
   if (!transaction) return null;
 
-  const gasPriceFactor = +(chains[0].consensusParameters?.gasPriceFactor || 1);
-  const gasPriceDecimal = parseFloat(
-    transaction.gasPrice?.format({ precision: DECIMAL_UNITS }) || '0'
-  );
-  const gasPriceInEth = gasPriceDecimal / gasPriceFactor;
+  const gasPriceFactor = +(chains[0].consensusParameters.feeParams.gasPriceFactor || 1);
+  let gasPriceInEth: BN | null = null;
+  if (polcies.gasPrice) {
+    gasPriceInEth = bn(Math.ceil(bn(polcies.gasPrice.data).toNumber() / gasPriceFactor));
+  }
 
   const isScript = transaction.type === TransactionType.Script;
   const isCreate = transaction.type === TransactionType.Create;
@@ -95,28 +107,12 @@ export default function TransactionPage() {
                 {transactionResult?.status ? transactionResult?.status : 'submitted'}
               </TransactionStatus>
             </TransactionDataRow>
-            {/* <TransactionDataRow>
-              <RowKeyColumn>Maturity:</RowKeyColumn>
-              <RowValueColumn>{tx.maturity}</RowValueColumn>
-            </TransactionDataRow> */}
             {Boolean(gasPriceInEth) && (
               <TransactionDataRow>
                 <RowKeyColumn>Gas Price:</RowKeyColumn>
                 <RowValueColumn>
-                  {toPlainString(gasPriceInEth)} {BASE_COIN_NAME}
+                  {gasPriceInEth?.format()} {BASE_COIN_NAME}
                 </RowValueColumn>
-              </TransactionDataRow>
-            )}
-            {Boolean(transaction.gasLimit) && (
-              <TransactionDataRow>
-                <RowKeyColumn>Gas Limit:</RowKeyColumn>
-                <RowValueColumn>{transaction.gasLimit?.toString(10)}</RowValueColumn>
-              </TransactionDataRow>
-            )}
-            {Boolean(transactionResult?.gasUsed?.toNumber()) && (
-              <TransactionDataRow>
-                <RowKeyColumn>Gas Used:</RowKeyColumn>
-                <RowValueColumn>{transactionResult?.gasUsed.toString(10)}</RowValueColumn>
               </TransactionDataRow>
             )}
             {Boolean(txDate) && (
@@ -131,6 +127,36 @@ export default function TransactionPage() {
                 <RowValueColumn>
                   {transactionResult?.fee?.format({ precision: DECIMAL_UNITS })} {BASE_COIN_NAME}
                 </RowValueColumn>
+              </TransactionDataRow>
+            )}
+            {Boolean(polcies.maturity) && (
+              <TransactionDataRow>
+                <RowKeyColumn>Maturity:</RowKeyColumn>
+                <RowValueColumn>{polcies.maturity?.data}</RowValueColumn>
+              </TransactionDataRow>
+            )}
+            {Boolean(polcies.maxFee) && (
+              <TransactionDataRow>
+                <RowKeyColumn>Maturity:</RowKeyColumn>
+                <RowValueColumn>{bn(polcies.maxFee?.data).toString()}</RowValueColumn>
+              </TransactionDataRow>
+            )}
+            {Boolean(polcies.witnessLimit) && (
+              <TransactionDataRow>
+                <RowKeyColumn>Witness Limit:</RowKeyColumn>
+                <RowValueColumn>{bn(polcies.witnessLimit?.data).toString()}</RowValueColumn>
+              </TransactionDataRow>
+            )}
+            {Boolean(transaction.scriptGasLimit) && transaction.scriptGasLimit?.gt(0) && (
+              <TransactionDataRow>
+                <RowKeyColumn>Script Gas Limit:</RowKeyColumn>
+                <RowValueColumn>{transaction.scriptGasLimit?.toString(10)}</RowValueColumn>
+              </TransactionDataRow>
+            )}
+            {Boolean(transactionResult?.gasUsed?.toNumber()) && (
+              <TransactionDataRow>
+                <RowKeyColumn>Gas Used:</RowKeyColumn>
+                <RowValueColumn>{transactionResult?.gasUsed.toString(10)}</RowValueColumn>
               </TransactionDataRow>
             )}
           </TransactionDataContainer>
@@ -261,7 +287,7 @@ function UTXOInputBox({ input, expanded, idx }: { input: Input; expanded: boolea
           <UTXOHeadlineContainer>
             <UTXOHeadlineColumn>
               <UTXOTitle>{`Input #${idx}`}</UTXOTitle>
-              <UTXOHashOutputSkip to="">{input.utxoID.transactionId}</UTXOHashOutputSkip>
+              <UTXOHashOutputSkip to="">{input.txID}</UTXOHashOutputSkip>
             </UTXOHeadlineColumn>
             <UTXOHeadlineColumn2>
               <HeadlineText>Value</HeadlineText>
@@ -320,7 +346,7 @@ function UTXOInputBox({ input, expanded, idx }: { input: Input; expanded: boolea
           <UTXOHeadlineContainer>
             <UTXOHeadlineColumn>
               <UTXOTitle>{`Input #${idx}`}</UTXOTitle>
-              <UTXOHashOutputSkip to="">{input.utxoID.transactionId}</UTXOHashOutputSkip>
+              <UTXOHashOutputSkip to="">{input.txID}</UTXOHashOutputSkip>
             </UTXOHeadlineColumn>
           </UTXOHeadlineContainer>
           {expanded && (
